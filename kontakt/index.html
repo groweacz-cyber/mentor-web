@@ -12,27 +12,42 @@
 <meta property="og:title" content="Kontakt | [NÁZEV]">
 <meta property="og:description" content="Napište e-mailem nebo se domluvte na úvodním hovoru. Peer podpora je doplněk k odborné péči.">
 <meta property="og:url" content="https://DOMENA.cz/kontakt">
-<meta name="theme-color" content="#1f4a52">
+<meta name="theme-color" content="#1b2a41">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/css/style.css">
 
+<script>
+(function(){var d=document.documentElement;d.classList.add('js');
+document.addEventListener('DOMContentLoaded',function(){try{
+var els=document.querySelectorAll('.reveal');
+if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){for(var i=0;i<els.length;i++)els[i].classList.add('in');}
+else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -6% 0px'});for(var j=0;j<els.length;j++)io.observe(els[j]);}
+var b=document.getElementById('motion-toggle');
+if(b)b.addEventListener('click',function(){var off=d.classList.toggle('motion-off');b.setAttribute('aria-pressed',off?'true':'false');});
+}catch(e){d.classList.remove('js');}});
+})();
+</script>
 </head>
 <body>
 <a class="skip" href="#obsah">Přeskočit na obsah</a>
 <p class="notice" role="note">Peer podpora je doplněk k odborné péči. Nenahrazuje psychoterapii ani lékaře.</p>
 <header class="site-header">
   <div class="wrap bar">
-    <a class="brand" href="/">[NÁZEV]</a>
+    <a class="brand" href="/"><svg class="brand-sun" viewBox="-16 -16 32 32" width="28" height="28" aria-hidden="true" focusable="false"><g stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round"><line y1="-10" y2="-14" transform="rotate(0)"/><line y1="-10" y2="-14" transform="rotate(45)"/><line y1="-10" y2="-14" transform="rotate(90)"/><line y1="-10" y2="-14" transform="rotate(135)"/><line y1="-10" y2="-14" transform="rotate(180)"/><line y1="-10" y2="-14" transform="rotate(225)"/><line y1="-10" y2="-14" transform="rotate(270)"/><line y1="-10" y2="-14" transform="rotate(315)"/></g><circle r="6.5" fill="#ffc83d" stroke="#f59e0b" stroke-width="1.5"/></svg><span>[NÁZEV]</span></a>
     <nav aria-label="Hlavní navigace"><ul><li><a href="/metoda">Metoda</a></li><li><a href="/pro-koho">Pro koho</a></li><li><a href="/dotaznik">Dotazník</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/clanky">Články</a></li><li><a href="/kontakt" aria-current="page">Kontakt</a></li></ul></nav>
   </div>
 </header>
 <main id="obsah">
 
-<section class="wrap page-head">
+<section class="wrap page-head"><svg class="head-art" viewBox="0 0 240 130" aria-hidden="true" focusable="false">
+<g><path class="mbow" style="--i:0" pathLength="1" d="M12 128A100 100 0 0 1 212 128" fill="none" stroke="#ef5b5b" stroke-width="9.8"/><path class="mbow" style="--i:1" pathLength="1" d="M21 128A91 91 0 0 1 203 128" fill="none" stroke="#f5923e" stroke-width="9.8"/><path class="mbow" style="--i:2" pathLength="1" d="M30 128A82 82 0 0 1 194 128" fill="none" stroke="#fcc934" stroke-width="9.8"/><path class="mbow" style="--i:3" pathLength="1" d="M39 128A73 73 0 0 1 185 128" fill="none" stroke="#5bbf8a" stroke-width="9.8"/><path class="mbow" style="--i:4" pathLength="1" d="M48 128A64 64 0 0 1 176 128" fill="none" stroke="#4aa3df" stroke-width="9.8"/><path class="mbow" style="--i:5" pathLength="1" d="M57 128A55 55 0 0 1 167 128" fill="none" stroke="#5b6fd6" stroke-width="9.8"/><path class="mbow" style="--i:6" pathLength="1" d="M66 128A46 46 0 0 1 158 128" fill="none" stroke="#9a6fd0" stroke-width="9.8"/></g>
+<g class="mini-cloud"><g transform="translate(40 62) scale(0.5)" fill="#d9e8f8"><circle r="26"/><circle cx="-32" cy="10" r="19"/><circle cx="30" cy="8" r="22"/><circle cx="58" cy="16" r="15"/><rect x="-50" y="14" width="124" height="22" rx="11"/></g></g>
+<g transform="translate(192 44)"><g class="mini-sun"><g stroke="#ffcf4d" stroke-width="3" stroke-linecap="round"><line y1="-21" y2="-29" transform="rotate(0)"/><line y1="-21" y2="-29" transform="rotate(30)"/><line y1="-21" y2="-29" transform="rotate(60)"/><line y1="-21" y2="-29" transform="rotate(90)"/><line y1="-21" y2="-29" transform="rotate(120)"/><line y1="-21" y2="-29" transform="rotate(150)"/><line y1="-21" y2="-29" transform="rotate(180)"/><line y1="-21" y2="-29" transform="rotate(210)"/><line y1="-21" y2="-29" transform="rotate(240)"/><line y1="-21" y2="-29" transform="rotate(270)"/><line y1="-21" y2="-29" transform="rotate(300)"/><line y1="-21" y2="-29" transform="rotate(330)"/></g><circle r="16" fill="#ffc83d"/></g></g>
+</svg>
   <h1>Kontakt</h1>
   <p class="lead">Nejjednodušší je vyplnit <a href="/dotaznik">vstupní dotazník</a>. Můžete mi také napsat.</p>
 </section>
-<section class="wrap block">
+<section class="wrap block reveal">
   <dl class="contact">
     <dt>E-mail</dt><dd><a href="mailto:EMAIL@DOPLNIT.cz">EMAIL@DOPLNIT.cz</a></dd>
     <dt>Telefon / rezervace</dt><dd class="placeholder">[TELEFON NEBO ODKAZ NA REZERVACI – doplní autor]</dd>

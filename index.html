@@ -12,49 +12,90 @@
 <meta property="og:title" content="[NÁZEV] – peer mentoring pro lidi s OCD">
 <meta property="og:description" content="Peer mentoring pro lidi s OCD. Přístup založený na sebepřijetí a jednání navzdory strachu. Doplněk k odborné péči.">
 <meta property="og:url" content="https://DOMENA.cz/">
-<meta name="theme-color" content="#1f4a52">
+<meta name="theme-color" content="#1b2a41">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/css/style.css">
 
+<script>
+(function(){var d=document.documentElement;d.classList.add('js');
+document.addEventListener('DOMContentLoaded',function(){try{
+var els=document.querySelectorAll('.reveal');
+if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){for(var i=0;i<els.length;i++)els[i].classList.add('in');}
+else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -6% 0px'});for(var j=0;j<els.length;j++)io.observe(els[j]);}
+var b=document.getElementById('motion-toggle');
+if(b)b.addEventListener('click',function(){var off=d.classList.toggle('motion-off');b.setAttribute('aria-pressed',off?'true':'false');});
+}catch(e){d.classList.remove('js');}});
+})();
+</script>
 </head>
 <body>
 <a class="skip" href="#obsah">Přeskočit na obsah</a>
 <p class="notice" role="note">Peer podpora je doplněk k odborné péči. Nenahrazuje psychoterapii ani lékaře.</p>
 <header class="site-header">
   <div class="wrap bar">
-    <a class="brand" href="/">[NÁZEV]</a>
+    <a class="brand" href="/"><svg class="brand-sun" viewBox="-16 -16 32 32" width="28" height="28" aria-hidden="true" focusable="false"><g stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round"><line y1="-10" y2="-14" transform="rotate(0)"/><line y1="-10" y2="-14" transform="rotate(45)"/><line y1="-10" y2="-14" transform="rotate(90)"/><line y1="-10" y2="-14" transform="rotate(135)"/><line y1="-10" y2="-14" transform="rotate(180)"/><line y1="-10" y2="-14" transform="rotate(225)"/><line y1="-10" y2="-14" transform="rotate(270)"/><line y1="-10" y2="-14" transform="rotate(315)"/></g><circle r="6.5" fill="#ffc83d" stroke="#f59e0b" stroke-width="1.5"/></svg><span>[NÁZEV]</span></a>
     <nav aria-label="Hlavní navigace"><ul><li><a href="/metoda">Metoda</a></li><li><a href="/pro-koho">Pro koho</a></li><li><a href="/dotaznik">Dotazník</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/clanky">Články</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
   </div>
 </header>
 <main id="obsah">
 
 <section class="hero">
-  <div class="wrap">
-    <p class="eyebrow">Peer mentoring · OCD</p>
-    <h1>Jednat i ve chvíli, kdy se bojíte.</h1>
-    <p class="lead">Provázím lidi s OCD. Pracujeme podle mého přístupu: přijmout sebe i strach a přesto dělat to, na čem vám záleží. Nic neslibuji. Jdu vedle vás.</p>
-    <p class="cta">
-      <a class="btn" href="/dotaznik">Vyplnit vstupní dotazník</a>
-      <a class="btn btn-ghost" href="mailto:EMAIL@DOPLNIT.cz">Napsat</a>
-    </p>
-    <p class="small note">Peer podpora, ne terapie ani krizová pomoc. V akutní krizi volejte 112 nebo 116 123. <a href="/o-mne#hranice">Moje hranice</a></p>
-    <svg class="loop-line" viewBox="0 0 600 60" width="600" height="60" aria-hidden="true" focusable="false"><path d="M0 44 H150 C205 44 225 6 192 5 C155 4 163 44 205 44 H600" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="eyebrow rise" style="--d:.1s">Peer mentoring · OCD</p>
+      <h1 class="rise" style="--d:.2s">Jednat i ve chvíli, kdy se <span class="hl">bojíte</span>.</h1>
+      <p class="lead rise" style="--d:.35s">Provázím lidi s OCD. Pracujeme podle mého přístupu: přijmout sebe i strach a přesto dělat to, na čem vám záleží. Nic neslibuji. Jdu vedle vás.</p>
+      <p class="cta rise" style="--d:.5s">
+        <a class="btn" href="/dotaznik">Vyplnit vstupní dotazník</a>
+        <a class="btn btn-ghost" href="mailto:EMAIL@DOPLNIT.cz">Napsat</a>
+      </p>
+      <p class="small note rise" style="--d:.6s">Peer podpora, ne terapie ani krizová pomoc. V akutní krizi volejte 112 nebo 116 123. <a href="/o-mne#hranice">Moje hranice</a></p>
+    </div>
+    <div class="scene-wrap rise" style="--d:.3s">
+      <div class="scene"><svg class="scene-svg" viewBox="0 0 480 360" aria-hidden="true" focusable="false">
+<defs>
+<linearGradient id="gStorm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#232e44"/><stop offset="1" stop-color="#55678a"/></linearGradient>
+<linearGradient id="gClear" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7cc4f2"/><stop offset=".6" stop-color="#d4ecfb"/><stop offset="1" stop-color="#fff0cf"/></linearGradient>
+<radialGradient id="gGlow"><stop offset="0" stop-color="#ffe08a" stop-opacity=".75"/><stop offset="1" stop-color="#ffe08a" stop-opacity="0"/></radialGradient>
+<radialGradient id="gSun" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#fff4c2"/><stop offset="1" stop-color="#ffc83d"/></radialGradient>
+</defs>
+<rect width="480" height="360" fill="url(#gStorm)"/>
+<rect class="sky-clear" width="480" height="360" fill="url(#gClear)"/>
+<g class="sun-rise"><g transform="translate(385 112)">
+<circle class="sun-glow" r="96" fill="url(#gGlow)"/>
+<g class="sun-rays" stroke="#ffcf4d" stroke-width="4" stroke-linecap="round"><line y1="-46" y2="-66" transform="rotate(0)"/><line y1="-45" y2="-57" transform="rotate(22.5)"/><line y1="-46" y2="-66" transform="rotate(45)"/><line y1="-45" y2="-57" transform="rotate(67.5)"/><line y1="-46" y2="-66" transform="rotate(90)"/><line y1="-45" y2="-57" transform="rotate(112.5)"/><line y1="-46" y2="-66" transform="rotate(135)"/><line y1="-45" y2="-57" transform="rotate(157.5)"/><line y1="-46" y2="-66" transform="rotate(180)"/><line y1="-45" y2="-57" transform="rotate(202.5)"/><line y1="-46" y2="-66" transform="rotate(225)"/><line y1="-45" y2="-57" transform="rotate(247.5)"/><line y1="-46" y2="-66" transform="rotate(270)"/><line y1="-45" y2="-57" transform="rotate(292.5)"/><line y1="-46" y2="-66" transform="rotate(315)"/><line y1="-45" y2="-57" transform="rotate(337.5)"/></g>
+<circle r="34" fill="url(#gSun)"/>
+</g></g>
+<g><path class="bow" style="--i:0" pathLength="1" d="M5 306A200 200 0 0 1 405 306" fill="none" stroke="#ef5b5b" stroke-width="10.8"/><path class="bow" style="--i:1" pathLength="1" d="M15 306A190 190 0 0 1 395 306" fill="none" stroke="#f5923e" stroke-width="10.8"/><path class="bow" style="--i:2" pathLength="1" d="M25 306A180 180 0 0 1 385 306" fill="none" stroke="#fcc934" stroke-width="10.8"/><path class="bow" style="--i:3" pathLength="1" d="M35 306A170 170 0 0 1 375 306" fill="none" stroke="#5bbf8a" stroke-width="10.8"/><path class="bow" style="--i:4" pathLength="1" d="M45 306A160 160 0 0 1 365 306" fill="none" stroke="#4aa3df" stroke-width="10.8"/><path class="bow" style="--i:5" pathLength="1" d="M55 306A150 150 0 0 1 355 306" fill="none" stroke="#5b6fd6" stroke-width="10.8"/><path class="bow" style="--i:6" pathLength="1" d="M65 306A140 140 0 0 1 345 306" fill="none" stroke="#9a6fd0" stroke-width="10.8"/></g>
+<g class="cloud-lite l1"><g transform="translate(66 78) scale(0.85)" fill="#fff"><circle r="26"/><circle cx="-32" cy="10" r="19"/><circle cx="30" cy="8" r="22"/><circle cx="58" cy="16" r="15"/><rect x="-50" y="14" width="124" height="22" rx="11"/></g></g>
+<g class="cloud-lite l2"><g transform="translate(262 44) scale(0.7)" fill="#fff"><circle r="26"/><circle cx="-32" cy="10" r="19"/><circle cx="30" cy="8" r="22"/><circle cx="58" cy="16" r="15"/><rect x="-50" y="14" width="124" height="22" rx="11"/></g></g>
+<g class="cloud-lite l3"><g transform="translate(352 150) scale(0.55)" fill="#fff"><circle r="26"/><circle cx="-32" cy="10" r="19"/><circle cx="30" cy="8" r="22"/><circle cx="58" cy="16" r="15"/><rect x="-50" y="14" width="124" height="22" rx="11"/></g></g>
+<g class="rain" stroke="#b5d0f0" stroke-width="2" stroke-linecap="round"><line class="drop" style="animation-delay:0s" x1="14" y1="58" x2="9" y2="74"/><line class="drop" style="animation-delay:0.37s" x1="38" y1="72" x2="33" y2="88"/><line class="drop" style="animation-delay:0.74s" x1="62" y1="86" x2="57" y2="102"/><line class="drop" style="animation-delay:0.21s" x1="71" y1="100" x2="66" y2="116"/><line class="drop" style="animation-delay:0.58s" x1="95" y1="114" x2="90" y2="130"/><line class="drop" style="animation-delay:0.05s" x1="119" y1="128" x2="114" y2="144"/><line class="drop" style="animation-delay:0.42s" x1="128" y1="58" x2="123" y2="74"/><line class="drop" style="animation-delay:0.79s" x1="152" y1="72" x2="147" y2="88"/><line class="drop" style="animation-delay:0.26s" x1="176" y1="86" x2="171" y2="102"/><line class="drop" style="animation-delay:0.63s" x1="185" y1="100" x2="180" y2="116"/><line class="drop" style="animation-delay:0.1s" x1="209" y1="114" x2="204" y2="130"/><line class="drop" style="animation-delay:0.47s" x1="233" y1="128" x2="228" y2="144"/><line class="drop" style="animation-delay:0.84s" x1="242" y1="58" x2="237" y2="74"/><line class="drop" style="animation-delay:0.31s" x1="266" y1="72" x2="261" y2="88"/><line class="drop" style="animation-delay:0.68s" x1="290" y1="86" x2="285" y2="102"/><line class="drop" style="animation-delay:0.15s" x1="299" y1="100" x2="294" y2="116"/><line class="drop" style="animation-delay:0.52s" x1="323" y1="114" x2="318" y2="130"/><line class="drop" style="animation-delay:0.89s" x1="347" y1="128" x2="342" y2="144"/><line class="drop" style="animation-delay:0.36s" x1="356" y1="58" x2="351" y2="74"/><line class="drop" style="animation-delay:0.73s" x1="380" y1="72" x2="375" y2="88"/><line class="drop" style="animation-delay:0.2s" x1="404" y1="86" x2="399" y2="102"/><line class="drop" style="animation-delay:0.57s" x1="413" y1="100" x2="408" y2="116"/><line class="drop" style="animation-delay:0.04s" x1="437" y1="114" x2="432" y2="130"/><line class="drop" style="animation-delay:0.41s" x1="461" y1="128" x2="456" y2="144"/></g>
+<g class="storm s1"><g transform="translate(84 66) scale(1.45)" fill="#33415c"><circle r="26"/><circle cx="-32" cy="10" r="19"/><circle cx="30" cy="8" r="22"/><circle cx="58" cy="16" r="15"/><rect x="-50" y="14" width="124" height="22" rx="11"/></g></g>
+<g class="storm s2"><g transform="translate(232 46) scale(1.7)" fill="#222d44"><circle r="26"/><circle cx="-32" cy="10" r="19"/><circle cx="30" cy="8" r="22"/><circle cx="58" cy="16" r="15"/><rect x="-50" y="14" width="124" height="22" rx="11"/></g></g>
+<g class="storm s3"><g transform="translate(392 74) scale(1.4)" fill="#3c4b69"><circle r="26"/><circle cx="-32" cy="10" r="19"/><circle cx="30" cy="8" r="22"/><circle cx="58" cy="16" r="15"/><rect x="-50" y="14" width="124" height="22" rx="11"/></g></g>
+<path class="hill hill-b" d="M0 292C70 266 140 272 210 282S380 264 480 276V360H0Z" fill="#8fd3a9"/>
+<path class="hill hill-f" d="M0 306C80 280 150 296 230 302S400 284 480 298V360H0Z" fill="#5fb68a"/>
+</svg></div>
+      <button type="button" class="motion-toggle" id="motion-toggle" aria-pressed="false">Zastavit animace</button>
+    </div>
   </div>
+  <div class="wrap"><svg class="loop-line" viewBox="0 0 600 60" width="600" height="60" aria-hidden="true" focusable="false"><defs><linearGradient id="gLoop" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#5b6fd6"/><stop offset=".3" stop-color="#4aa3df"/><stop offset=".55" stop-color="#5bbf8a"/><stop offset=".78" stop-color="#fcc934"/><stop offset="1" stop-color="#f5923e"/></linearGradient></defs><path pathLength="1" d="M0 44 H150 C205 44 225 6 192 5 C155 4 163 44 205 44 H600" fill="none" stroke="url(#gLoop)" stroke-width="3" stroke-linecap="round"/></svg></div>
 </section>
 
-<section class="wrap block">
+<section class="wrap block reveal">
   <h2>S čím můžeme pracovat</h2>
   <p>S OCD: s obsesemi a kompulzemi, které berou čas a energii. Postupně se učíte nechat strach být a nereagovat na něj rituálem. <a href="/metoda">Jak metoda funguje</a> a <a href="/pro-koho">pro koho je</a>.</p>
 </section>
 
-<section class="wrap block story">
+<section class="wrap block reveal story">
   <h2>Proč to dělám</h2>
   <!-- DOPLNIT: příběh autora, 3–4 věty, první osoba, zaměřený na zkušenost, ne na detaily traumat. -->
   <p class="placeholder">[PŘÍBĚH AUTORA: 3–4 věty v první osobě o vlastní zkušenosti s OCD. Pište o tom, co vám pomohlo a čím procházíte teď. Bez podrobností traumat.]</p>
   <p><a href="/o-mne">Více o mně</a></p>
 </section>
 
-<section class="wrap block">
+<section class="wrap block reveal">
   <h2>Smyčka, kterou OCD používá</h2>
   <p>Napětí vede k akci, akce přinese úlevu a úleva smyčku posílí. Moje práce je pomoci vám v ní zůstat jinak: s napětím, bez akce.</p>
   <ol class="loop" aria-label="Smyčka OCD">

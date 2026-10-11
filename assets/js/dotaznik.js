@@ -7,10 +7,15 @@
   var box = document.getElementById('vystup');
   var out = document.getElementById('vystup-text');
 
-  // živé zobrazení hodnot posuvníků
+  // živé zobrazení hodnot posuvníků a vyplnění jejich dráhy
   form.querySelectorAll('input[type="range"]').forEach(function (r) {
     var o = r.parentNode.querySelector('output');
-    r.addEventListener('input', function () { o.textContent = r.value; });
+    function sync() {
+      o.textContent = r.value;
+      r.style.setProperty('--p', (r.value / (r.max || 10)) * 100 + '%');
+    }
+    r.addEventListener('input', sync);
+    sync();
   });
 
   function build() {

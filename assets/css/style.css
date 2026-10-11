@@ -54,6 +54,7 @@ p { margin: 0 0 1rem; }
 .lead { font-size: 1.2rem; color: var(--muted); max-width: 42rem; }
 .eyebrow { text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; font-weight: 700; color: var(--accent); margin-bottom: .6rem; }
 .small { font-size: .9rem; color: var(--muted); }
+.note { margin: 1rem 0 0; max-width: 42rem; }
 
 .hero { padding: 3.5rem 0 1.5rem; }
 .hero h1 { max-width: 16em; }

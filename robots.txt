@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://DOMENA.cz/sitemap.xml

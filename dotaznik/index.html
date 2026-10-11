@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vstupní dotazník | [NÁZEV]</title>
+<meta name="description" content="Vstupní dotazník pro peer mentoring při OCD: mapa témat, kompulze, vyhýbání, dopad a pilíře. Odeslání e-mailem, nic se neukládá na serveru.">
+<link rel="canonical" href="https://DOMENA.cz/dotaznik">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:site_name" content="[NÁZEV]">
+<meta property="og:title" content="Vstupní dotazník | [NÁZEV]">
+<meta property="og:description" content="Vstupní dotazník pro peer mentoring při OCD: mapa témat, kompulze, vyhýbání, dopad a pilíře. Odeslání e-mailem, nic se neukládá na serveru.">
+<meta property="og:url" content="https://DOMENA.cz/dotaznik">
+<meta name="theme-color" content="#1f4a52">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/style.css">
+
+</head>
+<body>
+<a class="skip" href="#obsah">Přeskočit na obsah</a>
+<p class="notice" role="note">Peer podpora je doplněk k odborné péči. Nenahrazuje psychoterapii ani lékaře.</p>
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="/">[NÁZEV]</a>
+    <nav aria-label="Hlavní navigace"><ul><li><a href="/metoda">Metoda</a></li><li><a href="/pro-koho">Pro koho</a></li><li><a href="/dotaznik" aria-current="page">Dotazník</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/clanky">Články</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
+  </div>
+</header>
+<main id="obsah">
+
+<section class="wrap page-head">
+  <h1>Vstupní dotazník</h1>
+  <p class="lead">Slouží k tomu, abychom se dobře seznámili a mohli společně sestavit žebřík expozic. Není to diagnostický test. Vyplňte jen to, co chcete sdílet. Na nic nemusíte odpovídat.</p>
+  <p class="callout-inline"><strong>Nic se neukládá.</strong> Web nemá databázi ani server. Po vyplnění si otevřete e-mail s předvyplněným textem, nebo si text zkopírujete a pošlete, jak chcete.</p>
+</section>
+
+<form id="dotaznik" class="wrap form" novalidate>
+
+<fieldset data-section="O vás a cíli">
+  <legend>0. O vás</legend>
+  <div class="field"><label for="jmeno">Jak vás mám oslovovat <span class="hint">(nepovinné, stačí křestní jméno nebo přezdívka)</span></label><input type="text" id="jmeno" name="jmeno" data-label="Oslovení" autocomplete="off"></div>
+  <div class="field"><label for="cil">Jak by vypadal váš život, který chcete žít? <span class="hint">(popište život, ne jen absenci obtíží)</span></label><textarea id="cil" name="cil" rows="4" data-label="Cílová vize"></textarea></div>
+</fieldset>
+
+<fieldset data-section="1. Mapa témat">
+  <legend>1. Mapa témat</legend>
+  <p class="hint">Ke každému tématu nastavte, jak silnou úzkost vám dnes způsobuje. 0 = žádnou, 10 = největší možnou. Co se vás netýká, nechte na 0. Z toho vznikne váš žebřík.</p>
+  
+<div class="field">
+  <label for="tema0">Kontaminace <span class="hint">– strach z nečistoty, bakterií, chemikálií nebo nákazy</span></label>
+  <div class="range"><input type="range" id="tema0" name="tema0" min="0" max="10" step="1" value="0" data-label="Kontaminace"><output for="tema0">0</output><span class="of">/ 10</span></div>
+</div>
+<div class="field">
+  <label for="tema1">Senzomotorické <span class="hint">– neustálé vnímání dýchání, mrkání, polykání nebo jiných tělesných vjemů</span></label>
+  <div class="range"><input type="range" id="tema1" name="tema1" min="0" max="10" step="1" value="0" data-label="Senzomotorické"><output for="tema1">0</output><span class="of">/ 10</span></div>
+</div>
+<div class="field">
+  <label for="tema2">Existenciální <span class="hint">– zasahující otázky o smyslu, realitě, existenci nebo smrti</span></label>
+  <div class="range"><input type="range" id="tema2" name="tema2" min="0" max="10" step="1" value="0" data-label="Existenciální"><output for="tema2">0</output><span class="of">/ 10</span></div>
+</div>
+<div class="field">
+  <label for="tema3">Zdravotní <span class="hint">– strach z nemoci, kontrola těla, vyhledávání příznaků</span></label>
+  <div class="range"><input type="range" id="tema3" name="tema3" min="0" max="10" step="1" value="0" data-label="Zdravotní"><output for="tema3">0</output><span class="of">/ 10</span></div>
+</div>
+<div class="field">
+  <label for="tema4">Pure O <span class="hint">– nechtěné myšlenky nebo představy, rituály probíhají hlavně v hlavě</span></label>
+  <div class="range"><input type="range" id="tema4" name="tema4" min="0" max="10" step="1" value="0" data-label="Pure O"><output for="tema4">0</output><span class="of">/ 10</span></div>
+</div>
+<div class="field">
+  <label for="tema5">Zpovědní <span class="hint">– nutkání se přiznávat nebo ověřovat, zda jste něco neudělali špatně</span></label>
+  <div class="range"><input type="range" id="tema5" name="tema5" min="0" max="10" step="1" value="0" data-label="Zpovědní"><output for="tema5">0</output><span class="of">/ 10</span></div>
+</div>
+<div class="field">
+  <label for="tema6">Emetofobní <span class="hint">– strach ze zvracení</span></label>
+  <div class="range"><input type="range" id="tema6" name="tema6" min="0" max="10" step="1" value="0" data-label="Emetofobní"><output for="tema6">0</output><span class="of">/ 10</span></div>
+</div>
+<div class="field">
+  <label for="tema7">Perfekcionistické <span class="hint">– potřeba, aby něco bylo „akorát“, přesně nebo dokonale</span></label>
+  <div class="range"><input type="range" id="tema7" name="tema7" min="0" max="10" step="1" value="0" data-label="Perfekcionistické"><output for="tema7">0</output><span class="of">/ 10</span></div>
+</div>
+<div class="field">
+  <label for="tema8">ROCD <span class="hint">– pochybnosti o vztahu, partnerovi nebo vlastních citech</span></label>
+  <div class="range"><input type="range" id="tema8" name="tema8" min="0" max="10" step="1" value="0" data-label="ROCD"><output for="tema8">0</output><span class="of">/ 10</span></div>
+</div>
+<div class="field">
+  <label for="tema9">Strach ze zešílení <span class="hint">– obava ze ztráty kontroly nebo zdravého rozumu</span></label>
+  <div class="range"><input type="range" id="tema9" name="tema9" min="0" max="10" step="1" value="0" data-label="Strach ze zešílení"><output for="tema9">0</output><span class="of">/ 10</span></div>
+</div>
+  <div class="field"><label for="tema-jine">Jiné téma <span class="hint">(nepovinné)</span></label><input type="text" id="tema-jine" name="tema-jine" data-label="Jiné téma"></div>
+</fieldset>
+
+<fieldset data-section="2. Kompulze">
+  <legend>2. Kompulze</legend>
+  <p class="hint">Co děláte (navenek nebo v hlavě), aby strach nebo napětí rychle opadlo? Zaškrtněte, co platí.</p>
+  <h3>Viditelné</h3>
+  <div class="checks"><label class="check"><input type="checkbox" name="kompulze-viditelne" value="Mytí, čištění, dezinfekce"> Mytí, čištění, dezinfekce</label><label class="check"><input type="checkbox" name="kompulze-viditelne" value="Kontrolování (spotřebiče, dveře, tělo)"> Kontrolování (spotřebiče, dveře, tělo)</label><label class="check"><input type="checkbox" name="kompulze-viditelne" value="Opakování úkonů"> Opakování úkonů</label><label class="check"><input type="checkbox" name="kompulze-viditelne" value="Uspořádávání, symetrie"> Uspořádávání, symetrie</label><label class="check"><input type="checkbox" name="kompulze-viditelne" value="Dotýkání, odklepávání"> Dotýkání, odklepávání</label><label class="check"><input type="checkbox" name="kompulze-viditelne" value="Rituály kolem jídla"> Rituály kolem jídla</label></div>
+  <h3>Mentální</h3>
+  <div class="checks"><label class="check"><input type="checkbox" name="kompulze-mentalni" value="Opakování slov nebo vět v hlavě"> Opakování slov nebo vět v hlavě</label><label class="check"><input type="checkbox" name="kompulze-mentalni" value="Analyzování a promýšlení dokola"> Analyzování a promýšlení dokola</label><label class="check"><input type="checkbox" name="kompulze-mentalni" value="„Rušení“ myšlenky jinou myšlenkou"> „Rušení“ myšlenky jinou myšlenkou</label><label class="check"><input type="checkbox" name="kompulze-mentalni" value="Procházení vzpomínek"> Procházení vzpomínek</label><label class="check"><input type="checkbox" name="kompulze-mentalni" value="Počítání"> Počítání</label><label class="check"><input type="checkbox" name="kompulze-mentalni" value="Modlitby nebo formule"> Modlitby nebo formule</label></div>
+  <h3>Ujišťování</h3>
+  <div class="checks"><label class="check"><input type="checkbox" name="kompulze-ujistovani" value="Ptám se blízkých"> Ptám se blízkých</label><label class="check"><input type="checkbox" name="kompulze-ujistovani" value="Ptám se lékaře"> Ptám se lékaře</label><label class="check"><input type="checkbox" name="kompulze-ujistovani" value="Vyhledávám na internetu"> Vyhledávám na internetu</label><label class="check"><input type="checkbox" name="kompulze-ujistovani" value="Ptám se AI"> Ptám se AI</label><label class="check"><input type="checkbox" name="kompulze-ujistovani" value="Čtu fóra a zkušenosti jiných"> Čtu fóra a zkušenosti jiných</label><label class="check"><input type="checkbox" name="kompulze-ujistovani" value="Testuji se nebo měřím"> Testuji se nebo měřím</label></div>
+  <div class="field"><label for="kompulze-jine">Jiné kompulze nebo upřesnění</label><textarea id="kompulze-jine" name="kompulze-jine" rows="3" data-label="Jiné kompulze"></textarea></div>
+</fieldset>
+
+<fieldset data-section="3. Vyhýbání">
+  <legend>3. Vyhýbání</legend>
+  <div class="field"><label for="vyhybani">Čemu se vyhýbáte? <span class="hint">(místa, lidé, předměty, situace, myšlenky, témata)</span></label><textarea id="vyhybani" name="vyhybani" rows="4" data-label="Čemu se vyhýbám"></textarea></div>
+</fieldset>
+
+<fieldset data-section="4. Dopad">
+  <legend>4. Dopad</legend>
+  <div class="field"><label for="cas">Kolik času denně vám OCD zabírá?</label>
+    <select id="cas" name="cas" data-label="Čas denně">
+      <option value="">– vyberte –</option><option>Méně než 1 hodinu</option><option>1–3 hodiny</option><option>3–6 hodin</option><option>Více než 6 hodin</option>
+    </select></div>
+  <p class="hint">Co vám OCD omezuje?</p>
+  <div class="checks"><label class="check"><input type="checkbox" name="dopad" value="Práce nebo škola"> Práce nebo škola</label><label class="check"><input type="checkbox" name="dopad" value="Vztahy a rodina"> Vztahy a rodina</label><label class="check"><input type="checkbox" name="dopad" value="Spánek"> Spánek</label><label class="check"><input type="checkbox" name="dopad" value="Jídlo"> Jídlo</label><label class="check"><input type="checkbox" name="dopad" value="Volný čas a koníčky"> Volný čas a koníčky</label><label class="check"><input type="checkbox" name="dopad" value="Péče o domácnost"> Péče o domácnost</label><label class="check"><input type="checkbox" name="dopad" value="Cestování, pohyb mimo domov"> Cestování, pohyb mimo domov</label></div>
+  <div class="field"><label for="dopad-jine">Upřesnění <span class="hint">(nepovinné)</span></label><textarea id="dopad-jine" name="dopad-jine" rows="3" data-label="Upřesnění dopadu"></textarea></div>
+</fieldset>
+
+<fieldset data-section="5. Pilíře a výběr cesty">
+  <legend>5. Pilíře a výběr cesty</legend>
+  <p class="hint">Odhad dnešního stavu. Slouží k tomu, abychom později viděli pokrok.</p>
+  
+<div class="field">
+  <label for="prijeti">Sebepřijetí <span class="hint">– 0 = nepřijímám se vůbec, 10 = přijímám se celý/celá</span></label>
+  <div class="range"><input type="range" id="prijeti" name="prijeti" min="0" max="10" step="1" value="0" data-label="Sebepřijetí"><output for="prijeti">0</output><span class="of">/ 10</span></div>
+</div>
+  
+<div class="field">
+  <label for="sebevira">Sebevíra <span class="hint">– 0 = nevěřím, že bych to zvládl/a, 10 = „ať se stane cokoli, obstojím“</span></label>
+  <div class="range"><input type="range" id="sebevira" name="sebevira" min="0" max="10" step="1" value="0" data-label="Sebevíra"><output for="sebevira">0</output><span class="of">/ 10</span></div>
+</div>
+  
+<div class="field">
+  <label for="vira">Víra v obavy <span class="hint">– 0 = vím, že jde o OCD, 10 = jsem si jistý/á, že se obava splní</span></label>
+  <div class="range"><input type="range" id="vira" name="vira" min="0" max="10" step="1" value="0" data-label="Víra v obavy"><output for="vira">0</output><span class="of">/ 10</span></div>
+</div>
+  <div class="field"><label for="erp">Dřívější zkušenost s ERP (expozice s prevencí reakce)</label>
+    <select id="erp" name="erp" data-label="Zkušenost s ERP">
+      <option value="">– vyberte –</option><option>Žádná</option><option>Zkoušel/a jsem sám/sama</option><option>Měl/a jsem vedení odborníka, pomohlo to</option><option>Měl/a jsem vedení odborníka, nepomohlo nebo zahltilo</option>
+    </select></div>
+</fieldset>
+
+<fieldset data-section="6. Milníky">
+  <legend>6. Milníky <span class="hint">(nepovinné)</span></legend>
+  <div class="field"><label for="milniky">Kdy se strach poprvé objevil nebo zesílil? <span class="hint">(stačí rok nebo životní období, bez podrobností, které sdílet nechcete)</span></label><textarea id="milniky" name="milniky" rows="4" data-label="Milníky"></textarea></div>
+</fieldset>
+
+<fieldset class="consent" data-section="">
+  <legend>Souhlas se zpracováním</legend>
+  <label class="check"><input type="checkbox" id="souhlas" name="souhlas" required> Souhlasím se zpracováním údajů o svém zdravotním stavu, které v dotazníku uvedu, za účelem vedení peer mentoringu. Souhlas mohu kdykoli odvolat. Více v <a href="/ochrana-osobnich-udaju">zásadách ochrany osobních údajů</a>.</label>
+  <p class="hint">Údaje o zdraví jsou zvláštní kategorie osobních údajů. Souhlas je dobrovolný. E-mail není šifrovaná zpráva, proto uvádějte jen to, co jste ochotni sdílet.</p>
+</fieldset>
+
+<div class="actions">
+  <button type="button" class="btn" id="btn-mail">Otevřít e-mail s odpověďmi</button>
+  <button type="button" class="btn btn-ghost" id="btn-text">Vytvořit text ke zkopírování</button>
+</div>
+<p id="msg" class="msg" role="status" aria-live="polite"></p>
+<div id="vystup" class="vystup" hidden>
+  <label for="vystup-text">Text k odeslání na EMAIL@DOPLNIT.cz</label>
+  <textarea id="vystup-text" rows="14" readonly></textarea>
+  <button type="button" class="btn btn-ghost" id="btn-copy">Zkopírovat text</button>
+</div>
+
+<p class="crisis"><strong>Pokud máte myšlenky na sebepoškození nebo jste v akutní krizi, volejte 112 nebo Linku důvěry 116 123.</strong></p>
+</form>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="foot-notice"><strong>Peer podpora je doplněk k odborné péči. Nenahrazuje psychoterapii ani lékaře.</strong></p>
+    <p>Nejde o zdravotní službu ani psychoterapii. Spolupráce nenahrazuje odbornou péči.</p>
+    <p>Akutní krize nebo myšlenky na sebepoškození: volejte <strong>112</strong> nebo Linku důvěry <strong>116 123</strong>.</p>
+    <ul class="foot-links">
+      <li><a href="/ochrana-osobnich-udaju">Ochrana osobních údajů</a></li>
+      <li><a href="/kontakt">Kontakt</a></li>
+    </ul>
+    <p class="small">© [NÁZEV]. Web nepoužívá cookies ani sledování návštěvnosti.</p>
+  </div>
+</footer>
+<script src="/assets/js/dotaznik.js" defer></script>
+</body>
+</html>

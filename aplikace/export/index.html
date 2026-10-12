@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Export pro terapeuta | Aplikace | [NÁZEV]</title>
+<meta name="description" content="Přehled pro tisk nebo PDF.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:site_name" content="[NÁZEV]">
+<meta property="og:title" content="Export pro terapeuta | Aplikace | [NÁZEV]">
+<meta property="og:description" content="Přehled pro tisk nebo PDF.">
+<meta property="og:url" content="https://DOMENA.cz/aplikace/export">
+<meta name="theme-color" content="#1b2a41">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/app.css">
+
+<script>
+(function(){var d=document.documentElement;d.classList.add('js');
+document.addEventListener('DOMContentLoaded',function(){try{
+var els=document.querySelectorAll('.reveal');
+if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){for(var i=0;i<els.length;i++)els[i].classList.add('in');}
+else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -6% 0px'});for(var j=0;j<els.length;j++)io.observe(els[j]);}
+var b=document.getElementById('motion-toggle');
+if(b)b.addEventListener('click',function(){var off=d.classList.toggle('motion-off');b.setAttribute('aria-pressed',off?'true':'false');});
+}catch(e){d.classList.remove('js');}});
+})();
+</script>
+</head>
+<body>
+<a class="skip" href="#obsah">Přeskočit na obsah</a>
+<p class="notice" role="note">Peer podpora je doplněk k odborné péči. Nenahrazuje psychoterapii ani lékaře.</p>
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="/"><svg class="brand-sun" viewBox="-16 -16 32 32" width="28" height="28" aria-hidden="true" focusable="false"><g stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round"><line y1="-10" y2="-14" transform="rotate(0)"/><line y1="-10" y2="-14" transform="rotate(45)"/><line y1="-10" y2="-14" transform="rotate(90)"/><line y1="-10" y2="-14" transform="rotate(135)"/><line y1="-10" y2="-14" transform="rotate(180)"/><line y1="-10" y2="-14" transform="rotate(225)"/><line y1="-10" y2="-14" transform="rotate(270)"/><line y1="-10" y2="-14" transform="rotate(315)"/></g><circle r="6.5" fill="#ffc83d" stroke="#f59e0b" stroke-width="1.5"/></svg><span>[NÁZEV]</span></a>
+    <nav aria-label="Hlavní navigace"><ul><li><a href="/metoda">Metoda</a></li><li><a href="/pro-koho">Pro koho</a></li><li><a href="/dotaznik">Dotazník</a></li><li><a href="/aplikace" aria-current="page">Aplikace</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/clanky">Články</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
+  </div>
+</header>
+<nav class="app-nav" aria-label="Aplikace"><ul><li><a href="/aplikace">Přehled</a></li><li><a href="/aplikace/denik">Deník</a></li><li><a href="/aplikace/kompulze">Kompulze</a></li><li><a href="/aplikace/text">Text</a></li><li><a href="/aplikace/zebricek">Žebříček</a></li><li><a href="/aplikace/kruh">Kruh</a></li><li><a href="/aplikace/vice" aria-current="true">Více</a></li></ul></nav>
+<p class="app-note">Aplikace doprovází odbornou péči a nenahrazuje ji. Není to terapie ani diagnóza.</p>
+<main id="obsah">
+
+<section class="wrap page-head app-head">
+  <h1>Export pro terapeuta</h1>
+  
+</section>
+<section class="wrap app-main">
+  <noscript><p class="placeholder">Aplikace potřebuje zapnutý JavaScript. Data zůstávají jen ve vašem zařízení.</p></noscript>
+  <div id="app-root"></div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="foot-notice"><strong>Peer podpora je doplněk k odborné péči. Nenahrazuje psychoterapii ani lékaře.</strong></p>
+    <p>Nejde o zdravotní službu ani psychoterapii. Spolupráce nenahrazuje odbornou péči.</p>
+    <p>Akutní krize nebo myšlenky na sebepoškození: volejte <strong>112</strong> nebo Linku důvěry <strong>116 123</strong>.</p>
+    <ul class="foot-links">
+      <li><a href="/ochrana-osobnich-udaju">Ochrana osobních údajů</a></li>
+      <li><a href="/kontakt">Kontakt</a></li>
+    </ul>
+    <p class="small">© [NÁZEV]. Web nepoužívá cookies ani sledování návštěvnosti.</p>
+  </div>
+</footer>
+<button type="button" class="sos-btn" id="sos-open" aria-haspopup="dialog">SOS</button>
+<dialog id="sos" aria-labelledby="sos-h">
+  <h2 id="sos-h">Potřebuji pomoc teď</h2>
+  <p>Nemusíte na to být sami. Zavolejte:</p>
+  <ul>
+    <li><a href="tel:116123">Linka první psychické pomoci<br>116 123</a></li>
+    <li><a href="tel:155">Záchranná služba<br>155</a></li>
+    <li><a href="tel:112">Tísňová linka<br>112</a></li>
+  </ul>
+  <p>Můžete také kontaktovat svého terapeuta nebo lékaře.</p>
+  <button type="button" class="btn btn-ghost" id="sos-close">Zavřít</button>
+</dialog>
+
+<script type="module" src="/assets/js/app/export.js"></script>
+</body>
+</html>

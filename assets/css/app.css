@@ -106,9 +106,31 @@ dialog#sos ul { list-style: none; padding: 0; margin: 1rem 0; display: grid; gap
 dialog#sos li a { display: block; padding: .8rem 1rem; border-radius: 14px; border: 2px solid var(--ink); font-weight: 700; text-decoration: none; color: var(--ink); }
 dialog#sos li a:hover { background: var(--ink); color: #fff; }
 
+/* Kruh OCD */
+.ring-wrap { position: relative; width: min(100%, 24rem); aspect-ratio: 1; margin: 1rem auto; }
+.ring { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ring-center { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; font-weight: 800; color: var(--ink-soft); }
+.node { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: .15rem; width: 5.6rem; padding: .35rem .2rem; border-radius: 14px; border: 2px solid var(--ink); background: var(--surface); font: inherit; font-size: .78rem; font-weight: 700; color: var(--ink); cursor: pointer; line-height: 1.15; }
+.node .n { width: 1.4rem; height: 1.4rem; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-size: .75rem; }
+.node.on { background: var(--ink); color: #fff; }
+.node.on .n { background: var(--sun); color: var(--ink); }
+
+.lessons details { cursor: pointer; }
+.lessons summary { font-weight: 700; }
+.timeline { padding-left: 1.2rem; }
+.timeline li { margin-bottom: .5rem; }
+.rep-table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: .5rem 0 1rem; }
+.rep-table th, .rep-table td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--line); }
+.report { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.2rem; margin-top: 1rem; }
+
 @media (min-width: 40rem) {
   .tiles { grid-template-columns: repeat(4, 1fr); }
   .big-actions { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 36rem) { .app-main { padding-bottom: 5rem; } }
-@media print { .app-nav, .sos-btn, .app-note { display: none; } }
+@media print {
+  .notice, .site-header, .site-footer, .app-nav, .sos-btn, .app-note, .app-head, .no-print, .skip { display: none !important; }
+  body { background: #fff; }
+  .report { border: 0; padding: 0; }
+  .app-main { max-width: none; padding: 0; }
+}

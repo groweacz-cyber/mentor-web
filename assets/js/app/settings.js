@@ -1,9 +1,23 @@
 // Data a nastavení: export, import, úplné smazání, odvolání souhlasu.
-import { data, save, exportJson, importJson, wipe, fmtDateLong } from './store.js';
+import { data, save, exportJson, importJson, wipe, fmtDateLong, uid } from './store.js';
 import { h, boot, $ } from './ui.js';
 
 const root = $('#app-root');
 boot(root);
+
+// Připomínky přes kalendář (.ics): web bez serveru nemůže posílat notifikace, kalendář je připomene sám.
+function makeIcs(monthly, daily, time) {
+  const pad = (n) => String(n).padStart(2, '0');
+  const t = new Date(Date.now() + 86400000);
+  const ymd = t.getFullYear() + pad(t.getMonth() + 1) + pad(t.getDate());
+  const [hh, mm] = (time || '19:00').split(':');
+  const stamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z';
+  const ev = (summary, desc, rule) => ['BEGIN:VEVENT', 'UID:' + uid() + '@ocd-aplikace', 'DTSTAMP:' + stamp, 'DTSTART:' + ymd + 'T' + hh + mm + '00', 'DURATION:PT10M', 'RRULE:' + rule, 'SUMMARY:' + summary, 'DESCRIPTION:' + desc, 'END:VEVENT'].join('\r\n');
+  const evs = [];
+  if (monthly) evs.push(ev('Chvilka na dotazník', 'Chcete zopakovat dotazník a porovnat, jak se věci mají? Zabere to pár minut, bez tlaku.', 'FREQ=MONTHLY'));
+  if (daily) evs.push(ev('Chvilka pro sebe', 'Jak se dnes máte? Pokud chcete, zapište si krátký záznam.', 'FREQ=DAILY'));
+  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//OCD aplikace//CS', ...evs, 'END:VCALENDAR'].join('\r\n');
+}
 
 function render(note, bad) {
   const d = data();
@@ -39,6 +53,15 @@ function render(note, bad) {
         document.body.append(a); a.click(); a.remove();
       } }, 'Exportovat data')),
       h('div', { class: 'field' }, h('label', { for: 'imp' }, 'Načíst data ze souboru (přepíše stávající)'), file)),
+    h('div', { class: 'card app-card' }, h('h2', {}, 'Připomínky v kalendáři'),
+      h('p', {}, 'Web bez serveru nemůže posílat notifikace. Stáhněte si kalendářový soubor, který vám připomene dotazník nebo chvilku pro sebe. Zprávy jsou vždy neutrální a povzbudivé. Vypnete je smazáním události v kalendáři.'),
+      h('label', { class: 'check' }, h('input', { type: 'checkbox', id: 'rm', checked: true }), ' Jednou měsíčně: zopakovat dotazník'),
+      h('label', { class: 'check' }, h('input', { type: 'checkbox', id: 'rd' }), ' Každý den: chvilka pro sebe'),
+      h('div', { class: 'field' }, h('label', { for: 'rt' }, 'Čas'), h('input', { type: 'time', id: 'rt', value: '19:00' })),
+      h('div', { class: 'actions' }, h('button', { class: 'btn', type: 'button', onclick: () => {
+        const a = h('a', { href: URL.createObjectURL(new Blob([makeIcs($('#rm').checked, $('#rd').checked, $('#rt').value)], { type: 'text/calendar' })), download: 'pripominky.ics' });
+        document.body.append(a); a.click(); a.remove();
+      } }, 'Stáhnout kalendář'))),
     h('div', { class: 'card app-card' }, h('h2', {}, 'Smazání a odvolání souhlasu'),
       h('p', {}, 'Smazáním odstraníte všechna data i souhlas z tohoto zařízení. Nelze to vrátit.'),
       h('div', { class: 'actions' }, del)),

@@ -68,7 +68,7 @@ function dashboard() {
     tile('/aplikace/kompulze', 'Tracker kompulzí', 'Rychlý záznam jedním ťuknutím'),
     tile('/aplikace/text', 'Expoziční text', 'Napsat a zkontrolovat text'),
     tile('/aplikace/denik', 'Expoziční deník', 'Časovač a graf vývoje'),
-    tile('/aplikace/nastaveni', 'Data', 'Export, import a smazání')));
+    tile('/aplikace/vice', 'Další nástroje', 'Kruh OCD, I-CBT, vize, export')));
   return out;
 }
 

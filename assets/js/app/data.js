@@ -65,6 +65,36 @@ export const REASSURE = [
 ];
 export const ACCEPT = [/prijm/, /i kdyby/, /kdyby (to )?prisl/, /zvladn/, /obstoj/, /snesu/];
 
+// Kruh OCD: každý článek má nástroj metody (odvozeno z pravidel metody).
+export const CIRCLE = [
+  { name: 'Spouštěč', x: 'Nečekám, až mě OCD přepadne. Počítám s ním, a když přijde, pozdravím ho a jdu dál.', href: '/aplikace/principy', cta: 'Karty principů' },
+  { name: 'Pochybnost', x: 'Pochopit, jak pochybnost vzniká a na čem stojí. Pochybnost z reality se liší od pochybnosti z představivosti („co kdyby…“).', href: '/aplikace/icbt', cta: 'Porozumění pochybnosti' },
+  { name: 'Katastrofický scénář', x: 'Expoziční text: přiznám nejistotu a přijmu nejhorší scénář. Nepotřebuji jistotu, abych obstál/a.', href: '/aplikace/text', cta: 'Expoziční text' },
+  { name: 'Úzkost', x: 'Strach může být přítomen a já přesto jednám. Tělo mluví jazykem úzkosti, rozumím mu, ale nenechám ho rozhodovat.', href: '/aplikace/telo', cta: 'Tělo ve strachu' },
+  { name: 'Kompulze', x: 'Zábrana reakce: kompulzi neprovedu. Když se stane, je to akt nepřijetí. Odpovědí je návrat k sebepřijetí, ne trest.', href: '/aplikace/kompulze', cta: 'Tracker kompulzí' },
+  { name: 'Úleva', x: 'Úleva z kompulze je to, co kruh točí dál. Expozici proto nekončím ujištěním.', href: '/aplikace/text', cta: 'Kontrola textu' },
+  { name: 'Posílení', x: 'Sebevíra se buduje zvládnutými situacemi, ne úlevou. Každá expozice bez ochrany je důkaz.', href: '/aplikace/denik', cta: 'Expoziční deník' },
+];
+
+// I-CBT: krátké lekce (návrh textů ke schválení autorem).
+export const ICBT_LESSONS = [
+  { t: 'Jak OCD vyrábí pochybnost', x: 'OCD často nezačíná faktem, ale otázkou „co kdyby…“. Pochybnost přijde jako příběh o tom, co všechno by se mohlo stát. Nemusí mít oporu v tom, co právě vidíte, slyšíte a víte.' },
+  { t: 'Dva druhy pochybnosti', x: 'Pochybnost z reality stojí na tom, co vnímáte smysly a co znáte z přímé zkušenosti. Pochybnost z představivosti stojí na tom, co by teoreticky mohlo být. Ptejte se: odkud ta pochybnost pochází?' },
+  { t: 'Možné není totéž co pravděpodobné', x: 'Skoro cokoli je možné. OCD z možného dělá důležité. Podle toho, co je možné, nežije žádný člověk.' },
+  { t: 'Nedůvěra k sobě a ke smyslům', x: 'Pochybnost často říká: nevěř tomu, co vidíš, a nevěř sobě. Tady se dá vrátit k sebevíře a k tomu, co skutečně vnímáte.' },
+  { t: 'Příběh není důkaz', x: 'I přesvědčivý příběh je jen příběh. Můžete ho nechat být, nehádat se s ním, nebrat ho jako fakt a jít dál.' },
+];
+
+export const BODY = [
+  { t: 'Co se v těle děje při strachu', x: 'Při strachu se tělo přepne do pohotovosti. Zrychlí se dech a tep, napnou se svaly, může se změnit trávení a hůř se soustředí. Je to přirozená reakce, ne důkaz, že je něco špatně.' },
+  { t: 'Kruh „strach → příznak → důkaz → víc strachu“', x: 'Všimnu si tělesného pocitu, mozek v něm hledá „důkaz“ pro obavu, strach vzroste a tělesný pocit zesílí. Kruh se přeruší, když pocitu jen rozumím a nenechám ho rozhodovat.' },
+  { t: 'Co s tím', x: 'Pojmenuji to: „tělo mluví jazykem úzkosti“. Nekontroluji, nehledám, nevyhledávám. Pokračuji v tom, co dělám.' },
+];
+export const BODY_MEDICAL = 'Nové, trvalé nebo výrazné příznaky patří k lékaři v rámci běžné péče. Úzkost o tom nerozhoduje. Aplikace příznaky nekontroluje a na dotazy o nich neodpovídá.';
+
+// Vize: upozornit, pokud popisuje zdravotní stav místo života.
+export const VISION_HEALTH = [/bez ocd/, /zbav/, /vylec/, /zdrav/, /bez (uzkost|obsesi|strachu|nemoci|kompulz)/, /nebudu mit/, /uz (nikdy )?nebudu/, /zadn[eaé] (obsese|ocd|uzkost)/];
+
 export function pathLabel(p) {
   return { metal: 'Metal cesta', pop: 'Pop cesta', mezi: 'Něco mezi (spektrum)' }[p] || p;
 }

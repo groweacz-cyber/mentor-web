@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://DOMENA.cz/sitemap.xml
+Sitemap: https://ocdmentor.cz/sitemap.xml

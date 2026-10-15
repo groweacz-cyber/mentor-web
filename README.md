@@ -33,7 +33,7 @@ Otevřete adresu, kterou příkaz vypíše (obvykle http://localhost:3000).
 
 ## Placeholdery k doplnění
 
-Hledejte v celém projektu: `[NÁZEV]`, `EMAIL@DOPLNIT.cz`, `https://DOMENA.cz` (canonical, Open Graph, sitemap, robots), `[JMÉNO AUTORA]`, a žlutě označené bloky `placeholder` (příběh, aktuální stav, výcvik, supervize, stížnosti, české zdroje odborné péče, telefon/rezervace, zásady ochrany osobních údajů) a `[DATUM]` (datum poslední kontroly obsahu na stránkách Metoda a Pro koho).
+E-mail (`ocdmentor@gmail.com`), doména (`ocdmentor.cz`) a IČ (`87690772`) už jsou doplněné. Zbývá: `[NÁZEV]`, `[JMÉNO AUTORA]`, a žlutě označené bloky `placeholder` (příběh, aktuální stav, výcvik, supervize, stížnosti, české zdroje odborné péče, telefon/rezervace, zásady ochrany osobních údajů) a `[DATUM]` (datum poslední kontroly obsahu na stránkách Metoda a Pro koho).
 
 ## Před ostrým spuštěním
 

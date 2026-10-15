@@ -1,4 +1,4 @@
-# [NÁZEV] – web peer mentora (OCD)
+# OCD mentor – web peer mentora (OCD)
 
 Statický web v češtině: čisté HTML, CSS a minimum JavaScriptu (jen odeslání dotazníku). Bez build kroku, bez databáze, bez cookies a bez analytiky.
 
@@ -33,7 +33,7 @@ Otevřete adresu, kterou příkaz vypíše (obvykle http://localhost:3000).
 
 ## Placeholdery k doplnění
 
-E-mail (`ocdmentor@gmail.com`), doména (`ocdmentor.cz`) a IČ (`87690772`) už jsou doplněné. Zbývá: `[NÁZEV]`, `[JMÉNO AUTORA]`, a žlutě označené bloky `placeholder` (příběh, aktuální stav, výcvik, supervize, stížnosti, české zdroje odborné péče, telefon/rezervace, zásady ochrany osobních údajů) a `[DATUM]` (datum poslední kontroly obsahu na stránkách Metoda a Pro koho).
+E-mail (`ocdmentor@gmail.com`), doména (`ocdmentor.cz`), IČ (`87690772`) a značka (`OCD mentor`) už jsou doplněné. Zbývá: `[JMÉNO AUTORA]` a žlutě označené bloky `placeholder` (příběh, aktuální stav, výcvik, supervize, stížnosti, české zdroje odborné péče, telefon/rezervace, zásady ochrany osobních údajů) a `[DATUM]` (datum poslední kontroly obsahu na stránkách Metoda a Pro koho).
 
 ## Před ostrým spuštěním
 

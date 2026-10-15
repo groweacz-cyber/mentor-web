@@ -1,7 +1,7 @@
 // Převede formulář na text. Nic se neodesílá na server ani neukládá.
 (function () {
   var EMAIL = 'ocdmentor@gmail.com';
-  var BRAND = '[NÁZEV]';
+  var BRAND = 'OCD mentor';
   var form = document.getElementById('dotaznik');
   var msg = document.getElementById('msg');
   var box = document.getElementById('vystup');

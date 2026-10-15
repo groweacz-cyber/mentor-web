@@ -8,7 +8,7 @@ Statický web v češtině: čisté HTML, CSS a minimum JavaScriptu (jen odeslá
 index.html                      Úvod
 metoda/ pro-koho/ dotaznik/
 o-mne/ clanky/ kontakt/
-ochrana-osobnich-udaju/         Zásady (text doplní autor, noindex do doplnění)
+ochrana-osobnich-udaju/         Zásady ochrany osobních údajů (GDPR), vyplněné
 404.html
 sablony/clanek.html             Šablona nového článku (noindex, nezveřejňovat)
 assets/css/style.css
@@ -33,11 +33,13 @@ Otevřete adresu, kterou příkaz vypíše (obvykle http://localhost:3000).
 
 ## Placeholdery k doplnění
 
-E-mail (`ocdmentor@gmail.com`), doména (`ocdmentor.cz`), IČ (`87690772`) a značka (`OCD mentor`) už jsou doplněné. Zbývá: `[JMÉNO AUTORA]` a žlutě označené bloky `placeholder` (příběh, aktuální stav, výcvik, supervize, stížnosti, české zdroje odborné péče, telefon/rezervace, zásady ochrany osobních údajů) a `[DATUM]` (datum poslední kontroly obsahu na stránkách Metoda a Pro koho).
+E-mail (`ocdmentor@gmail.com`), doména (`ocdmentor.cz`), IČ (`87690772`), značka (`OCD mentor`) a zásady ochrany osobních údajů už jsou doplněné. Zbývá: `[JMÉNO AUTORA]` a žlutě označené bloky `placeholder` (příběh, aktuální stav, výcvik, supervize, stížnosti, české zdroje odborné péče, telefon/rezervace) a `[DATUM]` (datum poslední kontroly obsahu na stránkách Metoda a Pro koho).
+
+Zásady ochrany osobních údajů jsou napsané podle skutečného zpracování na webu (žádný server, žádné cookies). Doporučuji je nechat ještě zkontrolovat právníkem, než web ostře spustíte.
 
 ## Před ostrým spuštěním
 
-V `vercel.json` je dočasná hlavička `X-Robots-Tag: noindex, nofollow`, aby vyhledávače web neindexovaly, dokud jsou v něm placeholdery. Před spuštěním ji smažte, doplňte všechny placeholdery a u stránky `ochrana-osobnich-udaju` odstraňte `noindex` v `<head>`.
+V `vercel.json` je dočasná hlavička `X-Robots-Tag: noindex, nofollow`, aby vyhledávače web neindexovaly, dokud jsou v něm placeholdery. Před spuštěním ji smažte a doplňte zbývající placeholdery.
 
 ## Nový článek
 

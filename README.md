@@ -17,6 +17,7 @@ assets/img/favicon.svg
 assets/img/uvod-poster.webp     Poster snímek úvodního videa, i Open Graph obrázek
 assets/video/uvod.mp4           Úvodní video na hlavní stránce (autoplay, ztlumené, smyčka)
 assets/img/o-mne-vaclav.webp    Portrét autora na stránce O mně
+assets/img/kontakt-ilustrace.webp  Ilustrace na stránce Kontakt
 sitemap.xml  robots.txt  vercel.json
 ```
 

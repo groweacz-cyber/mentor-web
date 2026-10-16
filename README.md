@@ -18,6 +18,8 @@ assets/img/uvod-poster.webp     Poster snímek úvodního videa, i Open Graph ob
 assets/video/uvod.mp4           Úvodní video na hlavní stránce (autoplay, ztlumené, smyčka)
 assets/img/o-mne-vaclav.webp    Portrét autora na stránce O mně
 assets/img/kontakt-ilustrace.webp  Ilustrace na stránce Kontakt
+assets/img/clanky/druhy-ocd.webp   Obrázek k článku „Druhy OCD“
+clanky/druhy-ocd-9-typu/        První publikovaný článek (Article + FAQPage JSON-LD)
 sitemap.xml  robots.txt  vercel.json
 ```
 
@@ -47,7 +49,7 @@ V `vercel.json` je dočasná hlavička `X-Robots-Tag: noindex, nofollow`, aby vy
 
 ## Nový článek
 
-Zkopírujte `sablony/clanek.html` do `clanky/<slug>/index.html`, upravte, přidejte odkaz do `clanky/index.html` a adresu do `sitemap.xml`.
+Nové články se teď přidávají přímo v `gen.mjs`: zkopírujte blok `// ---------- Článek: Druhy OCD ----------` jako vzor, přidejte záznam do pole `ARTICLES` (slug, titulek, perex, datum) a spusťte generátor. Sitemap se doplní automaticky z `ARTICLES`. Starý postup přes `sablony/clanek.html` (ruční kopie do `clanky/<slug>/index.html`) pořád funguje, pokud generátor nechcete upravovat.
 
 ## Zásady
 

@@ -14,6 +14,8 @@ sablony/clanek.html             Šablona nového článku (noindex, nezveřejňo
 assets/css/style.css
 assets/js/dotaznik.js           Převod formuláře na e-mail / text
 assets/img/favicon.svg
+assets/img/uvod-poster.webp     Poster snímek úvodního videa, i Open Graph obrázek
+assets/video/uvod.mp4           Úvodní video na hlavní stránce (autoplay, ztlumené, smyčka)
 sitemap.xml  robots.txt  vercel.json
 ```
 

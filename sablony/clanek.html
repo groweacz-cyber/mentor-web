@@ -12,6 +12,7 @@
 <meta property="og:title" content="Název článku | OCD mentor">
 <meta property="og:description" content="Krátký popis článku (140–160 znaků).">
 <meta property="og:url" content="https://ocdmentor.cz/clanky/nazev-clanku">
+<meta property="og:image" content="https://ocdmentor.cz/assets/img/uvod-poster.webp">
 <meta name="theme-color" content="#1b2a41">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/css/style.css">
@@ -20,11 +21,18 @@
 <script>
 (function(){var d=document.documentElement;d.classList.add('js');
 document.addEventListener('DOMContentLoaded',function(){try{
+var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 var els=document.querySelectorAll('.reveal');
-if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){for(var i=0;i<els.length;i++)els[i].classList.add('in');}
+if(!('IntersectionObserver' in window)||reduced){for(var i=0;i<els.length;i++)els[i].classList.add('in');}
 else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -6% 0px'});for(var j=0;j<els.length;j++)io.observe(els[j]);}
 var b=document.getElementById('motion-toggle');
-if(b)b.addEventListener('click',function(){var off=d.classList.toggle('motion-off');b.setAttribute('aria-pressed',off?'true':'false');});
+var v=document.getElementById('hero-video');
+if(reduced){d.classList.add('motion-off');if(b)b.setAttribute('aria-pressed','true');if(v)v.pause();}
+if(b)b.addEventListener('click',function(){
+  var off=d.classList.toggle('motion-off');
+  b.setAttribute('aria-pressed',off?'true':'false');
+  if(v){if(off)v.pause();else v.play().catch(function(){});}
+});
 }catch(e){d.classList.remove('js');}});
 })();
 </script>

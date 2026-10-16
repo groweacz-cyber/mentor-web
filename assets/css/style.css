@@ -139,6 +139,16 @@ p { margin: 0 0 1rem; }
 /* ===== Hlavička vnitřních stránek ===== */
 .page-head { position: relative; padding-top: 2.8rem; padding-bottom: .6rem; }
 .page-head h1, .page-head .lead { max-width: 36rem; }
+.about-grid { display: grid; grid-template-columns: 1fr auto; gap: 1.8rem; align-items: center; }
+.about-photo {
+  width: 11rem; aspect-ratio: 700 / 933; object-fit: cover; border-radius: 24px; justify-self: end;
+  box-shadow: 0 20px 36px -16px rgba(27, 42, 65, .4), 0 0 0 4px var(--surface), 0 0 0 7px var(--sun);
+}
+@media (max-width: 36rem) {
+  .about-grid { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 1.2rem; }
+  .about-photo { justify-self: center; width: 8.5rem; }
+  .about-grid .lead { max-width: 28rem; }
+}
 .head-art { position: absolute; right: 1.25rem; top: 1.6rem; width: min(250px, 28vw); height: auto; pointer-events: none; }
 .mbow { stroke-dasharray: 1; animation: bow-draw 1.3s cubic-bezier(.45, 0, .2, 1) backwards; animation-delay: calc(.15s + var(--i) * .08s); }
 .mini-sun { transform-box: fill-box; transform-origin: center; animation: pop .9s cubic-bezier(.3, 1.6, .5, 1) .9s backwards; }

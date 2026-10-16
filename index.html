@@ -33,6 +33,18 @@ if(b)b.addEventListener('click',function(){
   b.setAttribute('aria-pressed',off?'true':'false');
   if(v){if(off)v.pause();else v.play().catch(function(){});}
 });
+var s=document.getElementById('sound-toggle');
+if(s&&v){
+  var mIcon=s.querySelector('.icon-muted'),uIcon=s.querySelector('.icon-unmuted');
+  s.addEventListener('click',function(){
+    v.muted=!v.muted;
+    if(!v.muted&&!d.classList.contains('motion-off'))v.play().catch(function(){});
+    s.setAttribute('aria-pressed',v.muted?'false':'true');
+    s.setAttribute('aria-label',v.muted?'Zapnout zvuk':'Vypnout zvuk');
+    if(mIcon)mIcon.hidden=!v.muted;
+    if(uIcon)uIcon.hidden=v.muted;
+  });
+}
 }catch(e){d.classList.remove('js');}});
 })();
 </script>
@@ -64,7 +76,11 @@ if(b)b.addEventListener('click',function(){
     <div class="scene-wrap rise" style="--d:.3s">
       <div class="scene"><video id="hero-video" class="scene-video" autoplay muted loop playsinline preload="metadata" poster="/assets/img/uvod-poster.webp" aria-hidden="true">
         <source src="/assets/video/uvod.mp4" type="video/mp4">
-      </video></div>
+      </video>
+      <button type="button" class="sound-toggle" id="sound-toggle" aria-pressed="false" aria-label="Zapnout zvuk">
+        <svg class="icon-muted" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 5V4L7 9H3z" fill="currentColor"/><line x1="16" y1="9" x2="22" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="22" y1="9" x2="16" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg class="icon-unmuted" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M3 9v6h4l5 5V4L7 9H3z" fill="currentColor"/><path d="M16 8a5 5 0 0 1 0 8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M18.5 5.5a9 9 0 0 1 0 13" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </button></div>
       <button type="button" class="motion-toggle" id="motion-toggle" aria-pressed="false">Zastavit animaci</button>
     </div>
   </div>

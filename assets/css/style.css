@@ -82,6 +82,13 @@ p { margin: 0 0 1rem; }
   box-shadow: 0 28px 50px -22px rgba(27, 42, 65, .5), 0 0 0 1px rgba(27, 42, 65, .06);
 }
 .scene-svg, .scene-video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.sound-toggle {
+  position: absolute; top: .7rem; right: .7rem; width: 2.5rem; height: 2.5rem; padding: 0;
+  display: grid; place-items: center; border: 1.5px solid rgba(255, 255, 255, .85); border-radius: 50%;
+  background: rgba(27, 42, 65, .55); color: #fff; cursor: pointer; backdrop-filter: blur(2px);
+}
+.sound-toggle:hover { background: rgba(27, 42, 65, .8); }
+.sound-toggle svg { width: 1.3rem; height: 1.3rem; }
 .loop-line { display: block; margin: 1.6rem 0 0; }
 .motion-toggle {
   font: inherit; font-size: .85rem; color: var(--ink-soft); background: transparent; cursor: pointer;

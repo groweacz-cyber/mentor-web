@@ -42,6 +42,18 @@ if(b)b.addEventListener('click',function(){
   b.setAttribute('aria-pressed',off?'true':'false');
   if(v){if(off)v.pause();else v.play().catch(function(){});}
 });
+var s=document.getElementById('sound-toggle');
+if(s&&v){
+  var mIcon=s.querySelector('.icon-muted'),uIcon=s.querySelector('.icon-unmuted');
+  s.addEventListener('click',function(){
+    v.muted=!v.muted;
+    if(!v.muted&&!d.classList.contains('motion-off'))v.play().catch(function(){});
+    s.setAttribute('aria-pressed',v.muted?'false':'true');
+    s.setAttribute('aria-label',v.muted?'Zapnout zvuk':'Vypnout zvuk');
+    if(mIcon)mIcon.hidden=!v.muted;
+    if(uIcon)uIcon.hidden=v.muted;
+  });
+}
 }catch(e){d.classList.remove('js');}});
 })();
 </script>

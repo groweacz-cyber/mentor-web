@@ -188,6 +188,11 @@ p { margin: 0 0 1rem; }
 .btn:active { transform: translateY(0); }
 .btn-ghost { background: transparent; box-shadow: none; }
 .btn-ghost:hover { background: var(--ink); color: #fff; box-shadow: none; }
+.btn.placeholder {
+  background: #fff3cd; border: 2px dashed #8a6d00; color: #4a3a00; box-shadow: none; cursor: default;
+  font-weight: 700; font-size: .92rem;
+}
+.btn.placeholder:hover { transform: none; background: #fff3cd; color: #4a3a00; }
 
 /* ===== Karty, pilíře, smyčka ===== */
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.1rem; margin: 1.2rem 0; }

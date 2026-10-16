@@ -21,6 +21,7 @@ assets/img/kontakt-ilustrace.webp  Ilustrace na stránce Kontakt
 assets/img/clanky/druhy-ocd.webp   Obrázek k článku „Druhy OCD“
 clanky/druhy-ocd-9-typu/        Článek (Article + FAQPage JSON-LD)
 clanky/proc-ujisteni-krmi-ocd/  Článek (Article JSON-LD)
+clanky/proc-nutkani-prichazi-ve-vlnach/  Článek (Article JSON-LD)
 sitemap.xml  robots.txt  vercel.json
 ```
 

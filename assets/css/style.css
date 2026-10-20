@@ -194,6 +194,20 @@ p { margin: 0 0 1rem; }
 }
 .btn.placeholder:hover { transform: none; background: #fff3cd; color: #4a3a00; }
 
+.btn-cta {
+  color: #fff; background: linear-gradient(135deg, #2a7f5b, #1f6b46); border-color: #163a41;
+  padding: .75rem 1.7rem; font-size: 1.05rem; box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 0 rgba(91, 191, 138, .6);
+  animation: cta-glow 2.6s ease-in-out infinite;
+}
+.btn-cta:hover { color: #fff; box-shadow: 0 16px 30px -10px rgba(31, 107, 70, .7), 0 0 0 0 rgba(91, 191, 138, .6); }
+.btn-cta span { margin-left: .3rem; transition: transform .2s ease; }
+.btn-cta:hover span { transform: translateX(3px); }
+.btn-cta.placeholder { color: #4a3a00; background: #fff3cd; border-color: #8a6d00; animation: none; box-shadow: none; }
+@keyframes cta-glow {
+  0%, 100% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 0 rgba(91, 191, 138, .5); }
+  50% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 9px rgba(91, 191, 138, 0); }
+}
+
 /* ===== Karty, pilíře, smyčka ===== */
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.1rem; margin: 1.2rem 0; }
 .card {

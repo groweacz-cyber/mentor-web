@@ -41,7 +41,7 @@ Otevřete adresu, kterou příkaz vypíše (obvykle http://localhost:3000).
 
 ## Placeholdery k doplnění
 
-E-mail (`ocdmentor@gmail.com`), doména (`ocdmentor.cz`), IČ (`87690772`), značka (`OCD mentor`), jméno autora (Václav Kodeš, i v `Person` strukturovaných datech), zásady ochrany osobních údajů a rezervace konzultace (oficiální widget Reservanto, id 25616, na úvodní stránce) už jsou doplněné. Zbývá: žlutě označené bloky `placeholder` (příběh, aktuální stav, výcvik, supervize, stížnosti, české zdroje odborné péče, telefon/rezervace) a `[DATUM]` (datum poslední kontroly obsahu na stránkách Metoda a Pro koho).
+E-mail (`ocdmentor@gmail.com`), doména (`ocdmentor.cz`), IČ (`87690772`), značka (`OCD mentor`), jméno autora (Václav Kodeš, i v `Person` strukturovaných datech), zásady ochrany osobních údajů a rezervace konzultace (oficiální widget Reservanto, id 25616, na úvodní stránce) už jsou doplněné. Telefon se na webu záměrně neuvádí. Zbývá: žlutě označené bloky `placeholder` (příběh, aktuální stav, výcvik, supervize, stížnosti, české zdroje odborné péče) a `[DATUM]` (datum poslední kontroly obsahu na stránkách Metoda a Pro koho).
 
 Zásady ochrany osobních údajů jsou napsané podle skutečného zpracování na webu (žádný server, žádné cookies). Doporučuji je nechat ještě zkontrolovat právníkem, než web ostře spustíte.
 

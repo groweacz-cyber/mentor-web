@@ -186,6 +186,25 @@ if(s&&v){
   </div>
 </footer>
 
+<dialog id="rsv-modal" aria-labelledby="rsv-modal-h" aria-modal="true">
+  <div class="rsv-inner">
+    <h2 id="rsv-modal-h">Zahájení služby a právo na odstoupení od smlouvy</h2>
+    <div class="rsv-text">
+      <p>Jako spotřebitel máte za zákonem stanovených podmínek právo odstoupit od smlouvy uzavřené na dálku ve lhůtě 14 dnů od jejího uzavření.</p>
+      <p>Pokud požadujete poskytnutí služby před uplynutím této lhůty, je nutné udělit výslovný požadavek na její zahájení. Pokud následně od smlouvy odstoupíte poté, co bylo poskytování služby na vaši žádost zahájeno, můžete být povinni uhradit poměrnou část ceny za plnění poskytnuté do okamžiku odstoupení, jsou-li splněny zákonné podmínky.</p>
+      <p>Pokud bude služba v plném rozsahu poskytnuta před uplynutím lhůty pro odstoupení, můžete za zákonem stanovených podmínek ztratit právo na odstoupení od smlouvy. K tomu je zapotřebí váš předchozí výslovný souhlas s úplným poskytnutím služby a potvrzení, že berete na vědomí zánik práva na odstoupení.</p>
+    </div>
+    <label class="rsv-check">
+      <input type="checkbox" id="rsv-consent">
+      <span>Výslovně žádám, aby poskytovatel zahájil poskytování mnou rezervované služby před uplynutím 14denní lhůty pro odstoupení od smlouvy, pokud se rezervovaný termín uskuteční v této lhůtě. Souhlasím s tím, aby byla služba na mou žádost v takovém případě poskytnuta v plném rozsahu před uplynutím této lhůty, a beru na vědomí, že po jejím úplném poskytnutí mohu za zákonem stanovených podmínek ztratit právo na odstoupení od smlouvy. Dále beru na vědomí, že při odstoupení od smlouvy po zahájení poskytování služby mohu být povinen/povinna uhradit poměrnou část ceny za již poskytnuté plnění, pokud jsou splněny zákonné podmínky.</span>
+    </label>
+    <div class="rsv-actions">
+      <button type="button" id="rsv-confirm" class="btn btn-cta" disabled>Souhlasím a pokračovat k rezervaci</button>
+      <button type="button" id="rsv-cancel" class="btn btn-ghost">Zpět</button>
+    </div>
+  </div>
+</dialog>
+<script defer src="/assets/js/rezervace-souhlas.js"></script>
 
 
 </body>

@@ -9,6 +9,7 @@ index.html                      Úvod
 metoda/ pro-koho/ dotaznik/
 o-mne/ clanky/ kontakt/
 ochrana-osobnich-udaju/         Zásady ochrany osobních údajů (GDPR), vyplněné
+obchodni-podminky/              Obchodní podmínky (účinné od 1. 12. 2026)
 404.html
 sablony/clanek.html             Šablona nového článku (noindex, nezveřejňovat)
 assets/css/style.css
@@ -42,9 +43,11 @@ Otevřete adresu, kterou příkaz vypíše (obvykle http://localhost:3000).
 
 ## Placeholdery k doplnění
 
-E-mail (`ocdmentor@gmail.com`), doména (`ocdmentor.cz`), IČ (`87690772`), značka (`OCD mentor`), jméno autora (Václav Kodeš, i v `Person` strukturovaných datech), zásady ochrany osobních údajů a rezervace konzultace (oficiální widget Reservanto, id 25616, na úvodní stránce) už jsou doplněné. Telefon se na webu záměrně neuvádí. Sekce o supervizi a stížnostech byla ze stránky O mně odstraněna. Zbývá: žlutě označené bloky `placeholder` (příběh, aktuální stav, výcvik, české zdroje odborné péče) a `[DATUM]` (datum poslední kontroly obsahu na stránkách Metoda a Pro koho).
+E-mail (`ocdmentor@gmail.com`), doména (`ocdmentor.cz`), IČ (`87690772`), značka (`OCD mentor`), jméno a sídlo autora (Bc. Václav Kodeš, Strážkovice 128, 374 01 Trhové Sviny — i v `Person` strukturovaných datech a na stránce Kontakt), zásady ochrany osobních údajů, obchodní podmínky a rezervace konzultace (oficiální widget Reservanto, id 25616, na úvodní stránce) už jsou doplněné. Telefon se na webu záměrně neuvádí. Sekce o supervizi a stížnostech byla ze stránky O mně odstraněna. Zbývá: žlutě označené bloky `placeholder` (příběh, aktuální stav, výcvik, české zdroje odborné péče) a `[DATUM]` (datum poslední kontroly obsahu na stránkách Metoda a Pro koho).
 
-Zásady ochrany osobních údajů jsou napsané podle skutečného zpracování na webu (žádný server, žádné cookies). Doporučuji je nechat ještě zkontrolovat právníkem, než web ostře spustíte.
+V obchodních podmínkách (`/obchodni-podminky`) jsou dva viditelné bloky k doplnění/ověření: `[DPH: ...]` v části 3 (zda poskytovatel je/není plátce DPH a jak to na stránce uvést) a `[K OVĚŘENÍ: ...]` v části 6 (zda proces rezervace v Reservantu u blízkých termínů skutečně žádá souhlas se zahájením služby před uplynutím lhůty pro odstoupení a poučuje o důsledcích podle § 1834 a § 1837 písm. a) občanského zákoníku — nepodařilo se ověřit automatizovanou kontrolou webu, vyžaduje ruční kontrolu v Reservantu, ideálně i právníkem).
+
+Zásady ochrany osobních údajů a obchodní podmínky jsou napsané podle skutečného zpracování a nabídky na webu. Doporučuji obojí nechat ještě zkontrolovat právníkem, než web ostře spustíte.
 
 ## Před ostrým spuštěním
 

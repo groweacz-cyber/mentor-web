@@ -24,9 +24,8 @@
     var btn = pending;
     resetModal();
     modal.close();
-    if (btn) {
-      btn._rsvOk = true;
-      btn.click();
+    if (btn && typeof btn.onclick === 'function') {
+      btn.onclick.call(btn);
     }
   });
 
@@ -44,7 +43,6 @@
   document.addEventListener('click', function (e) {
     var btn = e.target.closest ? e.target.closest('.reservanto-button') : null;
     if (!btn) return;
-    if (btn._rsvOk) { btn._rsvOk = false; return; }
     e.stopImmediatePropagation();
     e.preventDefault();
     pending = btn;

@@ -45,8 +45,8 @@
     if (!btn) return;
     e.stopImmediatePropagation();
     e.preventDefault();
-    pending = btn;
-    resetModal();
+    resetModal();   // reset state first (clears pending, unchecks, disables)
+    pending = btn;  // then store reference — after reset so it isn't cleared
     modal.showModal();
   }, true);
 }());

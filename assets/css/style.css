@@ -374,6 +374,9 @@ html.motion-off *, html.motion-off *::before, html.motion-off *::after { animati
 html.motion-off .reveal { opacity: 1 !important; transform: none !important; }
 @media print { .notice, .site-header, .skip, .scene-wrap, .head-art { display: none; } .reveal { opacity: 1 !important; transform: none !important; } }
 
+/* ===== Reservanto widget button — normalize size to match .btn ===== */
+.reservanto-button { min-height: 2.9rem !important; padding: .6rem 1.4rem !important; font-size: 1rem !important; font-weight: 800 !important; border-radius: 999px !important; }
+
 /* ===== Modál: souhlas před rezervací (Reservanto) ===== */
 #rsv-modal {
   border: none; border-radius: var(--radius); padding: 0;

@@ -17,9 +17,24 @@
     }
   ],
   "cenik": [
-    { "nazev": "Úvodní konzultace", "delka": "20 min", "cena": "zdarma", "poznamka": "" },
-    { "nazev": "Sezení", "delka": "50 min", "cena": "490 Kč", "poznamka": "" },
-    { "nazev": "Balíček 2 sezení", "delka": "2× 50 min", "cena": "880 Kč", "poznamka": "místo 980 Kč, sleva 10 %" }
+    {
+      "nazev": "Úvodní konzultace",
+      "delka": "20 min",
+      "cena": "zdarma",
+      "poznamka": ""
+    },
+    {
+      "nazev": "Sezení",
+      "delka": "50 min",
+      "cena": "490 Kč",
+      "poznamka": ""
+    },
+    {
+      "nazev": "Balíček 2 sezení",
+      "delka": "2× 50 min",
+      "cena": "880 Kč",
+      "poznamka": "místo 980 Kč, sleva 10 %"
+    }
   ],
   "faq": [
     {
@@ -32,7 +47,7 @@
     },
     {
       "q": "Jak probíhá online sezení?",
-      "a": "Přes videohovor ([PLATFORMA]), z domova nebo odkudkoli, kde máte klid. Stačí počítač nebo telefon se sluchátky."
+      "a": "Přes videohovor (WhatsApp), z domova nebo odkudkoli, kde máte klid. Stačí počítač nebo telefon se sluchátky."
     },
     {
       "q": "Kolik to stojí a jak se platí?",
@@ -40,7 +55,7 @@
     },
     {
       "q": "Můžu termín zrušit nebo přesunout?",
-      "a": "[STORNO PODMÍNKY]"
+      "a": "Zrušení termínu alespoň 24 hodin před jeho začátkem je bezplatné. Změna termínu závisí na dostupnosti a vzájemné dohodě. Pokud placené sezení zrušíte méně než 24 hodin předem nebo se k němu bez omluvy nedostavíte, může si poskytovatel ponechat uhrazenou cenu jako kompenzaci za rezervovaný čas. Termín zrušíte nebo změníte přímo v Reservantu nebo e-mailem na ocdmentor@gmail.com."
     },
     {
       "q": "Je to důvěrné?",

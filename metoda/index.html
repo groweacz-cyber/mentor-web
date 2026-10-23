@@ -95,12 +95,23 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 
 <section class="wrap block reveal">
   <h2>Čtyři pilíře</h2>
+  <div class="pillars-layout">
+    <div class="loop-rail" id="smycka" aria-hidden="true">
+      <svg viewBox="0 0 140 640" preserveAspectRatio="xMidYMid meet" focusable="false">
+        <path class="lp-seg" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path class="lp-seg" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path class="lp-seg" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path class="lp-seg" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle class="lp-dot" r="5" cx="0" cy="0" fill="#f5923e" opacity="0"/>
+      </svg>
+    </div>
   <ol class="pillars">
     <li><h3>Bezpodmínečné sebepřijetí</h3><p>Přijímám sebe celého: včetně OCD, myšlenek, úzkosti i nejistoty. Nemusím je mít rád. Přestávám s nimi bojovat jako s nepřítelem.</p></li>
     <li><h3>Sebevíra</h3><p>„Ať se stane cokoli, obstojím.“ Sebevíra se nebuduje afirmacemi. Buduje se zvládnutými situacemi: každá expozice, ve které zůstanete, je důkaz.</p></li>
     <li><h3>Expozice bez kompulze</h3><p>Strach může být přítomen a já přesto jednám. Kompulzi, tedy reakci, která má strach rychle zmírnit, neprovedu.</p></li>
     <li><h3>Život teď</h3><p>Cílová vize popisuje život, který chcete žít. Nepopisuje „život bez nemoci“. Žít začínáte už teď, ne až po úlevě.</p></li>
   </ol>
+  </div>
 </section>
 
 <section class="wrap block reveal">
@@ -189,7 +200,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   </div>
 </dialog>
 <script defer src="/assets/js/rezervace-souhlas.js?v=3"></script>
-
+<script src="/assets/js/smycka.js" defer></script>
 
 </body>
 </html>

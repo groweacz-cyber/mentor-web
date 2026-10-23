@@ -435,3 +435,33 @@ html.motion-off .reveal { opacity: 1 !important; transform: none !important; }
   .rsv-actions { flex-direction: column; align-items: stretch; }
   .rsv-actions .btn { width: 100%; justify-content: center; }
 }
+
+/* ===== Interaktivní prvky: smyčka na /metoda, self-check a princip dne na úvodní ===== */
+html:not(.js) .js-only { display: none; }
+
+.pillars-layout { display: grid; grid-template-columns: 7.5rem 1fr; gap: 1.5rem; align-items: start; }
+.loop-rail { position: sticky; top: 5.5rem; height: min(56vh, 22rem); }
+.loop-rail svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.lp-seg { transition: stroke-width .3s ease, opacity .3s ease; }
+@media (max-width: 56rem) {
+  .pillars-layout { display: block; }
+  .loop-rail { top: .4rem; height: 3.6rem; z-index: 5; margin: 0 0 .8rem; padding: .2rem .6rem; background: rgba(251, 247, 239, .98); border: 1px solid var(--line); border-radius: 14px; }
+}
+
+.sc-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.6rem 1.5rem 1.3rem; max-width: 44rem; }
+.sc-card h2 { margin-top: 0; }
+.sc-card .field { margin: .6rem 0 0; }
+.sc-ends { display: flex; justify-content: space-between; margin: .1rem 0 0; }
+.sc-msg { font-size: 1.2rem; font-weight: 700; line-height: 1.45; color: var(--ink); margin: 1rem 0 0; min-height: 1.5rem; }
+.sc-msg:not(:empty) { animation: rise .5s cubic-bezier(.2, .7, .2, 1) backwards; }
+.sc-cta { margin-top: 1rem; }
+.sc-cta[hidden] { display: none; }
+.sc-note { margin: 1.1rem 0 0; color: var(--ink-soft); }
+
+.pd-card { max-width: 44rem; }
+.pd-card .eyebrow { margin: 0 0 .6rem; }
+.pd-body { transition: opacity .28s ease; }
+.pd-body.is-fading { opacity: 0; }
+.pd-num { margin: 0 0 .3rem; font-size: .88rem; color: var(--ink-soft); font-weight: 600; }
+.pd-text { margin: 0; font-size: 1.35rem; font-weight: 700; line-height: 1.4; color: var(--ink); }
+.pd-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.2rem; margin-top: 1.1rem; }

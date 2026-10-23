@@ -111,6 +111,40 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   <div class="wrap"><svg class="loop-line" viewBox="0 0 600 60" width="600" height="60" aria-hidden="true" focusable="false"><defs><linearGradient id="gLoop" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#5b6fd6"/><stop offset=".3" stop-color="#4aa3df"/><stop offset=".55" stop-color="#5bbf8a"/><stop offset=".78" stop-color="#fcc934"/><stop offset="1" stop-color="#f5923e"/></linearGradient></defs><path pathLength="1" d="M0 44 H150 C205 44 225 6 192 5 C155 4 163 44 205 44 H600" fill="none" stroke="url(#gLoop)" stroke-width="3" stroke-linecap="round"/></svg></div>
 </section>
 
+<section class="wrap block reveal selfcheck js-only" aria-labelledby="sc-h">
+  <div class="sc-card">
+    <h2 id="sc-h">Jak moc vás dnes nutkání ovládá?</h2>
+    <div class="field">
+      <div class="range">
+        <input type="range" id="sc-range" name="sc" min="0" max="10" step="1" value="5" aria-labelledby="sc-h" aria-describedby="sc-ends" aria-valuetext="5 z 10">
+        <output for="sc-range" id="sc-out">5</output><span class="of">/ 10</span>
+      </div>
+      <p class="hint sc-ends" id="sc-ends"><span>0 = vůbec</span><span>10 = naprosto</span></p>
+    </div>
+    <p class="sc-msg" id="sc-msg" aria-live="polite"></p>
+    <div class="cta sc-cta" id="sc-cta" hidden>
+      <a class="btn btn-ghost" href="/dotaznik">Vyplnit vstupní dotazník</a>
+      <a class="btn btn-cta" id="sc-book" href="/kontakt">Rezervovat úvodní konzultaci zdarma</a>
+    </div>
+    <p class="small sc-note">Nejde o test ani diagnózu. Pokud jste v akutní krizi, volejte 112 nebo Linku první psychické pomoci 116 123.</p>
+  </div>
+</section>
+
+<section class="wrap block reveal principle js-only" aria-labelledby="pd-h">
+  <article class="card pd-card">
+    <p class="eyebrow" id="pd-h">Princip dne</p>
+    <div class="pd-body">
+      <p class="pd-num" id="pd-num"></p>
+      <p class="pd-text" id="pd-text"></p>
+    </div>
+    <div class="pd-actions">
+      <button type="button" class="btn btn-ghost btn-sm" id="pd-next">Další princip</button>
+      <a href="/metoda">Více o metodě</a>
+    </div>
+  </article>
+  <script defer src="/assets/js/principy.js"></script>
+</section>
+
 <section class="wrap block reveal">
   <h2>S čím můžeme pracovat</h2>
   <p>S OCD: s obsesemi a kompulzemi, které berou čas a energii. Postupně se učíte nechat strach být a nereagovat na něj rituálem. <a href="/metoda">Jak metoda funguje</a> a <a href="/pro-koho">pro koho je</a>.</p>
@@ -206,7 +240,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   </div>
 </dialog>
 <script defer src="/assets/js/rezervace-souhlas.js?v=3"></script>
-
+<script src="/assets/js/uvod.js" defer></script>
 
 </body>
 </html>

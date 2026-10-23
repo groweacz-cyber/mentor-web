@@ -581,3 +581,6 @@ html:not(.js) .js-only { display: none; }
 .faq details[open] summary::after { content: "−"; }
 .faq summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 8px; }
 .faq details p { margin: 0 0 1rem; }
+
+.price-cards .card { display: flex; flex-direction: column; }
+.price-book { margin-top: auto; padding-top: 1rem; }

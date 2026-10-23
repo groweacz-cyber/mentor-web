@@ -75,7 +75,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 <header class="site-header">
   <div class="wrap bar">
     <a class="brand" href="/"><svg class="brand-sun" viewBox="-16 -16 32 32" width="28" height="28" aria-hidden="true" focusable="false"><g stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round"><line y1="-10" y2="-14" transform="rotate(0)"/><line y1="-10" y2="-14" transform="rotate(45)"/><line y1="-10" y2="-14" transform="rotate(90)"/><line y1="-10" y2="-14" transform="rotate(135)"/><line y1="-10" y2="-14" transform="rotate(180)"/><line y1="-10" y2="-14" transform="rotate(225)"/><line y1="-10" y2="-14" transform="rotate(270)"/><line y1="-10" y2="-14" transform="rotate(315)"/></g><circle r="6.5" fill="#ffc83d" stroke="#f59e0b" stroke-width="1.5"/></svg><span>OCD mentor</span></a>
-    <nav aria-label="Hlavní navigace"><ul><li><a href="/metoda">Metoda</a></li><li><a href="/pro-koho">Pro koho</a></li><li><a href="/dotaznik">Dotazník</a></li><li><a href="/aplikace">Aplikace</a></li><li class="has-sub">
+    <nav aria-label="Hlavní navigace"><ul><li><a href="/metoda">Metoda</a></li><li><a href="/pro-koho">Pro koho</a></li><li><a href="/jak-to-probiha">Jak to probíhá</a></li><li><a href="/dotaznik">Dotazník</a></li><li><a href="/aplikace">Aplikace</a></li><li class="has-sub">
           <button type="button" class="nav-sub-toggle" aria-expanded="false">Online semináře a kurzy</button>
           <ul class="sub-nav"><li><a href="/seminare">Online semináře</a></li><li><a href="/kurz">Online kurz</a></li></ul>
         </li><li><a href="/ebook">E-book</a></li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
@@ -111,6 +111,16 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   <div class="wrap"><svg class="loop-line" viewBox="0 0 600 60" width="600" height="60" aria-hidden="true" focusable="false"><defs><linearGradient id="gLoop" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#5b6fd6"/><stop offset=".3" stop-color="#4aa3df"/><stop offset=".55" stop-color="#5bbf8a"/><stop offset=".78" stop-color="#fcc934"/><stop offset="1" stop-color="#f5923e"/></linearGradient></defs><path pathLength="1" d="M0 44 H150 C205 44 225 6 192 5 C155 4 163 44 205 44 H600" fill="none" stroke="url(#gLoop)" stroke-width="3" stroke-linecap="round"/></svg></div>
 </section>
 
+<section class="wrap block reveal loopsec js-only" aria-labelledby="lp-h">
+  <h2 id="lp-h">Poznáváte se v tom?</h2>
+  <p class="lp-intro">OCD se točí pořád ve stejné smyčce. Klikněte na kteroukoli fázi a uvidíte, co se v ní děje a jak ji metoda přerušuje.</p>
+  <div id="lp-root"></div>
+  <p class="small disclaimer lp-note">Nejde o diagnózu. Pokud se v tom poznáváte, probírejte to s odborníkem. Já vám rád dám podporu vedle něj.</p>
+  <p><a class="btn btn-cta" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a></p>
+  <script defer src="/assets/js/smycka-faze.js"></script>
+  <script defer src="/assets/js/smycka-kruh.js"></script>
+</section>
+
 <section class="wrap block reveal selfcheck js-only" aria-labelledby="sc-h">
   <div class="sc-card">
     <h2 id="sc-h">Jak moc vás dnes nutkání ovládá?</h2>
@@ -124,10 +134,28 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
     <p class="sc-msg" id="sc-msg" aria-live="polite"></p>
     <div class="cta sc-cta" id="sc-cta" hidden>
       <a class="btn btn-ghost" href="/dotaznik">Vyplnit vstupní dotazník</a>
-      <a class="btn btn-cta" id="sc-book" href="/kontakt">Rezervovat úvodní konzultaci zdarma</a>
+      <a class="btn btn-cta" id="sc-book" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a>
     </div>
     <p class="small sc-note">Nejde o test ani diagnózu. Pokud jste v akutní krizi, volejte 112 nebo Linku první psychické pomoci 116 123.</p>
   </div>
+</section>
+
+<section class="wrap block reveal">
+  <h2>Jak to probíhá</h2>
+  <ol class="route route--row">
+  <li><h3>Úvodní konzultace zdarma</h3><p class="route-meta">20 min, online</p><p>Seznámíme se, řeknete mi, s čím přicházíte, a zjistíme, jestli vám tahle forma podpory sedí.</p></li>
+  <li><h3>Vstupní dotazník</h3><p>Zmapujeme témata, kompulze a dopad na život. Z toho postavíme žebřík od nejslabšího tématu a vybereme cestu: Metal, Pop, nebo něco mezi.</p></li>
+  <li><h3>Pravidelná sezení</h3><p class="route-meta">50 min, online</p><p>Kroky mezi sezeními, podpora a sledování pokroku. Vedle péče odborníka, ne místo ní.</p></li>
+</ol>
+  <p><a href="/jak-to-probiha">Ceník a časté dotazy</a></p>
+</section>
+
+<section class="wrap block reveal">
+  <article class="card kviz-teaser">
+    <h3>Metal, nebo Pop?</h3>
+    <p>Zjistěte za minutu, která cesta vám sedí.</p>
+    <p><a class="btn btn-ghost btn-sm" href="/kviz">Spustit kvíz</a></p>
+  </article>
 </section>
 
 <section class="wrap block reveal principle js-only" aria-labelledby="pd-h">

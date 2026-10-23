@@ -1,0 +1,54 @@
+{
+  "kroky": [
+    {
+      "nazev": "Úvodní konzultace zdarma",
+      "meta": "20 min, online",
+      "text": "Seznámíme se, řeknete mi, s čím přicházíte, a zjistíme, jestli vám tahle forma podpory sedí."
+    },
+    {
+      "nazev": "Vstupní dotazník",
+      "meta": "",
+      "text": "Zmapujeme témata, kompulze a dopad na život. Z toho postavíme žebřík od nejslabšího tématu a vybereme cestu: Metal, Pop, nebo něco mezi."
+    },
+    {
+      "nazev": "Pravidelná sezení",
+      "meta": "50 min, online",
+      "text": "Kroky mezi sezeními, podpora a sledování pokroku. Vedle péče odborníka, ne místo ní."
+    }
+  ],
+  "cenik": [
+    { "nazev": "Úvodní konzultace", "delka": "20 min", "cena": "zdarma", "poznamka": "" },
+    { "nazev": "Sezení", "delka": "50 min", "cena": "490 Kč", "poznamka": "" },
+    { "nazev": "Balíček 2 sezení", "delka": "2× 50 min", "cena": "880 Kč", "poznamka": "místo 980 Kč, sleva 10 %" }
+  ],
+  "faq": [
+    {
+      "q": "Jaký je rozdíl mezi peer mentorem a terapeutem?",
+      "a": "Psycholog nebo psychoterapeut diagnostikuje a léčí. Peer mentor má s OCD vlastní zkušenost a provází vás vedle odborné péče: pomáhá s motivací, s kroky mezi sezeními a sdílí, co funguje. Nediagnostikuji, neléčím a neradím s léky."
+    },
+    {
+      "q": "Potřebuji diagnózu nebo terapeuta?",
+      "a": "Na úvodní konzultaci ne. Pro pravidelnou spolupráci je ale důležité být v péči odborníka nebo se do ní aktivně objednávat. Pokud nevíte, kam se obrátit, pomohu vám zorientovat se."
+    },
+    {
+      "q": "Jak probíhá online sezení?",
+      "a": "Přes videohovor ([PLATFORMA]), z domova nebo odkudkoli, kde máte klid. Stačí počítač nebo telefon se sluchátky."
+    },
+    {
+      "q": "Kolik to stojí a jak se platí?",
+      "a": "Úvodní konzultace (20 min) je zdarma. Sezení (50 min) stojí 490 Kč, balíček dvou sezení 880 Kč. Platí se online při rezervaci."
+    },
+    {
+      "q": "Můžu termín zrušit nebo přesunout?",
+      "a": "[STORNO PODMÍNKY]"
+    },
+    {
+      "q": "Je to důvěrné?",
+      "a": "Co na sezení zazní, zůstává mezi námi. Výjimkou je jen situace, kdy by bylo vážně ohroženo vaše nebo cizí zdraví či život. Osobní údaje zpracovávám podle GDPR, podrobnosti najdete v zásadách ochrany osobních údajů."
+    },
+    {
+      "q": "Kdy peer mentoring nestačí?",
+      "a": "Při akutní krizi, myšlenkách na sebevraždu nebo sebepoškození, závažné depresi nebo psychóze patří péče do rukou odborníka. V akutní krizi volejte 112 nebo Linku první psychické pomoci 116 123."
+    }
+  ]
+}

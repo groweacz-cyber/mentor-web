@@ -468,3 +468,116 @@ html:not(.js) .js-only { display: none; }
 
 /* Upozornění „není zdravotní služba / nenahrazuje odbornou péči“ kurzívou */
 .notice, .foot-notice, .foot-disclaimer, .note, .sc-note, .disclaimer { font-style: italic; }
+
+/* ===== Interaktivní smyčka OCD (úvodní stránka) ===== */
+.lp-intro { max-width: 44rem; }
+.lp-grid { display: grid; grid-template-columns: minmax(0, 34rem) minmax(0, 1fr); gap: 2rem; align-items: center; margin: 1.2rem 0; }
+.lp-circle { position: relative; width: 100%; max-width: 34rem; aspect-ratio: 1; }
+.lp-ring { position: absolute; inset: 0; width: 100%; height: 100%; }
+.lp-arc { fill: none; stroke: #c9bfa8; stroke-width: .7; }
+.lp-arc-break { stroke: var(--o); stroke-dasharray: 2.2 2.2; stroke-width: .9; }
+.lp-head { fill: var(--ink-soft); }
+.lp-head-break { fill: var(--o); }
+.lp-center { position: absolute; left: 50%; top: 50%; width: 38%; transform: translate(-50%, -50%); margin: 0; text-align: center; font-weight: 700; font-size: 1.05rem; line-height: 1.35; color: var(--ink); }
+.lp-node {
+  position: absolute; transform: translate(-50%, -50%); width: 24%; min-height: 2.7rem; padding: .35rem .45rem;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .05rem;
+  font: inherit; font-weight: 700; font-size: .8rem; line-height: 1.15; text-align: center; cursor: pointer;
+  color: var(--ink); background: var(--surface); border: 2px solid var(--ink); border-radius: 18px; box-shadow: var(--shadow);
+  transition: background .2s, color .2s, border-color .2s;
+}
+.lp-node:hover { background: #f3ead6; }
+.lp-node[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.lp-node:focus-visible, .lp-item:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.lp-num { font-size: .72rem; opacity: .7; }
+.lp-node.is-break { border-color: var(--o); background: #fff3e2; box-shadow: 0 0 0 4px rgba(245, 146, 62, .22); }
+.lp-node.is-break[aria-pressed="true"] { background: #b45309; border-color: #b45309; color: #fff; }
+.lp-node.is-break::after {
+  content: "tady se kruh láme"; position: absolute; top: calc(100% + .3rem); left: 50%; transform: translateX(-50%);
+  white-space: nowrap; font-size: .68rem; font-weight: 700; color: #b45309; background: #fff3e2; padding: .05rem .5rem; border-radius: 99px;
+}
+.lp-panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.3rem 1.4rem; min-height: 12rem; }
+.lp-title { margin: 0 0 .6rem; font-size: 1.35rem; }
+.lp-label { margin: .9rem 0 .15rem; font-size: .82rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-soft); }
+.lp-title + .lp-label { margin-top: 0; }
+.lp-text { margin: 0; font-size: 1.05rem; }
+.lp-controls { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .9rem; }
+.lp-list { display: none; list-style: none; margin: 0; padding: 0; }
+.lp-note { margin: 1rem 0 .8rem; max-width: 44rem; }
+@media (max-width: 64rem) {
+  .lp-grid { grid-template-columns: 1fr; }
+  .lp-circle { margin: 0 auto; }
+}
+@media (max-width: 40rem) {
+  .lp-grid { display: block; }
+  .lp-circle, .lp-side { display: none; }
+  .lp-list { display: block; }
+  .lp-li { display: flex; flex-direction: column; align-items: stretch; }
+  .lp-item {
+    display: flex; align-items: center; gap: .7rem; width: 100%; min-height: 3rem; padding: .55rem 1rem; font: inherit; font-weight: 700; text-align: left; cursor: pointer;
+    color: var(--ink); background: var(--surface); border: 2px solid var(--ink); border-radius: 16px;
+  }
+  .lp-item[aria-pressed="true"] { background: var(--ink); color: #fff; }
+  .lp-li.is-break .lp-item { border-color: var(--o); background: #fff3e2; color: var(--ink); }
+  .lp-li.is-break .lp-item[aria-pressed="true"] { background: #b45309; border-color: #b45309; color: #fff; }
+  .lp-li.is-break .lp-name::after { content: " · tady se kruh láme"; font-weight: 600; font-size: .82rem; }
+  .lp-item .lp-num { display: grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: rgba(255, 255, 255, .22); border: 1px solid currentColor; opacity: 1; font-size: .8rem; }
+  .lp-detail { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: .8rem 1rem 1rem; margin-top: .5rem; }
+  .lp-detail .lp-label:first-child { margin-top: 0; }
+  .lp-down { align-self: center; margin: .35rem 0; font-weight: 800; font-size: 1.1rem; color: var(--ink-soft); }
+}
+
+/* ===== Kvíz Metal, nebo Pop? ===== */
+.kviz-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.6rem 1.5rem 1.4rem; max-width: 44rem; animation: rise .5s cubic-bezier(.2, .7, .2, 1) backwards; }
+.kviz-progress { margin: 0 0 .5rem; font-size: .9rem; font-weight: 700; color: var(--ink-soft); }
+.kviz-bar { height: 8px; border-radius: 99px; background: #ddd6c6; overflow: hidden; margin-bottom: 1.2rem; }
+.kviz-bar span { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--b), var(--o)); transition: width .3s ease; }
+.kviz-q { margin: 0 0 1rem; font-size: 1.4rem; outline: none; }
+.kviz-answers { display: grid; gap: .7rem; }
+.kviz-a {
+  width: 100%; min-height: 3.6rem; padding: .8rem 1.1rem; font: inherit; font-weight: 600; font-size: 1.05rem; line-height: 1.35; text-align: left; cursor: pointer;
+  color: var(--ink); background: var(--bg); border: 2px solid var(--line); border-radius: 16px; transition: border-color .2s, background .2s, transform .15s;
+}
+.kviz-a:hover { border-color: var(--ink); background: #f3ead6; }
+.kviz-a[aria-pressed="true"] { border-color: var(--ink); background: #eef2fb; }
+.kviz-a:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.kviz-back { margin-top: 1.1rem; }
+.kviz-lead { font-size: 1.15rem; font-weight: 700; line-height: 1.5; margin: 0 0 .9rem; }
+.kviz-cesta { margin: 0 0 .9rem; }
+.kviz-result .cta { margin-top: 1.2rem; }
+.kviz-crisis { margin: 1.4rem 0 0; }
+.kviz-teaser { max-width: 36rem; }
+.kviz-teaser h3 { margin-top: 0; }
+
+/* ===== Jak to probíhá: číslovaná cesta, ceník, FAQ ===== */
+.route { list-style: none; counter-reset: r; margin: 1.2rem 0; padding: 0; display: grid; gap: 1.5rem; }
+.route li { counter-increment: r; position: relative; padding-left: 4rem; }
+.route li::before {
+  content: counter(r); position: absolute; left: 0; top: 0; width: 2.8rem; height: 2.8rem; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; color: var(--bt, #fff); background: var(--bd, var(--ink)); box-shadow: 0 8px 16px -8px var(--bd, var(--ink));
+}
+.route li::after { content: ""; position: absolute; left: 1.4rem; top: 3rem; bottom: -1.3rem; width: 0; border-left: 2px dashed #c9bfa8; }
+.route li:last-child::after { display: none; }
+.route li:nth-child(1) { --bd: #4a5fcf; }
+.route li:nth-child(2) { --bd: #2a77b8; }
+.route li:nth-child(3) { --bd: #2a7f5b; }
+.route h3 { margin: 0 0 .15rem; }
+.route p { margin: .2rem 0 0; }
+.route .route-meta { font-weight: 700; font-size: .92rem; color: var(--ink-soft); margin-top: 0; }
+@media (min-width: 48rem) {
+  .route--row { grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+  .route--row li { padding: 3.6rem 0 0; }
+  .route--row li::after { left: 3.2rem; top: 1.4rem; bottom: auto; width: calc(100% - 1.4rem); height: 0; border-left: 0; border-top: 2px dashed #c9bfa8; }
+}
+.price-cards .card h3 { margin-top: 0; }
+.price-cards p { margin: .1rem 0; }
+.price-meta { color: var(--ink-soft); font-weight: 600; }
+.price { font-size: 2rem; font-weight: 800; color: var(--ink); line-height: 1.2; margin-top: .4rem !important; }
+.price-note { font-size: .92rem; color: #1f6b46; font-weight: 700; }
+.faq details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); padding: 0 1.1rem; margin: .7rem 0; max-width: 46rem; }
+.faq summary { cursor: pointer; font-weight: 700; padding: .85rem 0; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-size: 1.4rem; font-weight: 700; color: var(--ink-soft); flex: none; }
+.faq details[open] summary::after { content: "−"; }
+.faq summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 8px; }
+.faq details p { margin: 0 0 1rem; }

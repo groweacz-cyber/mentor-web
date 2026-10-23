@@ -14,7 +14,6 @@
     var out = document.getElementById('sc-out');
     var msg = document.getElementById('sc-msg');
     var cta = document.getElementById('sc-cta');
-    var book = document.getElementById('sc-book');
     var TEXTS = {
       low: 'Dobrý den. I ty se počítají. Sebevíra roste ze zvládnutých chvil.',
       mid: 'Nutkání tu je, a vy přesto čtete dál. To je přesně ten krok, ze kterého roste sebevíra.',
@@ -42,8 +41,12 @@
       if (e.key === 'Home' || e.key === 'End') show();
     });
 
-    // Rezervace jde přes stejný souhlasový krok jako tlačítko Reservanto; bez widgetu se otevře /kontakt.
-    book.addEventListener('click', function (e) {
+  }
+
+  // Rezervace jde přes stejný souhlasový krok jako tlačítko Reservanto; bez widgetu se otevře /kontakt.
+  var bookLinks = document.querySelectorAll('[data-book]');
+  for (var bi = 0; bi < bookLinks.length; bi++) {
+    bookLinks[bi].addEventListener('click', function (e) {
       var widgetBtn = document.querySelector('.reservanto-button');
       if (widgetBtn) {
         e.preventDefault();

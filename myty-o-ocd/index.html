@@ -5,31 +5,76 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mýty o OCD: co je mýtus a co realita | ocdmentor.cz</title>
 <meta name="description" content="Mýty o OCD a jak to opravdu je: pořádkumilovnost, mytí rukou, vtíravé myšlenky i ujišťování. Otočte kartu a přečtěte si realitu.">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://ocdmentor.cz/myty-o-ocd">
 
-
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="cs_CZ">
 <meta property="og:site_name" content="OCD mentor">
 <meta property="og:title" content="Mýty o OCD: co je mýtus a co realita | ocdmentor.cz">
 <meta property="og:description" content="Mýty o OCD a jak to opravdu je: pořádkumilovnost, mytí rukou, vtíravé myšlenky i ujišťování. Otočte kartu a přečtěte si realitu.">
 <meta property="og:url" content="https://ocdmentor.cz/myty-o-ocd">
-<meta property="og:image" content="https://ocdmentor.cz/assets/og/index.png">
+<meta property="og:image" content="https://ocdmentor.cz/assets/og/myty-o-ocd.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Mýty o OCD: co je mýtus a co realita | ocdmentor.cz">
-
+<meta property="article:published_time" content="2026-10-23">
+<meta property="article:modified_time" content="2026-10-23">
+<meta property="article:author" content="https://ocdmentor.cz/o-mne">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Mýty o OCD: co je mýtus a co realita | ocdmentor.cz">
 <meta name="twitter:description" content="Mýty o OCD a jak to opravdu je: pořádkumilovnost, mytí rukou, vtíravé myšlenky i ujišťování. Otočte kartu a přečtěte si realitu.">
-<meta name="twitter:image" content="https://ocdmentor.cz/assets/og/index.png">
+<meta name="twitter:image" content="https://ocdmentor.cz/assets/og/myty-o-ocd.png">
 <meta name="theme-color" content="#1b2a41">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=aa336ee7">
+<link rel="stylesheet" href="/assets/css/style.css?v=4ef61fa4">
 
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Mýty o OCD",
+      "description": "Mýty o OCD a jak to opravdu je: pořádkumilovnost, mytí rukou, vtíravé myšlenky i ujišťování. Otočte kartu a přečtěte si realitu.",
+      "image": "https://ocdmentor.cz/assets/og/myty-o-ocd.png",
+      "datePublished": "2026-10-23",
+      "dateModified": "2026-10-23",
+      "inLanguage": "cs",
+      "author": {
+        "@type": "Person",
+        "name": "Bc. Václav Kodeš",
+        "url": "https://ocdmentor.cz/o-mne"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "OCD mentor",
+        "url": "https://ocdmentor.cz"
+      },
+      "mainEntityOfPage": "https://ocdmentor.cz/myty-o-ocd"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Domů",
+          "item": "https://ocdmentor.cz/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Mýty o OCD",
+          "item": "https://ocdmentor.cz/myty-o-ocd"
+        }
+      ]
+    }
+  ]
+}
+</script>
 <script>
 (function(){var d=document.documentElement;d.classList.add('js');
 try{if(localStorage.getItem('ocd-calm')==='1')d.classList.add('calm');}catch(e){}
@@ -80,7 +125,18 @@ for(var m=0;m<subToggles.length;m++){
     var open=li.classList.toggle('open');
     this.setAttribute('aria-expanded',open?'true':'false');
     closeAllSub(this);
+    if(open)placeSub(li.querySelector('.sub-nav'));
   });
+}
+function placeSub(ul){
+  if(!ul)return;
+  ul.style.left='';ul.style.right='';
+  var r=ul.getBoundingClientRect();
+  if(r.right>innerWidth-8){
+    ul.style.left='auto';ul.style.right='0';
+    r=ul.getBoundingClientRect();
+    if(r.left<8){ul.style.left='0';ul.style.right='auto';}
+  }
 }
 document.addEventListener('click',function(){closeAllSub(null);});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(null);});
@@ -97,7 +153,10 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
     <nav aria-label="Hlavní navigace"><ul><li><a href="/metoda">Metoda</a></li><li><a href="/pro-koho">Pro koho</a></li><li><a href="/jak-to-probiha">Jak to probíhá</a></li><li><a href="/dotaznik">Dotazník</a></li><li><a href="/aplikace">Aplikace</a></li><li class="has-sub">
           <button type="button" class="nav-sub-toggle" aria-expanded="false">Online semináře a kurzy</button>
           <ul class="sub-nav"><li><a href="/seminare">Online semináře</a></li><li><a href="/kurz">Online kurz</a></li></ul>
-        </li><li><a href="/ebook">E-book</a></li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
+        </li><li><a href="/ebook">E-book</a></li><li class="has-sub is-active">
+          <button type="button" class="nav-sub-toggle" aria-expanded="false">O OCD</button>
+          <ul class="sub-nav"><li><a href="/vtirave-myslenky">Vtíravé myšlenky</a></li><li><a href="/typy-ocd">Typy OCD</a></li><li><a href="/myty-o-ocd" aria-current="page">Mýty o OCD</a></li><li><a href="/slovnicek">Slovníček pojmů</a></li><li><a href="/pro-blizke">Pro blízké</a></li><li><a href="/pribehy">Příběhy</a></li></ul>
+        </li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
   </div>
 </header>
 
@@ -105,7 +164,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 <div class="wrap crumbs-wrap"><nav class="crumbs" aria-label="Drobečková navigace"><ol><li><a href="/">Domů</a></li><li aria-current="page">Mýty o OCD</li></ol></nav></div>
 
 <section class="wrap page-head">
-  <p class="draft-badge"><strong>Koncept</strong> Tento text čeká na schválení. Není v navigaci ani ve vyhledávačích.</p>
+  
   <h1>Mýty o OCD</h1>
   <p class="lead">OCD kolem sebe nese spoustu nedorozumění. Klepněte na kartu, otočí se z mýtu na realitu.</p>
   <div class="author-box" data-no-gl>
@@ -174,14 +233,14 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 
 <section class="wrap block reveal prose">
   <h2>Věděli jste?</h2>
-  <aside class="fact"><p><span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-vtirave-myslenky-1">Vtíravé myšlenky</button><span class="gl-pop" id="gl-vtirave-myslenky-1"><strong>Vtíravé myšlenky:</strong> Nechtěné myšlenky, představy nebo nutkání, které se objeví samy a působí rušivě. Zažívá je většina lidí. U OCD se „lepí“, protože na ně člověk reaguje strachem a rituály. <a href="/slovnicek#vtirave-myslenky">Více ve slovníčku</a></span></span> zažívá většina lidí, v mezinárodní studii zhruba 94 %. <span class="fact-src">Zdroj: Radomsky a kol., 2014</span></p></aside>
-  <aside class="fact"><p>OCD má během života přibližně 2,3 % dospělých. <span class="fact-src">Zdroj: Ruscio a kol., 2010, USA</span></p></aside>
+  <aside class="fact"><p><span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-vtirave-myslenky-1">Vtíravé myšlenky</button><span class="gl-pop" id="gl-vtirave-myslenky-1"><strong>Vtíravé myšlenky:</strong> Nechtěné myšlenky, představy nebo nutkání, které se objeví samy a působí rušivě. Zažívá je většina lidí. U OCD se „lepí“, protože na ně člověk reaguje strachem a rituály. <a href="/slovnicek#vtirave-myslenky">Více ve slovníčku</a></span></span> zažívá většina lidí. V mezinárodní studii s 777 vysokoškoláky ze 13 zemí je za poslední tři měsíce hlásilo asi 94 %. <span class="fact-src">Zdroj: Radomsky a kol., 2014</span></p></aside>
+  <aside class="fact"><p>V reprezentativním průzkumu dospělých v USA splnilo kritéria OCD během života asi 2,3 % lidí. <span class="fact-src">Zdroj: Ruscio a kol., 2010, USA</span></p></aside>
 </section>
 
 <section class="wrap block reveal sources">
   <h2>Zdroje</h2>
-  <ul class="rules"><li>Radomsky a kol., 2014</li><li>Ruscio a kol., 2010, USA</li></ul>
-  <p class="placeholder">[ZDROJE: doplní autor, jen důvěryhodné zdroje, které ověří]</p>
+  <ul class="rules"><li>Radomsky A. S. a kol. (2014): <a href="https://doi.org/10.1016/j.jocrd.2013.09.002" target="_blank" rel="noopener">Part 1 – You can run but you can’t hide: Intrusive thoughts on six continents</a>. Journal of <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-obsese-2">Obsessive</button><span class="gl-pop" id="gl-obsese-2"><strong>Obsese:</strong> Opakující se, nechtěná a rušivá myšlenka, představa nebo nutkání, která vyvolává úzkost nebo napětí. Bývá v rozporu s tím, co člověk chce a čemu věří. <a href="/slovnicek#obsese">Více ve slovníčku</a></span></span>-Compulsive and Related Disorders, 3(3), 269–279.</li><li>Ruscio A. M. a kol. (2010): <a href="https://doi.org/10.1038/mp.2008.94" target="_blank" rel="noopener">The epidemiology of obsessive-compulsive disorder in the National Comorbidity Survey Replication</a>. Molecular Psychiatry, 15, 53–63.</li></ul>
+  <p class="small">Odkazy vedou na externí weby mimo OCD mentor. Zdroje podporují obecné informace na této stránce, nejsou návodem k léčbě.</p>
 </section>
 
 <section class="wrap block reveal callout">
@@ -204,6 +263,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
       <li><a href="/obchodni-podminky">Obchodní podmínky</a></li>
       <li><a href="/ochrana-osobnich-udaju">Ochrana osobních údajů</a></li>
       <li><a href="/kontakt">Kontakt</a></li>
+      <li><a href="/pro-terapeuty">Pro terapeuty</a></li>
       <li><a href="/pomoc">Pomoc hned</a></li>
     </ul>
     <p class="small">© 2026 OCDmentor.cz Všechna práva vyhrazena. Vlastní cookies ani sledování návštěvnosti nepoužíváme. Rezervační widget Reservanto může při otevření nastavit vlastní cookies – více v <a href="/ochrana-osobnich-udaju">zásadách ochrany osobních údajů</a>.</p>
@@ -211,6 +271,10 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   </div>
 </footer>
 
+<aside class="float-cta js-only" id="float-cta" aria-label="Konzultace zdarma" hidden>
+  <a class="btn btn-cta btn-sm float-book" href="/kontakt">Konzultace zdarma</a>
+  <button type="button" class="float-close" aria-label="Zavřít lištu">×</button>
+</aside>
 <dialog id="rsv-modal" aria-labelledby="rsv-modal-h" aria-modal="true">
   <div class="rsv-inner">
     <h2 id="rsv-modal-h">Zahájení služby a právo na odstoupení od smlouvy</h2>
@@ -230,8 +294,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   </div>
 </dialog>
 <script defer src="/assets/js/rezervace-souhlas.js?v=0bf556f1"></script>
-<script src="/assets/js/slovnicek.js?v=0fe4b26e" defer></script>
-
+<script src="/assets/js/slovnicek.js?v=b5b0b4a8" defer></script>
+<script src="/assets/js/lista.js?v=19b352ec" defer></script>
 <script src="/assets/js/myty-karty.js?v=fa6dddd5" defer></script>
 
 </body>

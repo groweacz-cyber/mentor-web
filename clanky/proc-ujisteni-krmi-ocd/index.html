@@ -29,7 +29,7 @@
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=aa336ee7">
+<link rel="stylesheet" href="/assets/css/style.css?v=4ef61fa4">
 
 <script type="application/ld+json">
 {
@@ -131,7 +131,18 @@ for(var m=0;m<subToggles.length;m++){
     var open=li.classList.toggle('open');
     this.setAttribute('aria-expanded',open?'true':'false');
     closeAllSub(this);
+    if(open)placeSub(li.querySelector('.sub-nav'));
   });
+}
+function placeSub(ul){
+  if(!ul)return;
+  ul.style.left='';ul.style.right='';
+  var r=ul.getBoundingClientRect();
+  if(r.right>innerWidth-8){
+    ul.style.left='auto';ul.style.right='0';
+    r=ul.getBoundingClientRect();
+    if(r.left<8){ul.style.left='0';ul.style.right='auto';}
+  }
 }
 document.addEventListener('click',function(){closeAllSub(null);});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(null);});
@@ -148,7 +159,10 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
     <nav aria-label="Hlavní navigace"><ul><li><a href="/metoda">Metoda</a></li><li><a href="/pro-koho">Pro koho</a></li><li><a href="/jak-to-probiha">Jak to probíhá</a></li><li><a href="/dotaznik">Dotazník</a></li><li><a href="/aplikace">Aplikace</a></li><li class="has-sub">
           <button type="button" class="nav-sub-toggle" aria-expanded="false">Online semináře a kurzy</button>
           <ul class="sub-nav"><li><a href="/seminare">Online semináře</a></li><li><a href="/kurz">Online kurz</a></li></ul>
-        </li><li><a href="/ebook">E-book</a></li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
+        </li><li><a href="/ebook">E-book</a></li><li class="has-sub">
+          <button type="button" class="nav-sub-toggle" aria-expanded="false">O OCD</button>
+          <ul class="sub-nav"><li><a href="/vtirave-myslenky">Vtíravé myšlenky</a></li><li><a href="/typy-ocd">Typy OCD</a></li><li><a href="/myty-o-ocd">Mýty o OCD</a></li><li><a href="/slovnicek">Slovníček pojmů</a></li><li><a href="/pro-blizke">Pro blízké</a></li><li><a href="/pribehy">Příběhy</a></li></ul>
+        </li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
   </div>
 </header>
 
@@ -162,13 +176,13 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   <img src="/assets/img/clanky/proc-ujisteni.webp" width="1200" height="800" alt="Šestikrokový kruh znázorňující, jak ujišťování krmí OCD: vtíravá myšlenka, rostoucí úzkost, hledání ujištění, krátkodobá úleva, návrat pochybnosti a opakování cyklu." style="border-radius: 20px; margin: .5rem 0 1.5rem;">
 
   <p>„Myslíš, že jsem v pořádku?“ „A co když je to přece jen něco vážného?“ „Můžeš mi ještě jednou potvrdit, že se nemusím bát?“</p>
-  <p>Pokud žiješ s obsedantně-kompulzivní poruchou (OCD), možná tyto otázky dobře znáš. Možná se opakovaně ptáš svých blízkých, vyhledáváš informace na internetu nebo se vracíš k umělé inteligenci, abys získal odpověď, která tě konečně uklidní.</p>
+  <p>Pokud žiješ s obsedantně-<span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-kompulze-1">kompulzivní</button><span class="gl-pop" id="gl-kompulze-1"><strong>Kompulze:</strong> Opakovaná činnost, navenek nebo jen v hlavě, kterou člověk dělá proto, aby strach nebo napětí rychle polevilo. Úleva je krátká a smyčku OCD posiluje. <a href="/slovnicek#kompulze">Více ve slovníčku</a></span></span> poruchou (OCD), možná tyto otázky dobře znáš. Možná se opakovaně ptáš svých blízkých, vyhledáváš informace na internetu nebo se vracíš k umělé inteligenci, abys získal odpověď, která tě konečně uklidní.</p>
   <p>A když ji dostaneš, skutečně se ti na chvíli uleví.</p>
   <p>Jenže za chvíli se objeví další pochybnost. Nová otázka. Jiný úhel pohledu. A potřeba ujistit se znovu.</p>
   <p>Proč se to děje? A proč může právě to, co ti krátkodobě pomáhá, dlouhodobě OCD udržovat?</p>
 
   <h2>1. Ujištění přináší úlevu. A právě v tom je háček.</h2>
-  <p>Když se objeví vtíravá myšlenka, pochybnost nebo nepříjemný pocit, mozek může situaci vyhodnotit jako nebezpečnou.</p>
+  <p>Když se objeví <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-vtirave-myslenky-2">vtíravá myšlenka</button><span class="gl-pop" id="gl-vtirave-myslenky-2"><strong>Vtíravé myšlenky:</strong> Nechtěné myšlenky, představy nebo nutkání, které se objeví samy a působí rušivě. Zažívá je většina lidí. U OCD se „lepí“, protože na ně člověk reaguje strachem a rituály. <a href="/slovnicek#vtirave-myslenky">Více ve slovníčku</a></span></span>, pochybnost nebo nepříjemný pocit, mozek může situaci vyhodnotit jako nebezpečnou.</p>
   <p>Nemusí jít o skutečné nebezpečí. Stačí možnost, že by něco mohlo být špatně. Například:</p>
   <ul class="rules">
     <li>Co když mám nějakou vážnou nemoc?</li>
@@ -177,7 +191,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
     <li>Co když moje pochybnosti něco znamenají?</li>
   </ul>
   <p>Úzkost stoupá a člověk přirozeně hledá způsob, jak ji snížit. Začne hledat informace, kontrolovat, analyzovat nebo se někoho zeptá, zda je všechno v pořádku. Když dostane uklidňující odpověď, napětí obvykle klesne.</p>
-  <p>Mozek si tak může vytvořit jednoduché spojení: pochybnost → úzkost → ujištění → úleva.</p>
+  <p>Mozek si tak může vytvořit jednoduché spojení: pochybnost → úzkost → <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-ujistovani-3">ujištění</button><span class="gl-pop" id="gl-ujistovani-3"><strong>Ujišťování:</strong> Hledání potvrzení, že se nic nestane nebo že je vše v pořádku: u blízkých, u lékaře, na internetu nebo u umělé inteligence. Dá krátkou úlevu a udržuje potřebu se ujišťovat dál. <a href="/slovnicek#ujistovani">Více ve slovníčku</a></span></span> → úleva.</p>
   <p>A právě úleva může tento cyklus posilovat. Mozek se učí, že když přijde nepříjemná pochybnost, je potřeba něco udělat, aby zmizela. Příště proto může potřeba ujištění přijít ještě rychleji.</p>
   <p>Ne proto, že bys byl slabý nebo něco dělal špatně. Je to naučený mechanismus, který se snaží snížit nepříjemné pocity, ale ve výsledku může udržovat celý problém při životě.</p>
 
@@ -229,12 +243,12 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   <h3>Krok 4: Vrať pozornost k tomu, co chceš dělat</h3>
   <p>Nemusíš čekat, až budeš úplně klidný. Můžeš se vrátit k práci, rozhovoru s partnerem, procházce nebo jiné běžné činnosti, přestože pochybnost stále existuje. Tím se postupně učíš, že přítomnost nepříjemné myšlenky nemusí rozhodovat o tom, jak budeš trávit svůj čas.</p>
   <h3>Krok 5: Buď k sobě trpělivý</h3>
-  <p>Pokud se znovu přistihneš při vyhledávání nebo ujišťování, neznamená to, že jsi selhal. OCD může být vytrvalé a změna naučených reakcí vyžaduje čas. Důležité je postupně rozpoznávat své vzorce a zkoušet jiné reakce, nikoli požadovat od sebe dokonalost. U výraznějších obtíží může pomoci odborná léčba OCD, zejména kognitivně-behaviorální terapie s expozicí a prevencí rituálů (<abbr title="expozice a prevence reakce">ERP</abbr>).</p>
+  <p>Pokud se znovu přistihneš při vyhledávání nebo ujišťování, neznamená to, že jsi selhal. OCD může být vytrvalé a změna naučených reakcí vyžaduje čas. Důležité je postupně rozpoznávat své vzorce a zkoušet jiné reakce, nikoli požadovat od sebe dokonalost. U výraznějších obtíží může pomoci odborná léčba OCD, zejména kognitivně-behaviorální terapie s <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-expozice-4">expozicí</button><span class="gl-pop" id="gl-expozice-4"><strong>Expozice:</strong> Záměrné setkání s tím, čeho se člověk bojí (situace, myšlenka, tělesný pocit), bez útěku a bez rituálu. V odborné péči se plánuje po malých krocích. Tento web není návodem, jak expozice vést samostatně. <a href="/slovnicek#expozice">Více ve slovníčku</a></span></span> a prevencí rituálů (<abbr title="expozice a prevence reakce"><span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-erp-5">ERP</button><span class="gl-pop" id="gl-erp-5"><strong>ERP:</strong> Zkratka pro expozici s prevencí reakce. Odborný postup, při kterém se člověk postupně a podle plánu vystavuje tomu, čeho se bojí, a nevykoná kompulzi. Vede ho odborník. <a href="/slovnicek#erp">Více ve slovníčku</a></span></span></abbr>).</p>
 
   <h2>6. Co když se ujišťuji u partnera nebo rodiny?</h2>
   <p>Ujišťování může ovlivňovat také vztahy.</p>
   <p>Blízcí lidé chtějí přirozeně pomoci. Když vidí, že se trápíš, snaží se tě uklidnit a ujistit tě, že je všechno v pořádku. Dělají to z dobrého úmyslu.</p>
-  <p>Pokud se ale stejný cyklus opakuje, může se celá rodina postupně přizpůsobovat požadavkům OCD. Partner odpovídá na stále stejné otázky, kontroluje věci za druhého nebo se snaží předcházet všemu, co by mohlo vyvolat úzkost. Takové přizpůsobování se někdy označuje jako rodinná akomodace OCD.</p>
+  <p>Pokud se ale stejný cyklus opakuje, může se celá rodina postupně přizpůsobovat požadavkům OCD. Partner odpovídá na stále stejné otázky, kontroluje věci za druhého nebo se snaží předcházet všemu, co by mohlo vyvolat úzkost. Takové <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-prizpusobovani-6">přizpůsobování</button><span class="gl-pop" id="gl-prizpusobovani-6"><strong>Přizpůsobování:</strong> Když blízký kvůli OCD mění své chování: odpovídá na ujišťovací otázky, vyhýbá se spouštěčům nebo se účastní rituálů. Dělá to z lásky a ze snahy ulevit, ale smyčku tím nechtěně udržuje. <a href="/slovnicek#prizpusobovani">Více ve slovníčku</a></span></span> se někdy označuje jako rodinná akomodace OCD.</p>
   <p>Řešením přitom není, aby blízcí náhle přestali projevovat podporu nebo tě nechali v těžké chvíli samotného. Mohou tě podpořit jiným způsobem.</p>
   <p>Například místo opakovaného potvrzování, že se určitě nic nestalo, mohou říct: „Vidím, že tě ta pochybnost trápí. Jsem tu s tebou, ale nechci tě znovu zatahovat do ujišťování, které ti pomáhá jen na chvíli.“</p>
   <p>Takový přístup může být užitečný zejména tehdy, když se na něm společně domluvíte, ideálně s podporou terapeuta, který má zkušenosti s OCD.</p>
@@ -268,7 +282,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 
 <section class="wrap block reveal related">
   <h2>Související</h2>
-  <ul class="related-list"><li><a href="/clanky/druhy-ocd-9-typu">Druhy OCD: 9 typů a jejich příznaky</a></li><li><a href="/clanky/proc-nutkani-prichazi-ve-vlnach">Proč nutkání přichází ve vlnách</a></li><li><a href="/clanky/kompulze-a-prijeti">Kompulze a přijetí: cesta ven z OCD</a></li><li><a href="/metoda">Metoda: čtyři pilíře a dvě cesty</a></li><li><a href="/kviz">Kvíz Metal, nebo Pop?</a></li></ul>
+  <ul class="related-list"><li><a href="/clanky/druhy-ocd-9-typu">Druhy OCD: 9 typů a jejich příznaky</a></li><li><a href="/clanky/proc-nutkani-prichazi-ve-vlnach">Proč nutkání přichází ve vlnách</a></li><li><a href="/clanky/kompulze-a-prijeti">Kompulze a přijetí: cesta ven z OCD</a></li><li><a href="/metoda">Metoda: čtyři pilíře a dvě cesty</a></li><li><a href="/kviz">Kvíz Metal, nebo Pop?</a></li><li><a href="/vtirave-myslenky">Vtíravé myšlenky: průvodce</a></li><li><a href="/typy-ocd">Typy OCD</a></li></ul>
 </section>
 </main>
 <footer class="site-footer">
@@ -280,6 +294,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
       <li><a href="/obchodni-podminky">Obchodní podmínky</a></li>
       <li><a href="/ochrana-osobnich-udaju">Ochrana osobních údajů</a></li>
       <li><a href="/kontakt">Kontakt</a></li>
+      <li><a href="/pro-terapeuty">Pro terapeuty</a></li>
       <li><a href="/pomoc">Pomoc hned</a></li>
     </ul>
     <p class="small">© 2026 OCDmentor.cz Všechna práva vyhrazena. Vlastní cookies ani sledování návštěvnosti nepoužíváme. Rezervační widget Reservanto může při otevření nastavit vlastní cookies – více v <a href="/ochrana-osobnich-udaju">zásadách ochrany osobních údajů</a>.</p>
@@ -310,7 +325,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   </div>
 </dialog>
 <script defer src="/assets/js/rezervace-souhlas.js?v=0bf556f1"></script>
-
+<script src="/assets/js/slovnicek.js?v=b5b0b4a8" defer></script>
 <script src="/assets/js/lista.js?v=19b352ec" defer></script>
 
 

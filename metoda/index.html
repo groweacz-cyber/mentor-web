@@ -27,7 +27,7 @@
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=aa336ee7">
+<link rel="stylesheet" href="/assets/css/style.css?v=4ef61fa4">
 
 <script type="application/ld+json">
 {
@@ -103,7 +103,18 @@ for(var m=0;m<subToggles.length;m++){
     var open=li.classList.toggle('open');
     this.setAttribute('aria-expanded',open?'true':'false');
     closeAllSub(this);
+    if(open)placeSub(li.querySelector('.sub-nav'));
   });
+}
+function placeSub(ul){
+  if(!ul)return;
+  ul.style.left='';ul.style.right='';
+  var r=ul.getBoundingClientRect();
+  if(r.right>innerWidth-8){
+    ul.style.left='auto';ul.style.right='0';
+    r=ul.getBoundingClientRect();
+    if(r.left<8){ul.style.left='0';ul.style.right='auto';}
+  }
 }
 document.addEventListener('click',function(){closeAllSub(null);});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(null);});
@@ -120,7 +131,10 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
     <nav aria-label="Hlavní navigace"><ul><li><a href="/metoda" aria-current="page">Metoda</a></li><li><a href="/pro-koho">Pro koho</a></li><li><a href="/jak-to-probiha">Jak to probíhá</a></li><li><a href="/dotaznik">Dotazník</a></li><li><a href="/aplikace">Aplikace</a></li><li class="has-sub">
           <button type="button" class="nav-sub-toggle" aria-expanded="false">Online semináře a kurzy</button>
           <ul class="sub-nav"><li><a href="/seminare">Online semináře</a></li><li><a href="/kurz">Online kurz</a></li></ul>
-        </li><li><a href="/ebook">E-book</a></li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
+        </li><li><a href="/ebook">E-book</a></li><li class="has-sub">
+          <button type="button" class="nav-sub-toggle" aria-expanded="false">O OCD</button>
+          <ul class="sub-nav"><li><a href="/vtirave-myslenky">Vtíravé myšlenky</a></li><li><a href="/typy-ocd">Typy OCD</a></li><li><a href="/myty-o-ocd">Mýty o OCD</a></li><li><a href="/slovnicek">Slovníček pojmů</a></li><li><a href="/pro-blizke">Pro blízké</a></li><li><a href="/pribehy">Příběhy</a></li></ul>
+        </li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
   </div>
 </header>
 
@@ -150,8 +164,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
     </div>
   <ol class="pillars">
     <li><h3>Bezpodmínečné sebepřijetí</h3><p>Přijímám sebe celého: včetně OCD, myšlenek, úzkosti i nejistoty. Nemusím je mít rád. Přestávám s nimi bojovat jako s nepřítelem.</p></li>
-    <li><h3>Sebevíra</h3><p>„Ať se stane cokoli, obstojím.“ Sebevíra se nebuduje afirmacemi. Buduje se zvládnutými situacemi: každá expozice, ve které zůstanete, je důkaz.</p></li>
-    <li><h3>Expozice bez kompulze</h3><p>Strach může být přítomen a já přesto jednám. Kompulzi, tedy reakci, která má strach rychle zmírnit, neprovedu.</p></li>
+    <li><h3>Sebevíra</h3><p>„Ať se stane cokoli, obstojím.“ <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-sebevira-1">Sebevíra</button><span class="gl-pop" id="gl-sebevira-1"><strong>Sebevíra:</strong> Druhý pilíř metody: „Ať se stane cokoli, obstojím.“ Nebuduje se afirmacemi, ale zvládnutými situacemi. <a href="/slovnicek#sebevira">Více ve slovníčku</a></span></span> se nebuduje afirmacemi. Buduje se zvládnutými situacemi: každá <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-expozice-2">expozice</button><span class="gl-pop" id="gl-expozice-2"><strong>Expozice:</strong> Záměrné setkání s tím, čeho se člověk bojí (situace, myšlenka, tělesný pocit), bez útěku a bez rituálu. V odborné péči se plánuje po malých krocích. Tento web není návodem, jak expozice vést samostatně. <a href="/slovnicek#expozice">Více ve slovníčku</a></span></span>, ve které zůstanete, je důkaz.</p></li>
+    <li><h3>Expozice bez kompulze</h3><p>Strach může být přítomen a já přesto jednám. <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-kompulze-3">Kompulzi</button><span class="gl-pop" id="gl-kompulze-3"><strong>Kompulze:</strong> Opakovaná činnost, navenek nebo jen v hlavě, kterou člověk dělá proto, aby strach nebo napětí rychle polevilo. Úleva je krátká a smyčku OCD posiluje. <a href="/slovnicek#kompulze">Více ve slovníčku</a></span></span>, tedy reakci, která má strach rychle zmírnit, neprovedu.</p></li>
     <li><h3>Život teď</h3><p>Cílová vize popisuje život, který chcete žít. Nepopisuje „život bez nemoci“. Žít začínáte už teď, ne až po úlevě.</p></li>
   </ol>
   </div>
@@ -162,7 +176,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   <ol class="loop" aria-label="Smyčka OCD">
   <li>Napětí</li><li>Akce</li><li>Úleva</li><li>Posílení</li>
 </ol>
-  <p>Kompulze je akt nepřijetí: říká, že tento pocit nebo tuto nejistotu snést nemohu. Kompulze funguje podobným mechanismem posilování úlevou: úleva ji pokaždé posílí. Odpovědí na kompulzi není trest ani sebekritika. Odpovědí je návrat k sebepřijetí a další pokus.</p>
+  <p>Kompulze je akt nepřijetí: říká, že tento pocit nebo tuto nejistotu snést nemohu. Kompulze funguje podobným mechanismem posilování úlevou: úleva ji pokaždé posílí. Odpovědí na kompulzi není trest ani sebekritika. Odpovědí je návrat k <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-sebeprijeti-4">sebepřijetí</button><span class="gl-pop" id="gl-sebeprijeti-4"><strong>Sebepřijetí:</strong> První pilíř metody: přijímám sebe celého, včetně OCD, myšlenek, úzkosti i nejistoty. Nemusím je mít rád, ale přestávám s nimi bojovat jako s nepřítelem. <a href="/slovnicek#sebeprijeti">Více ve slovníčku</a></span></span> a další pokus.</p>
 </section>
 
 <section class="wrap block reveal">
@@ -170,14 +184,14 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   <div class="cards">
     <article class="card card--metal">
       <h3>Metal cesta</h3>
-      <p>Rovnou <abbr title="expozice s prevencí reakce">ERP</abbr>. ERP znamená postavit se tomu, čeho se bojíte, a nevykonat kompulzi. Pro lidi, kteří chtějí jít do strachu hned.</p>
+      <p>Rovnou <abbr title="expozice s prevencí reakce"><span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-erp-5">ERP</button><span class="gl-pop" id="gl-erp-5"><strong>ERP:</strong> Zkratka pro expozici s prevencí reakce. Odborný postup, při kterém se člověk postupně a podle plánu vystavuje tomu, čeho se bojí, a nevykoná kompulzi. Vede ho odborník. <a href="/slovnicek#erp">Více ve slovníčku</a></span></span></abbr>. ERP znamená postavit se tomu, čeho se bojíte, a nevykonat kompulzi. Pro lidi, kteří chtějí jít do strachu hned.</p>
     </article>
     <article class="card card--pop">
       <h3>Pop cesta</h3>
-      <p>Stabilizace, pak <abbr title="inferenční kognitivně-behaviorální přístup">I-CBT</abbr> (inferenční KBT, přístup zaměřený na úvahy, ze kterých se obava skládá) a nakonec postupná expozice. Pro lidi, kterým intenzivní start nesedí.</p>
+      <p>Stabilizace, pak <abbr title="inferenční kognitivně-behaviorální přístup"><span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-i-cbt-6">I-CBT</button><span class="gl-pop" id="gl-i-cbt-6"><strong>I-CBT:</strong> Inferenční kognitivně-behaviorální přístup. Odborný postup, který se zaměřuje na to, že obsedantní pochybnost vzniká z představivosti a úvah, ne z toho, co se doopravdy děje. <a href="/slovnicek#i-cbt">Více ve slovníčku</a></span></span></abbr> (inferenční KBT, přístup zaměřený na úvahy, ze kterých se obava skládá) a nakonec postupná expozice. Pro lidi, kterým intenzivní start nesedí.</p>
     </article>
   </div>
-  <p><strong>ERP i I-CBT jsou odborné metody.</strong> Jako peer mentor vás při nich doprovázím a podporuji. Nevedu je jako terapeut.</p>
+  <p><strong>ERP i I-CBT jsou odborné metody.</strong> Jako <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-peer-mentor-7">peer mentor</button><span class="gl-pop" id="gl-peer-mentor-7"><strong>Peer mentor:</strong> Člověk s vlastní zkušeností s podobnými obtížemi, který druhé provází a podporuje vedle odborné péče. Nediagnostikuje, nevede psychoterapii a nepředepisuje léky. <a href="/slovnicek#peer-mentor">Více ve slovníčku</a></span></span> vás při nich doprovázím a podporuji. Nevedu je jako terapeut.</p>
   <p>Cestu nevybíráme podle toho, která je příjemnější. Rozhoduje <strong>víra v obavy</strong>, <strong>aktuální fungování</strong> a <strong>dřívější zkušenost s ERP</strong>. Cesty lze kombinovat. Orientaci najdete na stránce <a href="/pro-koho">Pro koho</a>.</p>
 </section>
 
@@ -193,7 +207,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   <h2>Pravidla metody</h2>
   <ul class="rules">
     <li>Nic nesmí fungovat jako ochrana před strachem.</li>
-    <li>Expozice se neukončuje ujištěním.</li>
+    <li>Expozice se neukončuje <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-ujistovani-8">ujištěním</button><span class="gl-pop" id="gl-ujistovani-8"><strong>Ujišťování:</strong> Hledání potvrzení, že se nic nestane nebo že je vše v pořádku: u blízkých, u lékaře, na internetu nebo u umělé inteligence. Dá krátkou úlevu a udržuje potřebu se ujišťovat dál. <a href="/slovnicek#ujistovani">Více ve slovníčku</a></span></span>.</li>
     <li>Hudba a podobné nástroje regulují úzkost mezi expozicemi, ne během nich.</li>
     <li>Cílová vize se nepoužívá jako odpověď na strach.</li>
   </ul>
@@ -230,6 +244,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
       <li><a href="/obchodni-podminky">Obchodní podmínky</a></li>
       <li><a href="/ochrana-osobnich-udaju">Ochrana osobních údajů</a></li>
       <li><a href="/kontakt">Kontakt</a></li>
+      <li><a href="/pro-terapeuty">Pro terapeuty</a></li>
       <li><a href="/pomoc">Pomoc hned</a></li>
     </ul>
     <p class="small">© 2026 OCDmentor.cz Všechna práva vyhrazena. Vlastní cookies ani sledování návštěvnosti nepoužíváme. Rezervační widget Reservanto může při otevření nastavit vlastní cookies – více v <a href="/ochrana-osobnich-udaju">zásadách ochrany osobních údajů</a>.</p>
@@ -260,7 +275,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   </div>
 </dialog>
 <script defer src="/assets/js/rezervace-souhlas.js?v=0bf556f1"></script>
-
+<script src="/assets/js/slovnicek.js?v=b5b0b4a8" defer></script>
 <script src="/assets/js/lista.js?v=19b352ec" defer></script>
 <script src="/assets/js/smycka.js?v=085212c7" defer></script>
 

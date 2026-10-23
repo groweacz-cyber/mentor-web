@@ -48,7 +48,7 @@ a:hover { color: var(--link-hover); }
 /* ===== Horní lišta a navigace ===== */
 .notice { margin: 0; padding: .5rem 1.25rem; text-align: center; background: var(--ink); color: #fff; font-size: .9rem; }
 
-.site-header { position: relative; background: rgba(255, 254, 251, .92); backdrop-filter: saturate(1.2) blur(6px); }
+.site-header { position: relative; z-index: 30; background: rgba(255, 254, 251, .92); backdrop-filter: saturate(1.2) blur(6px); }
 .site-header::after { content: ""; display: block; height: 4px; background: var(--rainbow); }
 .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .4rem 1.5rem; padding-top: .7rem; padding-bottom: .7rem; }
 .brand { display: inline-flex; align-items: center; gap: .5rem; font-weight: 800; font-size: 1.3rem; letter-spacing: -.01em; color: var(--ink); text-decoration: none; }
@@ -78,7 +78,7 @@ nav a[aria-current="page"] { background: var(--ink); color: #fff; }
 }
 .has-sub.open .sub-nav { display: flex; }
 .sub-nav a { display: block; padding: .5rem .8rem; border-radius: 10px; }
-@media (max-width: 30rem) { .sub-nav { left: auto; right: 0; } }
+.sub-nav { max-width: calc(100vw - 1rem); }
 
 /* ===== Typografie ===== */
 h1, h2, h3 { line-height: 1.15; letter-spacing: -.02em; color: var(--ink); }
@@ -680,6 +680,7 @@ aside.fact p { margin: 0; }
 .gl-pop::before { content: ""; position: absolute; left: 0; right: 0; top: -.5rem; height: .5rem; }
 .gl-pop.gl-right { left: auto; right: 0; }
 .gl-wrap:hover .gl-pop, .gl-wrap:focus-within .gl-pop, .gl-wrap.open .gl-pop { display: block; }
+.gl-wrap.dismissed .gl-pop { display: none; }
 
 /* ===== Fáze 3: kalkulačka, plovoucí lišta, klidný režim, 404 ===== */
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }

@@ -5,31 +5,76 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pro blízké: jak pomáhat a nekrmit OCD | ocdmentor.cz</title>
 <meta name="description" content="Jak pomáhat blízkému s OCD a nekrmit smyčku: co je přizpůsobování, proč ujišťování nepomáhá a jak odpovídat. Podpora i pro vás.">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://ocdmentor.cz/pro-blizke">
 
-
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="cs_CZ">
 <meta property="og:site_name" content="OCD mentor">
 <meta property="og:title" content="Pro blízké: jak pomáhat a nekrmit OCD | ocdmentor.cz">
 <meta property="og:description" content="Jak pomáhat blízkému s OCD a nekrmit smyčku: co je přizpůsobování, proč ujišťování nepomáhá a jak odpovídat. Podpora i pro vás.">
 <meta property="og:url" content="https://ocdmentor.cz/pro-blizke">
-<meta property="og:image" content="https://ocdmentor.cz/assets/og/index.png">
+<meta property="og:image" content="https://ocdmentor.cz/assets/og/pro-blizke.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Pro blízké: jak pomáhat a nekrmit OCD | ocdmentor.cz">
-
+<meta property="article:published_time" content="2026-10-23">
+<meta property="article:modified_time" content="2026-10-23">
+<meta property="article:author" content="https://ocdmentor.cz/o-mne">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Pro blízké: jak pomáhat a nekrmit OCD | ocdmentor.cz">
 <meta name="twitter:description" content="Jak pomáhat blízkému s OCD a nekrmit smyčku: co je přizpůsobování, proč ujišťování nepomáhá a jak odpovídat. Podpora i pro vás.">
-<meta name="twitter:image" content="https://ocdmentor.cz/assets/og/index.png">
+<meta name="twitter:image" content="https://ocdmentor.cz/assets/og/pro-blizke.png">
 <meta name="theme-color" content="#1b2a41">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=aa336ee7">
+<link rel="stylesheet" href="/assets/css/style.css?v=4ef61fa4">
 
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Pro blízké: jak pomáhat a nekrmit OCD",
+      "description": "Jak pomáhat blízkému s OCD a nekrmit smyčku: co je přizpůsobování, proč ujišťování nepomáhá a jak odpovídat. Podpora i pro vás.",
+      "image": "https://ocdmentor.cz/assets/og/pro-blizke.png",
+      "datePublished": "2026-10-23",
+      "dateModified": "2026-10-23",
+      "inLanguage": "cs",
+      "author": {
+        "@type": "Person",
+        "name": "Bc. Václav Kodeš",
+        "url": "https://ocdmentor.cz/o-mne"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "OCD mentor",
+        "url": "https://ocdmentor.cz"
+      },
+      "mainEntityOfPage": "https://ocdmentor.cz/pro-blizke"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Domů",
+          "item": "https://ocdmentor.cz/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Pro blízké: jak pomáhat a nekrmit OCD",
+          "item": "https://ocdmentor.cz/pro-blizke"
+        }
+      ]
+    }
+  ]
+}
+</script>
 <script>
 (function(){var d=document.documentElement;d.classList.add('js');
 try{if(localStorage.getItem('ocd-calm')==='1')d.classList.add('calm');}catch(e){}
@@ -80,7 +125,18 @@ for(var m=0;m<subToggles.length;m++){
     var open=li.classList.toggle('open');
     this.setAttribute('aria-expanded',open?'true':'false');
     closeAllSub(this);
+    if(open)placeSub(li.querySelector('.sub-nav'));
   });
+}
+function placeSub(ul){
+  if(!ul)return;
+  ul.style.left='';ul.style.right='';
+  var r=ul.getBoundingClientRect();
+  if(r.right>innerWidth-8){
+    ul.style.left='auto';ul.style.right='0';
+    r=ul.getBoundingClientRect();
+    if(r.left<8){ul.style.left='0';ul.style.right='auto';}
+  }
 }
 document.addEventListener('click',function(){closeAllSub(null);});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(null);});
@@ -97,7 +153,10 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
     <nav aria-label="Hlavní navigace"><ul><li><a href="/metoda">Metoda</a></li><li><a href="/pro-koho">Pro koho</a></li><li><a href="/jak-to-probiha">Jak to probíhá</a></li><li><a href="/dotaznik">Dotazník</a></li><li><a href="/aplikace">Aplikace</a></li><li class="has-sub">
           <button type="button" class="nav-sub-toggle" aria-expanded="false">Online semináře a kurzy</button>
           <ul class="sub-nav"><li><a href="/seminare">Online semináře</a></li><li><a href="/kurz">Online kurz</a></li></ul>
-        </li><li><a href="/ebook">E-book</a></li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
+        </li><li><a href="/ebook">E-book</a></li><li class="has-sub is-active">
+          <button type="button" class="nav-sub-toggle" aria-expanded="false">O OCD</button>
+          <ul class="sub-nav"><li><a href="/vtirave-myslenky">Vtíravé myšlenky</a></li><li><a href="/typy-ocd">Typy OCD</a></li><li><a href="/myty-o-ocd">Mýty o OCD</a></li><li><a href="/slovnicek">Slovníček pojmů</a></li><li><a href="/pro-blizke" aria-current="page">Pro blízké</a></li><li><a href="/pribehy">Příběhy</a></li></ul>
+        </li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
   </div>
 </header>
 
@@ -105,7 +164,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 <div class="wrap crumbs-wrap"><nav class="crumbs" aria-label="Drobečková navigace"><ol><li><a href="/">Domů</a></li><li aria-current="page">Pro blízké: jak pomáhat a nekrmit OCD</li></ol></nav></div>
 
 <section class="wrap page-head">
-  <p class="draft-badge"><strong>Koncept</strong> Tento text čeká na schválení. Není v navigaci ani ve vyhledávačích.</p>
+  
   <h1>Pro blízké: jak pomáhat a nekrmit OCD</h1>
   <p class="lead">Když má někdo blízký OCD, chcete pomoct. Nemusíte mít jistotu ani vyřešit jeho obavy. Často pomůže, když přestanete krmit <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-smycka-1">smyčku</button><span class="gl-pop" id="gl-smycka-1"><strong>Smyčka OCD:</strong> Napětí vede k akci (kompulzi), akce přinese úlevu a úleva smyčku posílí. Práce s OCD znamená zůstat v ní jinak: s napětím, bez akce. <a href="/slovnicek#smycka">Více ve slovníčku</a></span></span> a zůstanete s ním.</p>
   <div class="author-box" data-no-gl>
@@ -121,7 +180,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 <section class="wrap block reveal prose">
   <h2>Co je přizpůsobování</h2>
   <p><span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-prizpusobovani-2">Přizpůsobování</button><span class="gl-pop" id="gl-prizpusobovani-2"><strong>Přizpůsobování:</strong> Když blízký kvůli OCD mění své chování: odpovídá na ujišťovací otázky, vyhýbá se spouštěčům nebo se účastní rituálů. Dělá to z lásky a ze snahy ulevit, ale smyčku tím nechtěně udržuje. <a href="/slovnicek#prizpusobovani">Více ve slovníčku</a></span></span> je, když blízký kvůli OCD mění své chování: odpovídá na <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-ujistovani-3">ujišťovací</button><span class="gl-pop" id="gl-ujistovani-3"><strong>Ujišťování:</strong> Hledání potvrzení, že se nic nestane nebo že je vše v pořádku: u blízkých, u lékaře, na internetu nebo u umělé inteligence. Dá krátkou úlevu a udržuje potřebu se ujišťovat dál. <a href="/slovnicek#ujistovani">Více ve slovníčku</a></span></span> otázky, vyhýbá se <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-spoustec-4">spouštěčům</button><span class="gl-pop" id="gl-spoustec-4"><strong>Spouštěč:</strong> Událost, situace, pocit nebo myšlenka, která spustí obsesi a s ní úzkost. Může jím být i článek, zpráva nebo tělesný vjem. <a href="/slovnicek#spoustec">Více ve slovníčku</a></span></span>, vyřizuje věci za něj nebo se účastní rituálů. Dělá to z lásky a ze snahy ulevit.</p>
-<p>Krátkodobě to funguje. Napětí povolí a v domácnosti je klid. Dlouhodobě ale OCD roste, protože se potvrzuje, že bez rituálu by bylo něco špatně.</p>
+<p>Krátkodobě to funguje. Napětí povolí a v domácnosti je klid. Dlouhodobě ale OCD roste, protože se potvrzuje, že bez rituálu by bylo něco špatně. Studie také opakovaně nacházejí souvislost mezi mírou přizpůsobování a závažností příznaků (Lebowitz a kol., 2012).</p>
 </section>
 
 <section class="wrap block reveal prose">
@@ -157,13 +216,13 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 <section class="wrap block reveal prose">
   <h2>I vy si zasloužíte podporu</h2>
   <p>Žít vedle OCD může být vyčerpávající. Můžete se cítit bezmocně, rozčileně nebo provinile, a to je v pořádku. Mluvte o tom s někým, komu důvěřujete, a pokud je toho moc, vyhledejte oporu i pro sebe. Hranice, které si nastavíte, nejsou sobecké.</p>
-<!-- [PODPORA PRO BLÍZKÉ: doplní autor, odkazy na organizace a linky podpory pro rodiny a partnery] -->
+<p>Oporu pro sebe můžete hledat u praktického lékaře, psychoterapeuta nebo v centru duševního zdraví. Přehled ověřených organizací je v části <a href="/pro-koho#odborna-pece">Kam dál: odborná péče</a>. Při akutní krizi volejte 112, 155 nebo Linku první psychické pomoci 116 123.</p>
 </section>
 
 <section class="wrap block reveal sources">
   <h2>Zdroje</h2>
-  
-  <p class="placeholder">[ZDROJE: doplní autor, jen důvěryhodné zdroje, které ověří]</p>
+  <ul class="rules"><li>Lebowitz E. R. a kol. (2012): <a href="https://doi.org/10.1586/ern.11.200" target="_blank" rel="noopener">Family accommodation in obsessive–compulsive disorder</a>. Expert Review of Neurotherapeutics, 12(2), 229–238.</li><li>Praško J. a kol. (2025): <a href="https://postupy-pece.psychiatrie.cz/images/pdf/2025_DP_Lecba-obsedantne-kompulzivni-poruchy-dospelych.pdf" target="_blank" rel="noopener">Léčba obsedantně-kompulzivní poruchy u dospělých</a>. Doporučené postupy psychiatrické péče.</li></ul>
+  <p class="small">Odkazy vedou na externí weby mimo OCD mentor. Zdroje podporují obecné informace na této stránce, nejsou návodem k léčbě.</p>
 </section>
 
 <section class="wrap block reveal callout">
@@ -174,7 +233,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 
 <section class="wrap block reveal related">
   <h2>Související</h2>
-  <ul class="related-list"><li><a href="/vtirave-myslenky">Vtíravé myšlenky: průvodce</a></li><li><a href="/typy-ocd">Typy OCD</a></li><li><a href="/myty-o-ocd">Mýty o OCD</a></li><li><a href="/pribehy">Příběhy</a></li><li><a href="/pro-terapeuty">Pro terapeuty a odborníky</a></li><li><a href="/skupiny">Online skupina podpory</a></li></ul>
+  <ul class="related-list"><li><a href="/vtirave-myslenky">Vtíravé myšlenky: průvodce</a></li><li><a href="/typy-ocd">Typy OCD</a></li><li><a href="/myty-o-ocd">Mýty o OCD</a></li><li><a href="/pribehy">Příběhy</a></li><li><a href="/pro-terapeuty">Pro terapeuty a odborníky</a></li></ul>
 </section>
 </main>
 <footer class="site-footer">
@@ -186,6 +245,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
       <li><a href="/obchodni-podminky">Obchodní podmínky</a></li>
       <li><a href="/ochrana-osobnich-udaju">Ochrana osobních údajů</a></li>
       <li><a href="/kontakt">Kontakt</a></li>
+      <li><a href="/pro-terapeuty">Pro terapeuty</a></li>
       <li><a href="/pomoc">Pomoc hned</a></li>
     </ul>
     <p class="small">© 2026 OCDmentor.cz Všechna práva vyhrazena. Vlastní cookies ani sledování návštěvnosti nepoužíváme. Rezervační widget Reservanto může při otevření nastavit vlastní cookies – více v <a href="/ochrana-osobnich-udaju">zásadách ochrany osobních údajů</a>.</p>
@@ -193,6 +253,10 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   </div>
 </footer>
 
+<aside class="float-cta js-only" id="float-cta" aria-label="Konzultace zdarma" hidden>
+  <a class="btn btn-cta btn-sm float-book" href="/kontakt">Konzultace zdarma</a>
+  <button type="button" class="float-close" aria-label="Zavřít lištu">×</button>
+</aside>
 <dialog id="rsv-modal" aria-labelledby="rsv-modal-h" aria-modal="true">
   <div class="rsv-inner">
     <h2 id="rsv-modal-h">Zahájení služby a právo na odstoupení od smlouvy</h2>
@@ -212,8 +276,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   </div>
 </dialog>
 <script defer src="/assets/js/rezervace-souhlas.js?v=0bf556f1"></script>
-<script src="/assets/js/slovnicek.js?v=0fe4b26e" defer></script>
-
+<script src="/assets/js/slovnicek.js?v=b5b0b4a8" defer></script>
+<script src="/assets/js/lista.js?v=19b352ec" defer></script>
 
 
 </body>

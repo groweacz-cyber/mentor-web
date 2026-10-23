@@ -35,7 +35,7 @@ Soubory ze složek `tools` a `seo` se na web nenasazují (`.vercelignore`).
 - **Ceník, tři kroky a FAQ stránky Jak to probíhá:** `assets/data/jak-to-probiha.json`. FAQ se do strukturovaných dat (FAQPage) dostane samo; odpověď obsahující nedoplněný `[placeholder]` se do nich zatím nedává.
 - **Smyčka OCD, kvíz a principy:** `assets/js/smycka-faze.js`, `assets/js/kviz-data.js`, `assets/js/principy.js`. Generátor z nich vytvoří statické HTML, aby byl obsah ve zdrojovém kódu stránky; JavaScript ho pak nahradí interaktivní verzí.
 - **Nový článek:** přidat záznam do pole `ARTICLES` v `tools/gen.mjs` (`slug`, `seoTitle`, `title`, `excerpt`, `date`, obrázky) a podle existujících článků napsat blok stránky. Sitemap, drobečky, JSON-LD a OG obrázek se doplní samy.
-- **Obsahové stránky (Typy OCD, Vtíravé myšlenky, Pro blízké, Mýty, Slovníček, Příběhy, Pro terapeuty):** texty v `tools/content/faze2.mjs`, typy OCD v `assets/data/typy-ocd.json`, pojmy ve `assets/data/slovnicek.json`, mýty v `assets/data/myty.json`.
+- **Obsahové stránky (Typy OCD, Vtíravé myšlenky, Pro blízké, Mýty, Slovníček, Příběhy, Pro terapeuty):** texty v `tools/content/faze2.mjs` a `tools/content/typy2.mjs`, typy OCD v `assets/data/typy-ocd.json`, pojmy ve `assets/data/slovnicek.json`, mýty v `assets/data/myty.json`.
 
 ## Funkce pro návštěvníky
 
@@ -48,20 +48,20 @@ Soubory ze složek `tools` a `seo` se na web nenasazují (`.vercelignore`).
 
 ## Koncepty a schvalování
 
-Nové obsahové stránky jsou **koncepty**: mají `noindex, nofollow`, viditelný štítek „Koncept“, nejsou v navigaci ani v sitemapě. Přehled je na `/koncepty` (jen pro kontrolu, taky noindex). Schválená stránka se zveřejní tak, že se v `tools/gen.mjs` u jejího volání `contentPage` doplní `draft: false`; pak se z ní stane normální indexovatelná stránka s drobečky, JSON-LD a OG obrázkem (`npm run og`).
+Obsahové stránky (Typy OCD, Vtíravé myšlenky, Pro blízké, Mýty, Slovníček, Příběhy, Pro terapeuty) jsou od 23. 10. 2026 zveřejněné: mají drobečky, JSON-LD (Article a BreadcrumbList), OG obrázek, jsou v sitemapě a v menu „O OCD“. Funkce `contentPage` v `tools/gen.mjs` stránku zveřejní sama; **koncept** je stránka s `draft: true`: má `noindex, nofollow`, štítek „Koncept“, není v navigaci ani v sitemapě a je v přehledu `/koncepty` (jen pro kontrolu autorem). Aktuálně je konceptem jen `/skupiny` (čeká na cenu a podrobnosti skupin). Zveřejní se odstraněním `draft: true` u jejího volání `contentPage`, potom `npm run gen`, `npm run og` a `npm run audit`.
+
+Texty typů OCD jsou v `tools/content/faze2.mjs` (zdravotní OCD, kontrolování, vztahové OCD) a v `tools/content/typy2.mjs` (ostatní). Nový typ: záznam v `assets/data/typy-ocd.json` a text ve stejné struktuře v jednom z těchto souborů. Zdroje jsou ověřené odkazy v `SRC` (`faze2.mjs`); do stránky se přidávají parametrem `sources`, a pokud je prázdný, blok „Zdroje“ se nevypíše. Nové zdroje před přidáním ověřte (otevírá se odkaz, souhlasí citované číslo).
 
 Nastavení v `tools/config.json`:
 
 | Klíč | Význam |
 |---|---|
 | `reviewer` | jméno a titul odborníka; řádek „Odborně zkontroloval“ se zobrazí, jen když je vyplněný |
-| `glossaryOnPublicPages` | `true` zapne vysvětlivky pojmů ze slovníčku i na zveřejněných stránkách (dokud je `false`, jsou jen na konceptech) |
-| `showDraftTypes` | `true` ukazuje v mřížce `/typy-ocd` i neschválené typy; schválený typ má v `assets/data/typy-ocd.json` `"schvaleno": true` |
+| `glossaryOnPublicPages` | `true` (zapnuto) zobrazuje vysvětlivky pojmů ze slovníčku u prvního výskytu pojmu na obsahových stránkách |
+| `showDraftTypes` | zastaralé, všechny typy jsou schválené (`"schvaleno": true` v `typy-ocd.json`) |
 | `notFoundImage` | obrázek na stránce 404; prázdné = stávající ilustrace panáčka |
 
-Stránka `/skupiny` je také koncept (cena a podrobnosti skupin jsou v ní zatím `[CENA]` a placeholdery).
-
-Stránka `/pomoc` koncept není, je zveřejněná a v hlavičce každé stránky je odkaz „Potřebuji pomoc hned“.
+Stránka `/pomoc` je zveřejněná od začátku a v hlavičce každé stránky je odkaz „Potřebuji pomoc hned“.
 
 ## SEO
 

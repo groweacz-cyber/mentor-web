@@ -27,7 +27,7 @@
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=aa336ee7">
+<link rel="stylesheet" href="/assets/css/style.css?v=4ef61fa4">
 
 <script type="application/ld+json">
 {
@@ -103,7 +103,18 @@ for(var m=0;m<subToggles.length;m++){
     var open=li.classList.toggle('open');
     this.setAttribute('aria-expanded',open?'true':'false');
     closeAllSub(this);
+    if(open)placeSub(li.querySelector('.sub-nav'));
   });
+}
+function placeSub(ul){
+  if(!ul)return;
+  ul.style.left='';ul.style.right='';
+  var r=ul.getBoundingClientRect();
+  if(r.right>innerWidth-8){
+    ul.style.left='auto';ul.style.right='0';
+    r=ul.getBoundingClientRect();
+    if(r.left<8){ul.style.left='0';ul.style.right='auto';}
+  }
 }
 document.addEventListener('click',function(){closeAllSub(null);});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(null);});
@@ -120,7 +131,10 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
     <nav aria-label="Hlavní navigace"><ul><li><a href="/metoda">Metoda</a></li><li><a href="/pro-koho" aria-current="page">Pro koho</a></li><li><a href="/jak-to-probiha">Jak to probíhá</a></li><li><a href="/dotaznik">Dotazník</a></li><li><a href="/aplikace">Aplikace</a></li><li class="has-sub">
           <button type="button" class="nav-sub-toggle" aria-expanded="false">Online semináře a kurzy</button>
           <ul class="sub-nav"><li><a href="/seminare">Online semináře</a></li><li><a href="/kurz">Online kurz</a></li></ul>
-        </li><li><a href="/ebook">E-book</a></li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
+        </li><li><a href="/ebook">E-book</a></li><li class="has-sub">
+          <button type="button" class="nav-sub-toggle" aria-expanded="false">O OCD</button>
+          <ul class="sub-nav"><li><a href="/vtirave-myslenky">Vtíravé myšlenky</a></li><li><a href="/typy-ocd">Typy OCD</a></li><li><a href="/myty-o-ocd">Mýty o OCD</a></li><li><a href="/slovnicek">Slovníček pojmů</a></li><li><a href="/pro-blizke">Pro blízké</a></li><li><a href="/pribehy">Příběhy</a></li></ul>
+        </li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
   </div>
 </header>
 
@@ -145,7 +159,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
       <ul>
         <li>Chcete jít do strachu hned.</li>
         <li>Dokážete být ve strachu a nechat ho být.</li>
-        <li>Máte dobrou zkušenost s expozicí nebo ji chcete zkusit.</li>
+        <li>Máte dobrou zkušenost s <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-expozice-1">expozicí</button><span class="gl-pop" id="gl-expozice-1"><strong>Expozice:</strong> Záměrné setkání s tím, čeho se člověk bojí (situace, myšlenka, tělesný pocit), bez útěku a bez rituálu. V odborné péči se plánuje po malých krocích. Tento web není návodem, jak expozice vést samostatně. <a href="/slovnicek#expozice">Více ve slovníčku</a></span></span> nebo ji chcete zkusit.</li>
         <li>Na obavy jako na příběh se už umíte dívat zpovzdálí.</li>
       </ul>
     </article>
@@ -164,7 +178,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 
 <section class="wrap block reveal callout">
   <h2>Kdy metodu nepoužívat</h2>
-  <p>V těchto situacích je správným krokem odborník (psychiatr, klinický psycholog, psychoterapeut), ne peer mentoring:</p>
+  <p>V těchto situacích je správným krokem odborník (psychiatr, klinický psycholog, psychoterapeut), ne <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-peer-mentor-2">peer mentoring</button><span class="gl-pop" id="gl-peer-mentor-2"><strong>Peer mentor:</strong> Člověk s vlastní zkušeností s podobnými obtížemi, který druhé provází a podporuje vedle odborné péče. Nediagnostikuje, nevede psychoterapii a nepředepisuje léky. <a href="/slovnicek#peer-mentor">Více ve slovníčku</a></span></span>:</p>
   <ul>
     <li>aktivní psychóza,</li>
     <li>sebevražedné myšlenky,</li>
@@ -205,6 +219,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
       <li><a href="/obchodni-podminky">Obchodní podmínky</a></li>
       <li><a href="/ochrana-osobnich-udaju">Ochrana osobních údajů</a></li>
       <li><a href="/kontakt">Kontakt</a></li>
+      <li><a href="/pro-terapeuty">Pro terapeuty</a></li>
       <li><a href="/pomoc">Pomoc hned</a></li>
     </ul>
     <p class="small">© 2026 OCDmentor.cz Všechna práva vyhrazena. Vlastní cookies ani sledování návštěvnosti nepoužíváme. Rezervační widget Reservanto může při otevření nastavit vlastní cookies – více v <a href="/ochrana-osobnich-udaju">zásadách ochrany osobních údajů</a>.</p>
@@ -235,7 +250,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   </div>
 </dialog>
 <script defer src="/assets/js/rezervace-souhlas.js?v=0bf556f1"></script>
-
+<script src="/assets/js/slovnicek.js?v=b5b0b4a8" defer></script>
 <script src="/assets/js/lista.js?v=19b352ec" defer></script>
 
 

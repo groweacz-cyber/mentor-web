@@ -153,7 +153,7 @@ for (const [url, p] of Object.entries(pages)) {
   }
 }
 for (const [url] of Object.entries(pages)) {
-  if (url === '/' || url === '/404' || url.startsWith('/aplikace') || url.startsWith('/sablony') || url === '/koncepty' || url === '/offline') continue;
+  if (url === '/' || url === '/404' || url.startsWith('/aplikace') || url.startsWith('/sablony') || url === '/koncepty' || url === '/offline' || pages[url].noindex) continue;
   const n = inbound[url] ? inbound[url].size : 0;
   if (n < 3) problems.push(`málo příchozích odkazů (${n}): ${url}`);
 }

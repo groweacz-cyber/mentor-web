@@ -23,21 +23,6 @@ Pravidla: „léčba“ a „terapie“ se u vlastní služby nepoužívají. Sl
 | `/kontakt` | OCD konzultace zdarma | rezervace konzultace, kontakt na peer mentora |
 | `/pomoc` | pomoc při psychické krizi | kam se obrátit při OCD, krizové linky |
 | `/kolik-casu-mi-bere-ocd` | kolik času mi bere OCD | kalkulačka času OCD, čas strávený rituály |
-
-Stránky `/obchodni-podminky` a `/ochrana-osobnich-udaju` na slova necílí (právní texty).
-
-## Připravené, ale zatím neindexované (noindex, dokud nejsou hotové)
-
-| Stránka | Hlavní klíčové slovo | Vedlejší klíčová slova |
-|---|---|---|
-| `/ebook` | e-book o OCD | co dělat když přijde nutkání, příručka OCD |
-| `/seminare` | OCD semináře online | psychoedukace OCD, webinář o OCD |
-| `/kurz` | online kurz OCD | OCD kurz zdarma, co je OCD a co není |
-
-## Koncepty (noindex, čekají na schválení; seznam na /koncepty)
-
-| Stránka | Hlavní klíčové slovo | Vedlejší klíčová slova |
-|---|---|---|
 | `/vtirave-myslenky` | vtíravé myšlenky | nutkavé myšlenky, vtíravé myšlenky OCD, proč se myšlenky lepí, smyčka OCD |
 | `/typy-ocd` | knihovna typů OCD | rozcestník OCD, podoby OCD, tematické okruhy OCD |
 | `/typy-ocd/zdravotni-ocd` | zdravotní OCD | strach z nemoci, zdravotní úzkost a OCD, kontrolování těla |
@@ -61,8 +46,23 @@ Stránky `/obchodni-podminky` a `/ochrana-osobnich-udaju` na slova necílí (pr�
 | `/pro-blizke` | jak pomoci blízkému s OCD | OCD u partnera, přizpůsobování OCD, jak nekrmit OCD |
 | `/myty-o-ocd` | mýty o OCD | OCD pořádkumilovnost, co OCD není |
 | `/slovnicek` | OCD slovníček | obsese a kompulze, co je ERP, co je I-CBT |
-| `/pribehy` | příběh člověka s OCD | zkušenost s OCD, jak jsem se s OCD naučil žít |
+| `/pribehy` | příběhy lidí s OCD | zkušenost s OCD, sdílení vlastního příběhu s OCD |
 | `/pro-terapeuty` | spolupráce s terapeuty OCD | peer podpora jako doplněk, doporučit klienta |
+
+Stránky `/obchodni-podminky` a `/ochrana-osobnich-udaju` na slova necílí (právní texty).
+
+## Připravené, ale zatím neindexované (noindex, dokud nejsou hotové)
+
+| Stránka | Hlavní klíčové slovo | Vedlejší klíčová slova |
+|---|---|---|
+| `/ebook` | e-book o OCD | co dělat když přijde nutkání, příručka OCD |
+| `/seminare` | OCD semináře online | psychoedukace OCD, webinář o OCD |
+| `/kurz` | online kurz OCD | OCD kurz zdarma, co je OCD a co není |
+
+## Koncept (noindex, čeká na doplnění ceny a podrobností; seznam na /koncepty)
+
+| Stránka | Hlavní klíčové slovo | Vedlejší klíčová slova |
+|---|---|---|
 | `/skupiny` | skupina podpory OCD | online skupina OCD, peer skupina |
 
 ## Upozornění na možnou kanibalizaci

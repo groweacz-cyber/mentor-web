@@ -27,7 +27,7 @@
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=aa336ee7">
+<link rel="stylesheet" href="/assets/css/style.css?v=4ef61fa4">
 
 
 <script>
@@ -80,7 +80,18 @@ for(var m=0;m<subToggles.length;m++){
     var open=li.classList.toggle('open');
     this.setAttribute('aria-expanded',open?'true':'false');
     closeAllSub(this);
+    if(open)placeSub(li.querySelector('.sub-nav'));
   });
+}
+function placeSub(ul){
+  if(!ul)return;
+  ul.style.left='';ul.style.right='';
+  var r=ul.getBoundingClientRect();
+  if(r.right>innerWidth-8){
+    ul.style.left='auto';ul.style.right='0';
+    r=ul.getBoundingClientRect();
+    if(r.left<8){ul.style.left='0';ul.style.right='auto';}
+  }
 }
 document.addEventListener('click',function(){closeAllSub(null);});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(null);});
@@ -97,7 +108,10 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
     <nav aria-label="Hlavní navigace"><ul><li><a href="/metoda">Metoda</a></li><li><a href="/pro-koho">Pro koho</a></li><li><a href="/jak-to-probiha">Jak to probíhá</a></li><li><a href="/dotaznik">Dotazník</a></li><li><a href="/aplikace">Aplikace</a></li><li class="has-sub">
           <button type="button" class="nav-sub-toggle" aria-expanded="false">Online semináře a kurzy</button>
           <ul class="sub-nav"><li><a href="/seminare">Online semináře</a></li><li><a href="/kurz">Online kurz</a></li></ul>
-        </li><li><a href="/ebook">E-book</a></li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
+        </li><li><a href="/ebook">E-book</a></li><li class="has-sub">
+          <button type="button" class="nav-sub-toggle" aria-expanded="false">O OCD</button>
+          <ul class="sub-nav"><li><a href="/vtirave-myslenky">Vtíravé myšlenky</a></li><li><a href="/typy-ocd">Typy OCD</a></li><li><a href="/myty-o-ocd">Mýty o OCD</a></li><li><a href="/slovnicek">Slovníček pojmů</a></li><li><a href="/pro-blizke">Pro blízké</a></li><li><a href="/pribehy">Příběhy</a></li></ul>
+        </li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
   </div>
 </header>
 
@@ -111,31 +125,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 </section>
 <section class="wrap block reveal">
   <ul class="rules">
-    <li><a href="/vtirave-myslenky">Vtíravé myšlenky: co to je a proč se u OCD „lepí“</a> <span class="type-stav">Koncept</span> <span class="small">/vtirave-myslenky</span></li>
-    <li><a href="/typy-ocd">Typy OCD</a> <span class="type-stav">Koncept</span> <span class="small">/typy-ocd</span></li>
-    <li><a href="/typy-ocd/zdravotni-ocd">Zdravotní OCD</a> <span class="type-stav">Koncept</span> <span class="small">/typy-ocd/zdravotni-ocd</span></li>
-    <li><a href="/typy-ocd/kontrolovani">Kontrolování</a> <span class="type-stav">Koncept</span> <span class="small">/typy-ocd/kontrolovani</span></li>
-    <li><a href="/typy-ocd/vztahove-ocd">Vztahové OCD</a> <span class="type-stav">Koncept</span> <span class="small">/typy-ocd/vztahove-ocd</span></li>
-    <li><a href="/typy-ocd/kontaminace">Kontaminace</a> <span class="type-stav">Osnova</span> <span class="small">/typy-ocd/kontaminace</span></li>
-    <li><a href="/typy-ocd/symetrie-just-right">Symetrie a „just right“</a> <span class="type-stav">Osnova</span> <span class="small">/typy-ocd/symetrie-just-right</span></li>
-    <li><a href="/typy-ocd/agresivni-vtirave-myslenky">Agresivní vtíravé myšlenky</a> <span class="type-stav">Osnova</span> <span class="small">/typy-ocd/agresivni-vtirave-myslenky</span></li>
-    <li><a href="/typy-ocd/sexualni-vtirave-myslenky">Sexuální vtíravé myšlenky</a> <span class="type-stav">Osnova</span> <span class="small">/typy-ocd/sexualni-vtirave-myslenky</span></li>
-    <li><a href="/typy-ocd/skrupulozita">Skrupulozita</a> <span class="type-stav">Osnova</span> <span class="small">/typy-ocd/skrupulozita</span></li>
-    <li><a href="/typy-ocd/pure-o">Pure O</a> <span class="type-stav">Osnova</span> <span class="small">/typy-ocd/pure-o</span></li>
-    <li><a href="/typy-ocd/senzomotoricke-ocd">Senzomotorické OCD</a> <span class="type-stav">Osnova</span> <span class="small">/typy-ocd/senzomotoricke-ocd</span></li>
-    <li><a href="/typy-ocd/existencialni-ocd">Existenciální OCD</a> <span class="type-stav">Osnova</span> <span class="small">/typy-ocd/existencialni-ocd</span></li>
-    <li><a href="/typy-ocd/magicke-mysleni">Magické myšlení</a> <span class="type-stav">Osnova</span> <span class="small">/typy-ocd/magicke-mysleni</span></li>
-    <li><a href="/typy-ocd/hyperzodpovednost">Hyperzodpovědnost</a> <span class="type-stav">Osnova</span> <span class="small">/typy-ocd/hyperzodpovednost</span></li>
-    <li><a href="/typy-ocd/real-event-ocd">Real-event OCD</a> <span class="type-stav">Osnova</span> <span class="small">/typy-ocd/real-event-ocd</span></li>
-    <li><a href="/typy-ocd/emetofobni-ocd">Emetofobní OCD</a> <span class="type-stav">Osnova</span> <span class="small">/typy-ocd/emetofobni-ocd</span></li>
-    <li><a href="/typy-ocd/perfekcionisticke-ocd">Perfekcionistické OCD</a> <span class="type-stav">Osnova</span> <span class="small">/typy-ocd/perfekcionisticke-ocd</span></li>
-    <li><a href="/typy-ocd/zpovedni-ocd">Zpovědní OCD</a> <span class="type-stav">Osnova</span> <span class="small">/typy-ocd/zpovedni-ocd</span></li>
-    <li><a href="/typy-ocd/strach-ze-zesileni">Strach ze zešílení</a> <span class="type-stav">Osnova</span> <span class="small">/typy-ocd/strach-ze-zesileni</span></li>
-    <li><a href="/pro-blizke">Pro blízké: jak pomáhat a nekrmit OCD</a> <span class="type-stav">Koncept</span> <span class="small">/pro-blizke</span></li>
-    <li><a href="/myty-o-ocd">Mýty o OCD</a> <span class="type-stav">Koncept</span> <span class="small">/myty-o-ocd</span></li>
-    <li><a href="/slovnicek">Slovníček pojmů</a> <span class="type-stav">Koncept</span> <span class="small">/slovnicek</span></li>
-    <li><a href="/pribehy">Příběhy</a> <span class="type-stav">Osnova</span> <span class="small">/pribehy</span></li>
-    <li><a href="/pro-terapeuty">Pro terapeuty a odborníky</a> <span class="type-stav">Koncept</span> <span class="small">/pro-terapeuty</span></li>
+
   </ul>
 </section>
 
@@ -149,6 +139,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
       <li><a href="/obchodni-podminky">Obchodní podmínky</a></li>
       <li><a href="/ochrana-osobnich-udaju">Ochrana osobních údajů</a></li>
       <li><a href="/kontakt">Kontakt</a></li>
+      <li><a href="/pro-terapeuty">Pro terapeuty</a></li>
       <li><a href="/pomoc">Pomoc hned</a></li>
     </ul>
     <p class="small">© 2026 OCDmentor.cz Všechna práva vyhrazena. Vlastní cookies ani sledování návštěvnosti nepoužíváme. Rezervační widget Reservanto může při otevření nastavit vlastní cookies – více v <a href="/ochrana-osobnich-udaju">zásadách ochrany osobních údajů</a>.</p>

@@ -1,7 +1,18 @@
-// Texty nových stránek (Fáze 2). Všechno kromě /pomoc jsou koncepty čekající na schválení.
+// Texty obsahových stránek (Fáze 2), schválené autorem ke zveřejnění.
 // Pravidla: žádné diagnózy, žádné sliby vyléčení, žádné návody na samostatné expozice, žádná vymyšlená čísla ani citace.
 
 export const UPDATED = '2026-10-23';
+
+// ---------- Ověřené zdroje ----------
+const ext = (href, text) => `<a href="${href}" target="_blank" rel="noopener">${text}</a>`;
+export const SRC = {
+  prasko: `Praško J. a kol. (2025): ${ext('https://postupy-pece.psychiatrie.cz/images/pdf/2025_DP_Lecba-obsedantne-kompulzivni-poruchy-dospelych.pdf', 'Léčba obsedantně-kompulzivní poruchy u dospělých')}. Doporučené postupy psychiatrické péče.`,
+  nice: `NICE: ${ext('https://www.nice.org.uk/guidance/cg31', 'Obsessive-compulsive disorder and body dysmorphic disorder: treatment')} (doporučený postup CG31).`,
+  nhs: `NHS: ${ext('https://www.nhs.uk/mental-health/conditions/obsessive-compulsive-disorder-ocd/', 'Obsessive compulsive disorder (OCD)')}.`,
+  radomsky: `Radomsky A. S. a kol. (2014): ${ext('https://doi.org/10.1016/j.jocrd.2013.09.002', 'Part 1 – You can run but you can’t hide: Intrusive thoughts on six continents')}. Journal of Obsessive-Compulsive and Related Disorders, 3(3), 269–279.`,
+  ruscio: `Ruscio A. M. a kol. (2010): ${ext('https://doi.org/10.1038/mp.2008.94', 'The epidemiology of obsessive-compulsive disorder in the National Comorbidity Survey Replication')}. Molecular Psychiatry, 15, 53–63.`,
+  lebowitz: `Lebowitz E. R. a kol. (2012): ${ext('https://doi.org/10.1586/ern.11.200', 'Family accommodation in obsessive–compulsive disorder')}. Expert Review of Neurotherapeutics, 12(2), 229–238.`,
+};
 
 // ---------- /vtirave-myslenky (pilířový průvodce) ----------
 export const PILIR_VTIRAVE = {
@@ -10,7 +21,7 @@ export const PILIR_VTIRAVE = {
     {
       h: 'Co jsou vtíravé myšlenky',
       html: `<p>Vtíravé myšlenky jsou nechtěné myšlenky, představy nebo nutkání, které se objeví samy a působí rušivě. Může to být pochybnost, jestli jste zamkli, obraz nehody, nevhodná myšlenka uprostřed schůzky nebo otázka, na kterou nechcete odpovídat. Zažívá je většina lidí, a většinou je nechají odeznít.</p>
-<aside class="fact"><p><strong>Věděli jste?</strong> Vtíravé myšlenky zažívá většina lidí, v mezinárodní studii zhruba 94 %. <span class="fact-src">Zdroj: Radomsky a kol., 2014</span></p></aside>`,
+<aside class="fact"><p><strong>Věděli jste?</strong> Vtíravé myšlenky zažívá většina lidí. V mezinárodní studii s 777 vysokoškoláky ze 13 zemí je za poslední tři měsíce hlásilo asi 94 %. <span class="fact-src">Zdroj: Radomsky a kol., 2014</span></p></aside>`,
     },
     {
       h: 'Proč se u OCD „lepí“',
@@ -61,10 +72,10 @@ export const PILIR_VTIRAVE = {
 };
 
 // ---------- Typy OCD: plné koncepty ----------
-const ODBORNIK = `<p>Odborníci (psychiatr, klinický psycholog, psychoterapeut) pracují s OCD obvykle metodami, jako je expozice s prevencí reakce (ERP), případně inferenční kognitivně-behaviorální přístup (I-CBT). Odborník také určuje tempo, plán a případně i medikaci. Tato stránka není návodem, jak takové postupy provádět samostatně doma.</p>
+export const ODBORNIK = `<p>Odborníci (psychiatr, klinický psycholog, psychoterapeut) pracují s OCD obvykle metodami, jako je expozice s prevencí reakce (ERP), případně inferenční kognitivně-behaviorální přístup (I-CBT). Odborník také určuje tempo, plán a případně i medikaci. Tato stránka není návodem, jak takové postupy provádět samostatně doma.</p>
 <p>Jak odbornou pomoc najít, shrnuje stránka <a href="/pomoc">Pomoc hned</a> a část <a href="/pro-koho#odborna-pece">Kam dál: odborná péče</a>.</p>`;
 
-const peer = (zkusenost) => `<p>${zkusenost}</p>
+export const peer = (zkusenost) => `<p>${zkusenost}</p>
 <p>Mohu vás doprovázet vedle odborné péče: sdílím, co mně pomáhalo zůstat u svého života, pomáhám s motivací a s kroky mezi sezeními. Nediagnostikuji, neslibuji vyléčení, neradím s léky a nenahrazuji odborníka. Nevíte, kde začít? Zkuste <a href="/kviz">kvíz Metal, nebo Pop?</a> nebo se podívejte, <a href="/jak-to-probiha">jak peer mentoring probíhá</a>. Úvodní konzultace je zdarma.</p>`;
 
 export const TYPY_PLNY = {
@@ -156,6 +167,8 @@ export const TYPY_PLNY = {
   },
 };
 
+const CRISIS_TEXT = 'volejte 112, 155 nebo Linku první psychické pomoci 116 123';
+
 // ---------- /pro-blizke ----------
 export const PRO_BLIZKE = {
   lead: 'Když má někdo blízký OCD, chcete pomoct. Nemusíte mít jistotu ani vyřešit jeho obavy. Často pomůže, když přestanete krmit smyčku a zůstanete s ním.',
@@ -163,7 +176,7 @@ export const PRO_BLIZKE = {
     {
       h: 'Co je přizpůsobování',
       html: `<p>Přizpůsobování je, když blízký kvůli OCD mění své chování: odpovídá na ujišťovací otázky, vyhýbá se spouštěčům, vyřizuje věci za něj nebo se účastní rituálů. Dělá to z lásky a ze snahy ulevit.</p>
-<p>Krátkodobě to funguje. Napětí povolí a v domácnosti je klid. Dlouhodobě ale OCD roste, protože se potvrzuje, že bez rituálu by bylo něco špatně.</p>`,
+<p>Krátkodobě to funguje. Napětí povolí a v domácnosti je klid. Dlouhodobě ale OCD roste, protože se potvrzuje, že bez rituálu by bylo něco špatně. Studie také opakovaně nacházejí souvislost mezi mírou přizpůsobování a závažností příznaků (Lebowitz a kol., 2012).</p>`,
     },
     {
       h: 'Proč ujišťování nepomáhá',
@@ -194,30 +207,22 @@ export const PRO_BLIZKE = {
     {
       h: 'I vy si zasloužíte podporu',
       html: `<p>Žít vedle OCD může být vyčerpávající. Můžete se cítit bezmocně, rozčileně nebo provinile, a to je v pořádku. Mluvte o tom s někým, komu důvěřujete, a pokud je toho moc, vyhledejte oporu i pro sebe. Hranice, které si nastavíte, nejsou sobecké.</p>
-<!-- [PODPORA PRO BLÍZKÉ: doplní autor, odkazy na organizace a linky podpory pro rodiny a partnery] -->`,
+<p>Oporu pro sebe můžete hledat u praktického lékaře, psychoterapeuta nebo v centru duševního zdraví. Přehled ověřených organizací je v části <a href="/pro-koho#odborna-pece">Kam dál: odborná péče</a>. Při akutní krizi ${CRISIS_TEXT}.</p>`,
     },
   ],
-  related: ['/vtirave-myslenky', '/typy-ocd', '/myty-o-ocd', '/pribehy', '/pro-terapeuty', '/skupiny'],
+  related: ['/vtirave-myslenky', '/typy-ocd', '/myty-o-ocd', '/pribehy', '/pro-terapeuty'],
 };
 
 // ---------- /pribehy ----------
 export const PRIBEHY = {
-  lead: 'Příběhy ukazují, že v tom člověk není sám. Tady bude můj příběh a prostor pro příběhy dalších lidí. Zatím jde o osnovu.',
+  lead: 'Příběhy ukazují, že v tom člověk není sám. Tady najdete, kde je moje zkušenost a za jakých podmínek na webu zveřejňuji příběhy dalších lidí.',
   sections: [
     {
-      h: 'Můj příběh (osnova)',
-      html: `<p>Bez podrobností o traumatech, bez tvrzení o vyléčení a bez rad k lékům. Každý bod doplní autor.</p>
-<ol class="rules">
-  <li class="placeholder">[Kdy a jak se OCD poprvé objevilo, bez detailů traumat]</li>
-  <li class="placeholder">[Jak vypadala smyčka v mém životě: témata, rituály, vyhýbání]</li>
-  <li class="placeholder">[Co nepomáhalo]</li>
-  <li class="placeholder">[Co pomohlo: odborná péče, sebepřijetí, malé kroky]</li>
-  <li class="placeholder">[Kde jsem dnes a co na tom není hotové, bez slibů]</li>
-  <li class="placeholder">[Co bych chtěl říct člověku, který právě čte]</li>
-</ol>`,
+      h: 'Můj příběh',
+      html: `<p>Mám vlastní zkušenost s OCD v několika podobách. Stručně ji popisuji na stránce <a href="/o-mne">O mně</a>. Delší příběh zatím na webu není, a když přibude, bude bez podrobností o traumatech, bez tvrzení o vyléčení a bez rad k lékům.</p>`,
     },
     {
-      h: 'Příběhy dalších lidí (šablona)',
+      h: 'Příběhy dalších lidí',
       html: `<p>Příběh jiného člověka zveřejním jen za těchto podmínek:</p>
 <ul class="rules">
   <li>Mám <strong>písemný souhlas</strong> a člověk ho může kdykoli odvolat.</li>
@@ -225,16 +230,20 @@ export const PRIBEHY = {
   <li><strong>Neobsahuje žádné tvrzení o vyléčení</strong>, o výsledcích ani konkrétní rady k lékům.</li>
   <li>Příběhy ani recenze nežádám výměnou za schůzky.</li>
 </ul>
-<h3>Otázky, na které může příběh odpovídat</h3>
-<ul class="rules">
-  <li class="placeholder">[S čím jsem přišel a jak to vypadalo v běžném dni?]</li>
-  <li class="placeholder">[Co pro mě bylo nejtěžší?]</li>
-  <li class="placeholder">[Co mi pomáhá teď?]</li>
-  <li class="placeholder">[Co bych vzkázal někomu, kdo začíná?]</li>
-</ul>`,
+<p>Zatím tu žádný další příběh není. Pokud byste svůj příběh někdy chtěli sdílet, napište mi na <a href="mailto:ocdmentor@gmail.com">ocdmentor@gmail.com</a>. Nic nezveřejním bez vašeho písemného souhlasu.</p>`,
+    },
+    {
+      h: 'Otázky, které mohou příběh provázet',
+      html: `<ul class="rules">
+  <li>S čím jsem přišel a jak to vypadalo v běžném dni?</li>
+  <li>Co pro mě bylo nejtěžší?</li>
+  <li>Co mi pomáhá teď?</li>
+  <li>Co bych vzkázal někomu, kdo začíná?</li>
+</ul>
+<p>Odpovídat na všechny není nutné a nikdo vás k tomu nenutí.</p>`,
     },
   ],
-  related: ['/o-mne', '/jak-to-probiha', '/pro-blizke', '/myty-o-ocd', '/pro-terapeuty', '/skupiny'],
+  related: ['/o-mne', '/jak-to-probiha', '/pro-blizke', '/myty-o-ocd', '/pro-terapeuty'],
 };
 
 // ---------- /pro-terapeuty ----------
@@ -277,7 +286,7 @@ export const PRO_TERAPEUTY = {
       html: `<p>Napište na <a href="mailto:ocdmentor@gmail.com">ocdmentor@gmail.com</a>. V akutní situaci prosím použijte krizové kontakty, ne e-mail.</p>`,
     },
   ],
-  related: ['/o-mne', '/metoda', '/jak-to-probiha', '/pro-koho', '/pribehy', '/skupiny'],
+  related: ['/o-mne', '/metoda', '/jak-to-probiha', '/pro-koho', '/pribehy'],
 };
 
 // ---------- /pomoc (zveřejněno hned, není koncept) ----------
@@ -302,8 +311,7 @@ export const POMOC = {
   <li><strong>Klinický psycholog a psychoterapeut:</strong> pracují s obtížemi pomocí rozhovoru a konkrétních postupů. U OCD se obvykle používá expozice s prevencí reakce (ERP) nebo inferenční kognitivně-behaviorální přístup (I-CBT).</li>
   <li><strong>Centra duševního zdraví:</strong> poskytují péči v komunitě, blíž k domovu. Podmínky přijetí si ověřte u konkrétního centra.</li>
 </ul>
-<p>Ověřené organizace a adresáře najdete v části <a href="/pro-koho#odborna-pece">Kam dál: odborná péče</a>.</p>
-<!-- ODKAZY NA KONKRÉTNÍ ORGANIZACE: doplní autor -->`,
+<p>Ověřené organizace a adresáře najdete v části <a href="/pro-koho#odborna-pece">Kam dál: odborná péče</a>.</p>`,
     },
     {
       h: 'Peer podpora je doplněk, ne náhrada',

@@ -1,11 +1,26 @@
 {
-  "poznamka": "Knihovna typů OCD. stav: plny = napsaný koncept stránky, osnova = zatím jen osnova. schvaleno: true zveřejní typ v mřížce na /typy-ocd (a po schválení se přidá i mimo koncepty).",
+  "poznamka": "Knihovna typů OCD. Všechny typy mají plný text a jsou zveřejněné (schvaleno: true). Nový typ se přidá sem a jeho text do tools/content (TYPY_PLNY nebo TYPY_DALSI).",
   "kategorie": [
-    { "id": "zdravi", "nazev": "Zdraví a tělo" },
-    { "id": "kontrola", "nazev": "Kontrola a odpovědnost" },
-    { "id": "poradek", "nazev": "Čistota, pořádek a rituály" },
-    { "id": "myslenky", "nazev": "Vtíravé myšlenky a obrazy" },
-    { "id": "vztahy", "nazev": "Vztahy, morálka a smysl" }
+    {
+      "id": "zdravi",
+      "nazev": "Zdraví a tělo"
+    },
+    {
+      "id": "kontrola",
+      "nazev": "Kontrola a odpovědnost"
+    },
+    {
+      "id": "poradek",
+      "nazev": "Čistota, pořádek a rituály"
+    },
+    {
+      "id": "myslenky",
+      "nazev": "Vtíravé myšlenky a obrazy"
+    },
+    {
+      "id": "vztahy",
+      "nazev": "Vztahy, morálka a smysl"
+    }
   ],
   "typy": [
     {
@@ -14,7 +29,7 @@
       "kategorie": "zdravi",
       "kratce": "Strach z nemoci, kontrola těla a hledání jistoty, že jsem zdravý.",
       "stav": "plny",
-      "schvaleno": false
+      "schvaleno": true
     },
     {
       "slug": "kontrolovani",
@@ -22,7 +37,7 @@
       "kategorie": "kontrola",
       "kratce": "Opakované kontroly zámků, spotřebičů a vlastních činů z obavy, že způsobím škodu.",
       "stav": "plny",
-      "schvaleno": false
+      "schvaleno": true
     },
     {
       "slug": "vztahove-ocd",
@@ -30,221 +45,127 @@
       "kategorie": "vztahy",
       "kratce": "Neustálé pochybnosti o vztahu, o partnerovi nebo o vlastních citech.",
       "stav": "plny",
-      "schvaleno": false
+      "schvaleno": true
     },
     {
       "slug": "kontaminace",
       "nazev": "Kontaminace",
       "kategorie": "poradek",
       "kratce": "Strach z nečistoty, nákazy nebo chemikálií a rituály kolem mytí a čištění.",
-      "stav": "osnova",
-      "schvaleno": false,
-      "osnova": [
-        "Co to je: obavy z nečistoty, bakterií, nákazy nebo chemikálií, které jsou mnohem silnější než situace odpovídá.",
-        "Obsese a kompulze: mytí, dezinfekce, vyhýbání se místům a předmětům, převlékání, „čisté“ a „špinavé“ zóny.",
-        "Mýty: „je to jen důslednost v hygieně“, „stačí se umýt ještě jednou“.",
-        "Odborná péče: obecně ERP a I-CBT, tempo určuje odborník. Žádné návody k samostatným expozicím.",
-        "Peer podpora: sdílení zkušenosti, motivace, kroky mezi sezeními."
-      ]
+      "stav": "plny",
+      "schvaleno": true
     },
     {
       "slug": "symetrie-just-right",
       "nazev": "Symetrie a „just right“",
       "kategorie": "poradek",
       "kratce": "Potřeba, aby věci byly přesně „akorát“, souměrné nebo ve správném pořadí.",
-      "stav": "osnova",
-      "schvaleno": false,
-      "osnova": [
-        "Co to je: nepříjemný pocit „ještě to není ono“, který neustoupí, dokud věc není srovnaná nebo vykonaná „správně“.",
-        "Obsese a kompulze: uspořádávání, počítání, opakování úkonů, dokud to „sedí“, dotýkání se z obou stran.",
-        "Mýty: „jsem jen pedant“, „mám rád pořádek“ (rozdíl: míra utrpení, čas, omezení).",
-        "Odborná péče a peer podpora: stejná osnova jako u ostatních typů."
-      ]
+      "stav": "plny",
+      "schvaleno": true
     },
     {
       "slug": "agresivni-vtirave-myslenky",
       "nazev": "Agresivní vtíravé myšlenky",
       "kategorie": "myslenky",
       "kratce": "Nechtěné myšlenky nebo obrazy, že někomu ublížím, i když to vůbec nechci.",
-      "stav": "osnova",
-      "schvaleno": false,
-      "osnova": [
-        "Co to je: nechtěné obrazy nebo myšlenky na ublížení druhým, které člověk děsí právě proto, že odporují jeho hodnotám.",
-        "Obsese a kompulze: vyhýbání se ostrým předmětům nebo lidem, kontrola vzpomínek, ujišťování, „vyrušování“ myšlenky.",
-        "Mýty: „myšlenka znamená, že to udělám“, „musím to mít pod kontrolou“.",
-        "Citlivé téma: psát klidně, bez šokujících příkladů. Poznámka o tom, kdy je nutné obrátit se na odborníka hned.",
-        "Odborná péče a peer podpora."
-      ]
+      "stav": "plny",
+      "schvaleno": true
     },
     {
       "slug": "sexualni-vtirave-myslenky",
       "nazev": "Sexuální vtíravé myšlenky",
       "kategorie": "myslenky",
       "kratce": "Nechtěné sexuální myšlenky nebo obrazy, které vyvolávají hanbu a strach.",
-      "stav": "osnova",
-      "schvaleno": false,
-      "osnova": [
-        "Co to je: nechtěné sexuální myšlenky, představy nebo pochybnosti, které člověk prožívá jako cizí a odpudivé.",
-        "Obsese a kompulze: kontrola vlastních reakcí, vyhýbání se lidem nebo situacím, ujišťování, mentální přehrávání.",
-        "Mýty: „myšlenka odhaluje, kdo doopravdy jsem“.",
-        "Citlivé téma: nehodnotící jazyk, žádné explicitní popisy, důraz na odbornou pomoc.",
-        "Odborná péče a peer podpora."
-      ]
+      "stav": "plny",
+      "schvaleno": true
     },
     {
       "slug": "skrupulozita",
       "nazev": "Skrupulozita",
       "kategorie": "vztahy",
       "kratce": "Přehnané pochybnosti o tom, zda jsem morálně v pořádku nebo zda jsem nezhřešil.",
-      "stav": "osnova",
-      "schvaleno": false,
-      "osnova": [
-        "Co to je: neustálý strach z toho, že jsem udělal něco morálně špatného, hříšného nebo nepřijatelného.",
-        "Obsese a kompulze: přemítání, ujišťování u duchovních nebo blízkých, nadměrné modlitby nebo zpovědi, vyhýbání se situacím.",
-        "Mýty: „je to jen silné svědomí“, „víra mi sama řekne, že jsem v pořádku“.",
-        "Citlivost: respektovat víru člověka, nesoudit náboženství.",
-        "Odborná péče a peer podpora."
-      ]
+      "stav": "plny",
+      "schvaleno": true
     },
     {
       "slug": "pure-o",
       "nazev": "Pure O",
       "kategorie": "myslenky",
       "kratce": "OCD s obsesemi a rituály odehrávajícími se hlavně v hlavě, zvenku nevidět.",
-      "stav": "osnova",
-      "schvaleno": false,
-      "osnova": [
-        "Co to je: neformální označení, kdy převažují obsese a kompulze probíhají hlavně mentálně.",
-        "Mentální kompulze: přemítání, analyzování, procházení vzpomínek, kontrola pocitů, neutralizace.",
-        "Mýty: „Pure O není OCD bez kompulzí“ (kompulze jsou, jen skryté).",
-        "Odborná péče a peer podpora."
-      ]
+      "stav": "plny",
+      "schvaleno": true
     },
     {
       "slug": "senzomotoricke-ocd",
       "nazev": "Senzomotorické OCD",
       "kategorie": "zdravi",
       "kratce": "Neustálé vnímání dýchání, mrkání, polykání nebo jiných tělesných vjemů.",
-      "stav": "osnova",
-      "schvaleno": false,
-      "osnova": [
-        "Co to je: pozornost se zasekne na automatických tělesných procesech a nejde pustit.",
-        "Obsese a kompulze: sledování dýchání nebo mrkání, snaha „nastavit“ ho správně, vyhýbání se tichu.",
-        "Mýty: „je to něco s tělem“ (otázku zdraví posoudí lékař, web nic nevylučuje).",
-        "Odborná péče a peer podpora."
-      ]
+      "stav": "plny",
+      "schvaleno": true
     },
     {
       "slug": "existencialni-ocd",
       "nazev": "Existenciální OCD",
       "kategorie": "vztahy",
       "kratce": "Neodbytné otázky o smyslu, realitě, existenci nebo smrti, na které chci jistou odpověď.",
-      "stav": "osnova",
-      "schvaleno": false,
-      "osnova": [
-        "Co to je: filozofické otázky, které se mění v nutkání mít jistou odpověď.",
-        "Obsese a kompulze: dlouhé přemítání, hledání argumentů a důkazů, čtení, ujišťování.",
-        "Mýty: „stačí najít správnou odpověď“.",
-        "Odborná péče a peer podpora."
-      ]
+      "stav": "plny",
+      "schvaleno": true
     },
     {
       "slug": "magicke-mysleni",
       "nazev": "Magické myšlení",
       "kategorie": "poradek",
       "kratce": "Přesvědčení, že myšlenka, číslo nebo rituál ovlivní, zda se něco stane.",
-      "stav": "osnova",
-      "schvaleno": false,
-      "osnova": [
-        "Co to je: pocit, že určité myšlenky, čísla nebo činnosti „přitahují“ neštěstí nebo mu zabraňují.",
-        "Obsese a kompulze: rituály „aby se nic nestalo“, vyhýbání se „špatným“ číslům, vnitřní formule.",
-        "Mýty: „je to jen pověrčivost“.",
-        "Odborná péče a peer podpora."
-      ]
+      "stav": "plny",
+      "schvaleno": true
     },
     {
       "slug": "hyperzodpovednost",
       "nazev": "Hyperzodpovědnost",
       "kategorie": "kontrola",
       "kratce": "Přehnaný pocit, že jsem odpovědný za to, aby se nikomu nic nestalo.",
-      "stav": "osnova",
-      "schvaleno": false,
-      "osnova": [
-        "Co to je: silný pocit osobní odpovědnosti za možnou škodu, i když ji nemám pod kontrolou.",
-        "Obsese a kompulze: kontroly, ujišťování, vyhýbání se rozhodnutím, přebírání cizí odpovědnosti.",
-        "Mýty: „odpovědný člověk musí mít jistotu“.",
-        "Odborná péče a peer podpora."
-      ]
+      "stav": "plny",
+      "schvaleno": true
     },
     {
       "slug": "real-event-ocd",
       "nazev": "Real-event OCD",
       "kategorie": "kontrola",
       "kratce": "Pochybnosti o skutečných událostech z minulosti: neudělal jsem tehdy něco špatně?",
-      "stav": "osnova",
-      "schvaleno": false,
-      "osnova": [
-        "Co to je: nejistota o skutečných minulých událostech, která se mění v hledání jistoty.",
-        "Obsese a kompulze: mentální přehrávání vzpomínek, ujišťování, vyptávání se, přiznávání.",
-        "Mýty: „když si vzpomenu přesně, ulevím si“.",
-        "Odborná péče a peer podpora."
-      ]
+      "stav": "plny",
+      "schvaleno": true
     },
     {
       "slug": "emetofobni-ocd",
       "nazev": "Emetofobní OCD",
       "kategorie": "zdravi",
       "kratce": "Strach ze zvracení a rituály, které mají zvracení předejít.",
-      "stav": "osnova",
-      "schvaleno": false,
-      "osnova": [
-        "Co to je: silný strach ze zvracení, který ovlivňuje jídlo, místa i vztahy.",
-        "Obsese a kompulze: kontrola jídla a data spotřeby, vyhýbání se lidem a místům, rituály kolem jídla.",
-        "Poznámka: obtíže s jídlem a tělesné potíže vždy posuzuje odborník.",
-        "Odborná péče a peer podpora."
-      ]
+      "stav": "plny",
+      "schvaleno": true
     },
     {
       "slug": "perfekcionisticke-ocd",
       "nazev": "Perfekcionistické OCD",
       "kategorie": "poradek",
       "kratce": "Potřeba, aby něco bylo dokonalé nebo „akorát“, a nekonečné opravování.",
-      "stav": "osnova",
-      "schvaleno": false,
-      "osnova": [
-        "Co to je: potřeba udělat věc „přesně“ nebo „dokonale“, která se vymkla běžnému perfekcionismu.",
-        "Obsese a kompulze: opakování a přepisování, kontrola detailů, odkládání dokončení.",
-        "Mýty: „je to jen vysoké nároky na sebe“.",
-        "Odborná péče a peer podpora."
-      ]
+      "stav": "plny",
+      "schvaleno": true
     },
     {
       "slug": "zpovedni-ocd",
       "nazev": "Zpovědní OCD",
       "kategorie": "vztahy",
       "kratce": "Nutkání se přiznávat nebo ověřovat, zda jsem neudělal něco špatně.",
-      "stav": "osnova",
-      "schvaleno": false,
-      "osnova": [
-        "Co to je: nutkání říct druhým o svých myšlenkách nebo činech, aby se zbavil napětí.",
-        "Obsese a kompulze: opakovaná přiznání, vyptávání se, ujišťování reakcí druhých.",
-        "Mýty: „čestnost znamená říct všechno“.",
-        "Odborná péče a peer podpora."
-      ]
+      "stav": "plny",
+      "schvaleno": true
     },
     {
       "slug": "strach-ze-zesileni",
       "nazev": "Strach ze zešílení",
       "kategorie": "myslenky",
       "kratce": "Obava ze ztráty kontroly nebo zdravého rozumu.",
-      "stav": "osnova",
-      "schvaleno": false,
-      "osnova": [
-        "Co to je: obava, že vtíravé myšlenky znamenají ztrátu kontroly nebo rozumu.",
-        "Obsese a kompulze: kontrola myšlenek, vyhledávání příznaků, ujišťování, vyhýbání se situacím.",
-        "Poznámka: u psychotických příznaků a akutních stavů patří péče do rukou odborníka, popsat jasně.",
-        "Odborná péče a peer podpora."
-      ]
+      "stav": "plny",
+      "schvaleno": true
     }
   ]
 }

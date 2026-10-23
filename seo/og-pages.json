@@ -108,6 +108,156 @@
     "art": ""
   },
   {
+    "slug": "vtirave-myslenky",
+    "text": "Vtíravé myšlenky",
+    "sub": "Co to je a proč se u OCD „lepí“",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd",
+    "text": "Typy OCD",
+    "sub": "Přehled podob OCD a jak se projevují",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-zdravotni-ocd",
+    "text": "Zdravotní OCD",
+    "sub": "Strach z nemoci, kontrola těla a hledání jistoty, že jsem zdravý.",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-kontrolovani",
+    "text": "Kontrolování",
+    "sub": "Opakované kontroly zámků, spotřebičů a vlastních činů z obavy, že způsobím škodu.",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-vztahove-ocd",
+    "text": "Vztahové OCD",
+    "sub": "Neustálé pochybnosti o vztahu, o partnerovi nebo o vlastních citech.",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-kontaminace",
+    "text": "Kontaminace",
+    "sub": "Strach z nečistoty, nákazy nebo chemikálií a rituály kolem mytí a čištění.",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-symetrie-just-right",
+    "text": "Symetrie a „just right“",
+    "sub": "Potřeba, aby věci byly přesně „akorát“, souměrné nebo ve správném pořadí.",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-agresivni-vtirave-myslenky",
+    "text": "Agresivní vtíravé myšlenky",
+    "sub": "Nechtěné myšlenky nebo obrazy, že někomu ublížím, i když to vůbec nechci.",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-sexualni-vtirave-myslenky",
+    "text": "Sexuální vtíravé myšlenky",
+    "sub": "Nechtěné sexuální myšlenky nebo obrazy, které vyvolávají hanbu a strach.",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-skrupulozita",
+    "text": "Skrupulozita",
+    "sub": "Přehnané pochybnosti o tom, zda jsem morálně v pořádku nebo zda jsem nezhřešil.",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-pure-o",
+    "text": "Pure O",
+    "sub": "OCD s obsesemi a rituály odehrávajícími se hlavně v hlavě, zvenku nevidět.",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-senzomotoricke-ocd",
+    "text": "Senzomotorické OCD",
+    "sub": "Neustálé vnímání dýchání, mrkání, polykání nebo jiných tělesných vjemů.",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-existencialni-ocd",
+    "text": "Existenciální OCD",
+    "sub": "Neodbytné otázky o smyslu, realitě, existenci nebo smrti, na které chci jistou odpověď.",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-magicke-mysleni",
+    "text": "Magické myšlení",
+    "sub": "Přesvědčení, že myšlenka, číslo nebo rituál ovlivní, zda se něco stane.",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-hyperzodpovednost",
+    "text": "Hyperzodpovědnost",
+    "sub": "Přehnaný pocit, že jsem odpovědný za to, aby se nikomu nic nestalo.",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-real-event-ocd",
+    "text": "Real-event OCD",
+    "sub": "Pochybnosti o skutečných událostech z minulosti: neudělal jsem tehdy něco špatně?",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-emetofobni-ocd",
+    "text": "Emetofobní OCD",
+    "sub": "Strach ze zvracení a rituály, které mají zvracení předejít.",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-perfekcionisticke-ocd",
+    "text": "Perfekcionistické OCD",
+    "sub": "Potřeba, aby něco bylo dokonalé nebo „akorát“, a nekonečné opravování.",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-zpovedni-ocd",
+    "text": "Zpovědní OCD",
+    "sub": "Nutkání se přiznávat nebo ověřovat, zda jsem neudělal něco špatně.",
+    "art": ""
+  },
+  {
+    "slug": "typy-ocd-strach-ze-zesileni",
+    "text": "Strach ze zešílení",
+    "sub": "Obava ze ztráty kontroly nebo zdravého rozumu.",
+    "art": ""
+  },
+  {
+    "slug": "pro-blizke",
+    "text": "Pro blízké",
+    "sub": "Jak pomáhat a nekrmit OCD",
+    "art": ""
+  },
+  {
+    "slug": "myty-o-ocd",
+    "text": "Mýty o OCD",
+    "sub": "Co je mýtus a co realita",
+    "art": ""
+  },
+  {
+    "slug": "slovnicek",
+    "text": "Slovníček pojmů",
+    "sub": "Obsese, kompulze, ERP, I-CBT a další",
+    "art": ""
+  },
+  {
+    "slug": "pribehy",
+    "text": "Příběhy",
+    "sub": "Zásady sdílení zkušeností s OCD",
+    "art": ""
+  },
+  {
+    "slug": "pro-terapeuty",
+    "text": "Pro terapeuty a odborníky",
+    "sub": "Peer mentoring jako doplněk odborné péče",
+    "art": ""
+  },
+  {
     "slug": "pomoc",
     "text": "Pomoc hned",
     "sub": "Krizové kontakty a odborná pomoc",

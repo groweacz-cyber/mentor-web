@@ -4,32 +4,83 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zdravotní OCD: obsese a kompulze | ocdmentor.cz</title>
-<meta name="description" content="Zdravotní OCD u OCD: Strach z nemoci, kontrola těla a hledání jistoty, že jsem zdravý. Přehled obsesí a kompulzí, mýtů a toho, kdy vyhledat odborníka.">
-<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Zdravotní OCD u OCD: Strach z nemoci, kontrola těla a hledání jistoty, že jsem zdravý. Příklady obsesí a kompulzí, časté mýty a kdy vyhledat odborníka.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://ocdmentor.cz/typy-ocd/zdravotni-ocd">
 
-
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="cs_CZ">
 <meta property="og:site_name" content="OCD mentor">
 <meta property="og:title" content="Zdravotní OCD: obsese a kompulze | ocdmentor.cz">
-<meta property="og:description" content="Zdravotní OCD u OCD: Strach z nemoci, kontrola těla a hledání jistoty, že jsem zdravý. Přehled obsesí a kompulzí, mýtů a toho, kdy vyhledat odborníka.">
+<meta property="og:description" content="Zdravotní OCD u OCD: Strach z nemoci, kontrola těla a hledání jistoty, že jsem zdravý. Příklady obsesí a kompulzí, časté mýty a kdy vyhledat odborníka.">
 <meta property="og:url" content="https://ocdmentor.cz/typy-ocd/zdravotni-ocd">
-<meta property="og:image" content="https://ocdmentor.cz/assets/og/index.png">
+<meta property="og:image" content="https://ocdmentor.cz/assets/og/typy-ocd-zdravotni-ocd.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Zdravotní OCD: obsese a kompulze | ocdmentor.cz">
-
+<meta property="article:published_time" content="2026-10-23">
+<meta property="article:modified_time" content="2026-10-23">
+<meta property="article:author" content="https://ocdmentor.cz/o-mne">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Zdravotní OCD: obsese a kompulze | ocdmentor.cz">
-<meta name="twitter:description" content="Zdravotní OCD u OCD: Strach z nemoci, kontrola těla a hledání jistoty, že jsem zdravý. Přehled obsesí a kompulzí, mýtů a toho, kdy vyhledat odborníka.">
-<meta name="twitter:image" content="https://ocdmentor.cz/assets/og/index.png">
+<meta name="twitter:description" content="Zdravotní OCD u OCD: Strach z nemoci, kontrola těla a hledání jistoty, že jsem zdravý. Příklady obsesí a kompulzí, časté mýty a kdy vyhledat odborníka.">
+<meta name="twitter:image" content="https://ocdmentor.cz/assets/og/typy-ocd-zdravotni-ocd.png">
 <meta name="theme-color" content="#1b2a41">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=aa336ee7">
+<link rel="stylesheet" href="/assets/css/style.css?v=4ef61fa4">
 
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Zdravotní OCD",
+      "description": "Zdravotní OCD u OCD: Strach z nemoci, kontrola těla a hledání jistoty, že jsem zdravý. Příklady obsesí a kompulzí, časté mýty a kdy vyhledat odborníka.",
+      "image": "https://ocdmentor.cz/assets/og/typy-ocd-zdravotni-ocd.png",
+      "datePublished": "2026-10-23",
+      "dateModified": "2026-10-23",
+      "inLanguage": "cs",
+      "author": {
+        "@type": "Person",
+        "name": "Bc. Václav Kodeš",
+        "url": "https://ocdmentor.cz/o-mne"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "OCD mentor",
+        "url": "https://ocdmentor.cz"
+      },
+      "mainEntityOfPage": "https://ocdmentor.cz/typy-ocd/zdravotni-ocd"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Domů",
+          "item": "https://ocdmentor.cz/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Typy OCD",
+          "item": "https://ocdmentor.cz/typy-ocd"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Zdravotní OCD",
+          "item": "https://ocdmentor.cz/typy-ocd/zdravotni-ocd"
+        }
+      ]
+    }
+  ]
+}
+</script>
 <script>
 (function(){var d=document.documentElement;d.classList.add('js');
 try{if(localStorage.getItem('ocd-calm')==='1')d.classList.add('calm');}catch(e){}
@@ -80,7 +131,18 @@ for(var m=0;m<subToggles.length;m++){
     var open=li.classList.toggle('open');
     this.setAttribute('aria-expanded',open?'true':'false');
     closeAllSub(this);
+    if(open)placeSub(li.querySelector('.sub-nav'));
   });
+}
+function placeSub(ul){
+  if(!ul)return;
+  ul.style.left='';ul.style.right='';
+  var r=ul.getBoundingClientRect();
+  if(r.right>innerWidth-8){
+    ul.style.left='auto';ul.style.right='0';
+    r=ul.getBoundingClientRect();
+    if(r.left<8){ul.style.left='0';ul.style.right='auto';}
+  }
 }
 document.addEventListener('click',function(){closeAllSub(null);});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(null);});
@@ -97,7 +159,10 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
     <nav aria-label="Hlavní navigace"><ul><li><a href="/metoda">Metoda</a></li><li><a href="/pro-koho">Pro koho</a></li><li><a href="/jak-to-probiha">Jak to probíhá</a></li><li><a href="/dotaznik">Dotazník</a></li><li><a href="/aplikace">Aplikace</a></li><li class="has-sub">
           <button type="button" class="nav-sub-toggle" aria-expanded="false">Online semináře a kurzy</button>
           <ul class="sub-nav"><li><a href="/seminare">Online semináře</a></li><li><a href="/kurz">Online kurz</a></li></ul>
-        </li><li><a href="/ebook">E-book</a></li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
+        </li><li><a href="/ebook">E-book</a></li><li class="has-sub is-active">
+          <button type="button" class="nav-sub-toggle" aria-expanded="false">O OCD</button>
+          <ul class="sub-nav"><li><a href="/vtirave-myslenky">Vtíravé myšlenky</a></li><li><a href="/typy-ocd">Typy OCD</a></li><li><a href="/myty-o-ocd">Mýty o OCD</a></li><li><a href="/slovnicek">Slovníček pojmů</a></li><li><a href="/pro-blizke">Pro blízké</a></li><li><a href="/pribehy">Příběhy</a></li></ul>
+        </li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
   </div>
 </header>
 
@@ -105,7 +170,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 <div class="wrap crumbs-wrap"><nav class="crumbs" aria-label="Drobečková navigace"><ol><li><a href="/">Domů</a></li><li><a href="/typy-ocd">Typy OCD</a></li><li aria-current="page">Zdravotní OCD</li></ol></nav></div>
 
 <section class="wrap page-head">
-  <p class="draft-badge"><strong>Koncept</strong> Tento text čeká na schválení. Není v navigaci ani ve vyhledávačích.</p>
+  
   <h1>Zdravotní OCD</h1>
   <p class="lead">Zdravotní OCD je podoba OCD, při které se <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-obsese-1">obsese</button><span class="gl-pop" id="gl-obsese-1"><strong>Obsese:</strong> Opakující se, nechtěná a rušivá myšlenka, představa nebo nutkání, která vyvolává úzkost nebo napětí. Bývá v rozporu s tím, co člověk chce a čemu věří. <a href="/slovnicek#obsese">Více ve slovníčku</a></span></span> točí kolem nemoci: obava, že nějakou vážnou nemoc mám nebo dostanu, a nekonečné hledání jistoty, že jsem zdravý.</p>
   <div class="author-box" data-no-gl>
@@ -159,8 +224,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 
 <section class="wrap block reveal sources">
   <h2>Zdroje</h2>
-  
-  <p class="placeholder">[ZDROJE: doplní autor, jen důvěryhodné zdroje, které ověří]</p>
+  <ul class="rules"><li>Praško J. a kol. (2025): <a href="https://postupy-pece.psychiatrie.cz/images/pdf/2025_DP_Lecba-obsedantne-kompulzivni-poruchy-dospelych.pdf" target="_blank" rel="noopener">Léčba obsedantně-kompulzivní poruchy u dospělých</a>. Doporučené postupy psychiatrické péče.</li><li>NICE: <a href="https://www.nice.org.uk/guidance/cg31" target="_blank" rel="noopener">Obsessive-compulsive disorder and body dysmorphic disorder: treatment</a> (doporučený postup CG31).</li><li>NHS: <a href="https://www.nhs.uk/mental-health/conditions/obsessive-compulsive-disorder-ocd/" target="_blank" rel="noopener">Obsessive compulsive disorder (OCD)</a>.</li></ul>
+  <p class="small">Odkazy vedou na externí weby mimo OCD mentor. Zdroje podporují obecné informace na této stránce, nejsou návodem k léčbě.</p>
 </section>
 
 <section class="wrap block reveal callout">
@@ -183,6 +248,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
       <li><a href="/obchodni-podminky">Obchodní podmínky</a></li>
       <li><a href="/ochrana-osobnich-udaju">Ochrana osobních údajů</a></li>
       <li><a href="/kontakt">Kontakt</a></li>
+      <li><a href="/pro-terapeuty">Pro terapeuty</a></li>
       <li><a href="/pomoc">Pomoc hned</a></li>
     </ul>
     <p class="small">© 2026 OCDmentor.cz Všechna práva vyhrazena. Vlastní cookies ani sledování návštěvnosti nepoužíváme. Rezervační widget Reservanto může při otevření nastavit vlastní cookies – více v <a href="/ochrana-osobnich-udaju">zásadách ochrany osobních údajů</a>.</p>
@@ -190,6 +256,10 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   </div>
 </footer>
 
+<aside class="float-cta js-only" id="float-cta" aria-label="Konzultace zdarma" hidden>
+  <a class="btn btn-cta btn-sm float-book" href="/kontakt">Konzultace zdarma</a>
+  <button type="button" class="float-close" aria-label="Zavřít lištu">×</button>
+</aside>
 <dialog id="rsv-modal" aria-labelledby="rsv-modal-h" aria-modal="true">
   <div class="rsv-inner">
     <h2 id="rsv-modal-h">Zahájení služby a právo na odstoupení od smlouvy</h2>
@@ -209,8 +279,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   </div>
 </dialog>
 <script defer src="/assets/js/rezervace-souhlas.js?v=0bf556f1"></script>
-<script src="/assets/js/slovnicek.js?v=0fe4b26e" defer></script>
-
+<script src="/assets/js/slovnicek.js?v=b5b0b4a8" defer></script>
+<script src="/assets/js/lista.js?v=19b352ec" defer></script>
 
 
 </body>

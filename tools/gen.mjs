@@ -6,6 +6,7 @@ import { createHash } from 'node:crypto';
 import { execSync } from 'node:child_process';
 import vm from 'node:vm';
 import * as F2 from './content/faze2.mjs';
+import { TYPY_DALSI } from './content/typy2.mjs';
 
 const OUT = process.argv[2] ? resolve(process.argv[2]) : resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const BRAND = 'OCD mentor';
@@ -89,6 +90,14 @@ const nav = [
     ['/kurz', 'Online kurz'],
   ]],
   ['/ebook', 'E-book'],
+  [null, 'O OCD', [
+    ['/vtirave-myslenky', 'Vtíravé myšlenky'],
+    ['/typy-ocd', 'Typy OCD'],
+    ['/myty-o-ocd', 'Mýty o OCD'],
+    ['/slovnicek', 'Slovníček pojmů'],
+    ['/pro-blizke', 'Pro blízké'],
+    ['/pribehy', 'Příběhy'],
+  ]],
   ['/clanky', 'Články'],
   ['/o-mne', 'O mně'],
   ['/kontakt', 'Kontakt'],
@@ -210,7 +219,18 @@ for(var m=0;m<subToggles.length;m++){
     var open=li.classList.toggle('open');
     this.setAttribute('aria-expanded',open?'true':'false');
     closeAllSub(this);
+    if(open)placeSub(li.querySelector('.sub-nav'));
   });
+}
+function placeSub(ul){
+  if(!ul)return;
+  ul.style.left='';ul.style.right='';
+  var r=ul.getBoundingClientRect();
+  if(r.right>innerWidth-8){
+    ul.style.left='auto';ul.style.right='0';
+    r=ul.getBoundingClientRect();
+    if(r.left<8){ul.style.left='0';ul.style.right='auto';}
+  }
 }
 document.addEventListener('click',function(){closeAllSub(null);});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(null);});
@@ -423,7 +443,7 @@ function page({ path, title, desc, body, jsonld, noindex, robots, script, art, a
   const navHtml = nav
     .map(([h, t, sub]) => {
       if (sub) {
-        const active = sub.some(([sh]) => sh === path);
+        const active = sub.some(([sh]) => sh === path || path.startsWith(sh + '/'));
         const subHtml = sub.map(([sh, st]) => `<li><a href="${sh}"${sh === path ? ' aria-current="page"' : ''}>${st}</a></li>`).join('');
         return `<li class="has-sub${active ? ' is-active' : ''}">
           <button type="button" class="nav-sub-toggle" aria-expanded="false">${t}</button>
@@ -532,6 +552,7 @@ ${crumbsHtml}${b}
       <li><a href="/obchodni-podminky">Obchodní podmínky</a></li>
       <li><a href="/ochrana-osobnich-udaju">Ochrana osobních údajů</a></li>
       <li><a href="/kontakt">Kontakt</a></li>
+      <li><a href="/pro-terapeuty">Pro terapeuty</a></li>
       <li><a href="/pomoc">Pomoc hned</a></li>
     </ul>
     <p class="small">© 2026 OCDmentor.cz Všechna práva vyhrazena. Vlastní cookies ani sledování návštěvnosti nepoužíváme. Rezervační widget Reservanto může při otevření nastavit vlastní cookies – více v <a href="/ochrana-osobnich-udaju">zásadách ochrany osobních údajů</a>.</p>
@@ -1404,7 +1425,7 @@ add('/clanky', {
     crumb: a.seoTitle,
     ogType: 'article',
     gloss: true,
-    related: ARTICLES.filter((x) => x.slug !== a.slug).map((x) => '/clanky/' + x.slug).concat(['/metoda', '/kviz']),
+    related: ARTICLES.filter((x) => x.slug !== a.slug).map((x) => '/clanky/' + x.slug).concat(['/metoda', '/kviz', '/vtirave-myslenky', '/typy-ocd']),
     published: a.date,
     modified: a.modified || a.date,
     desc: 'Jaké druhy OCD existují? Přehled 9 tematických podob OCD, jejich typické příznaky a možnosti odborné léčby včetně ERP a I-CBT.',
@@ -1526,7 +1547,7 @@ add('/clanky', {
     crumb: a.seoTitle,
     ogType: 'article',
     gloss: true,
-    related: ARTICLES.filter((x) => x.slug !== a.slug).map((x) => '/clanky/' + x.slug).concat(['/metoda', '/kviz']),
+    related: ARTICLES.filter((x) => x.slug !== a.slug).map((x) => '/clanky/' + x.slug).concat(['/metoda', '/kviz', '/vtirave-myslenky', '/typy-ocd']),
     published: a.date,
     modified: a.modified || a.date,
     desc: 'Proč ujišťování přináší jen krátkodobou úlevu a dlouhodobě OCD udržuje. Jak kompulzivní ujišťování poznat u blízkých, na internetu i u AI a co dělat místo něj.',
@@ -1669,7 +1690,7 @@ add('/clanky', {
     crumb: a.seoTitle,
     ogType: 'article',
     gloss: true,
-    related: ARTICLES.filter((x) => x.slug !== a.slug).map((x) => '/clanky/' + x.slug).concat(['/metoda', '/kviz']),
+    related: ARTICLES.filter((x) => x.slug !== a.slug).map((x) => '/clanky/' + x.slug).concat(['/metoda', '/kviz', '/vtirave-myslenky', '/typy-ocd']),
     published: a.date,
     modified: a.modified || a.date,
     desc: 'Úzkost a nutkání při OCD přichází ve vlnách, které rostou, vrcholí a opadají. Jak vlnu poznat, co ji zesiluje a jak ji nechat projít bez kompulze.',
@@ -1794,7 +1815,7 @@ add('/clanky', {
     crumb: a.seoTitle,
     ogType: 'article',
     gloss: true,
-    related: ARTICLES.filter((x) => x.slug !== a.slug).map((x) => '/clanky/' + x.slug).concat(['/metoda', '/kviz']),
+    related: ARTICLES.filter((x) => x.slug !== a.slug).map((x) => '/clanky/' + x.slug).concat(['/metoda', '/kviz', '/vtirave-myslenky', '/typy-ocd']),
     published: a.date,
     modified: a.modified || a.date,
     desc: 'Přijetí neznamená souhlas s myšlenkou. Znamená připustit ji, aniž bys musel jednat kompulzí. Jak to funguje a kdy se přijetí stane dalším rituálem.',
@@ -2160,8 +2181,8 @@ const authorBox = (updated) => `<div class="author-box" data-no-gl>
   </div>`;
 const sourcesBlock = (sources) => `<section class="wrap block sources">
   <h2>Zdroje</h2>
-  ${sources && sources.length ? `<ul class="rules">${sources.map((s) => `<li>${s}</li>`).join('')}</ul>` : ''}
-  <p class="placeholder">[ZDROJE: doplní autor, jen důvěryhodné zdroje, které ověří]</p>
+  <ul class="rules">${sources.map((s) => `<li>${s}</li>`).join('')}</ul>
+  <p class="small">Odkazy vedou na externí weby mimo OCD mentor. Zdroje podporují obecné informace na této stránce, nejsou návodem k léčbě.</p>
 </section>`;
 const whenProBlock = () => `<section class="wrap block callout">
   <h2>Kdy vyhledat odborníka</h2>
@@ -2170,7 +2191,8 @@ const whenProBlock = () => `<section class="wrap block callout">
 </section>`;
 const proseSections = (sections) => sections.map((s) => `<section class="wrap block prose">\n  <h2>${s.h}</h2>\n  ${s.html}\n</section>`).join('\n\n');
 
-function contentPage({ path, title, ogTitle, desc, h1, lead, sections, sectionsHtml, updated = F2.UPDATED, related, sources, draft = true, parents, crumb, gloss = true, script, statusLabel }) {
+const CONTENT_PUBLISHED = '2026-10-23';
+function contentPage({ path, title, ogTitle, ogSub, desc, h1, lead, sections, sectionsHtml, updated = F2.UPDATED, related, sources, draft = false, parents, crumb, gloss = true, script, statusLabel }) {
   const body = `
 <section class="wrap page-head">
   ${draft ? draftBadge(statusLabel) : ''}
@@ -2181,12 +2203,26 @@ function contentPage({ path, title, ogTitle, desc, h1, lead, sections, sectionsH
 
 ${sectionsHtml || proseSections(sections)}
 
-${sources === false ? '' : sourcesBlock(sources)}
+${sources && sources.length ? sourcesBlock(sources) : ''}
 
 ${whenProBlock()}
 `;
   if (draft) DRAFTS.push({ path, h1: stripTags(h1), status: statusLabel || 'Koncept' });
-  add(path, { title, ogTitle, desc, noindex: draft, draft, crumbs: true, crumb, parents, body, gloss, related, script, art: false });
+  const articleLd = draft
+    ? undefined
+    : {
+        '@type': 'Article',
+        headline: stripTags(h1),
+        description: desc,
+        image: `${SITE}${ogPath(path)}`,
+        datePublished: CONTENT_PUBLISHED,
+        dateModified: updated,
+        inLanguage: 'cs',
+        author: { '@type': 'Person', name: AUTHOR, url: `${SITE}/o-mne` },
+        publisher: { '@type': 'Organization', name: BRAND, url: SITE },
+        mainEntityOfPage: `${SITE}${path}`,
+      };
+  add(path, { title, ogTitle, ogSub, desc, noindex: draft, draft, crumbs: true, crumb, parents, body, gloss, related, script, art: false, jsonld: articleLd, ogType: draft ? undefined : 'article', published: draft ? undefined : CONTENT_PUBLISHED, modified: draft ? undefined : updated });
 }
 
 // --- Pilířový průvodce ---
@@ -2198,7 +2234,9 @@ contentPage({
   lead: F2.PILIR_VTIRAVE.lead,
   sections: F2.PILIR_VTIRAVE.sections,
   related: F2.PILIR_VTIRAVE.related,
-  sources: ['Radomsky a kol., 2014 (podíl lidí s vtíravými myšlenkami)'],
+  sources: [F2.SRC.radomsky, F2.SRC.prasko, F2.SRC.nhs],
+  ogTitle: 'Vtíravé myšlenky',
+  ogSub: 'Co to je a proč se u OCD „lepí“',
 });
 
 // --- Typy OCD: index s filtrem a vyhledáváním ---
@@ -2215,8 +2253,10 @@ contentPage({
   gloss: false,
   script: '/assets/js/typy-filtr.js',
   related: ['/vtirave-myslenky', '/pro-blizke', '/myty-o-ocd', '/kviz'],
-  sources: [],
+  ogTitle: 'Typy OCD',
+  ogSub: 'Přehled podob OCD a jak se projevují',
   sectionsHtml: `<section class="wrap block">
+  <h2 class="sr-only">Přehled typů OCD</h2>
   <div id="typy-filtr" class="typy-filtr js-only">
     <label class="typy-search"><span>Hledat typ</span><input type="search" placeholder="např. kontrola, vztah, zdraví" autocomplete="off"></label>
     <div class="typy-chips" role="group" aria-label="Filtr podle okruhu">
@@ -2247,42 +2287,37 @@ const relatedTypes = (slugs) => `<ul class="rules">${slugs
   .join('')}</ul>`;
 const ctaQuiz = `<p class="cta"><a class="btn btn-ghost" href="/kviz">Kvíz Metal, nebo Pop?</a><a class="btn btn-ghost" href="/kolik-casu-mi-bere-ocd">Kolik času mi bere OCD?</a><a class="btn btn-cta" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a></p>`;
 for (const t of TYPY_DATA.typy) {
-  const full = F2.TYPY_PLNY[t.slug];
-  const stav = typStav(t);
+  const full = F2.TYPY_PLNY[t.slug] || TYPY_DALSI[t.slug];
+  if (!full) throw new Error(`Chybí text typu ${t.slug}`);
   const mates = TYPY_DATA.typy.filter((x) => x.kategorie === t.kategorie && x.slug !== t.slug).map((x) => x.slug);
-  let sectionsHtml;
-  if (full) {
-    sectionsHtml = proseSections([
-      { h: 'Co to je', html: full.co },
-      {
-        h: 'Jak vypadají obsese a kompulze',
-        html: `<div class="cards"><article class="card"><h3>Obsese (příklady)</h3>${li(full.obsese)}</article><article class="card"><h3>Kompulze (příklady)</h3>${li(full.kompulze)}</article></div>`,
-      },
-      { h: 'Časté mýty', html: `<dl class="myth-list">${full.myty.map(([m, r]) => `<dt>Mýtus: ${m}</dt><dd>Realita: ${r}</dd>`).join('')}</dl>` },
-      { h: 'Jak se obecně řeší u odborníka', html: full.odbornik },
-      { h: 'Jak může pomoct peer podpora', html: full.peer },
-      { h: 'Související typy', html: relatedTypes([...new Set([...full.souvisejici, ...mates])]) },
-      { h: 'Kvíz a konzultace', html: `<p>Nevíte, jaké tempo vám sedí? Zkuste krátký kvíz, nebo se ozvěte na úvodní konzultaci zdarma.</p>${ctaQuiz}` },
-    ]);
-  } else {
-    sectionsHtml = proseSections([
-      { h: 'Osnova stránky', html: `<p>Tato stránka je zatím jen osnova. Plný text se napíše po schválení.</p>${li(t.osnova)}` },
-      { h: 'Související typy ve stejném okruhu', html: relatedTypes(mates) },
-      { h: 'Související', html: `<ul class="rules"><li><a href="/typy-ocd">Všechny typy OCD</a></li><li><a href="/vtirave-myslenky">Vtíravé myšlenky: průvodce</a></li><li><a href="/kviz">Kvíz Metal, nebo Pop?</a></li></ul>` },
-    ]);
-  }
+  const sectionsHtml = proseSections([
+    { h: 'Co to je', html: full.co },
+    {
+      h: 'Jak vypadají obsese a kompulze',
+      html: `<div class="cards"><article class="card"><h3>Obsese (příklady)</h3>${li(full.obsese)}</article><article class="card"><h3>Kompulze (příklady)</h3>${li(full.kompulze)}</article></div>`,
+    },
+    { h: 'Časté mýty', html: `<dl class="myth-list">${full.myty.map(([m, r]) => `<dt>Mýtus: ${m}</dt><dd>Realita: ${r}</dd>`).join('')}</dl>` },
+    { h: 'Jak se obecně řeší u odborníka', html: full.odbornik },
+    { h: 'Jak může pomoct peer podpora', html: full.peer },
+    { h: 'Související typy', html: relatedTypes([...new Set([...full.souvisejici, ...mates])]) },
+    { h: 'Kvíz a konzultace', html: `<p>Nevíte, jaké tempo vám sedí? Zkuste krátký kvíz, nebo se ozvěte na úvodní konzultaci zdarma.</p>${ctaQuiz}` },
+  ]);
+  const longTitle = `${t.nazev}: obsese a kompulze | ${DOMAIN}`;
+  const desc = `${t.nazev} u OCD: ${t.kratce} Příklady obsesí a kompulzí, časté mýty a kdy vyhledat odborníka.`;
   contentPage({
     path: `/typy-ocd/${t.slug}`,
-    title: `${t.nazev}: obsese a kompulze | ocdmentor.cz`,
-    desc: `${t.nazev} u OCD: ${t.kratce} Přehled obsesí a kompulzí, mýtů a toho, kdy vyhledat odborníka.`,
+    title: longTitle.length <= 60 ? longTitle : `${t.nazev} u OCD | ${DOMAIN}`,
+    desc: [desc, `${t.nazev} u OCD: ${t.kratce} Příklady obsesí a kompulzí a kdy vyhledat odborníka.`, `${t.nazev} u OCD: ${t.kratce} Příklady a kdy vyhledat odborníka.`].find((d) => d.length <= 160),
+    ogTitle: t.nazev,
+    ogSub: t.kratce,
     h1: `${esc(t.nazev)}`,
-    lead: full ? full.lead : esc(t.kratce),
+    lead: full.lead,
     sectionsHtml,
-    related: full ? ['/typy-ocd', '/vtirave-myslenky', '/pro-blizke', ...(full.souvisejici || []).slice(0, 1).map((s) => `/typy-ocd/${s}`)] : ['/typy-ocd', '/vtirave-myslenky', '/kviz'],
+    sources: [F2.SRC.prasko, F2.SRC.nice, F2.SRC.nhs, ...(['agresivni-vtirave-myslenky', 'sexualni-vtirave-myslenky', 'pure-o'].includes(t.slug) ? [F2.SRC.radomsky] : [])],
+    related: ['/typy-ocd', '/vtirave-myslenky', '/pro-blizke', ...(full.souvisejici || []).slice(0, 1).map((s) => `/typy-ocd/${s}`)],
     parents: [['/typy-ocd', 'Typy OCD']],
     crumb: t.nazev,
     gloss: true,
-    statusLabel: stav || 'Koncept',
   });
 }
 
@@ -2295,7 +2330,9 @@ contentPage({
   lead: F2.PRO_BLIZKE.lead,
   sections: F2.PRO_BLIZKE.sections,
   related: F2.PRO_BLIZKE.related,
-  sources: [],
+  sources: [F2.SRC.lebowitz, F2.SRC.prasko],
+  ogTitle: 'Pro blízké',
+  ogSub: 'Jak pomáhat a nekrmit OCD',
 });
 
 // --- Mýty o OCD ---
@@ -2318,7 +2355,9 @@ contentPage({
   lead: 'OCD kolem sebe nese spoustu nedorozumění. Klepněte na kartu, otočí se z mýtu na realitu.',
   script: '/assets/js/myty-karty.js',
   related: ['/vtirave-myslenky', '/slovnicek', '/pro-blizke', '/typy-ocd'],
-  sources: ['Radomsky a kol., 2014', 'Ruscio a kol., 2010, USA'],
+  sources: [F2.SRC.radomsky, F2.SRC.ruscio],
+  ogTitle: 'Mýty o OCD',
+  ogSub: 'Co je mýtus a co realita',
   sectionsHtml: `<section class="wrap block">
   <div class="myth-grid" data-no-gl>
 ${mythCards}
@@ -2341,7 +2380,8 @@ contentPage({
   lead: 'Krátké vysvětlení pojmů, které se na webu opakují. Jsou to obecná vysvětlení, ne diagnostika ani návod k léčbě.',
   gloss: false,
   related: ['/vtirave-myslenky', '/myty-o-ocd', '/typy-ocd', '/metoda'],
-  sources: [],
+  ogTitle: 'Slovníček pojmů',
+  ogSub: 'Obsese, kompulze, ERP, I-CBT a další',
   sectionsHtml: `<section class="wrap block">
   <dl class="glossary" data-no-gl>
 ${glosSorted.map((g) => `    <dt id="${g.id}">${esc(g.pojem)}</dt>\n    <dd>${esc(g.def)}</dd>`).join('\n')}
@@ -2352,14 +2392,14 @@ ${glosSorted.map((g) => `    <dt id="${g.id}">${esc(g.pojem)}</dt>\n    <dd>${es
 // --- Příběhy, pro terapeuty ---
 contentPage({
   path: '/pribehy',
-  title: 'Příběhy lidí s OCD: můj příběh a šablona | ocdmentor.cz',
-  desc: 'Příběh peer mentora s vlastní zkušeností s OCD a šablona pro příběhy dalších lidí: jen s písemným souhlasem, anonymizovaně a bez slibů vyléčení.',
+  title: 'Příběhy s OCD: zásady sdílení zkušeností | ocdmentor.cz',
+  desc: 'Jak na webu zacházím s příběhy lidí s OCD: jen s písemným souhlasem, anonymizovaně a bez slibů vyléčení. Svůj příběh můžete sdílet e-mailem.',
+  ogTitle: 'Příběhy',
+  ogSub: 'Zásady sdílení zkušeností s OCD',
   h1: 'Příběhy',
   lead: F2.PRIBEHY.lead,
   sections: F2.PRIBEHY.sections,
   related: F2.PRIBEHY.related,
-  sources: [],
-  statusLabel: 'Osnova',
 });
 contentPage({
   path: '/pro-terapeuty',
@@ -2369,7 +2409,8 @@ contentPage({
   lead: F2.PRO_TERAPEUTY.lead,
   sections: F2.PRO_TERAPEUTY.sections,
   related: F2.PRO_TERAPEUTY.related,
-  sources: [],
+  ogTitle: 'Pro terapeuty a odborníky',
+  ogSub: 'Peer mentoring jako doplněk odborné péče',
 });
 
 // --- Pomoc hned (zveřejněno) ---
@@ -2459,7 +2500,7 @@ contentPage({
   desc: 'Koncept online skupinových setkání peer podpory při OCD v malé skupině. Zapište se na čekací listinu e-mailem, na webu se nic neukládá.',
   h1: 'Online skupina podpory',
   lead: 'Koncept online skupinových setkání: peer podpora v malé skupině lidí s OCD, vedle odborné péče.',
-  sources: false,
+  draft: true,
   related: ['/jak-to-probiha', '/pro-blizke', '/pribehy', '/kviz'],
   sections: [
     {

@@ -4,32 +4,83 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Perfekcionistické OCD: obsese a kompulze | ocdmentor.cz</title>
-<meta name="description" content="Perfekcionistické OCD u OCD: Potřeba, aby něco bylo dokonalé nebo „akorát“, a nekonečné opravování. Přehled obsesí a kompulzí, mýtů a toho, kdy vyhledat odborníka.">
-<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Perfekcionistické OCD u OCD: Potřeba, aby něco bylo dokonalé nebo „akorát“, a nekonečné opravování. Příklady obsesí a kompulzí a kdy vyhledat odborníka.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://ocdmentor.cz/typy-ocd/perfekcionisticke-ocd">
 
-
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="cs_CZ">
 <meta property="og:site_name" content="OCD mentor">
 <meta property="og:title" content="Perfekcionistické OCD: obsese a kompulze | ocdmentor.cz">
-<meta property="og:description" content="Perfekcionistické OCD u OCD: Potřeba, aby něco bylo dokonalé nebo „akorát“, a nekonečné opravování. Přehled obsesí a kompulzí, mýtů a toho, kdy vyhledat odborníka.">
+<meta property="og:description" content="Perfekcionistické OCD u OCD: Potřeba, aby něco bylo dokonalé nebo „akorát“, a nekonečné opravování. Příklady obsesí a kompulzí a kdy vyhledat odborníka.">
 <meta property="og:url" content="https://ocdmentor.cz/typy-ocd/perfekcionisticke-ocd">
-<meta property="og:image" content="https://ocdmentor.cz/assets/og/index.png">
+<meta property="og:image" content="https://ocdmentor.cz/assets/og/typy-ocd-perfekcionisticke-ocd.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Perfekcionistické OCD: obsese a kompulze | ocdmentor.cz">
-
+<meta property="article:published_time" content="2026-10-23">
+<meta property="article:modified_time" content="2026-10-23">
+<meta property="article:author" content="https://ocdmentor.cz/o-mne">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Perfekcionistické OCD: obsese a kompulze | ocdmentor.cz">
-<meta name="twitter:description" content="Perfekcionistické OCD u OCD: Potřeba, aby něco bylo dokonalé nebo „akorát“, a nekonečné opravování. Přehled obsesí a kompulzí, mýtů a toho, kdy vyhledat odborníka.">
-<meta name="twitter:image" content="https://ocdmentor.cz/assets/og/index.png">
+<meta name="twitter:description" content="Perfekcionistické OCD u OCD: Potřeba, aby něco bylo dokonalé nebo „akorát“, a nekonečné opravování. Příklady obsesí a kompulzí a kdy vyhledat odborníka.">
+<meta name="twitter:image" content="https://ocdmentor.cz/assets/og/typy-ocd-perfekcionisticke-ocd.png">
 <meta name="theme-color" content="#1b2a41">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=aa336ee7">
+<link rel="stylesheet" href="/assets/css/style.css?v=4ef61fa4">
 
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Perfekcionistické OCD",
+      "description": "Perfekcionistické OCD u OCD: Potřeba, aby něco bylo dokonalé nebo „akorát“, a nekonečné opravování. Příklady obsesí a kompulzí a kdy vyhledat odborníka.",
+      "image": "https://ocdmentor.cz/assets/og/typy-ocd-perfekcionisticke-ocd.png",
+      "datePublished": "2026-10-23",
+      "dateModified": "2026-10-23",
+      "inLanguage": "cs",
+      "author": {
+        "@type": "Person",
+        "name": "Bc. Václav Kodeš",
+        "url": "https://ocdmentor.cz/o-mne"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "OCD mentor",
+        "url": "https://ocdmentor.cz"
+      },
+      "mainEntityOfPage": "https://ocdmentor.cz/typy-ocd/perfekcionisticke-ocd"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Domů",
+          "item": "https://ocdmentor.cz/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Typy OCD",
+          "item": "https://ocdmentor.cz/typy-ocd"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Perfekcionistické OCD",
+          "item": "https://ocdmentor.cz/typy-ocd/perfekcionisticke-ocd"
+        }
+      ]
+    }
+  ]
+}
+</script>
 <script>
 (function(){var d=document.documentElement;d.classList.add('js');
 try{if(localStorage.getItem('ocd-calm')==='1')d.classList.add('calm');}catch(e){}
@@ -80,7 +131,18 @@ for(var m=0;m<subToggles.length;m++){
     var open=li.classList.toggle('open');
     this.setAttribute('aria-expanded',open?'true':'false');
     closeAllSub(this);
+    if(open)placeSub(li.querySelector('.sub-nav'));
   });
+}
+function placeSub(ul){
+  if(!ul)return;
+  ul.style.left='';ul.style.right='';
+  var r=ul.getBoundingClientRect();
+  if(r.right>innerWidth-8){
+    ul.style.left='auto';ul.style.right='0';
+    r=ul.getBoundingClientRect();
+    if(r.left<8){ul.style.left='0';ul.style.right='auto';}
+  }
 }
 document.addEventListener('click',function(){closeAllSub(null);});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(null);});
@@ -97,7 +159,10 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
     <nav aria-label="Hlavní navigace"><ul><li><a href="/metoda">Metoda</a></li><li><a href="/pro-koho">Pro koho</a></li><li><a href="/jak-to-probiha">Jak to probíhá</a></li><li><a href="/dotaznik">Dotazník</a></li><li><a href="/aplikace">Aplikace</a></li><li class="has-sub">
           <button type="button" class="nav-sub-toggle" aria-expanded="false">Online semináře a kurzy</button>
           <ul class="sub-nav"><li><a href="/seminare">Online semináře</a></li><li><a href="/kurz">Online kurz</a></li></ul>
-        </li><li><a href="/ebook">E-book</a></li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
+        </li><li><a href="/ebook">E-book</a></li><li class="has-sub is-active">
+          <button type="button" class="nav-sub-toggle" aria-expanded="false">O OCD</button>
+          <ul class="sub-nav"><li><a href="/vtirave-myslenky">Vtíravé myšlenky</a></li><li><a href="/typy-ocd">Typy OCD</a></li><li><a href="/myty-o-ocd">Mýty o OCD</a></li><li><a href="/slovnicek">Slovníček pojmů</a></li><li><a href="/pro-blizke">Pro blízké</a></li><li><a href="/pribehy">Příběhy</a></li></ul>
+        </li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
   </div>
 </header>
 
@@ -105,9 +170,9 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 <div class="wrap crumbs-wrap"><nav class="crumbs" aria-label="Drobečková navigace"><ol><li><a href="/">Domů</a></li><li><a href="/typy-ocd">Typy OCD</a></li><li aria-current="page">Perfekcionistické OCD</li></ol></nav></div>
 
 <section class="wrap page-head">
-  <p class="draft-badge"><strong>Osnova</strong> Tento text čeká na schválení. Není v navigaci ani ve vyhledávačích.</p>
+  
   <h1>Perfekcionistické OCD</h1>
-  <p class="lead">Potřeba, aby něco bylo dokonalé nebo „akorát“, a nekonečné opravování.</p>
+  <p class="lead">Perfekcionistické OCD je neformální pojmenování situace, kdy se potřeba udělat věc „dokonale“ nebo „přesně“ vymkla běžnému perfekcionismu a mění se v nekonečné opravování.</p>
   <div class="author-box" data-no-gl>
     <img class="author-photo" src="/assets/img/o-mne-vaclav-thumb.webp" width="120" height="160" alt="Bc. Václav Kodeš" loading="lazy">
     <div>
@@ -119,24 +184,47 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 </section>
 
 <section class="wrap block reveal prose">
-  <h2>Osnova stránky</h2>
-  <p>Tato stránka je zatím jen osnova. Plný text se napíše po schválení.</p><ul><li>Co to je: potřeba udělat věc „přesně“ nebo „dokonale“, která se vymkla běžnému perfekcionismu.</li><li><span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-obsese-1">Obsese</button><span class="gl-pop" id="gl-obsese-1"><strong>Obsese:</strong> Opakující se, nechtěná a rušivá myšlenka, představa nebo nutkání, která vyvolává úzkost nebo napětí. Bývá v rozporu s tím, co člověk chce a čemu věří. <a href="/slovnicek#obsese">Více ve slovníčku</a></span></span> a <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-kompulze-2">kompulze</button><span class="gl-pop" id="gl-kompulze-2"><strong>Kompulze:</strong> Opakovaná činnost, navenek nebo jen v hlavě, kterou člověk dělá proto, aby strach nebo napětí rychle polevilo. Úleva je krátká a smyčku OCD posiluje. <a href="/slovnicek#kompulze">Více ve slovníčku</a></span></span>: opakování a přepisování, kontrola detailů, odkládání dokončení.</li><li>Mýty: „je to jen vysoké nároky na sebe“.</li><li>Odborná péče a peer podpora.</li></ul>
+  <h2>Co to je</h2>
+  <p>Člověk opakuje, přepisuje a kontroluje detaily, protože se mu nikdy nezdá, že je to „akorát“. Dokončit práci je těžké a odevzdání je spojené s úzkostí. Často za tím stojí obava, že drobná chyba bude mít vážné následky nebo že bez dokonalosti „nebude dost dobrý“.</p>
+<p>Mít vysoké nároky je normální a často užitečné. O OCD začínáme uvažovat, když se nároky stanou nesplnitelnými, berou hodně času, bolí a omezují práci, studium nebo vztahy. Název je neformální, nejde o samostatnou diagnózu. Perfekcionismus a OCD se mohou potkávat a prolínat, a rozlišit je může odborník.</p>
 </section>
 
 <section class="wrap block reveal prose">
-  <h2>Související typy ve stejném okruhu</h2>
-  <ul class="rules"><li><a href="/typy-ocd/kontaminace">Kontaminace</a>: Strach z nečistoty, nákazy nebo chemikálií a rituály kolem mytí a čištění.</li><li><a href="/typy-ocd/symetrie-just-right">Symetrie a „just right“</a>: Potřeba, aby věci byly přesně „akorát“, souměrné nebo ve správném pořadí.</li><li><a href="/typy-ocd/magicke-mysleni">Magické myšlení</a>: Přesvědčení, že myšlenka, číslo nebo rituál ovlivní, zda se něco stane.</li></ul>
+  <h2>Jak vypadají obsese a kompulze</h2>
+  <div class="cards"><article class="card"><h3>Obsese (příklady)</h3><ul><li>Co když je v tom chyba, kterou jsem přehlédl?</li><li>Musí to být dokonalé, jinak to nemá cenu.</li><li>Co když to nebude „akorát“ a budu se za to stydět?</li><li>Co když mě druzí odsoudí za nedokonalost?</li></ul></article><article class="card"><h3>Kompulze (příklady)</h3><ul><li>Opakované přepisování a opravování.</li><li>Kontrola detailů znovu a znovu.</li><li>Odkládání dokončení nebo odevzdání.</li><li>Ptaní se druhých, jestli je to „dost dobré“.</li><li><span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-vyhybani-1">Vyhýbání</button><span class="gl-pop" id="gl-vyhybani-1"><strong>Vyhýbání:</strong> Nedělat nebo nepřibližovat se k tomu, co spouští strach: místa, lidé, předměty, témata. Krátkodobě uleví, dlouhodobě ale život zužuje. <a href="/slovnicek#vyhybani">Více ve slovníčku</a></span></span> se úkolům, které by se mohly nepovést.</li></ul></article></div>
 </section>
 
 <section class="wrap block reveal prose">
-  <h2>Související</h2>
-  <ul class="rules"><li><a href="/typy-ocd">Všechny typy OCD</a></li><li><a href="/vtirave-myslenky">Vtíravé myšlenky: průvodce</a></li><li><a href="/kviz">Kvíz Metal, nebo Pop?</a></li></ul>
+  <h2>Časté mýty</h2>
+  <dl class="myth-list"><dt>Mýtus: Je to jen vysoké nároky na sebe.</dt><dd>Realita: Vysoké nároky mohou pohánět. U OCD vyvolá úkol napětí, které se po splnění nezklidní, a čas i energie odtékají do opravování.</dd><dt>Mýtus: Když to nebude dokonalé, selžu.</dt><dd>Realita: Dokonalost není měřítko, které by kdokoli splnil. Hledání dokonalosti obvykle zvyšuje tlak, ne kvalitu.</dd><dt>Mýtus: Perfekcionismus je vždycky silná stránka.</dt><dd>Realita: V malé míře pomáhá. Když ale zabírá hodně času a bolí, přestává být výhodou.</dd></dl>
+</section>
+
+<section class="wrap block reveal prose">
+  <h2>Jak se obecně řeší u odborníka</h2>
+  <p>Odborníci (psychiatr, klinický psycholog, psychoterapeut) pracují s OCD obvykle metodami, jako je <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-expozice-2">expozice</button><span class="gl-pop" id="gl-expozice-2"><strong>Expozice:</strong> Záměrné setkání s tím, čeho se člověk bojí (situace, myšlenka, tělesný pocit), bez útěku a bez rituálu. V odborné péči se plánuje po malých krocích. Tento web není návodem, jak expozice vést samostatně. <a href="/slovnicek#expozice">Více ve slovníčku</a></span></span> s prevencí reakce (<span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-erp-3">ERP</button><span class="gl-pop" id="gl-erp-3"><strong>ERP:</strong> Zkratka pro expozici s prevencí reakce. Odborný postup, při kterém se člověk postupně a podle plánu vystavuje tomu, čeho se bojí, a nevykoná kompulzi. Vede ho odborník. <a href="/slovnicek#erp">Více ve slovníčku</a></span></span>), případně inferenční kognitivně-behaviorální přístup (<span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-i-cbt-4">I-CBT</button><span class="gl-pop" id="gl-i-cbt-4"><strong>I-CBT:</strong> Inferenční kognitivně-behaviorální přístup. Odborný postup, který se zaměřuje na to, že obsedantní pochybnost vzniká z představivosti a úvah, ne z toho, co se doopravdy děje. <a href="/slovnicek#i-cbt">Více ve slovníčku</a></span></span>). Odborník také určuje tempo, plán a případně i medikaci. Tato stránka není návodem, jak takové postupy provádět samostatně doma.</p>
+<p>Jak odbornou pomoc najít, shrnuje stránka <a href="/pomoc">Pomoc hned</a> a část <a href="/pro-koho#odborna-pece">Kam dál: odborná péče</a>.</p>
+</section>
+
+<section class="wrap block reveal prose">
+  <h2>Jak může pomoct peer podpora</h2>
+  <p>Mám vlastní zkušenost s OCD v několika podobách, i když ne přesně s tímto tématem. Nebudu tvrdit, že vím přesně, jak to prožíváte, ale <span class="gl-wrap"><button type="button" class="gl" aria-describedby="gl-smycka-5">smyčku</button><span class="gl-pop" id="gl-smycka-5"><strong>Smyčka OCD:</strong> Napětí vede k akci (kompulzi), akce přinese úlevu a úleva smyčku posílí. Práce s OCD znamená zůstat v ní jinak: s napětím, bez akce. <a href="/slovnicek#smycka">Více ve slovníčku</a></span></span>, pochybnosti a snahu mít jistotu znám zevnitř.</p>
+<p>Mohu vás doprovázet vedle odborné péče: sdílím, co mně pomáhalo zůstat u svého života, pomáhám s motivací a s kroky mezi sezeními. Nediagnostikuji, neslibuji vyléčení, neradím s léky a nenahrazuji odborníka. Nevíte, kde začít? Zkuste <a href="/kviz">kvíz Metal, nebo Pop?</a> nebo se podívejte, <a href="/jak-to-probiha">jak peer mentoring probíhá</a>. Úvodní konzultace je zdarma.</p>
+</section>
+
+<section class="wrap block reveal prose">
+  <h2>Související typy</h2>
+  <ul class="rules"><li><a href="/typy-ocd/symetrie-just-right">Symetrie a „just right“</a>: Potřeba, aby věci byly přesně „akorát“, souměrné nebo ve správném pořadí.</li><li><a href="/typy-ocd/kontrolovani">Kontrolování</a>: Opakované kontroly zámků, spotřebičů a vlastních činů z obavy, že způsobím škodu.</li><li><a href="/typy-ocd/hyperzodpovednost">Hyperzodpovědnost</a>: Přehnaný pocit, že jsem odpovědný za to, aby se nikomu nic nestalo.</li><li><a href="/typy-ocd/skrupulozita">Skrupulozita</a>: Přehnané pochybnosti o tom, zda jsem morálně v pořádku nebo zda jsem nezhřešil.</li><li><a href="/typy-ocd/kontaminace">Kontaminace</a>: Strach z nečistoty, nákazy nebo chemikálií a rituály kolem mytí a čištění.</li><li><a href="/typy-ocd/magicke-mysleni">Magické myšlení</a>: Přesvědčení, že myšlenka, číslo nebo rituál ovlivní, zda se něco stane.</li></ul>
+</section>
+
+<section class="wrap block reveal prose">
+  <h2>Kvíz a konzultace</h2>
+  <p>Nevíte, jaké tempo vám sedí? Zkuste krátký kvíz, nebo se ozvěte na úvodní konzultaci zdarma.</p><p class="cta"><a class="btn btn-ghost" href="/kviz">Kvíz Metal, nebo Pop?</a><a class="btn btn-ghost" href="/kolik-casu-mi-bere-ocd">Kolik času mi bere OCD?</a><a class="btn btn-cta" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a></p>
 </section>
 
 <section class="wrap block reveal sources">
   <h2>Zdroje</h2>
-  
-  <p class="placeholder">[ZDROJE: doplní autor, jen důvěryhodné zdroje, které ověří]</p>
+  <ul class="rules"><li>Praško J. a kol. (2025): <a href="https://postupy-pece.psychiatrie.cz/images/pdf/2025_DP_Lecba-obsedantne-kompulzivni-poruchy-dospelych.pdf" target="_blank" rel="noopener">Léčba obsedantně-kompulzivní poruchy u dospělých</a>. Doporučené postupy psychiatrické péče.</li><li>NICE: <a href="https://www.nice.org.uk/guidance/cg31" target="_blank" rel="noopener">Obsessive-compulsive disorder and body dysmorphic disorder: treatment</a> (doporučený postup CG31).</li><li>NHS: <a href="https://www.nhs.uk/mental-health/conditions/obsessive-compulsive-disorder-ocd/" target="_blank" rel="noopener">Obsessive compulsive disorder (OCD)</a>.</li></ul>
+  <p class="small">Odkazy vedou na externí weby mimo OCD mentor. Zdroje podporují obecné informace na této stránce, nejsou návodem k léčbě.</p>
 </section>
 
 <section class="wrap block reveal callout">
@@ -147,7 +235,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 
 <section class="wrap block reveal related">
   <h2>Související</h2>
-  <ul class="related-list"><li><a href="/typy-ocd">Typy OCD</a></li><li><a href="/vtirave-myslenky">Vtíravé myšlenky: průvodce</a></li><li><a href="/kviz">Kvíz Metal, nebo Pop?</a></li></ul>
+  <ul class="related-list"><li><a href="/typy-ocd">Typy OCD</a></li><li><a href="/vtirave-myslenky">Vtíravé myšlenky: průvodce</a></li><li><a href="/pro-blizke">Pro blízké: jak pomáhat a nekrmit OCD</a></li><li><a href="/typy-ocd/symetrie-just-right">Symetrie a „just right“</a></li></ul>
 </section>
 </main>
 <footer class="site-footer">
@@ -159,6 +247,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
       <li><a href="/obchodni-podminky">Obchodní podmínky</a></li>
       <li><a href="/ochrana-osobnich-udaju">Ochrana osobních údajů</a></li>
       <li><a href="/kontakt">Kontakt</a></li>
+      <li><a href="/pro-terapeuty">Pro terapeuty</a></li>
       <li><a href="/pomoc">Pomoc hned</a></li>
     </ul>
     <p class="small">© 2026 OCDmentor.cz Všechna práva vyhrazena. Vlastní cookies ani sledování návštěvnosti nepoužíváme. Rezervační widget Reservanto může při otevření nastavit vlastní cookies – více v <a href="/ochrana-osobnich-udaju">zásadách ochrany osobních údajů</a>.</p>
@@ -166,6 +255,10 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   </div>
 </footer>
 
+<aside class="float-cta js-only" id="float-cta" aria-label="Konzultace zdarma" hidden>
+  <a class="btn btn-cta btn-sm float-book" href="/kontakt">Konzultace zdarma</a>
+  <button type="button" class="float-close" aria-label="Zavřít lištu">×</button>
+</aside>
 <dialog id="rsv-modal" aria-labelledby="rsv-modal-h" aria-modal="true">
   <div class="rsv-inner">
     <h2 id="rsv-modal-h">Zahájení služby a právo na odstoupení od smlouvy</h2>
@@ -185,8 +278,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   </div>
 </dialog>
 <script defer src="/assets/js/rezervace-souhlas.js?v=0bf556f1"></script>
-<script src="/assets/js/slovnicek.js?v=0fe4b26e" defer></script>
-
+<script src="/assets/js/slovnicek.js?v=b5b0b4a8" defer></script>
+<script src="/assets/js/lista.js?v=19b352ec" defer></script>
 
 
 </body>

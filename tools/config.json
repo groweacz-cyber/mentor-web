@@ -5,5 +5,8 @@
     "seznam": "",
     "bing": ""
   },
-  "indexnowKey": "a65a8c36906ae922282c4187a5200dd7"
+  "indexnowKey": "a65a8c36906ae922282c4187a5200dd7",
+  "reviewer": "",
+  "glossaryOnPublicPages": false,
+  "showDraftTypes": true
 }

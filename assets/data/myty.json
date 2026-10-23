@@ -1,0 +1,42 @@
+{
+  "karty": [
+    {
+      "mytus": "OCD je pořádkumilovnost.",
+      "realita": "OCD není o tom, že má někdo rád pořádek. Jde o opakující se obsese a kompulze, které vyvolávají napětí, berou čas a omezují život. Spousta lidí s OCD žádný pořádek nedrží."
+    },
+    {
+      "mytus": "Kdo má OCD, musí si pořád mýt ruce.",
+      "realita": "Mytí rukou je jen jedna z mnoha podob. Obsese mohou být o zdraví, vztazích, morálce nebo vtíravých myšlenkách a rituály probíhají často jen v hlavě."
+    },
+    {
+      "mytus": "Vtíravá myšlenka znamená, že to doopravdy chci.",
+      "realita": "Myšlenka není přání ani plán. Vtíravé myšlenky zažívá většina lidí. U OCD se jen víc lepí, protože na ně člověk reaguje strachem a snahou se jich zbavit."
+    },
+    {
+      "mytus": "Stačí se uklidnit a přestat si dělat starosti.",
+      "realita": "Dobře míněná rada „nemysli na to“ nefunguje. Snaha myšlenku potlačit nebo si zajistit jistotu obvykle smyčku posiluje, ne přeruší."
+    },
+    {
+      "mytus": "Ujištění od blízkého nebo z internetu pomůže.",
+      "realita": "Ujištění uleví jen na chvíli. Potřeba se ujišťovat se pak vrací a bývá silnější."
+    },
+    {
+      "mytus": "OCD se vždycky pozná navenek.",
+      "realita": "Mentální kompulze, přemítání nebo kontrola vzpomínek zvenku vidět nejsou. Člověk může vypadat klidně a uvnitř vést dlouhý boj."
+    },
+    {
+      "mytus": "S OCD si člověk poradí sám, když se víc snaží.",
+      "realita": "OCD není otázka síly vůle. Pomáhá srozumitelné vysvětlení, podpora a hlavně odborná péče. Peer podpora ji může doplnit, ale nenahradí ji."
+    }
+  ],
+  "vedeli": [
+    {
+      "text": "Vtíravé myšlenky zažívá většina lidí, v mezinárodní studii zhruba 94 %.",
+      "zdroj": "Radomsky a kol., 2014"
+    },
+    {
+      "text": "OCD má během života přibližně 2,3 % dospělých.",
+      "zdroj": "Ruscio a kol., 2010, USA"
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "poznamka": "Slovníček pojmů. Pole auto je regulární výraz (bez lomítek), podle kterého generátor propojí první výskyt pojmu na stránce s vysvětlivkou. Bez auto se pojem jen vypíše ve slovníčku. Definice jsou obecné vysvětlení pojmů, ne diagnostika.",
+  "pojmy": [
+    {
+      "id": "expozice",
+      "pojem": "Expozice",
+      "auto": "\\bexpozic\\w*",
+      "def": "Záměrné setkání s tím, čeho se člověk bojí (situace, myšlenka, tělesný pocit), bez útěku a bez rituálu. V odborné péči se plánuje po malých krocích. Tento web není návodem, jak expozice vést samostatně."
+    },
+    {
+      "id": "erp",
+      "pojem": "ERP",
+      "auto": "\\bERP\\b",
+      "def": "Zkratka pro expozici s prevencí reakce. Odborný postup, při kterém se člověk postupně a podle plánu vystavuje tomu, čeho se bojí, a nevykoná kompulzi. Vede ho odborník."
+    },
+    {
+      "id": "i-cbt",
+      "pojem": "I-CBT",
+      "auto": "\\bI-CBT\\b",
+      "def": "Inferenční kognitivně-behaviorální přístup. Odborný postup, který se zaměřuje na to, že obsedantní pochybnost vzniká z představivosti a úvah, ne z toho, co se doopravdy děje."
+    },
+    {
+      "id": "kompulze",
+      "pojem": "Kompulze",
+      "auto": "\\bkompulz\\w*",
+      "def": "Opakovaná činnost, navenek nebo jen v hlavě, kterou člověk dělá proto, aby strach nebo napětí rychle polevilo. Úleva je krátká a smyčku OCD posiluje."
+    },
+    {
+      "id": "mentalni-kompulze",
+      "pojem": "Mentální kompulze",
+      "auto": "\\bmentální\\w*\\s+kompulz\\w*",
+      "def": "Kompulze, která probíhá jen v hlavě: opakování slov nebo vět, přemítání, procházení vzpomínek, počítání, vnitřní „vyrušení“ myšlenky. Zvenku není vidět."
+    },
+    {
+      "id": "metal-a-pop",
+      "pojem": "Metal a Pop",
+      "def": "Dvě cesty, kterými se může peer podpora ubírat. Metal jde rovnou do strachu (expozice s prevencí reakce). Pop začíná stabilizací a porozuměním tomu, jak OCD vyrábí pochybnosti, a teprve potom přechází k postupné expozici. Cesty lze kombinovat."
+    },
+    {
+      "id": "neutralizace",
+      "pojem": "Neutralizace",
+      "auto": "\\bneutralizac\\w*",
+      "def": "Skrytý nebo mentální krok, kterým se člověk snaží vtíravou myšlenku „vyrušit“ nebo „napravit“ (například v duchu říct uklidňující formuli). Funguje podobně jako kompulze."
+    },
+    {
+      "id": "obsese",
+      "pojem": "Obsese",
+      "auto": "\\bobses\\w*",
+      "def": "Opakující se, nechtěná a rušivá myšlenka, představa nebo nutkání, která vyvolává úzkost nebo napětí. Bývá v rozporu s tím, co člověk chce a čemu věří."
+    },
+    {
+      "id": "ocd",
+      "pojem": "OCD",
+      "def": "Obsedantně-kompulzivní porucha: stav, při kterém se opakují obsese a kompulze, zabírají čas a omezují život. Diagnózu může stanovit jen odborník, tento web ji nestanovuje."
+    },
+    {
+      "id": "peer-mentor",
+      "pojem": "Peer mentor",
+      "auto": "\\bpeer mentor\\w*",
+      "def": "Člověk s vlastní zkušeností s podobnými obtížemi, který druhé provází a podporuje vedle odborné péče. Nediagnostikuje, nevede psychoterapii a nepředepisuje léky."
+    },
+    {
+      "id": "pure-o",
+      "pojem": "Pure O",
+      "auto": "\\bPure O\\b",
+      "def": "Neformální označení pro OCD, při kterém převažují obsese a kompulze nejsou navenek vidět, protože probíhají hlavně v hlavě."
+    },
+    {
+      "id": "psychoedukace",
+      "pojem": "Psychoedukace",
+      "auto": "\\bpsychoeduka\\w*",
+      "def": "Srozumitelné vysvětlování toho, jak určité obtíže fungují. Pomáhá pochopit, co se děje, ale nenahrazuje odbornou péči."
+    },
+    {
+      "id": "prizpusobovani",
+      "pojem": "Přizpůsobování",
+      "auto": "\\bpřizpůsobován\\w*",
+      "def": "Když blízký kvůli OCD mění své chování: odpovídá na ujišťovací otázky, vyhýbá se spouštěčům nebo se účastní rituálů. Dělá to z lásky a ze snahy ulevit, ale smyčku tím nechtěně udržuje."
+    },
+    {
+      "id": "sebeprijeti",
+      "pojem": "Sebepřijetí",
+      "auto": "\\bsebepřijet\\w*",
+      "def": "První pilíř metody: přijímám sebe celého, včetně OCD, myšlenek, úzkosti i nejistoty. Nemusím je mít rád, ale přestávám s nimi bojovat jako s nepřítelem."
+    },
+    {
+      "id": "sebevira",
+      "pojem": "Sebevíra",
+      "auto": "\\bsebevír\\w*",
+      "def": "Druhý pilíř metody: „Ať se stane cokoli, obstojím.“ Nebuduje se afirmacemi, ale zvládnutými situacemi."
+    },
+    {
+      "id": "smycka",
+      "pojem": "Smyčka OCD",
+      "auto": "\\bsmyčk\\w*",
+      "def": "Napětí vede k akci (kompulzi), akce přinese úlevu a úleva smyčku posílí. Práce s OCD znamená zůstat v ní jinak: s napětím, bez akce."
+    },
+    {
+      "id": "spoustec",
+      "pojem": "Spouštěč",
+      "auto": "\\bspouštěč\\w*",
+      "def": "Událost, situace, pocit nebo myšlenka, která spustí obsesi a s ní úzkost. Může jím být i článek, zpráva nebo tělesný vjem."
+    },
+    {
+      "id": "ujistovani",
+      "pojem": "Ujišťování",
+      "auto": "\\bujišťov\\w*|\\bujištění\\w*",
+      "def": "Hledání potvrzení, že se nic nestane nebo že je vše v pořádku: u blízkých, u lékaře, na internetu nebo u umělé inteligence. Dá krátkou úlevu a udržuje potřebu se ujišťovat dál."
+    },
+    {
+      "id": "vtirave-myslenky",
+      "pojem": "Vtíravé myšlenky",
+      "auto": "\\bvtíravý?\\w*\\s+myšlen\\w*",
+      "def": "Nechtěné myšlenky, představy nebo nutkání, které se objeví samy a působí rušivě. Zažívá je většina lidí. U OCD se „lepí“, protože na ně člověk reaguje strachem a rituály."
+    },
+    {
+      "id": "vyhybani",
+      "pojem": "Vyhýbání",
+      "auto": "\\bvyhýbán\\w*|\\bvyhýbat\\w*",
+      "def": "Nedělat nebo nepřibližovat se k tomu, co spouští strach: místa, lidé, předměty, témata. Krátkodobě uleví, dlouhodobě ale život zužuje."
+    }
+  ]
+}

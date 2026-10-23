@@ -140,12 +140,23 @@ for (const [url, p] of Object.entries(pages)) {
   if (!p.noindex && !smUrls.includes(SITE + (url === '/' ? '/' : url)) && url !== '/404') problems.push(`sitemap: chybí ${url}`);
 }
 
-// osiřelé stránky (žádný vnitřní odkaz)
-const linked = new Set();
+// příchozí odkazy: každá stránka (mimo aplikaci a interní přehled) má mít aspoň 3 odkazy z jiných stránek
+const inbound = {};
 for (const [url, p] of Object.entries(pages)) {
-  for (const m of p.html.matchAll(/<a\b[^>]*\bhref="(\/[^"#?]*)/g)) if (m[1] !== url) linked.add(m[1].replace(/\/$/, '') || '/');
+  const seen = new Set();
+  for (const m of p.html.matchAll(/<a\b[^>]*\bhref="(\/[^"#?]*)/g)) {
+    const to = m[1].replace(/\/$/, '') || '/';
+    if (to !== url && !seen.has(to)) {
+      seen.add(to);
+      (inbound[to] ||= new Set()).add(url);
+    }
+  }
 }
-for (const [url, p] of Object.entries(pages)) if (!p.noindex && url !== '/' && !linked.has(url)) problems.push(`osiřelá stránka (nikdo na ni neodkazuje): ${url}`);
+for (const [url] of Object.entries(pages)) {
+  if (url === '/' || url === '/404' || url.startsWith('/aplikace') || url.startsWith('/sablony') || url === '/koncepty') continue;
+  const n = inbound[url] ? inbound[url].size : 0;
+  if (n < 3) problems.push(`málo příchozích odkazů (${n}): ${url}`);
+}
 
 console.log(`Stránek: ${Object.keys(pages).length}, indexovatelných: ${Object.values(pages).filter((p) => !p.noindex).length}`);
 console.log(problems.length ? `\nProblémy (${problems.length}):\n- ` + problems.join('\n- ') : '\nŽádné problémy.');

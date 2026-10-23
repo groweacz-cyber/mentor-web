@@ -604,3 +604,79 @@ html:not(.js) .js-only { display: none; }
 .pd-all summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
 .pd-all ol { margin: .6rem 0 0; padding-left: 1.4rem; }
 .pd-all li { margin-bottom: .35rem; }
+
+/* ===== Fáze 2: odkaz Pomoc hned, koncepty, autor, zdroje, související ===== */
+.notice .help-link { color: #fff; text-decoration: underline; margin-left: .7rem; white-space: nowrap; opacity: .92; }
+.notice .help-link:hover { color: var(--sun); }
+.draft-badge { display: inline-block; margin: 0 0 1rem; padding: .5rem .8rem; background: #fff3cd; border: 1px dashed #8a6d00; border-radius: 10px; color: #4a3a00; font-size: .92rem; font-style: normal; }
+.author-box { display: flex; gap: .9rem; align-items: center; margin: 1.2rem 0 0; padding: .7rem .9rem; max-width: 30rem; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+.author-photo { flex: none; width: 3.6rem; height: auto; border-radius: 12px; }
+.author-box p { margin: 0; }
+.author-name { font-weight: 800; }
+.author-role, .author-date, .author-review { font-size: .88rem; color: var(--ink-soft); }
+.sources ul { margin: .4rem 0; }
+.related-list { list-style: none; display: flex; flex-wrap: wrap; gap: .6rem; padding: 0; margin: .6rem 0 0; }
+.related-list a { display: inline-block; padding: .4rem .9rem; border: 2px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink); text-decoration: none; font-weight: 600; }
+.related-list a:hover { border-color: var(--ink); }
+aside.fact { max-width: 44rem; margin: 1rem 0; padding: .8rem 1.1rem; background: var(--surface); border-left: 6px solid var(--b); border-radius: 0 var(--radius) var(--radius) 0; box-shadow: var(--shadow); }
+aside.fact p { margin: 0; }
+.fact-src { display: block; margin-top: .25rem; font-size: .85rem; color: var(--ink-soft); }
+.quotes { list-style: none; padding: 0; display: grid; gap: .7rem; max-width: 40rem; }
+.quotes li { padding: .8rem 1.1rem; background: var(--surface); border-left: 6px solid var(--g); border-radius: 0 16px 16px 0; font-weight: 600; }
+.crisis-list { list-style: none; display: flex; flex-wrap: wrap; gap: .8rem; padding: 0; margin: 1rem 0; }
+.crisis-list a { display: flex; flex-direction: column; align-items: center; min-width: 10rem; padding: .9rem 1.4rem; border: 2px solid var(--ink); border-radius: 18px; background: var(--surface); color: var(--ink); text-decoration: none; }
+.crisis-list strong { font-size: 1.9rem; line-height: 1.1; }
+.crisis-list span { font-size: .9rem; color: var(--ink-soft); }
+.crisis-list a:hover { background: var(--ink); color: #fff; }
+.crisis-list a:hover span { color: #e6ecf5; }
+.glossary dt { margin-top: 1.1rem; font-weight: 800; font-size: 1.1rem; }
+.glossary dd { margin: .2rem 0 0; max-width: 44rem; }
+.myth-list dt { margin-top: .9rem; font-weight: 800; }
+.myth-list dd { margin: .2rem 0 0; }
+
+/* Typy OCD */
+.typy-filtr { display: grid; gap: .8rem; margin-bottom: 1.2rem; }
+.typy-search { display: grid; gap: .3rem; font-weight: 700; max-width: 26rem; }
+.typy-search input { padding: .6rem 1rem; font: inherit; font-weight: 400; color: var(--ink); background: var(--surface); border: 2px solid var(--line); border-radius: 999px; }
+.typy-search input:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.typy-chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.chip { padding: .4rem .9rem; font: inherit; font-weight: 600; cursor: pointer; color: var(--ink); background: var(--surface); border: 2px solid var(--line); border-radius: 999px; }
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+.chip:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.typy-pocet { margin: 0; font-size: .92rem; color: var(--ink-soft); }
+.type-card[hidden] { display: none; }
+.type-kat { margin: 0 0 .3rem; font-size: .78rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-soft); }
+.type-stav { color: #b45309; }
+.type-card h3 { margin-top: 0; }
+
+/* Mýty: otáčecí karty */
+.myth-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.4rem; margin: 1.2rem 0; align-items: start; }
+.myth-card { display: flex; flex-direction: column; gap: .6rem; }
+.myth-faces { display: grid; gap: .6rem; }
+.myth-face { padding: 1.2rem 1.3rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.myth-back { background: #eef8f1; }
+.myth-tag { margin: 0 0 .4rem; font-size: .78rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #b45309; }
+.myth-back .myth-tag { color: #1f6b46; }
+.myth-text { margin: 0; font-size: 1.08rem; font-weight: 600; }
+.myth-card.is-ready .myth-faces { gap: 0; perspective: 1000px; }
+.myth-card.is-ready .myth-face { grid-area: 1 / 1; backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: transform .5s ease; }
+.myth-card.is-ready .myth-back { transform: rotateY(180deg); }
+.myth-card.is-ready.is-flipped .myth-front { transform: rotateY(-180deg); }
+.myth-card.is-ready.is-flipped .myth-back { transform: rotateY(0); }
+.myth-flip { align-self: flex-start; padding: .4rem .9rem; font: inherit; font-weight: 700; cursor: pointer; color: var(--ink); background: transparent; border: 2px solid var(--ink); border-radius: 999px; }
+.myth-flip:hover { background: var(--ink); color: #fff; }
+.myth-flip:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* Slovníček: vysvětlivky pojmů v textu */
+.gl-wrap { position: relative; display: inline; }
+.gl { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: help; border-bottom: 2px dotted var(--link); }
+.gl:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 3px; }
+.gl-pop {
+  display: none; position: absolute; left: 0; top: 100%; margin-top: .4rem; z-index: 30; width: max-content; max-width: min(20rem, calc(100vw - 2.5rem));
+  padding: .7rem .9rem; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 14px 34px -12px rgba(27, 42, 65, .35);
+  font-size: .92rem; font-weight: 400; font-style: normal; line-height: 1.45; color: var(--ink); text-align: left; white-space: normal;
+}
+.gl-pop::before { content: ""; position: absolute; left: 0; right: 0; top: -.5rem; height: .5rem; }
+.gl-pop.gl-right { left: auto; right: 0; }
+.gl-wrap:hover .gl-pop, .gl-wrap:focus-within .gl-pop, .gl-wrap.open .gl-pop { display: block; }

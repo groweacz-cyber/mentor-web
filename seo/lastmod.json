@@ -4,47 +4,47 @@
     "date": "2026-10-23"
   },
   "/metoda": {
-    "hash": "e52026d01191",
+    "hash": "ebac87abd5e1",
     "date": "2026-10-23"
   },
   "/pro-koho": {
-    "hash": "e5b64c2e6093",
+    "hash": "87aba27f0b27",
     "date": "2026-10-23"
   },
   "/dotaznik": {
-    "hash": "4d385e7575ff",
+    "hash": "611da8269611",
     "date": "2026-10-23"
   },
   "/kviz": {
-    "hash": "471e0454e860",
+    "hash": "f77676f62071",
     "date": "2026-10-23"
   },
   "/jak-to-probiha": {
-    "hash": "8197fad8f121",
+    "hash": "83d827ed4bad",
     "date": "2026-10-23"
   },
   "/o-mne": {
-    "hash": "db9191069278",
+    "hash": "50c4ab488923",
     "date": "2026-10-23"
   },
   "/clanky": {
-    "hash": "d1e00e713451",
+    "hash": "924307f5c16e",
     "date": "2026-10-23"
   },
   "/clanky/druhy-ocd-9-typu": {
-    "hash": "af38c869b341",
+    "hash": "a78c9c2a82d8",
     "date": "2026-10-23"
   },
   "/clanky/proc-ujisteni-krmi-ocd": {
-    "hash": "381adf2a0090",
+    "hash": "274987d83404",
     "date": "2026-10-23"
   },
   "/clanky/proc-nutkani-prichazi-ve-vlnach": {
-    "hash": "9775de951287",
+    "hash": "1a5ae1c0411f",
     "date": "2026-10-23"
   },
   "/clanky/kompulze-a-prijeti": {
-    "hash": "ed28591fb03a",
+    "hash": "3b99e6e08713",
     "date": "2026-10-23"
   },
   "/kontakt": {
@@ -57,6 +57,10 @@
   },
   "/obchodni-podminky": {
     "hash": "7411ae49a493",
+    "date": "2026-10-23"
+  },
+  "/pomoc": {
+    "hash": "7d2e41c0e297",
     "date": "2026-10-23"
   }
 }

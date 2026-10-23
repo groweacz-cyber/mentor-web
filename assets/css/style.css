@@ -60,6 +60,26 @@ nav a { display: inline-block; padding: .45rem .9rem; border-radius: 999px; colo
 nav a:hover { background: #f3ead6; color: var(--ink); }
 nav a[aria-current="page"] { background: var(--ink); color: #fff; }
 
+/* Rozbalovací položka navigace (Semináře a kurz) */
+.has-sub { position: relative; }
+.nav-sub-toggle {
+  display: inline-flex; align-items: center; gap: .35rem; padding: .45rem .9rem; border-radius: 999px;
+  color: var(--ink); background: none; border: none; font: inherit; font-weight: 600; cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.nav-sub-toggle:hover { background: #f3ead6; }
+.has-sub.is-active .nav-sub-toggle { background: var(--ink); color: #fff; }
+.nav-sub-toggle::after { content: ""; width: .5em; height: .5em; margin-top: -.2em; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform .2s ease; }
+.has-sub.open .nav-sub-toggle::after { transform: rotate(-135deg); margin-top: .1em; }
+.sub-nav {
+  display: none; position: absolute; top: calc(100% + .4rem); left: 0; min-width: 12rem; z-index: 20;
+  flex-direction: column; gap: .15rem; list-style: none; margin: 0; padding: .4rem; background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.has-sub.open .sub-nav { display: flex; }
+.sub-nav a { display: block; padding: .5rem .8rem; border-radius: 10px; }
+@media (max-width: 30rem) { .sub-nav { left: auto; right: 0; } }
+
 /* ===== Typografie ===== */
 h1, h2, h3 { line-height: 1.15; letter-spacing: -.02em; color: var(--ink); }
 h1 { font-size: clamp(2.2rem, 5.8vw, 3.7rem); font-weight: 800; line-height: 1.08; margin: 0 0 1rem; }

@@ -584,3 +584,23 @@ html:not(.js) .js-only { display: none; }
 
 .price-cards .card { display: flex; flex-direction: column; }
 .price-book { margin-top: auto; padding-top: 1rem; }
+
+/* ===== Drobečková navigace ===== */
+.crumbs-wrap { padding-top: .9rem; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: .1rem .5rem; margin: 0; padding: 0; font-size: .88rem; color: var(--ink-soft); }
+.crumbs li + li::before { content: "›"; margin-right: .5rem; color: #b8ad95; }
+.crumbs a { color: var(--ink-soft); }
+.crumbs [aria-current] { font-weight: 600; color: var(--ink); }
+
+/* ===== Statický obsah v HTML (JavaScript ho nahrazuje interaktivní verzí) ===== */
+.lp-static, .kviz-static ol { padding-left: 1.2rem; }
+.lp-static li, .kviz-static li { margin-bottom: .8rem; }
+.lp-static h3, .kviz-static h3 { margin: 0 0 .3rem; font-size: 1.1rem; }
+.lp-static p { margin: .2rem 0; }
+.lp-static-end { font-weight: 700; }
+.kviz-static ul { margin: .2rem 0 0; }
+.pd-all { max-width: 44rem; margin-top: 1rem; }
+.pd-all summary { cursor: pointer; font-weight: 700; }
+.pd-all summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.pd-all ol { margin: .6rem 0 0; padding-left: 1.4rem; }
+.pd-all li { margin-bottom: .35rem; }

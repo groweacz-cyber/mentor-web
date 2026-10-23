@@ -1,4 +1,13 @@
 User-agent: *
 Allow: /
 
+User-agent: SeznamBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: bingbot
+Allow: /
+
 Sitemap: https://ocdmentor.cz/sitemap.xml

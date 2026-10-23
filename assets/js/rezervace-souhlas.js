@@ -49,4 +49,17 @@
     pending = btn;  // then store reference — after reset so it isn't cleared
     modal.showModal();
   }, true);
+
+  // Cizí skript vytváří tlačítko jako <a> bez href (roboti ho neberou jako odkaz a nejde na něj tabulátorem).
+  // Dáme mu záložní odkaz na /kontakt; samotné kliknutí řeší souhlasový krok výše.
+  function addFallbackHref() {
+    var btns = document.querySelectorAll('.reservanto-button:not([href])');
+    for (var i = 0; i < btns.length; i++) btns[i].setAttribute('href', '/kontakt');
+  }
+  addFallbackHref();
+  if (window.MutationObserver) {
+    var obs = new MutationObserver(addFallbackHref);
+    obs.observe(document.body, { childList: true, subtree: true });
+    window.setTimeout(function () { obs.disconnect(); }, 15000);
+  }
 }());

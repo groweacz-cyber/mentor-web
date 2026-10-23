@@ -1,0 +1,110 @@
+[
+  {
+    "slug": "index",
+    "text": "Peer mentoring při OCD",
+    "sub": "Jednat i ve chvíli, kdy se bojíte.",
+    "art": "/assets/img/uvod-poster.webp"
+  },
+  {
+    "slug": "metoda",
+    "text": "Metoda: čtyři pilíře a dvě cesty",
+    "sub": "",
+    "art": ""
+  },
+  {
+    "slug": "pro-koho",
+    "text": "Pro koho je peer mentoring při OCD",
+    "sub": "",
+    "art": ""
+  },
+  {
+    "slug": "dotaznik",
+    "text": "Vstupní dotazník",
+    "sub": "",
+    "art": ""
+  },
+  {
+    "slug": "ebook",
+    "text": "E-book: Co dělat, když přijde nutkání",
+    "sub": "",
+    "art": ""
+  },
+  {
+    "slug": "seminare",
+    "text": "Online semináře o OCD",
+    "sub": "",
+    "art": ""
+  },
+  {
+    "slug": "kurz",
+    "text": "Online kurz o OCD",
+    "sub": "",
+    "art": ""
+  },
+  {
+    "slug": "kviz",
+    "text": "Metal, nebo Pop?",
+    "sub": "Která cesta vám sedí?",
+    "art": ""
+  },
+  {
+    "slug": "jak-to-probiha",
+    "text": "Jak probíhá peer mentoring",
+    "sub": "Kroky, ceník a časté dotazy",
+    "art": ""
+  },
+  {
+    "slug": "o-mne",
+    "text": "O mně: peer mentor s vlastní zkušeností s OCD",
+    "sub": "",
+    "art": "/assets/img/o-mne-vaclav.webp"
+  },
+  {
+    "slug": "clanky",
+    "text": "Články o OCD",
+    "sub": "",
+    "art": ""
+  },
+  {
+    "slug": "clanky-druhy-ocd-9-typu",
+    "text": "Druhy OCD: 9 typů a jejich příznaky",
+    "sub": "",
+    "art": "/assets/img/clanky/druhy-ocd.webp"
+  },
+  {
+    "slug": "clanky-proc-ujisteni-krmi-ocd",
+    "text": "Proč ujišťování krmí OCD",
+    "sub": "",
+    "art": "/assets/img/clanky/proc-ujisteni.webp"
+  },
+  {
+    "slug": "clanky-proc-nutkani-prichazi-ve-vlnach",
+    "text": "Proč nutkání přichází ve vlnách",
+    "sub": "",
+    "art": "/assets/img/clanky/nutkani-ve-vlnach.webp"
+  },
+  {
+    "slug": "clanky-kompulze-a-prijeti",
+    "text": "Kompulze a přijetí: cesta ven z OCD",
+    "sub": "",
+    "art": "/assets/img/clanky/kompulze-a-prijeti.webp"
+  },
+  {
+    "slug": "kontakt",
+    "text": "Kontakt a rezervace konzultace",
+    "sub": "",
+    "art": ""
+  },
+  {
+    "slug": "ochrana-osobnich-udaju",
+    "text": "Ochrana osobních údajů",
+    "sub": "",
+    "art": ""
+  },
+  {
+    "slug": "obchodni-podminky",
+    "text": "Obchodní podmínky",
+    "sub": "",
+    "art": ""
+  }
+]

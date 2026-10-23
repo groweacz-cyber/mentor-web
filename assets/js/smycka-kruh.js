@@ -6,6 +6,7 @@
   var root = document.getElementById('lp-root');
   var data = window.OCD_SMYCKA;
   if (!root || !data || !data.faze || !data.faze.length) return;
+  while (root.firstChild) root.removeChild(root.firstChild);
 
   var faze = data.faze;
   var n = faze.length;

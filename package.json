@@ -1,0 +1,11 @@
+{
+  "name": "ocdmentor-web",
+  "private": true,
+  "type": "module",
+  "description": "Statický web ocdmentor.cz. Generátor stránek a SEO nástroje.",
+  "scripts": {
+    "gen": "node tools/gen.mjs",
+    "audit": "node tools/audit.mjs",
+    "indexnow": "node tools/indexnow.mjs"
+  }
+}

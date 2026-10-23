@@ -1,62 +1,78 @@
-# OCD mentor – web peer mentora (OCD)
+# OCD mentor – ocdmentor.cz
 
-Statický web v češtině: čisté HTML, CSS a minimum JavaScriptu (jen odeslání dotazníku). Bez build kroku, bez databáze, bez cookies a bez analytiky.
+Statický web v češtině: HTML, CSS a minimum JavaScriptu. Bez databáze, bez cookies a bez analytiky. Stránky se generují Node skriptem a výsledek se commituje do repozitáře.
+
+## Rychlý start
+
+```bash
+npm run gen      # vygeneruje HTML, sitemap.xml, robots.txt a seo/*.json do kořene repozitáře
+npm run og       # vyrobí OG obrázky 1200×630 (assets/og), jen pro změněné stránky; --force pro všechny
+npm run audit    # SEO kontrola: title, description, H1, canonical, odkazy, obrázky, JSON-LD, sitemap
+npx serve .      # lokální náhled (http://localhost:3000)
+```
+
+Po každé úpravě textů, šablon nebo datových souborů spusťte `npm run gen`, zkontrolujte `npm run audit` a commitněte vygenerované soubory. Node 18+; žádné závislosti se neinstalují.
 
 ## Struktura
 
 ```
-index.html                      Úvod
-metoda/ pro-koho/ dotaznik/
-o-mne/ clanky/ kontakt/
-ochrana-osobnich-udaju/         Zásady ochrany osobních údajů (GDPR), vyplněné
-obchodni-podminky/              Obchodní podmínky (účinné od 1. 12. 2026)
-404.html
-sablony/clanek.html             Šablona nového článku (noindex, nezveřejňovat)
-assets/css/style.css
-assets/js/dotaznik.js           Převod formuláře na e-mail / text
-assets/img/favicon.svg
-assets/img/uvod-poster.webp     Poster snímek úvodního videa, i Open Graph obrázek
-assets/video/uvod.mp4           Úvodní video na hlavní stránce (autoplay, ztlumené, smyčka)
-assets/img/o-mne-vaclav.webp    Portrét autora na stránce O mně
-assets/img/kontakt-ilustrace.webp  Ilustrace na stránce Kontakt
-assets/img/clanky/druhy-ocd.webp   Obrázek k článku „Druhy OCD“
-clanky/druhy-ocd-9-typu/        Článek (Article + FAQPage JSON-LD)
-clanky/proc-ujisteni-krmi-ocd/  Článek (Article JSON-LD)
-clanky/proc-nutkani-prichazi-ve-vlnach/  Článek (Article JSON-LD)
-clanky/kompulze-a-prijeti/      Článek (Article JSON-LD)
-sitemap.xml  robots.txt  vercel.json
+tools/gen.mjs            Generátor stránek (šablona, texty, menu, JSON-LD, sitemap)
+tools/config.json        Nastavení: facebookUrl, kódy pro ověření webu, klíč IndexNow
+tools/audit.mjs          SEO audit
+tools/og.mjs             OG obrázky (vykresluje Edge nebo Chrome, který už v počítači je)
+tools/indexnow.mjs       Odeslání URL Seznamu a Bingu po nasazení
+seo/                     mapa-klicovych-slov.md, lastmod.json, og-pages.json (generované)
+assets/css, assets/js    Styly a skripty (assets/js/app = aplikace)
+assets/data              Datové soubory (jak-to-probiha.json: kroky, ceník, FAQ)
+assets/og                OG obrázky (generované)
 ```
 
-## Spuštění lokálně
+Soubory ze složek `tools` a `seo` se na web nenasazují (`.vercelignore`).
 
-```bash
-npx serve .
-```
+## Kde upravit obsah
 
-Otevřete adresu, kterou příkaz vypíše (obvykle http://localhost:3000).
+- **Texty stránek, menu, titulky a popisky:** `tools/gen.mjs`.
+- **Ceník, tři kroky a FAQ stránky Jak to probíhá:** `assets/data/jak-to-probiha.json`. FAQ se do strukturovaných dat (FAQPage) dostane samo; odpověď obsahující nedoplněný `[placeholder]` se do nich zatím nedává.
+- **Smyčka OCD, kvíz a principy:** `assets/js/smycka-faze.js`, `assets/js/kviz-data.js`, `assets/js/principy.js`. Generátor z nich vytvoří statické HTML, aby byl obsah ve zdrojovém kódu stránky; JavaScript ho pak nahradí interaktivní verzí.
+- **Nový článek:** přidat záznam do pole `ARTICLES` v `tools/gen.mjs` (`slug`, `seoTitle`, `title`, `excerpt`, `date`, obrázky) a podle existujících článků napsat blok stránky. Sitemap, drobečky, JSON-LD a OG obrázek se doplní samy.
 
-## Nasazení
+## SEO
 
-1. Vytvořte repozitář na GitHubu s výchozí větví `main` a pushněte obsah složky.
-2. Na vercel.com zvolte **Add New → Project**, importujte repozitář. Framework preset **Other**, build command prázdný, output directory `.`.
-3. Každý push do `main` se nasadí automaticky. Výchozí adresa je `<projekt>.vercel.app`.
+- Každá stránka má unikátní `title` (formát „Téma | ocdmentor.cz“, do 60 znaků), meta description (120–160 znaků), jednu H1, canonical, Open Graph a X karty s vlastním OG obrázkem a strukturovaná data (BreadcrumbList; WebSite a Person na úvodu, Service a FAQPage na Jak to probíhá, Article u článků).
+- `sitemap.xml` obsahuje jen indexovatelné stránky. `lastmod` se mění, jen když se změní obsah stránky (ukládá se v `seo/lastmod.json`).
+- Stránky s hlavičkou `robots: 'noindex, follow'` v `gen.mjs` (zatím E-book, Online semináře a Online kurz, dokud obsahují placeholdery) se do sitemapy nedávají.
+- CSS a JS mají v URL `?v=<hash>` a cachují se na rok. Po změně souboru a `npm run gen` se hash změní sám.
 
-## Placeholdery k doplnění
+### Ověření vlastnictví a další nastavení (`tools/config.json`)
 
-E-mail (`ocdmentor@gmail.com`), doména (`ocdmentor.cz`), IČ (`87690772`), značka (`OCD mentor`), jméno a sídlo autora (Bc. Václav Kodeš, Strážkovice 128, 374 01 Trhové Sviny — i v `Person` strukturovaných datech a na stránce Kontakt), zásady ochrany osobních údajů, obchodní podmínky a rezervace konzultace (oficiální widget Reservanto, id 25616, na úvodní stránce) už jsou doplněné. Telefon se na webu záměrně neuvádí. Sekce o supervizi a stížnostech byla ze stránky O mně odstraněna. Zbývá: žlutě označené bloky `placeholder` (příběh, aktuální stav, výcvik, české zdroje odborné péče) a `[DATUM]` (datum poslední kontroly obsahu na stránkách Metoda a Pro koho).
+| Klíč | Kam to patří |
+|---|---|
+| `facebookUrl` | adresa Facebook stránky, přidá se do Person jako `sameAs` |
+| `verification.google` | kód ze Search Console (meta `google-site-verification`) |
+| `verification.seznam` | kód ze Seznam Webmaster (meta `seznam-wmt`) |
+| `verification.bing` | kód z Bing Webmaster Tools (meta `msvalidate.01`) |
+| `indexnowKey` | klíč IndexNow, stejnojmenný soubor `<klíč>.txt` leží v kořeni webu |
 
-Poskytovatel není plátce DPH (potvrzeno autorem) — ceny v obchodních podmínkách jsou uvedené jako konečné. V obchodních podmínkách (`/obchodni-podminky`) zůstává jeden viditelný blok k ověření: `[K OVĚŘENÍ: ...]` v části 6 (zda proces rezervace v Reservantu u blízkých termínů skutečně žádá souhlas se zahájením služby před uplynutím lhůty pro odstoupení a poučuje o důsledcích podle § 1834 a § 1837 písm. a) občanského zákoníku — nepodařilo se ověřit automatizovanou kontrolou webu, vyžaduje ruční kontrolu v Reservantu, ideálně i právníkem).
+Prázdná hodnota znamená, že se příslušný tag nevypíše. Po vyplnění spusťte `npm run gen`.
 
-Zásady ochrany osobních údajů a obchodní podmínky jsou napsané podle skutečného zpracování a nabídky na webu. Doporučuji obojí nechat ještě zkontrolovat právníkem, než web ostře spustíte.
+### IndexNow (rychlejší indexace v Seznamu a Bingu)
 
-## Před ostrým spuštěním
+Spouští se **po nasazení** webu: `npm run indexnow`. Odešle všechny URL ze sitemapy na `search.seznam.cz/indexnow` a `api.indexnow.org/indexnow`. Spusťte ho po každém nasazení, které přidalo nebo změnilo stránky. Skript nejdřív ověří, že je klíčový soubor na webu dostupný. `npm run indexnow -- --dry-run` jen vypíše URL.
 
-V `vercel.json` je dočasná hlavička `X-Robots-Tag: noindex, nofollow`, aby vyhledávače web neindexovaly, dokud jsou v něm placeholdery. Před spuštěním ji smažte a doplňte zbývající placeholdery.
+## Nasazení (Vercel)
 
-## Nový článek
+Projekt je napojený na Vercel (framework Other, bez build příkazu, výstup je kořen repozitáře). Hlavní adresa je `https://ocdmentor.cz`; `www.ocdmentor.cz` a `mentor-web-delta.vercel.app` se přesměrují na ni (`vercel.json`) a všechny `*.vercel.app` adresy dostanou `X-Robots-Tag: noindex`.
 
-Nové články se teď přidávají přímo v `gen.mjs`: zkopírujte blok `// ---------- Článek: Druhy OCD ----------` jako vzor, přidejte záznam do pole `ARTICLES` (slug, titulek, perex, datum) a spusťte generátor. Sitemap se doplní automaticky z `ARTICLES`. Starý postup přes `sablony/clanek.html` (ruční kopie do `clanky/<slug>/index.html`) pořád funguje, pokud generátor nechcete upravovat.
+Automatické nasazení z GitHubu u tohoto projektu nefunguje, proto se nasazuje ručně: `vercel --prod --yes`, poté aliasy `vercel alias set <nové-nasazení>.vercel.app ocdmentor.cz` a totéž pro `www.ocdmentor.cz`.
+
+## Před ostrým spuštěním pro vyhledávače
+
+Dokud byla v `vercel.json` globální hlavička `X-Robots-Tag: noindex, nofollow`, vyhledávače web neindexovaly. Ve verzi s touto SEO úpravou už hlavička odstraněná je (zůstává jen pro `*.vercel.app`), takže **nasazení tohoto stavu web pro vyhledávače otevře**. Před tím doplňte zbývající placeholdery (viz níže) a nechte zkontrolovat právní texty.
+
+## Placeholdery
+
+Žlutě označené bloky `placeholder` na webu a hodnoty v `tools/config.json`. Aktuální seznam nevyplněného je ve zprávě k poslednímu SEO průchodu.
 
 ## Zásady
 
-V repozitáři nesmí být osobní data, odpovědi z dotazníků ani testovací údaje klientů. Hesla, tokeny a klíče se do kódu neukládají.
+V repozitáři nesmí být osobní data, odpovědi z dotazníků ani testovací údaje klientů. Hesla, tokeny a klíče se do kódu neukládají (klíč IndexNow je veřejný z principu).

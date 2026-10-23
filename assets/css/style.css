@@ -680,3 +680,54 @@ aside.fact p { margin: 0; }
 .gl-pop::before { content: ""; position: absolute; left: 0; right: 0; top: -.5rem; height: .5rem; }
 .gl-pop.gl-right { left: auto; right: 0; }
 .gl-wrap:hover .gl-pop, .gl-wrap:focus-within .gl-pop, .gl-wrap.open .gl-pop { display: block; }
+
+/* ===== Fáze 3: kalkulačka, plovoucí lišta, klidný režim, 404 ===== */
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+.calc { max-width: 44rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.5rem 1.4rem; }
+.calc .field { margin: 0 0 1.2rem; }
+.calc .field > label { font-weight: 700; }
+.calc .range output { min-width: 4.8rem; text-align: right; font-weight: 800; }
+.calc-result { margin-top: .4rem; padding: 1rem 1.1rem; background: var(--bg); border: 1px solid var(--line); border-radius: 16px; min-height: 5rem; }
+.calc-empty { margin: 0; color: var(--ink-soft); }
+.calc-lead { margin: 0 0 .6rem; font-weight: 700; }
+.calc-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: .7rem; }
+.calc-tile { padding: .7rem .9rem; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.calc-tile strong { display: block; font-size: 1.9rem; line-height: 1.15; color: var(--ink); }
+.calc-tile span { font-size: .88rem; color: var(--ink-soft); }
+.calc-msg { max-width: 44rem; margin: 1.2rem 0 0; font-size: 1.15rem; font-weight: 700; line-height: 1.5; }
+.calc-how { margin-top: 1.4rem; }
+
+.float-cta { display: none; }
+@media (max-width: 48rem) {
+  .float-cta:not([hidden]) {
+    display: flex; align-items: center; gap: .5rem; position: fixed; left: .6rem; right: .6rem; bottom: .6rem; z-index: 40; padding: .45rem .5rem .45rem .9rem;
+    background: rgba(255, 254, 251, .97); border: 1px solid var(--line); border-radius: 999px; box-shadow: 0 12px 30px -10px rgba(27, 42, 65, .4);
+    animation: rise .35s cubic-bezier(.2, .7, .2, 1) backwards;
+  }
+    .float-cta .btn { flex: 1; white-space: nowrap; justify-content: center; }
+  .float-close { flex: none; width: 2.2rem; height: 2.2rem; display: grid; place-items: center; font: inherit; font-size: 1.4rem; line-height: 1; cursor: pointer; color: var(--ink); background: transparent; border: 0; border-radius: 50%; }
+  .float-close:hover { background: #f3ead6; }
+  .float-close:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  body.has-float { padding-bottom: 4.6rem; }
+}
+
+.calm-toggle { margin-left: .6rem; padding: .05rem .65rem; font: inherit; font-size: .85rem; font-style: normal; color: #fff; background: transparent; border: 1px solid rgba(255, 255, 255, .55); border-radius: 999px; cursor: pointer; }
+.calm-toggle:hover { background: rgba(255, 255, 255, .15); }
+.calm-toggle[aria-pressed="true"] { background: #fff; color: var(--ink); }
+.calm-toggle:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+html.calm { --bg: #efece6; --surface: #f7f5f0; --ink: #2a3441; --ink-soft: #4a5565; --line: #d9d3c7; --link: #2f4f86; }
+html.calm body { line-height: 1.9; background: var(--bg); }
+html.calm *, html.calm *::before, html.calm *::after { animation: none !important; transition: none !important; }
+html.calm .reveal, html.calm .js .reveal { opacity: 1 !important; transform: none !important; }
+html.calm img, html.calm video, html.calm .brand-sun, html.calm .scene { filter: saturate(.55); }
+html.calm .site-header::after, html.calm .site-footer::before, html.calm .card::before, html.calm .callout::before, html.calm .hl, html.calm .loop-line { filter: saturate(.35); }
+html.calm .btn { box-shadow: none; }
+html.calm .btn-cta { background: #4a6a5c; background-image: none; border-color: #2e473c; }
+html.calm .motion-toggle { display: none; }
+
+.nf-grid { display: grid; grid-template-columns: 1fr minmax(0, 20rem); gap: 2rem; align-items: center; }
+.nf-art { width: 100%; height: auto; border-radius: var(--radius); }
+.nf-grid h1 { margin-bottom: .2rem; }
+@media (max-width: 40rem) { .nf-grid { grid-template-columns: 1fr; } .nf-art { max-width: 16rem; } }

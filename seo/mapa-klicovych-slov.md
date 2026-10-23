@@ -21,6 +21,8 @@ Pravidla: „léčba“ a „terapie“ se u vlastní služby nepoužívají. Sl
 | `/clanky/proc-nutkani-prichazi-ve-vlnach` | nutkání při OCD | vlny úzkosti, jak zvládnout nutkání, nutkavé myšlenky |
 | `/clanky/kompulze-a-prijeti` | kompulze OCD | přijetí vtíravých myšlenek, boj s myšlenkami, rituály při OCD |
 | `/kontakt` | OCD konzultace zdarma | rezervace konzultace, kontakt na peer mentora |
+| `/pomoc` | pomoc při psychické krizi | kam se obrátit při OCD, krizové linky |
+| `/kolik-casu-mi-bere-ocd` | kolik času mi bere OCD | kalkulačka času OCD, čas strávený rituály |
 
 Stránky `/obchodni-podminky` a `/ochrana-osobnich-udaju` na slova necílí (právní texty).
 
@@ -32,7 +34,7 @@ Stránky `/obchodni-podminky` a `/ochrana-osobnich-udaju` na slova necílí (pr�
 | `/seminare` | OCD semináře online | psychoedukace OCD, webinář o OCD |
 | `/kurz` | online kurz OCD | OCD kurz zdarma, co je OCD a co není |
 
-## Plánované stránky (Fáze 2 a 3)
+## Koncepty (noindex, čekají na schválení; seznam na /koncepty)
 
 | Stránka | Hlavní klíčové slovo | Vedlejší klíčová slova |
 |---|---|---|
@@ -61,8 +63,6 @@ Stránky `/obchodni-podminky` a `/ochrana-osobnich-udaju` na slova necílí (pr�
 | `/slovnicek` | OCD slovníček | obsese a kompulze, co je ERP, co je I-CBT |
 | `/pribehy` | příběh člověka s OCD | zkušenost s OCD, jak jsem se s OCD naučil žít |
 | `/pro-terapeuty` | spolupráce s terapeuty OCD | peer podpora jako doplněk, doporučit klienta |
-| `/pomoc` | pomoc při psychické krizi | kam se obrátit při OCD, krizové linky |
-| `/kolik-casu-mi-bere-ocd` | kolik času mi bere OCD | kalkulačka času OCD, čas strávený rituály |
 | `/skupiny` | skupina podpory OCD | online skupina OCD, peer skupina |
 
 ## Upozornění na možnou kanibalizaci

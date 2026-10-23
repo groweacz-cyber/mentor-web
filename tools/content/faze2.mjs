@@ -197,7 +197,7 @@ export const PRO_BLIZKE = {
 <!-- [PODPORA PRO BLÍZKÉ: doplní autor, odkazy na organizace a linky podpory pro rodiny a partnery] -->`,
     },
   ],
-  related: ['/vtirave-myslenky', '/typy-ocd', '/myty-o-ocd', '/pribehy', '/pro-terapeuty'],
+  related: ['/vtirave-myslenky', '/typy-ocd', '/myty-o-ocd', '/pribehy', '/pro-terapeuty', '/skupiny'],
 };
 
 // ---------- /pribehy ----------
@@ -234,7 +234,7 @@ export const PRIBEHY = {
 </ul>`,
     },
   ],
-  related: ['/o-mne', '/jak-to-probiha', '/pro-blizke', '/myty-o-ocd', '/pro-terapeuty'],
+  related: ['/o-mne', '/jak-to-probiha', '/pro-blizke', '/myty-o-ocd', '/pro-terapeuty', '/skupiny'],
 };
 
 // ---------- /pro-terapeuty ----------
@@ -277,7 +277,7 @@ export const PRO_TERAPEUTY = {
       html: `<p>Napište na <a href="mailto:ocdmentor@gmail.com">ocdmentor@gmail.com</a>. V akutní situaci prosím použijte krizové kontakty, ne e-mail.</p>`,
     },
   ],
-  related: ['/o-mne', '/metoda', '/jak-to-probiha', '/pro-koho', '/pribehy'],
+  related: ['/o-mne', '/metoda', '/jak-to-probiha', '/pro-koho', '/pribehy', '/skupiny'],
 };
 
 // ---------- /pomoc (zveřejněno hned, není koncept) ----------

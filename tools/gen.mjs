@@ -27,6 +27,11 @@ const withPlaceholders = (t) => esc(t).replace(/\[[^\]]+\]/g, (m) => `<span clas
 const routeHtml = (mod) => `<ol class="route${mod ? ' ' + mod : ''}">
 ${JAK.kroky.map((k) => `  <li><h3>${esc(k.nazev)}</h3>${k.meta ? `<p class="route-meta">${esc(k.meta)}</p>` : ''}<p>${esc(k.text)}</p></li>`).join('\n')}
 </ol>`;
+const calcCard = () => `<article class="card kviz-teaser">
+    <h3>Kolik času mi bere OCD?</h3>
+    <p>Spočítejte si to za minutu. Nic se neukládá.</p>
+    <p><a class="btn btn-ghost btn-sm" href="/kolik-casu-mi-bere-ocd">Otevřít kalkulačku</a></p>
+  </article>`;
 const quizCard = () => `<article class="card kviz-teaser">
     <h3>Metal, nebo Pop?</h3>
     <p>Zjistěte za minutu, která cesta vám sedí.</p>
@@ -157,6 +162,7 @@ const brandSun = `<svg class="brand-sun" viewBox="-16 -16 32 32" width="28" heig
 // Jediný inline skript: scroll animace (s pojistkou), tlačítko pro zastavení animací.
 const siteScript = `<script>
 (function(){var d=document.documentElement;d.classList.add('js');
+try{if(localStorage.getItem('ocd-calm')==='1')d.classList.add('calm');}catch(e){}
 document.addEventListener('DOMContentLoaded',function(){try{
 var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 var els=document.querySelectorAll('.reveal');
@@ -165,6 +171,13 @@ else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.is
 var b=document.getElementById('motion-toggle');
 var v=document.getElementById('hero-video');
 if(reduced){d.classList.add('motion-off');if(b)b.setAttribute('aria-pressed','true');if(v)v.pause();}
+var sd=navigator.connection&&navigator.connection.saveData;
+function startVideo(){if(v&&!reduced&&!sd&&!d.classList.contains('motion-off')&&!d.classList.contains('calm'))v.play().catch(function(){});}
+if(v){var go=function(){(window.requestIdleCallback||function(f){setTimeout(f,300);})(startVideo);};if(document.readyState==='complete')go();else window.addEventListener('load',go);}
+var cb=document.getElementById('calm-toggle');
+if(cb){cb.setAttribute('aria-pressed',d.classList.contains('calm')?'true':'false');
+cb.addEventListener('click',function(){var on=d.classList.toggle('calm');cb.setAttribute('aria-pressed',on?'true':'false');try{localStorage.setItem('ocd-calm',on?'1':'0');}catch(e){}if(v){if(on)v.pause();else startVideo();}});}
+if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});
 if(b)b.addEventListener('click',function(){
   var off=d.classList.toggle('motion-off');
   b.setAttribute('aria-pressed',off?'true':'false');
@@ -365,6 +378,8 @@ const LABELS = {
   '/kontakt': 'Kontakt',
   '/clanky': 'Články o OCD',
   '/pomoc': 'Pomoc hned',
+  '/kolik-casu-mi-bere-ocd': 'Kolik času mi bere OCD?',
+  '/skupiny': 'Online skupina podpory',
   '/vtirave-myslenky': 'Vtíravé myšlenky: průvodce',
   '/typy-ocd': 'Typy OCD',
   '/pro-blizke': 'Pro blízké: jak pomáhat a nekrmit OCD',
@@ -387,9 +402,21 @@ const relatedBlock = (paths) => `<section class="wrap block related">
   <ul class="related-list">${[...new Set(paths)].map((p) => `<li><a href="${p}">${esc(labelFor(p))}</a></li>`).join('')}</ul>
 </section>`;
 
+const videoNode = () => ({
+  '@type': 'VideoObject',
+  name: 'Úvodní video: Nejsi sám',
+  description: 'Krátké úvodní video s titulky: Nejsi sám. Prošel jsem tím taky. A dá se z toho ven.',
+  thumbnailUrl: `${SITE}/assets/img/uvod-poster.webp`,
+  uploadDate: '2026-10-16',
+  duration: 'PT8S',
+  contentUrl: `${SITE}/assets/video/uvod.mp4`,
+  inLanguage: 'cs',
+  transcript: 'Nejsi sám. Prošel jsem tím taky. A dá se z toho ven.',
+  creator: { '@id': PERSON_ID },
+});
 const normalizeLd = (j) => (!j ? [] : (j['@graph'] || [j]).map(({ '@context': _c, ...n }) => n));
 
-function page({ path, title, desc, body, jsonld, noindex, robots, script, art, app, module, ogImage, ogTitle, ogSub, ogType, published, modified, crumb, parents, gloss, draft, crumbs, related }) {
+function page({ path, title, desc, body, jsonld, noindex, robots, script, art, app, module, ogImage, ogTitle, ogSub, ogType, published, modified, crumb, parents, gloss, draft, crumbs, related, floatCta }) {
   const url = SITE + (path === '/' ? '/' : path);
   const isNoindex = !!noindex || /noindex/.test(robots || '');
   const robotsContent = robots || (noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large');
@@ -442,6 +469,11 @@ function page({ path, title, desc, body, jsonld, noindex, robots, script, art, a
     CFG.verification?.bing ? `<meta name="msvalidate.01" content="${attr(CFG.verification.bing)}">` : '',
   ].filter(Boolean).join('\n');
 
+  const FLOAT_OFF = new Set(['/pomoc', '/kviz', '/kontakt', '/jak-to-probiha', '/dotaznik', '/obchodni-podminky', '/ochrana-osobnich-udaju', '/koncepty', '/offline', '/404']);
+  const showFloat = floatCta ?? (!isNoindex && !app && !draft && !FLOAT_OFF.has(path));
+  const floatHtml = showFloat
+    ? `<aside class="float-cta js-only" id="float-cta" aria-label="Konzultace zdarma" hidden>\n  <a class="btn btn-cta btn-sm float-book" href="/kontakt">Konzultace zdarma</a>\n  <button type="button" class="float-close" aria-label="Zavřít lištu">×</button>\n</aside>\n`
+    : '';
   const ogUrl = `${SITE}${ogPath(noindex ? '/' : path)}`;
   const t = attr(title), d = attr(desc);
   const html = `<!doctype html>
@@ -471,6 +503,8 @@ ${published ? `<meta property="article:published_time" content="${published}">\n
 <meta name="twitter:image" content="${ogUrl}">
 <meta name="theme-color" content="#1b2a41">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <link rel="stylesheet" href="/assets/css/style.css">
 ${app ? '<link rel="stylesheet" href="/assets/css/app.css">' : ''}
 ${ld ? `<script type="application/ld+json">\n${JSON.stringify(ld, null, 2)}\n</script>` : ''}
@@ -478,7 +512,7 @@ ${siteScript}
 </head>
 <body>
 <a class="skip" href="#obsah">Přeskočit na obsah</a>
-<p class="notice" role="note">${NOTICE} <a class="help-link" href="/pomoc">Potřebuji pomoc hned</a></p>
+<p class="notice" role="note">${NOTICE} <a class="help-link" href="/pomoc">Potřebuji pomoc hned</a> <button type="button" class="calm-toggle js-only" id="calm-toggle" aria-pressed="false">Klidný režim</button></p>
 <header class="site-header">
   <div class="wrap bar">
     <a class="brand" href="/">${brandSun}<span>${BRAND}</span></a>
@@ -505,7 +539,7 @@ ${crumbsHtml}${b}
   </div>
 </footer>
 ${app ? sosHtml : ''}
-<dialog id="rsv-modal" aria-labelledby="rsv-modal-h" aria-modal="true">
+${floatHtml}<dialog id="rsv-modal" aria-labelledby="rsv-modal-h" aria-modal="true">
   <div class="rsv-inner">
     <h2 id="rsv-modal-h">Zahájení služby a právo na odstoupení od smlouvy</h2>
     <div class="rsv-text">
@@ -525,6 +559,7 @@ ${app ? sosHtml : ''}
 </dialog>
 <script defer src="/assets/js/rezervace-souhlas.js"></script>
 ${b.includes('class="gl-wrap"') ? '<script src="/assets/js/slovnicek.js" defer></script>' : ''}
+${showFloat ? '<script src="/assets/js/lista.js" defer></script>' : ''}
 ${script ? `<script src="${script}" defer></script>` : ''}
 ${module ? `<script type="module" src="${module}"></script>` : ''}
 </body>
@@ -552,6 +587,7 @@ const loopChips = `<ol class="loop" aria-label="Smyčka OCD">
 add('/', {
   title: "Peer mentoring při OCD online | ocdmentor.cz",
   desc: "Peer mentoring při OCD online: podpora od člověka s vlastní zkušeností, vedle odborné péče. Domluvte si úvodní konzultaci zdarma.",
+  jsonld: { '@graph': [videoNode()] },
   ogTitle: 'Peer mentoring při OCD',
   ogSub: 'Jednat i ve chvíli, kdy se bojíte.',
   ogArt: '/assets/img/uvod-poster.webp',
@@ -570,9 +606,12 @@ add('/', {
       <p class="small note rise" style="--d:.6s">Peer podpora, ne terapie ani krizová pomoc. V akutní krizi ${CRISIS}. <a href="/o-mne#hranice">Moje hranice</a></p>
     </div>
     <div class="scene-wrap rise" style="--d:.3s">
-      <div class="scene"><video id="hero-video" class="scene-video" autoplay muted loop playsinline preload="metadata" poster="/assets/img/uvod-poster.webp" aria-hidden="true">
+      <div class="scene"><video id="hero-video" class="scene-video" muted loop playsinline preload="none" poster="/assets/img/uvod-poster.webp" aria-label="Úvodní video" aria-describedby="video-prepis">
+        <source src="/assets/video/uvod.webm" type="video/webm">
         <source src="/assets/video/uvod.mp4" type="video/mp4">
+        <track kind="captions" srclang="cs" label="Česky" src="/assets/video/uvod.cs.vtt" default>
       </video>
+      <p id="video-prepis" class="sr-only">Přepis videa: Nejsi sám. Prošel jsem tím taky. A dá se z toho ven.</p>
       <button type="button" class="sound-toggle" id="sound-toggle" aria-pressed="false" aria-label="Zapnout zvuk">
         <svg class="icon-muted" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 5V4L7 9H3z" fill="currentColor"/><line x1="16" y1="9" x2="22" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="22" y1="9" x2="16" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         <svg class="icon-unmuted" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M3 9v6h4l5 5V4L7 9H3z" fill="currentColor"/><path d="M16 8a5 5 0 0 1 0 8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M18.5 5.5a9 9 0 0 1 0 13" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
@@ -619,7 +658,10 @@ add('/', {
 </section>
 
 <section class="wrap block">
-  ${quizCard()}
+  <div class="cards">
+    ${quizCard()}
+    ${calcCard()}
+  </div>
 </section>
 
 <section class="wrap block principle" aria-labelledby="pd-h">
@@ -1202,13 +1244,15 @@ add('/o-mne', {
 <section class="wrap block prose">
   <p>Mám vlastní zkušenost s OCD. Zkušenost není kvalifikace, ale umím rozumět tomu, jak se ve smyčce člověk cítí a co mu na cestě ven pomáhá.</p>
   <p>Od dětství jsem prošel úzkostmi, panickými atakami, sociální fobií, depersonalizací a derealizací i zažívacími potížemi, které úzkost vyvolávala. Hlavně jsem ale prošel OCD v mnoha podobách: magickým, zdravotním, kontaminačním, kontrolovacím i Pure O. Vím, jaké to je, když vás vlastní mysl drží v šachu. A vím, že se z toho dá vyjít. Proto jsem vytvořil tuto metodu a aplikaci, aby lidé jako já měli průvodce, který jim rozumí zevnitř.</p>
-  <h2>Výcvik a certifikace</h2>
+  <h2>Absolvované vzdělání</h2>
+  <p>Jde o absolvované kurzy, ne o oprávnění poskytovat zdravotní péči.</p>
   <a class="cert-thumb" href="/assets/img/certifikat-ocd-alison.webp" target="_blank" rel="noopener">
     <img src="/assets/img/certifikat-ocd-alison.webp" width="535" height="370" alt="Certifikát Alison.com – Understanding Obsessive-Compulsive Disorder (OCD), Bc. Václav Kodeš, 21. října 2026" loading="lazy">
   </a>
   <ul>
     <li><strong>Understanding Obsessive-Compulsive Disorder (OCD)</strong> – online kurz, Alison.com, říjen 2026. <a href="https://alison.com/verify/beeebe5a83" target="_blank" rel="noopener">Ověřit certifikát</a>.</li>
   </ul>
+  <!-- [DALŠÍ KURZY A CERTIFIKÁTY: název, organizace, rok, odkaz na ověření; doplní autor] -->
   <p class="small disclaimer">Nenahrazuje vzdělání psychiatra, psychologa ani psychoterapeuta.</p>
   <h2 id="hranice">Moje hranice</h2>
   <p>Co dělám a co ne. Tyto hranice platí vždy.</p>
@@ -2137,7 +2181,7 @@ function contentPage({ path, title, ogTitle, desc, h1, lead, sections, sectionsH
 
 ${sectionsHtml || proseSections(sections)}
 
-${sourcesBlock(sources)}
+${sources === false ? '' : sourcesBlock(sources)}
 
 ${whenProBlock()}
 `;
@@ -2201,7 +2245,7 @@ const relatedTypes = (slugs) => `<ul class="rules">${slugs
   .filter((s) => TYP_BY_SLUG[s])
   .map((s) => `<li><a href="/typy-ocd/${s}">${esc(TYP_BY_SLUG[s].nazev)}</a>: ${esc(TYP_BY_SLUG[s].kratce)}</li>`)
   .join('')}</ul>`;
-const ctaQuiz = `<p class="cta"><a class="btn btn-ghost" href="/kviz">Kvíz Metal, nebo Pop?</a><a class="btn btn-cta" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a></p>`;
+const ctaQuiz = `<p class="cta"><a class="btn btn-ghost" href="/kviz">Kvíz Metal, nebo Pop?</a><a class="btn btn-ghost" href="/kolik-casu-mi-bere-ocd">Kolik času mi bere OCD?</a><a class="btn btn-cta" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a></p>`;
 for (const t of TYPY_DATA.typy) {
   const full = F2.TYPY_PLNY[t.slug];
   const stav = typStav(t);
@@ -2367,13 +2411,119 @@ ${DRAFTS.map((d) => `    <li><a href="${d.path}">${esc(d.h1)}</a> <span class="t
 `,
 });
 
+// ---------- Fáze 3: kalkulačka, skupiny, offline stránka ----------
+const calcSlider = (id, label, hint) => `    <div class="field calc-field js-only">
+      <label for="${id}">${label} <span class="hint">(${hint})</span></label>
+      <div class="range"><input type="range" id="${id}" min="0" max="480" step="5" value="0" aria-describedby="calc-result"><output for="${id}">0 min</output><span class="of">denně</span></div>
+    </div>`;
+add('/kolik-casu-mi-bere-ocd', {
+  title: 'Kolik času mi bere OCD: kalkulačka | ocdmentor.cz',
+  desc: 'Spočítejte, kolik času vám denně berou rituály, ujišťování a rozebírání v hlavě. Výsledek v hodinách týdně a dnech ročně. Nic se neukládá.',
+  ogTitle: 'Kolik času mi bere OCD?',
+  ogSub: 'Kalkulačka: hodiny týdně a dny ročně',
+  script: '/assets/js/kalkulacka.js',
+  related: ['/metoda', '/dotaznik', '/kviz', '/pomoc'],
+  art: false,
+  body: `
+<section class="wrap page-head">
+  <h1>Kolik času mi bere OCD?</h1>
+  <p class="lead">Rituály, kontroly, ujišťování i přemýšlení v hlavě se v běžném dni snadno ztratí. Kalkulačka jen sečte čas, který jí sami zadáte. Není to test ani diagnóza a nic se neukládá ani neodesílá.</p>
+</section>
+
+<section class="wrap block">
+  <div class="calc" id="calc">
+    <p class="hint">Odhadněte, kolik minut denně v průměru věnujete každé z oblastí. Stačí hrubý odhad.</p>
+${calcSlider('c-ritualy', 'Rituály a kontroly', 'mytí, kontrolování, uspořádávání, opakování')}
+${calcSlider('c-ujistovani', 'Ujišťování a hledání na internetu', 'ptaní se druhých nebo umělé inteligence, googlení, čtení zkušeností')}
+${calcSlider('c-hlava', 'Rozebírání v hlavě', 'přemítání, analyzování, přehrávání vzpomínek, mentální rituály')}
+    <div id="calc-result" class="calc-result js-only" role="status" aria-live="polite"></div>
+    <noscript><p>Kalkulačka potřebuje zapnutý JavaScript. Postup výpočtu najdete níže.</p></noscript>
+  </div>
+  <p class="calc-msg">Ať vyjde jakékoli číslo, nic to neříká o vaší hodnotě. Je to čas, který si můžete postupně brát zpátky.</p>
+  <p class="cta"><a class="btn btn-cta" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a><a class="btn btn-ghost" href="/dotaznik">Vyplnit vstupní dotazník</a></p>
+  <p class="small disclaimer">Jde o vaše vlastní odhady, ne o měření ani diagnózu. Pokud jste v akutní krizi, ${CRISIS}.</p>
+</section>
+
+<section class="wrap block calc-how prose">
+  <h2>Jak se to počítá</h2>
+  <p>Hodiny týdně se spočítají jako minuty denně × 7 ÷ 60. Dny ročně jsou minuty denně × 365 ÷ 1 440, tedy celé 24hodinové dny. Víkend se počítá jako dva dny. Například 180 minut denně (3 hodiny) je 21 hodin týdně, asi 45,6 dne ročně a zhruba 23 víkendů.</p>
+</section>
+`,
+});
+
+// --- Online skupina podpory (koncept) ---
+const waitlistMail = `mailto:${EMAIL}?subject=${encodeURIComponent('Čekací listina – online skupina podpory')}&body=${encodeURIComponent('Dobrý den,\n\nmám zájem o online skupinu podpory při OCD. Prosím o zařazení na čekací listinu.\n\nDěkuji')}`;
+contentPage({
+  path: '/skupiny',
+  title: 'Online skupina podpory při OCD | ocdmentor.cz',
+  desc: 'Koncept online skupinových setkání peer podpory při OCD v malé skupině. Zapište se na čekací listinu e-mailem, na webu se nic neukládá.',
+  h1: 'Online skupina podpory',
+  lead: 'Koncept online skupinových setkání: peer podpora v malé skupině lidí s OCD, vedle odborné péče.',
+  sources: false,
+  related: ['/jak-to-probiha', '/pro-blizke', '/pribehy', '/kviz'],
+  sections: [
+    {
+      h: 'Jak by skupina fungovala',
+      html: `<ul class="rules">
+  <li>Malá online skupina lidí s OCD, kteří chtějí sdílet zkušenost a navzájem se podpořit.</li>
+  <li>Skupinu vede peer mentor s vlastní zkušeností, ne terapeut. Nejde o zdravotní službu ani psychoterapii a skupina nenahrazuje odbornou péči.</li>
+  <li>Cena: <span class="placeholder">[CENA]</span></li>
+  <li class="placeholder">[DOPLNIT: počet účastníků, délka a četnost setkání, pravidla skupiny, platforma]</li>
+</ul>`,
+    },
+    {
+      h: 'Čekací listina',
+      html: `<p>První termín zatím není. Pokud chcete dát vědět, že máte zájem, napište mi. Tlačítko otevře váš e-mail s předvyplněným předmětem. Nic se neukládá na webu a zprávu vidím, jen když ji sami odešlete.</p>
+<p class="cta"><a class="btn btn-cta" href="${attr(waitlistMail)}">Chci na čekací listinu</a></p>`,
+    },
+  ],
+});
+
+// --- Offline stránka (pro service worker) ---
+add('/offline', {
+  title: `Jste offline | ${DOMAIN}`,
+  desc: 'Jste offline. Tuto stránku nelze načíst bez připojení, rezervace a formuláře bez internetu nefungují.',
+  noindex: true,
+  art: false,
+  body: `
+<section class="wrap page-head">
+  <h1>Jste offline</h1>
+  <p class="lead">Tuhle stránku se nepodařilo načíst, protože nejste připojeni k internetu. Rezervace konzultací a odesílání formulářů bez připojení nefungují.</p>
+</section>
+<section class="wrap block">
+  <p>Zkuste to znovu, až se připojíte: <button type="button" class="btn btn-ghost btn-sm" onclick="location.reload()">Načíst znovu</button></p>
+  <p>Potřebujete pomoc hned? ${CRISIS_STRONG}.</p>
+  <ul class="crisis-list">
+    <li><a href="tel:112"><strong>112</strong><span>tísňová linka</span></a></li>
+    <li><a href="tel:155"><strong>155</strong><span>zdravotnická záchranná služba</span></a></li>
+    <li><a href="tel:116123"><strong>116 123</strong><span>Linka první psychické pomoci</span></a></li>
+  </ul>
+</section>
+`,
+});
+
 // ---------- 404 ----------
 files['404.html'] = page({
   path: '/404',
   title: `Stránka nenalezena | ${DOMAIN}`,
   desc: 'Stránka nenalezena. Vraťte se na úvodní stránku nebo si prohlédněte menu webu.',
   noindex: true,
-  body: `<section class="wrap page-head"><h1>Stránka nenalezena</h1><p class="lead"><a href="/">Zpět na úvod</a></p></section>`,
+  art: false,
+  body: `
+<section class="wrap page-head nf">
+  <div class="nf-grid">
+    <div>
+      <h1>Tady nic není.</h1>
+      <p class="lead">A to je v pořádku.</p>
+      <p>Stránku, kterou hledáte, se nepodařilo najít. Pokračovat můžete tady:</p>
+      <ul class="related-list">
+        <li><a href="/">Úvod</a></li><li><a href="/metoda">Metoda</a></li><li><a href="/jak-to-probiha">Jak to probíhá</a></li><li><a href="/kviz">Kvíz Metal, nebo Pop?</a></li><li><a href="/clanky">Články</a></li><li><a href="/kontakt">Kontakt</a></li><li><a href="/pomoc">Pomoc hned</a></li>
+      </ul>
+    </div>
+    <img class="nf-art" src="${CFG.notFoundImage || '/assets/img/kontakt-ilustrace.webp'}" width="640" height="585" alt="" loading="eager">
+  </div>
+</section>
+`,
 });
 
 // ---------- Šablona článku ----------
@@ -2494,5 +2644,32 @@ writeFileSync(
 
 // klíč IndexNow (soubor v kořeni webu)
 if (CFG.indexnowKey) writeFileSync(join(OUT, `${CFG.indexnowKey}.txt`), CFG.indexnowKey);
+
+// ---------- PWA: manifest a service worker ----------
+writeFileSync(
+  join(OUT, 'manifest.webmanifest'),
+  JSON.stringify(
+    {
+      name: 'OCD mentor – peer mentoring při OCD',
+      short_name: 'OCD mentor',
+      description: 'Peer podpora při OCD. Doplněk k odborné péči, ne zdravotní služba.',
+      lang: 'cs',
+      start_url: '/',
+      scope: '/',
+      display: 'standalone',
+      background_color: '#fbf7ef',
+      theme_color: '#1b2a41',
+      icons: [
+        { src: '/assets/icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+        { src: '/assets/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+        { src: '/assets/icons/icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+      ],
+    },
+    null,
+    2
+  ) + '\n'
+);
+const SW_VERSION = createHash('sha1').update(JSON.stringify(lastmod) + hashAsset('/assets/css/style.css') + hashAsset('/assets/js/rezervace-souhlas.js')).digest('hex').slice(0, 8);
+writeFileSync(join(OUT, 'sw.js'), readFileSync(join(OUT, 'tools/sw.template.js'), 'utf8').replace('__VERSION__', SW_VERSION));
 
 console.log(Object.keys(files).join('\n'));

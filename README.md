@@ -37,6 +37,15 @@ Soubory ze složek `tools` a `seo` se na web nenasazují (`.vercelignore`).
 - **Nový článek:** přidat záznam do pole `ARTICLES` v `tools/gen.mjs` (`slug`, `seoTitle`, `title`, `excerpt`, `date`, obrázky) a podle existujících článků napsat blok stránky. Sitemap, drobečky, JSON-LD a OG obrázek se doplní samy.
 - **Obsahové stránky (Typy OCD, Vtíravé myšlenky, Pro blízké, Mýty, Slovníček, Příběhy, Pro terapeuty):** texty v `tools/content/faze2.mjs`, typy OCD v `assets/data/typy-ocd.json`, pojmy ve `assets/data/slovnicek.json`, mýty v `assets/data/myty.json`.
 
+## Funkce pro návštěvníky
+
+- **Kalkulačka `/kolik-casu-mi-bere-ocd`:** `assets/js/kalkulacka.js`. Počítá jen v prohlížeči, nic se neukládá ani neodesílá. Odkaz na ni je na úvodní stránce a v souvisejících stránkách.
+- **Úvodní video:** `assets/video/uvod.webm` (+ `uvod.mp4`), titulky `assets/video/uvod.cs.vtt`, textový přepis je v `<p id="video-prepis" class="sr-only">`. Video se načte až po načtení stránky a nespustí se při `prefers-reduced-motion`, úsporném datovém režimu, v Klidném režimu ani při vypnutém pohybu.
+- **Klidný režim:** tlačítko v horní liště, vypíná animace a video; volba je jen v `localStorage` (`ocd-calm`) v prohlížeči návštěvníka.
+- **Plovoucí lišta „Konzultace zdarma“:** jen na mobilu, `assets/js/lista.js`; zobrazí se po odrolování, lze ji zavřít (pamatuje si to jen do konce návštěvy) a nezobrazuje se nad otevřeným dialogem nebo rezervačním oknem.
+- **PWA a offline:** `manifest.webmanifest` a `sw.js` generuje `tools/gen.mjs` (verze cache se mění s obsahem webu), šablona je `tools/sw.template.js`. Navštívené stránky fungují bez připojení, ostatní ukáží `/offline`. Ikony se vyrábějí příkazem `node tools/icons.mjs` do `assets/icons/`.
+- **Stránka 404:** ilustrace se bere z `notFoundImage` v `tools/config.json`; když je prázdné, použije se stávající ilustrace panáčka.
+
 ## Koncepty a schvalování
 
 Nové obsahové stránky jsou **koncepty**: mají `noindex, nofollow`, viditelný štítek „Koncept“, nejsou v navigaci ani v sitemapě. Přehled je na `/koncepty` (jen pro kontrolu, taky noindex). Schválená stránka se zveřejní tak, že se v `tools/gen.mjs` u jejího volání `contentPage` doplní `draft: false`; pak se z ní stane normální indexovatelná stránka s drobečky, JSON-LD a OG obrázkem (`npm run og`).
@@ -48,6 +57,9 @@ Nastavení v `tools/config.json`:
 | `reviewer` | jméno a titul odborníka; řádek „Odborně zkontroloval“ se zobrazí, jen když je vyplněný |
 | `glossaryOnPublicPages` | `true` zapne vysvětlivky pojmů ze slovníčku i na zveřejněných stránkách (dokud je `false`, jsou jen na konceptech) |
 | `showDraftTypes` | `true` ukazuje v mřížce `/typy-ocd` i neschválené typy; schválený typ má v `assets/data/typy-ocd.json` `"schvaleno": true` |
+| `notFoundImage` | obrázek na stránce 404; prázdné = stávající ilustrace panáčka |
+
+Stránka `/skupiny` je také koncept (cena a podrobnosti skupin jsou v ní zatím `[CENA]` a placeholdery).
 
 Stránka `/pomoc` koncept není, je zveřejněná a v hlavičce každé stránky je odkaz „Potřebuji pomoc hned“.
 

@@ -57,7 +57,7 @@ Nastavení v `tools/config.json`:
 | Klíč | Význam |
 |---|---|
 | `reviewer` | jméno a titul odborníka; řádek „Odborně zkontroloval“ se zobrazí, jen když je vyplněný |
-| `glossaryOnPublicPages` | `true` (zapnuto) zobrazuje vysvětlivky pojmů ze slovníčku u prvního výskytu pojmu na obsahových stránkách |
+| `glossaryOnPublicPages` | `false`: vysvětlivky pojmů ze slovníčku jsou jen na obsahových stránkách (Typy OCD, Vtíravé myšlenky, Pro blízké a další). `true` je zapne i na dříve hotových stránkách (Metoda, Pro koho, Jak to probíhá, O mně, články) |
 | `showDraftTypes` | zastaralé, všechny typy jsou schválené (`"schvaleno": true` v `typy-ocd.json`) |
 | `notFoundImage` | obrázek na stránce 404; prázdné = stávající ilustrace panáčka |
 

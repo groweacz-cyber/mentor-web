@@ -436,7 +436,7 @@ const videoNode = () => ({
 });
 const normalizeLd = (j) => (!j ? [] : (j['@graph'] || [j]).map(({ '@context': _c, ...n }) => n));
 
-function page({ path, title, desc, body, jsonld, noindex, robots, script, art, app, module, ogImage, ogTitle, ogSub, ogType, published, modified, crumb, parents, gloss, draft, crumbs, related, floatCta }) {
+function page({ path, title, desc, body, jsonld, noindex, robots, script, art, app, module, ogImage, ogTitle, ogSub, ogType, published, modified, crumb, parents, gloss, glossAlways, draft, crumbs, related, floatCta }) {
   const url = SITE + (path === '/' ? '/' : path);
   const isNoindex = !!noindex || /noindex/.test(robots || '');
   const robotsContent = robots || (noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large');
@@ -458,7 +458,7 @@ function page({ path, title, desc, body, jsonld, noindex, robots, script, art, a
     .replace(/<article class="card">(\s*<h3>Metal cesta)/g, '<article class="card card--metal">$1')
     .replace(/<article class="card">(\s*<h3>Pop cesta)/g, '<article class="card card--pop">$1');
   if (art) b = b.replace('<section class="wrap page-head">', '<section class="wrap page-head">' + miniScene());
-  if (gloss && (draft || CFG.glossaryOnPublicPages)) b = glossify(b);
+  if (gloss && (draft || glossAlways || CFG.glossaryOnPublicPages)) b = glossify(b);
 
   // drobečková navigace (viditelná i ve strukturovaných datech)
   let trail = null;
@@ -1272,6 +1272,7 @@ add('/o-mne', {
   </a>
   <ul>
     <li><strong>Understanding Obsessive-Compulsive Disorder (OCD)</strong> – online kurz, Alison.com, říjen 2026. <a href="https://alison.com/verify/beeebe5a83" target="_blank" rel="noopener">Ověřit certifikát</a>.</li>
+    <li><strong>Overcoming OCD: Diagnosis, Treatment Options</strong></li>
   </ul>
   <!-- [DALŠÍ KURZY A CERTIFIKÁTY: název, organizace, rok, odkaz na ověření; doplní autor] -->
   <p class="small disclaimer">Nenahrazuje vzdělání psychiatra, psychologa ani psychoterapeuta.</p>
@@ -2222,7 +2223,7 @@ ${whenProBlock()}
         publisher: { '@type': 'Organization', name: BRAND, url: SITE },
         mainEntityOfPage: `${SITE}${path}`,
       };
-  add(path, { title, ogTitle, ogSub, desc, noindex: draft, draft, crumbs: true, crumb, parents, body, gloss, related, script, art: false, jsonld: articleLd, ogType: draft ? undefined : 'article', published: draft ? undefined : CONTENT_PUBLISHED, modified: draft ? undefined : updated });
+  add(path, { title, ogTitle, ogSub, desc, noindex: draft, draft, crumbs: true, crumb, parents, body, gloss, glossAlways: true, related, script, art: false, jsonld: articleLd, ogType: draft ? undefined : 'article', published: draft ? undefined : CONTENT_PUBLISHED, modified: draft ? undefined : updated });
 }
 
 // --- Pilířový průvodce ---

@@ -1,7 +1,7 @@
 // Service worker webu ocdmentor.cz. Generuje ho tools/gen.mjs (verze se mění s obsahem webu).
 // Ukládá jen vlastní statické soubory (/assets/) a stránky, které si návštěvník otevřel. HTML jde přes síť jako první,
 // při výpadku se zobrazí uložená stránka nebo /offline. Cizí adresy (například rezervace Reservanto) vůbec nezachytává.
-var VERSION = 'b0a413a2';
+var VERSION = '837616db';
 var CACHE = 'ocdmentor-' + VERSION;
 var OFFLINE = '/offline';
 

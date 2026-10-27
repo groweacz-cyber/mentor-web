@@ -732,3 +732,12 @@ html.calm .motion-toggle { display: none; }
 .nf-art { width: 100%; height: auto; border-radius: var(--radius); }
 .nf-grid h1 { margin-bottom: .2rem; }
 @media (max-width: 40rem) { .nf-grid { grid-template-columns: 1fr; } .nf-art { max-width: 16rem; } }
+
+/* ===== E-book: náhled titulní strany a stažení ===== */
+.ebook-grid { display: grid; gap: 1.5rem; align-items: center; }
+.ebook-cover { display: block; width: min(100%, 17rem); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); line-height: 0; transition: transform .2s ease; }
+.ebook-cover:hover { transform: translateY(-3px); }
+.ebook-cover:focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+.ebook-cover img { display: block; width: 100%; height: auto; }
+@media (min-width: 48rem) { .ebook-grid { grid-template-columns: 17rem minmax(0, 1fr); gap: 2.5rem; } }
+@media (prefers-reduced-motion: reduce) { .ebook-cover { transition: none; } .ebook-cover:hover { transform: none; } }

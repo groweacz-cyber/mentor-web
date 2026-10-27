@@ -34,7 +34,7 @@ Soubory ze složek `tools` a `seo` se na web nenasazují (`.vercelignore`).
 - **Texty stránek, menu, titulky a popisky:** `tools/gen.mjs`.
 - **Ceník, tři kroky a FAQ stránky Jak to probíhá:** `assets/data/jak-to-probiha.json`. FAQ se do strukturovaných dat (FAQPage) dostane samo; odpověď obsahující nedoplněný `[placeholder]` se do nich zatím nedává.
 - **Smyčka OCD, kvíz a principy:** `assets/js/smycka-faze.js`, `assets/js/kviz-data.js`, `assets/js/principy.js`. Generátor z nich vytvoří statické HTML, aby byl obsah ve zdrojovém kódu stránky; JavaScript ho pak nahradí interaktivní verzí.
-- **E-book:** stránka `/ebook` je v `tools/gen.mjs`, soubor `assets/ebook/Cesta_k_sebeprijeti.pdf` (19 stran, A5) má ve `vercel.json` hlavičku `noindex` a service worker ho nekešuje. Formulář na stránce zatím nikam neodesílá a PDF z něj není dostupné; stránka je `noindex` a žlutý placeholder u PDF zmizí, až se rozhodne, jak se e-book doručí.
+- **E-book:** stránka `/ebook` je v `tools/gen.mjs` (indexovatelná, v sitemapě, strukturovaná data Book), soubor `assets/ebook/Cesta_k_sebeprijeti.pdf` (19 stran, A5) je volně ke stažení bez e-mailu a service worker ho nekešuje. Náhled titulní strany je `assets/img/ebook-titulka.webp` (vyříznutý z PDF). Při výměně PDF aktualizujte počet stran a velikost (5,3 MB) v textu stránky.
 - **Nový článek:** přidat záznam do pole `ARTICLES` v `tools/gen.mjs` (`slug`, `seoTitle`, `title`, `excerpt`, `date`, obrázky) a podle existujících článků napsat blok stránky. Sitemap, drobečky, JSON-LD a OG obrázek se doplní samy.
 - **Obsahové stránky (Typy OCD, Vtíravé myšlenky, Pro blízké, Mýty, Slovníček, Příběhy, Pro terapeuty):** texty v `tools/content/faze2.mjs` a `tools/content/typy2.mjs`, typy OCD v `assets/data/typy-ocd.json`, pojmy ve `assets/data/slovnicek.json`, mýty v `assets/data/myty.json`.
 
@@ -68,7 +68,7 @@ Stránka `/pomoc` je zveřejněná od začátku a v hlavičce každé stránky j
 
 - Každá stránka má unikátní `title` (formát „Téma | ocdmentor.cz“, do 60 znaků), meta description (120–160 znaků), jednu H1, canonical, Open Graph a X karty s vlastním OG obrázkem a strukturovaná data (BreadcrumbList; WebSite a Person na úvodu, Service a FAQPage na Jak to probíhá, Article u článků).
 - `sitemap.xml` obsahuje jen indexovatelné stránky. `lastmod` se mění, jen když se změní obsah stránky (ukládá se v `seo/lastmod.json`).
-- Stránky s hlavičkou `robots: 'noindex, follow'` v `gen.mjs` (zatím E-book, Online semináře a Online kurz, dokud obsahují placeholdery) se do sitemapy nedávají.
+- Stránky s hlavičkou `robots: 'noindex, follow'` v `gen.mjs` (zatím Online semináře a Online kurz, dokud obsahují placeholdery) se do sitemapy nedávají.
 - CSS a JS mají v URL `?v=<hash>` a cachují se na rok. Po změně souboru a `npm run gen` se hash změní sám.
 
 ### Ověření vlastnictví a další nastavení (`tools/config.json`)

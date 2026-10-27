@@ -48,12 +48,13 @@ h1{font-size:${fs}px;line-height:1.08;font-weight:800;letter-spacing:-.02em}
 .sub{margin-top:26px;font-size:36px;line-height:1.3;color:#46566d;font-weight:600}
 .foot{position:absolute;left:72px;bottom:56px;font-size:25px;color:#46566d;font-style:italic}
 .dom{position:absolute;right:72px;bottom:54px;font-size:30px;font-weight:800}
+.art.portrait{width:293px;height:440px;right:110px}
 .art{position:absolute;right:72px;top:92px;width:400px;height:440px;border-radius:30px;object-fit:cover;box-shadow:0 20px 50px rgba(27,42,65,.22);border:6px solid #fff}
 </style></head><body>
 <div class="glow"></div>
 <div class="brand">${sun}<span>OCD mentor</span></div>
 <div class="main"><h1>${esc(p.text)}</h1>${p.sub ? `<p class="sub">${esc(p.sub)}</p>` : ''}</div>
-${art ? `<img class="art" src="${art}" alt="">` : ''}
+${art ? `<img class="art${p.portrait ? ' portrait' : ''}" src="${art}" alt="">` : ''}
 <p class="foot">Peer podpora je doplněk k odborné péči.</p>
 <p class="dom">ocdmentor.cz</p>
 <div class="bar"></div>

@@ -51,10 +51,6 @@
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     },
     {
-      "source": "/assets/ebook/(.*)",
-      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
-    },
-    {
       "source": "/assets/js/app/(.*)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
     },

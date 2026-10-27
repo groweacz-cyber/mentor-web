@@ -595,7 +595,7 @@ const add = (path, opts) => {
   const f = path === '/' ? 'index.html' : `${path.slice(1)}/index.html`;
   files[f] = page({ path, art: path !== '/', ...opts });
   const noindex = !!opts.noindex || /noindex/.test(opts.robots || '');
-  pagesMeta.push({ path, file: f, noindex, hardNoindex: !!opts.noindex, title: opts.title, ogTitle: opts.ogTitle, ogSub: opts.ogSub, ogArt: opts.ogImage || opts.ogArt, modified: opts.modified });
+  pagesMeta.push({ path, file: f, noindex, hardNoindex: !!opts.noindex, title: opts.title, ogTitle: opts.ogTitle, ogSub: opts.ogSub, ogArt: opts.ogImage || opts.ogArt, ogArtPortrait: !!opts.ogArtPortrait, modified: opts.modified });
 };
 
 const loopSvg = `<svg class="loop-line" viewBox="0 0 600 60" width="600" height="60" aria-hidden="true" focusable="false"><defs><linearGradient id="gLoop" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#5b6fd6"/><stop offset=".3" stop-color="#4aa3df"/><stop offset=".55" stop-color="#5bbf8a"/><stop offset=".78" stop-color="#fcc934"/><stop offset="1" stop-color="#f5923e"/></linearGradient></defs><path pathLength="1" d="M0 44 H150 C205 44 225 6 192 5 C155 4 163 44 205 44 H600" fill="none" stroke="url(#gLoop)" stroke-width="3" stroke-linecap="round"/></svg>`;
@@ -1042,13 +1042,39 @@ add('/dotaznik', {
 // ---------- E-book ----------
 add('/ebook', {
   title: "E-book: Cesta k sebepřijetí a sebevíře s OCD | ocdmentor.cz",
-  desc: "Krátký praktický e-book Cesta k sebepřijetí, sebevíře a svobodnějšímu životu s OCD: 19 stran z osobní zkušenosti. Nenahrazuje odbornou péči.",
-  robots: 'noindex, follow',
+  desc: "Krátký praktický e-book Cesta k sebepřijetí, sebevíře a svobodnějšímu životu s OCD (19 stran, PDF) ke stažení zdarma. Nenahrazuje odbornou péči.",
   ogTitle: 'E-book: Cesta k sebepřijetí',
+  ogSub: 'Praktický e-book o sebepřijetí a sebevíře s OCD ke stažení zdarma',
+  ogArt: '/assets/img/ebook-titulka.webp',
+  ogArtPortrait: true,
+  jsonld: {
+    '@type': 'Book',
+    name: 'Cesta k sebepřijetí, sebevíře a svobodnějšímu životu s OCD',
+    author: { '@type': 'Person', name: AUTHOR, url: `${SITE}/o-mne` },
+    inLanguage: 'cs',
+    numberOfPages: 19,
+    bookFormat: 'https://schema.org/EBook',
+    isAccessibleForFree: true,
+    image: `${SITE}/assets/img/ebook-titulka.webp`,
+    url: `${SITE}/ebook`,
+    description: 'Krátký praktický e-book z osobní zkušenosti s OCD. Nenahrazuje odbornou péči.',
+  },
   body: `
 <section class="wrap page-head">
   <h1>E-book: Cesta k sebepřijetí, sebevíře a svobodnějšímu životu s OCD</h1>
   <p class="lead">Krátký praktický e-book (19 stran, formát A5) od Bc. Václava Kodeše, který vychází z mé osobní zkušenosti s OCD. Není to návod na vyléčení ani diagnostický materiál a nenahrazuje odbornou péči. Slouží k tomu, abyste si před případnou spoluprací udělali obrázek, jak o OCD přemýšlím a zda vám tento způsob práce sedí.</p>
+</section>
+
+<section class="wrap block ebook-grid">
+  <a class="ebook-cover" href="/assets/ebook/Cesta_k_sebeprijeti.pdf" target="_blank" rel="noopener" aria-label="Otevřít e-book ve formátu PDF v nové záložce">
+    <img src="/assets/img/ebook-titulka.webp" width="600" height="900" alt="Titulní strana e-booku Cesta k sebepřijetí, sebevíře a svobodnějšímu životu s OCD od Bc. Václava Kodeše: usměvavý turista s batohem na skále, v pozadí hory, řeka a slunce nad krajinou.">
+  </a>
+  <div class="ebook-dl">
+    <h2>Stáhnout e-book</h2>
+    <p>E-book je volně ke stažení, bez registrace a bez zadávání e-mailu.</p>
+    <p class="cta"><a class="btn btn-cta" href="/assets/ebook/Cesta_k_sebeprijeti.pdf" download>Stáhnout e-book (PDF)</a></p>
+    <p class="small">PDF, 19 stran, formát A5, 5,3 MB. Kliknutím na titulní stranu ho otevřete v nové záložce.</p>
+  </div>
 </section>
 
 <section class="wrap block prose">
@@ -1061,29 +1087,6 @@ add('/ebook', {
     <li><strong>Čtyři praktické pracovní listy</strong> a rady, když se obtíže vracejí a kdy vyhledat odbornou pomoc.</li>
   </ul>
   <p class="callout-inline disclaimer"><strong>Důležité:</strong> Nejsem psycholog, psychoterapeut ani psychiatr. Peer mentoring nenahrazuje odbornou diagnostiku ani léčbu.</p>
-  <p class="placeholder">[PDF e-book: soubor Cesta_k_sebeprijeti.pdf je nahraný na webu (/assets/ebook/Cesta_k_sebeprijeti.pdf), zatím není propojený s formulářem]</p>
-</section>
-
-<section class="wrap block">
-  <h2>Stáhnout e-book</h2>
-  <form id="ebook-form" class="form" novalidate>
-    <!-- TODO: napojit na nástroj pro e-mailový marketing / newsletter (odesílání e-booku a případné navazující e-maily). Zatím formulář nikam neodesílá, jen zobrazí zprávu níže. -->
-    <div class="field"><label for="ebook-email">E-mail, kam e-book poslat</label><input type="email" id="ebook-email" name="email" required autocomplete="email"></div>
-    <label class="check"><input type="checkbox" id="ebook-souhlas" name="souhlas" required> Souhlasím se zpracováním své e-mailové adresy za účelem zaslání e-booku a případných navazujících informací souvisejících s peer mentoringem. Souhlas mohu kdykoli odvolat. Více v <a href="/ochrana-osobnich-udaju">zásadách ochrany osobních údajů</a>.</label>
-    <div class="actions"><button type="submit" class="btn btn-cta">Stáhnout e-book</button></div>
-    <p id="ebook-msg" class="msg" role="status" aria-live="polite"></p>
-  </form>
-  <script>
-  (function () {
-    var f = document.getElementById('ebook-form');
-    var m = document.getElementById('ebook-msg');
-    f.addEventListener('submit', function (e) {
-      e.preventDefault();
-      m.className = 'msg ok';
-      m.textContent = 'E-book se zatím připravuje a formulář ještě není napojený na odesílání. Napište si o něj prosím přímo na ${EMAIL}.';
-    });
-  })();
-  </script>
 </section>
 `,
 });
@@ -2679,7 +2682,7 @@ writeFileSync(
   JSON.stringify(
     pagesMeta
       .filter((p) => !p.hardNoindex)
-      .map((p) => ({ slug: slugOf(p.path), text: p.ogTitle || p.title.replace(/ \| ocdmentor\.cz$/, ''), sub: p.ogSub || '', art: p.ogArt || '' })),
+      .map((p) => ({ slug: slugOf(p.path), text: p.ogTitle || p.title.replace(/ \| ocdmentor\.cz$/, ''), sub: p.ogSub || '', art: p.ogArt || '', portrait: !!p.ogArtPortrait })),
     null,
     2
   ) + '\n'

@@ -34,6 +34,7 @@ Soubory ze složek `tools` a `seo` se na web nenasazují (`.vercelignore`).
 - **Texty stránek, menu, titulky a popisky:** `tools/gen.mjs`.
 - **Ceník, tři kroky a FAQ stránky Jak to probíhá:** `assets/data/jak-to-probiha.json`. FAQ se do strukturovaných dat (FAQPage) dostane samo; odpověď obsahující nedoplněný `[placeholder]` se do nich zatím nedává.
 - **Smyčka OCD, kvíz a principy:** `assets/js/smycka-faze.js`, `assets/js/kviz-data.js`, `assets/js/principy.js`. Generátor z nich vytvoří statické HTML, aby byl obsah ve zdrojovém kódu stránky; JavaScript ho pak nahradí interaktivní verzí.
+- **E-book:** stránka `/ebook` je v `tools/gen.mjs`, soubor `assets/ebook/Cesta_k_sebeprijeti.pdf` (19 stran, A5) má ve `vercel.json` hlavičku `noindex` a service worker ho nekešuje. Formulář na stránce zatím nikam neodesílá a PDF z něj není dostupné; stránka je `noindex` a žlutý placeholder u PDF zmizí, až se rozhodne, jak se e-book doručí.
 - **Nový článek:** přidat záznam do pole `ARTICLES` v `tools/gen.mjs` (`slug`, `seoTitle`, `title`, `excerpt`, `date`, obrázky) a podle existujících článků napsat blok stránky. Sitemap, drobečky, JSON-LD a OG obrázek se doplní samy.
 - **Obsahové stránky (Typy OCD, Vtíravé myšlenky, Pro blízké, Mýty, Slovníček, Příběhy, Pro terapeuty):** texty v `tools/content/faze2.mjs` a `tools/content/typy2.mjs`, typy OCD v `assets/data/typy-ocd.json`, pojmy ve `assets/data/slovnicek.json`, mýty v `assets/data/myty.json`.
 

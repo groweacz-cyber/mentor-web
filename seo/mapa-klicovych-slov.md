@@ -55,7 +55,7 @@ Stránky `/obchodni-podminky` a `/ochrana-osobnich-udaju` na slova necílí (pr�
 
 | Stránka | Hlavní klíčové slovo | Vedlejší klíčová slova |
 |---|---|---|
-| `/ebook` | e-book o OCD | co dělat když přijde nutkání, příručka OCD |
+| `/ebook` | e-book o sebepřijetí s OCD | sebevíra a OCD, příručka OCD, pracovní listy OCD |
 | `/seminare` | OCD semináře online | psychoedukace OCD, webinář o OCD |
 | `/kurz` | online kurz OCD | OCD kurz zdarma, co je OCD a co není |
 

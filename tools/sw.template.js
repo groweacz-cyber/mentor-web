@@ -26,7 +26,7 @@ self.addEventListener('fetch', function (event) {
   if (req.method !== 'GET') return;
   var url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
-  if (/\.(mp4|webm)$/.test(url.pathname) || req.headers.has('range')) return;
+  if (/\.(mp4|webm|pdf)$/.test(url.pathname) || req.headers.has('range')) return;
 
   // HTML: nejdřív síť, při výpadku uložená stránka, jinak offline stránka
   if (req.mode === 'navigate') {

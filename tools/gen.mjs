@@ -1041,26 +1041,27 @@ add('/dotaznik', {
 
 // ---------- E-book ----------
 add('/ebook', {
-  title: "E-book Co dělat, když přijde nutkání | ocdmentor.cz",
-  desc: "Krátký e-book Co dělat, když přijde nutkání: sebepřijetí, sebevíra a expozice bez kompulze. E-book se připravuje, napište si o něj e-mailem.",
+  title: "E-book: Cesta k sebepřijetí a sebevíře s OCD | ocdmentor.cz",
+  desc: "Krátký praktický e-book Cesta k sebepřijetí, sebevíře a svobodnějšímu životu s OCD: 19 stran z osobní zkušenosti. Nenahrazuje odbornou péči.",
   robots: 'noindex, follow',
-  ogTitle: 'E-book: Co dělat, když přijde nutkání',
+  ogTitle: 'E-book: Cesta k sebepřijetí',
   body: `
 <section class="wrap page-head">
-  <h1>E-book: Co dělat, když přijde nutkání</h1>
-  <p class="lead">Krátký praktický e-book (15–30 stran), který shrnuje základní principy metody: bezpodmínečné sebepřijetí, sebevíru, expozici bez kompulze a dvě cesty – Metal a Pop.</p>
+  <h1>E-book: Cesta k sebepřijetí, sebevíře a svobodnějšímu životu s OCD</h1>
+  <p class="lead">Krátký praktický e-book (19 stran, formát A5) od Bc. Václava Kodeše, který vychází z mé osobní zkušenosti s OCD. Není to návod na vyléčení ani diagnostický materiál a nenahrazuje odbornou péči. Slouží k tomu, abyste si před případnou spoluprací udělali obrázek, jak o OCD přemýšlím a zda vám tento způsob práce sedí.</p>
 </section>
 
 <section class="wrap block prose">
-  <p>E-book je stručný přehled přístupu, se kterým v peer mentoringu pracujeme – ne návod na vyléčení ani diagnostický materiál. Slouží k tomu, abyste si před případnou spoluprací udělali obrázek, jestli vám tento způsob práce sedí.</p>
   <h2>Co v e-booku najdete</h2>
   <ul>
-    <li><strong>Bezpodmínečné sebepřijetí</strong> – co to v praxi znamená a čím se liší od rezignace.</li>
-    <li><strong>Sebevíra</strong> – princip „ať se stane cokoli, obstojím“.</li>
-    <li><strong>Expozice bez kompulze</strong> – proč funguje a jak s ní opatrně začít.</li>
-    <li><strong>Dvě cesty: Metal a Pop</strong> – jak poznat, která vám aktuálně sedí.</li>
+    <li><strong>Nejsi své OCD</strong> – rozdíl mezi vtíravou myšlenkou a tím, kdo jste; sebepřijetí jako opak rezignace.</li>
+    <li><strong>Cyklus OCD</strong> – spouštěč, pochybnost, úzkost, kompulze a krátkodobá úleva.</li>
+    <li><strong>Sebepřijetí a sebedůvěra</strong> – důvěra bez záruk a pohled do vlastního příběhu.</li>
+    <li><strong>Kompulze a každodenní svoboda</strong> – jak rozpoznat, zda hledám jistotu; stručně o ERP a I-CBT, které patří odborníkovi.</li>
+    <li><strong>Čtyři praktické pracovní listy</strong> a rady, když se obtíže vracejí a kdy vyhledat odbornou pomoc.</li>
   </ul>
-  <p class="placeholder">[PDF e-book bude doplněn]</p>
+  <p class="callout-inline disclaimer"><strong>Důležité:</strong> Nejsem psycholog, psychoterapeut ani psychiatr. Peer mentoring nenahrazuje odbornou diagnostiku ani léčbu.</p>
+  <p class="placeholder">[PDF e-book: soubor Cesta_k_sebeprijeti.pdf je nahraný na webu (/assets/ebook/Cesta_k_sebeprijeti.pdf), zatím není propojený s formulářem]</p>
 </section>
 
 <section class="wrap block">

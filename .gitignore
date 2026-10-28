@@ -7,3 +7,9 @@ Thumbs.db
 *.log
 .vercel
 .env*
+
+# Atrapa odeslaných e-mailů z vývojového serveru
+tools/.outbox/
+
+# Šablona proměnných prostředí se do repozitáře patří (bez hodnot)
+!.env.example

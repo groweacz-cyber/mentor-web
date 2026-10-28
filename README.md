@@ -47,6 +47,44 @@ Soubory ze složek `tools` a `seo` se na web nenasazují (`.vercelignore`).
 - **PWA a offline:** `manifest.webmanifest` a `sw.js` generuje `tools/gen.mjs` (verze cache se mění s obsahem webu), šablona je `tools/sw.template.js`. Navštívené stránky fungují bez připojení, ostatní ukáží `/offline`. Ikony se vyrábějí příkazem `node tools/icons.mjs` do `assets/icons/`.
 - **Stránka 404:** ilustrace se bere z `notFoundImage` v `tools/config.json`; když je prázdné, použije se stávající ilustrace panáčka.
 
+## Online semináře: rezervace a platba QR kódem
+
+Stránky `/seminare`, `/seminare/rezervace` a `/seminare/rezervace/potvrzeni` jsou statické, rezervaci obsluhuje serverová funkce `api/rezervace.js` (Vercel, region `fra1`, EU). Funkce nic neukládá: ověří vstup, z dat webu vezme termíny a cenu, vygeneruje variabilní symbol a QR Platbu a přes Brevo pošle dva e-maily (účastníkovi platební údaje, majiteli upozornění).
+
+```
+data/seminare.json        termíny, cena, stavy běhů (čte generátor i funkce)
+api/rezervace.js          POST /api/rezervace
+api/_lib/                 termíny, platba (IBAN, SPD), e-maily, validace, rate limit, konfigurace
+tools/content/seminare.mjs   texty a HTML stránek seminářů
+assets/js/seminare.js, rezervace.js, potvrzeni.js, vendor/qrcode.js   skripty (QR kód: knihovna qrcode-generator, MIT)
+tools/dev-server.mjs      lokální server s API a atrapou Brevo
+tools/test/               testy (npm test)
+```
+
+### Správa termínů (`data/seminare.json`)
+
+- Běh má `id`, `nazev`, `den` (čtvrtek), `cas`, `prvniDatum` a `stav` (`otevreno`, `obsazeno`, `pripravujeme`). Pět termínů se počítá po 7 dnech od `prvniDatum`, data z `vynechaneDatumy` se přeskakují.
+- `npm run gen` selže s chybou, pokud se dva běhy překrývají, první termín spadá na vynechané datum nebo první datum není v daný den týdne.
+- Rezervace se uzavírá `uzavreniDniPredZacatkem` (4) dny před prvním setkáním. Stav „Uzavřeno“ se na webu upraví i bez nového nasazení (skript podle data v Praze), server ho při rezervaci kontroluje vždy.
+- **Po každé přijaté rezervaci nastavte běh na `obsazeno`, spusťte `npm run gen` a web nasaďte.** Funkce nemá databázi, takže jinak by si stejný běh mohl rezervovat další člověk.
+
+### Proměnné prostředí
+
+Vzor je v `.env.example`. Lokálně do `.env.local` (je v `.gitignore`), na Vercelu Settings > Environment Variables (Production): `BANK_ACCOUNT`, `BANK_ACCOUNT_HOLDER`, `SELLER_ICO`, `NOTIFY_EMAIL`, `MAIL_FROM`, `BREVO_API_KEY`. Nepovinné: `ALLOWED_ORIGINS`, `SITE_URL`, `BREVO_API_URL`. Po změně proměnných je potřeba nové nasazení.
+
+### Lokální vývoj a testy
+
+```bash
+npm run dev          # http://localhost:8920, e-maily se ukládají do tools/.outbox (atrapa Brevo)
+npm run dev -- --real-mail   # e-maily se opravdu odešlou (potřeba BREVO_API_KEY)
+npm run iban         # vypíše IBAN z BANK_ACCOUNT k porovnání s bankovnictvím
+npm test             # jednotkové testy a kontrola vygenerovaných stránek (nejdřív npm run gen)
+```
+
+### Content-Security-Policy
+
+Politika se skládá v `tools/gen.mjs` a zapisuje do hlavičky v `vercel.json` při každém `npm run gen` (jediný inline skript webu se povolí hashem, skripty smí být jen z vlastní domény a z Reservanta). Generátor selže, pokud by na webu byla inline obslužná funkce (`onclick` apod.).
+
 ## Koncepty a schvalování
 
 Obsahové stránky (Typy OCD, Vtíravé myšlenky, Pro blízké, Mýty, Slovníček, Příběhy, Pro terapeuty) jsou od 23. 10. 2026 zveřejněné: mají drobečky, JSON-LD (Article a BreadcrumbList), OG obrázek, jsou v sitemapě a v menu „O OCD“. Funkce `contentPage` v `tools/gen.mjs` stránku zveřejní sama; **koncept** je stránka s `draft: true`: má `noindex, nofollow`, štítek „Koncept“, není v navigaci ani v sitemapě a je v přehledu `/koncepty` (jen pro kontrolu autorem). Aktuálně je konceptem jen `/skupiny` (čeká na cenu a podrobnosti skupin). Zveřejní se odstraněním `draft: true` u jejího volání `contentPage`, potom `npm run gen`, `npm run og` a `npm run audit`.
@@ -68,7 +106,7 @@ Stránka `/pomoc` je zveřejněná od začátku a v hlavičce každé stránky j
 
 - Každá stránka má unikátní `title` (formát „Téma | ocdmentor.cz“, do 60 znaků), meta description (120–160 znaků), jednu H1, canonical, Open Graph a X karty s vlastním OG obrázkem a strukturovaná data (BreadcrumbList; WebSite a Person na úvodu, Service a FAQPage na Jak to probíhá, Article u článků).
 - `sitemap.xml` obsahuje jen indexovatelné stránky. `lastmod` se mění, jen když se změní obsah stránky (ukládá se v `seo/lastmod.json`).
-- Stránky s hlavičkou `robots: 'noindex, follow'` v `gen.mjs` (zatím Online semináře a Online kurz, dokud obsahují placeholdery) se do sitemapy nedávají.
+- Stránky s hlavičkou `robots: 'noindex, follow'` v `gen.mjs` (zatím Online kurz, který není v menu) se do sitemapy nedávají.
 - CSS a JS mají v URL `?v=<hash>` a cachují se na rok. Po změně souboru a `npm run gen` se hash změní sám.
 
 ### Ověření vlastnictví a další nastavení (`tools/config.json`)

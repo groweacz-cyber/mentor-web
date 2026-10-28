@@ -1,7 +1,16 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "regions": ["fra1"],
+  "functions": {
+    "api/rezervace.js": { "maxDuration": 15, "includeFiles": "data/**" }
+  },
   "redirects": [
+    {
+      "source": "/zasady-ochrany-osobnich-udaju",
+      "destination": "/ochrana-osobnich-udaju",
+      "permanent": true
+    },
     {
       "source": "/",
       "has": [{ "type": "host", "value": "www.ocdmentor.cz" }],
@@ -33,13 +42,18 @@
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "X-Frame-Options", "value": "DENY" }
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'sha256-xVg1Y1CfS/n2D6dWpwqA7hcwGeaCPSB+iE5w67dzyEg=' https://*.reservanto.cz; style-src 'self' 'unsafe-inline' https://*.reservanto.cz; img-src 'self' data: https://*.reservanto.cz; font-src 'self' https://*.reservanto.cz; connect-src 'self' https://*.reservanto.cz; frame-src https://*.reservanto.cz; media-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'" }
       ]
     },
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": ".*\\.vercel\\.app" }],
       "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
     },
     {
       "source": "/assets/(.*)",

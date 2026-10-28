@@ -1,0 +1,27 @@
+{
+  "poznamka": "Termíny seminářů. Čte je generátor webu (tools/gen.mjs, text přímo do HTML) i serverová funkce api/rezervace.js. Pět termínů každého běhu se počítá od prvniDatum po 7 dnech, vynechaná data se přeskakují. Stav běhu: otevreno, obsazeno nebo pripravujeme. Po přijetí rezervace nastavte běh na obsazeno a web znovu nasaďte.",
+  "cena": 3590,
+  "pocetSetkani": 5,
+  "delkaMinut": 60,
+  "uzavreniDniPredZacatkem": 4,
+  "splatnostDni": 3,
+  "vynechaneDatumy": ["2026-12-24", "2026-12-31"],
+  "behy": [
+    {
+      "id": "beh-1",
+      "nazev": "Běh 1",
+      "den": "čtvrtek",
+      "cas": "18:00",
+      "prvniDatum": "2026-12-03",
+      "stav": "otevreno"
+    },
+    {
+      "id": "beh-2",
+      "nazev": "Běh 2",
+      "den": "čtvrtek",
+      "cas": "18:00",
+      "prvniDatum": "2027-01-21",
+      "stav": "otevreno"
+    }
+  ]
+}

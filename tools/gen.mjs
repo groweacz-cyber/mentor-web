@@ -7,12 +7,14 @@ import { execSync } from 'node:child_process';
 import vm from 'node:vm';
 import * as F2 from './content/faze2.mjs';
 import { TYPY_DALSI } from './content/typy2.mjs';
+import { nactiData as nactiDataSeminare, pripravBehy } from '../api/_lib/seminare.js';
+import { POVAHA_SEMINARE, formatCastka } from '../api/_lib/texty.js';
+import * as SEM from './content/seminare.mjs';
 
 const OUT = process.argv[2] ? resolve(process.argv[2]) : resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const BRAND = 'OCD mentor';
 const EMAIL = 'ocdmentor@gmail.com';
 const ICO = '87690772';
-const BANK = '378566639/0300';
 const AUTHOR = 'Bc. Václav Kodeš';
 const ADDRESS = 'Strážkovice 128, 374 01 Trhové Sviny';
 // Oficiální widget rezervačního systému Reservanto (id 25616). Barvy nastavené na odstín zeleně webu.
@@ -85,10 +87,7 @@ const nav = [
   ['/jak-to-probiha', 'Jak to probíhá'],
   ['/dotaznik', 'Dotazník'],
   ['/aplikace', 'Aplikace'],
-  [null, 'Online semináře a kurzy', [
-    ['/seminare', 'Online semináře'],
-    ['/kurz', 'Online kurz'],
-  ]],
+  ['/seminare', 'Online semináře'],
   ['/ebook', 'E-book'],
   [null, 'O OCD', [
     ['/vtirave-myslenky', 'Vtíravé myšlenky'],
@@ -489,7 +488,7 @@ function page({ path, title, desc, body, jsonld, noindex, robots, script, art, a
     CFG.verification?.bing ? `<meta name="msvalidate.01" content="${attr(CFG.verification.bing)}">` : '',
   ].filter(Boolean).join('\n');
 
-  const FLOAT_OFF = new Set(['/pomoc', '/kviz', '/kontakt', '/jak-to-probiha', '/dotaznik', '/obchodni-podminky', '/ochrana-osobnich-udaju', '/koncepty', '/offline', '/404']);
+  const FLOAT_OFF = new Set(['/pomoc', '/kviz', '/kontakt', '/jak-to-probiha', '/dotaznik', '/obchodni-podminky', '/ochrana-osobnich-udaju', '/koncepty', '/offline', '/404', '/seminare', '/seminare/rezervace', '/seminare/rezervace/potvrzeni']);
   const showFloat = floatCta ?? (!isNoindex && !app && !draft && !FLOAT_OFF.has(path));
   const floatHtml = showFloat
     ? `<aside class="float-cta js-only" id="float-cta" aria-label="Konzultace zdarma" hidden>\n  <a class="btn btn-cta btn-sm float-book" href="/kontakt">Konzultace zdarma</a>\n  <button type="button" class="float-close" aria-label="Zavřít lištu">×</button>\n</aside>\n`
@@ -581,7 +580,7 @@ ${floatHtml}<dialog id="rsv-modal" aria-labelledby="rsv-modal-h" aria-modal="tru
 <script defer src="/assets/js/rezervace-souhlas.js"></script>
 ${b.includes('class="gl-wrap"') ? '<script src="/assets/js/slovnicek.js" defer></script>' : ''}
 ${showFloat ? '<script src="/assets/js/lista.js" defer></script>' : ''}
-${script ? `<script src="${script}" defer></script>` : ''}
+${[].concat(script || []).map((s) => `<script src="${s}" defer></script>`).join('\n')}
 ${module ? `<script type="module" src="${module}"></script>` : ''}
 </body>
 </html>
@@ -1092,46 +1091,44 @@ add('/ebook', {
 });
 
 // ---------- Online semináře ----------
+// Termíny a stavy běhů jsou v data/seminare.json. Generátor selže s jasnou chybou, pokud se běhy překrývají nebo termín spadne na vynechané datum.
+const SEMINARE_DATA = nactiDataSeminare();
+const SEMINARE_BEHY = pripravBehy(SEMINARE_DATA);
 add('/seminare', {
-  title: "Online semináře o OCD | ocdmentor.cz",
-  desc: "Živé online semináře o tom, jak OCD funguje: psychoedukace a sdílení osobní zkušenosti. Nenahrazuje odbornou péči. Sledujte nadcházející termíny.",
-  robots: 'noindex, follow',
-  ogTitle: 'Online semináře o OCD',
-  body: `
-<section class="wrap page-head">
-  <h1>Online semináře</h1>
-  <p class="lead">Živé online semináře (60–90 minut) na téma OCD, například „Jak OCD funguje a proč ujišťování škodí“. Zaměřené na psychoedukaci a sdílení osobní zkušenosti, ne na vedení terapie.</p>
-</section>
+  title: 'Online semináře: pět setkání 1:1 podle knihy | ocdmentor.cz',
+  desc: `Individuální program pěti online setkání 1:1 podle knihy o sebepřijetí a sebevíře s OCD. Rezervace termínu a platba QR kódem, cena ${formatCastka(SEMINARE_DATA.cena)}.`,
+  ogTitle: 'Online semináře',
+  ogSub: 'Pět setkání 1:1 podle knihy o sebepřijetí a sebevíře',
+  ogArt: '/assets/img/ebook-titulka.webp',
+  ogArtPortrait: true,
+  crumb: 'Online semináře',
+  jsonld: { '@graph': [SEM.faqJsonLd()] },
+  script: '/assets/js/seminare.js',
+  body: SEM.seminareBody({ data: SEMINARE_DATA, behy: SEMINARE_BEHY }),
+});
 
-<section class="wrap block">
-  <h2>Nadcházející seminář</h2>
-  <article class="card">
-    <h3 class="placeholder">[Název semináře bude doplněn]</h3>
-    <p class="placeholder">[Datum a čas budou doplněny]</p>
-    <p>Orientační téma: jak OCD funguje a proč ujišťování škodí. Psychoedukace a sdílení osobní zkušenosti, ne vedení terapie.</p>
-    <!-- TODO: napojit na Reservanto nebo jiný rezervační/platební nástroj pro přihlášení na seminář -->
-    <button type="button" class="btn btn-cta">Přihlásit se</button>
-  </article>
-</section>
+add('/seminare/rezervace', {
+  title: 'Rezervace semináře: výběr termínu a platba | ocdmentor.cz',
+  desc: 'Rezervace místa v individuálním programu pěti online setkání: vyberte termín, vyplňte jméno a e-mail a zaplaťte QR kódem do 3 dnů.',
+  ogTitle: 'Rezervace semináře',
+  ogSub: 'Výběr termínu a platba QR kódem',
+  art: false,
+  crumb: 'Rezervace',
+  parents: [['/seminare', 'Online semináře']],
+  script: ['/assets/js/seminare.js', '/assets/js/rezervace.js'],
+  body: SEM.rezervaceBody({ data: SEMINARE_DATA, behy: SEMINARE_BEHY }),
+});
 
-<section class="wrap block">
-  <h2>Záznamy</h2>
-  <!-- Struktura pro budoucí záznamy, jeden záznam = jedna karta:
-  <div class="cards">
-    <article class="card">
-      <h3>Název záznamu</h3>
-      <p>Krátký popis obsahu.</p>
-      <a class="btn btn-ghost" href="https://...">Přehrát záznam</a>
-    </article>
-  </div>
-  -->
-  <p class="hint">Zatím žádné záznamy.</p>
-</section>
-
-<section class="wrap block">
-  <p>Zajímá vás spíš individuální sezení? <a href="/dotaznik">Vyplňte vstupní dotazník</a> nebo <a href="/kontakt">mě kontaktujte</a>.</p>
-</section>
-`,
+add('/seminare/rezervace/potvrzeni', {
+  title: 'Rezervace přijata | ocdmentor.cz',
+  desc: 'Potvrzení rezervace semináře: QR kód, platební údaje a termíny. Stránka se zobrazuje jen po odeslání rezervace.',
+  noindex: true,
+  art: false,
+  crumbs: true,
+  crumb: 'Potvrzení',
+  parents: [['/seminare', 'Online semináře'], ['/seminare/rezervace', 'Rezervace']],
+  script: ['/assets/js/vendor/qrcode.js', '/assets/js/potvrzeni.js'],
+  body: SEM.potvrzeniBody(),
 });
 
 // ---------- Online kurz ----------
@@ -2023,6 +2020,7 @@ add('/ochrana-osobnich-udaju', {
     <li><strong>E-mailová komunikace:</strong> pokud nám napíšete, zpracováváme váš e-mail a obsah zprávy jen za účelem odpovědi a vyřízení dotazu. Právní základ: jednání před uzavřením spolupráce nebo oprávněný zájem odpovědět na dotaz (čl. 6 odst. 1 písm. b, f GDPR). E-mail není šifrovaná zpráva.</li>
     <li><strong>Rezervace konzultace:</strong> tlačítko „Domluvit si konzultaci“ na úvodní stránce načítá widget společnosti Reservanto s.r.o. (IČ 24298395, Liberec). Už samotným načtením stránky se vaše IP adresa dostane k Reservantu. Pokud si rezervaci dokončíte, zadáváte do Reservanta jméno, telefon a e-mail, které slouží k vyřízení rezervace a ke komunikaci s vámi. Zda Reservanto tyto údaje zpracovává jako samostatný správce, nebo jako náš zpracovatel, se řídí jeho aktuálními podmínkami — podrobnosti najdete ve <a href="https://reservanto.cz/ochrana-osobnich-udaju" target="_blank" rel="noopener noreferrer">vlastních zásadách ochrany osobních údajů Reservanta</a>. Právní základ: jednání před uzavřením spolupráce (čl. 6 odst. 1 písm. b GDPR).</li>
     <li><strong>Telefon a WhatsApp:</strong> po rezervaci vás zpravidla kontaktuji telefonicky nebo přes WhatsApp, abychom domluvili podrobnosti sezení. Vaše telefonní číslo k tomu použiji jen za tímto účelem. Komunikace přes WhatsApp probíhá přes službu provozovanou společností WhatsApp Ireland Limited (Meta), která zprávy přenáší přes svou infrastrukturu; neslibuji, že tyto zprávy zůstávají jen na vašem nebo mém zařízení. Právní základ: jednání před uzavřením spolupráce (čl. 6 odst. 1 písm. b GDPR).</li>
+    <li><strong>Rezervace online semináře (/seminare):</strong> zpracovávám jméno, příjmení, e-mail a informace o rezervaci a platbě (zvolený běh a termíny, variabilní symbol, částka; číslo účtu odesílatele vidím v bance po připsání platby). Samotná účast na semináři o OCD může vypovídat o zdravotním stavu, což je zvláštní kategorie údajů. Formulář odesílá údaje na serverovou funkci webu hostovanou ve Vercelu (region EU), která z nich jen sestaví a odešle e-maily (účastníkovi s platebními údaji a mně s upozorněním na novou rezervaci) a nic neukládá. Účel a právní základ: rezervace a plnění smlouvy (čl. 6 odst. 1 písm. b GDPR), plnění účetních a daňových povinností (čl. 6 odst. 1 písm. c) a výslovný souhlas se zpracováním informace o zdravotním stavu plynoucí z účasti (čl. 9 odst. 2 písm. a).</li>
     <li><strong>Technické údaje o připojení</strong> (např. IP adresa) zpracovává automaticky náš hostingový poskytovatel Vercel Inc. jen za účelem doručení stránky a zabezpečení provozu, po krátkou technicky nutnou dobu. Sami vlastní cookies, analytiku ani žádné vlastní sledování nepoužíváme. Widget Reservanto (viz výše) je ale skript třetí strany a může při načtení nebo otevření rezervace nastavit vlastní cookies podle svých podmínek.</li>
   </ol>
 
@@ -2031,17 +2029,18 @@ add('/ochrana-osobnich-udaju', {
     <li>Jméno, e-mailová adresa a telefonní číslo (komunikace, rezervace).</li>
     <li>Obsah zprávy, telefonátu nebo odpovědí v dotazníku, včetně údajů o zdravotním stavu, pokud se rozhodnete je sdílet.</li>
     <li>Zvolený termín a typ služby při rezervaci konzultace.</li>
+    <li>Při rezervaci semináře: zvolený běh a termíny, variabilní symbol a částka; samotná účast na semináři může vypovídat o zdravotním stavu.</li>
     <li>Technické údaje o připojení, např. IP adresa (hosting).</li>
   </ul>
 
   <h2>Zdroj osobních údajů</h2>
-  <p>Veškeré osobní údaje získáváme přímo od vás: z vaší e-mailové zprávy, z textu dotazníku, který si sami odešlete, nebo z údajů, které zadáte při rezervaci konzultace přes Reservanto.</p>
+  <p>Veškeré osobní údaje získáváme přímo od vás: z vaší e-mailové zprávy, z textu dotazníku, který si sami odešlete, z údajů, které zadáte při rezervaci konzultace přes Reservanto, nebo z údajů, které zadáte do rezervačního formuláře semináře.</p>
 
   <h2>Doba uchování</h2>
-  <p>U dotazníku ani u aplikace žádná: tato data u nás vůbec nejsou uložena. U e-mailové, telefonické a WhatsApp komunikace jen po dobu nutnou k vyřízení dotazu nebo k domluvené spolupráci. Dobu uchování vašich údajů v systému Reservanto určuje Reservanto podle svých podmínek.</p>
+  <p>U dotazníku ani u aplikace žádná: tato data u nás vůbec nejsou uložena. U e-mailové, telefonické a WhatsApp komunikace jen po dobu nutnou k vyřízení dotazu nebo k domluvené spolupráci. Dobu uchování vašich údajů v systému Reservanto určuje Reservanto podle svých podmínek. U rezervace semináře uchovávám údaje o platbě po dobu stanovenou účetními a daňovými předpisy a e-mailovou komunikaci 1 rok po skončení programu. Zápisy ani nahrávky ze setkání nepořizuji, případné krátké poznámky mažu nejpozději 30 dnů po skončení programu.</p>
 
   <h2>Příjemci údajů a předávání do zahraničí</h2>
-  <p>Hostingový poskytovatel Vercel Inc. jako technický zpracovatel provozu webu. Rezervační systém Reservanto s.r.o. (viz výše). Pokud s vámi komunikuji přes WhatsApp, zprávy zpracovává WhatsApp Ireland Limited (Meta), což může zahrnovat přenos mimo Evropský hospodářský prostor. Jinak údaje nepředáváme žádným dalším třetím stranám.</p>
+  <p>Hostingový poskytovatel Vercel Inc. jako technický zpracovatel provozu webu a serverové funkce rezervace. Brevo (Francie) jako poskytovatel odesílání e-mailů při rezervaci semináře. Google (e-mail a videohovory Google Meet). Rezervační systém Reservanto s.r.o. (viz výše). Pokud s vámi komunikuji přes WhatsApp, zprávy zpracovává WhatsApp Ireland Limited (Meta). Vercel, Google a Meta mohou údaje zpracovávat i mimo Evropský hospodářský prostor, a to na základě standardních smluvních doložek nebo rozhodnutí o odpovídající ochraně. Jinak údaje nepředáváme žádným dalším třetím stranám.</p>
 
   <h2>Vaše práva</h2>
   <ul class="rules">
@@ -2053,13 +2052,13 @@ add('/ochrana-osobnich-udaju', {
     <li>Námitka proti zpracování (čl. 21).</li>
     <li>Podat stížnost u <a href="https://www.uoou.cz/" target="_blank" rel="noopener noreferrer">Úřadu pro ochranu osobních údajů</a>.</li>
   </ul>
-  <p>Souhlas se zpracováním u dotazníku nebo aplikace můžete kdykoli odvolat tak, že údaje jednoduše nepoužijete nebo je v aplikaci smažete. Protože se u nás vůbec neukládají, k jejich „výmazu na vyžádání“ u nás není co dělat; o jejich smazání ve vašem vlastním zařízení nebo e-mailu se staráte vy sami.</p>
+  <p>Souhlas se zpracováním u dotazníku nebo aplikace můžete kdykoli odvolat tak, že údaje jednoduše nepoužijete nebo je v aplikaci smažete. Protože se u nás vůbec neukládají, k jejich „výmazu na vyžádání“ u nás není co dělat; o jejich smazání ve vašem vlastním zařízení nebo e-mailu se staráte vy sami. Souhlas se zpracováním při rezervaci semináře můžete kdykoli odvolat e-mailem na <a href="mailto:${EMAIL}">${EMAIL}</a>; odvolání nemá vliv na zákonnost zpracování před jeho odvoláním.</p>
 
   <h2>Automatizované rozhodování</h2>
   <p>Neprovádíme žádné automatizované individuální rozhodování ani profilování ve smyslu čl. 22 GDPR. Nápovědy v aplikaci (doporučená cesta, návrh posunu v žebříčku) jsou jen orientační a vždy je potvrzujete vy sami.</p>
 
   <h2>Povinnost poskytnout údaje</h2>
-  <p>Vyplnění dotazníku ani používání aplikace není povinné a není podmínkou ničeho. Údaje poskytujete dobrovolně a v rozsahu, který sami zvolíte.</p>
+  <p>Vyplnění dotazníku ani používání aplikace není povinné a není podmínkou ničeho. Údaje poskytujete dobrovolně a v rozsahu, který sami zvolíte. U rezervace semináře je poskytnutí jména a e-mailu nezbytné, bez nich ji nelze dokončit.</p>
 </section>
 `,
 });
@@ -2071,15 +2070,18 @@ add('/obchodni-podminky', {
   ogTitle: 'Obchodní podmínky',
   body: `
 <section class="wrap page-head"><h1>Obchodní podmínky</h1>
-<p class="lead">Podmínky peer mentoringu, který poskytuje ${AUTHOR} pod značkou ${BRAND}. Účinné od 1. 12. 2026.</p></section>
+<p class="lead">Podmínky služeb, které poskytuje ${AUTHOR} pod značkou ${BRAND}. <a href="#cast-a">Část A</a> (individuální mentoring, rezervace přes Reservanto) je účinná od 1. 12. 2026, <a href="#cast-b">Část B</a> (Online semináře) od 1. 11. 2026.</p></section>
 <section class="wrap block prose">
-  <h2>1. Úvodní ustanovení a poskytovatel</h2>
+  <h2 id="cast-a">Část A: Individuální mentoring a konzultace (rezervace přes Reservanto)</h2>
+  <p class="small">Část A se týká úvodní konzultace, individuálního mentoringu a balíčku sezení. Pro Online semináře platí Část B níže.</p>
+
+  <h3>1. Úvodní ustanovení a poskytovatel</h3>
   <p>Tyto obchodní podmínky upravují vzájemná práva a povinnosti mezi poskytovatelem a klientem vzniklé v souvislosti se službami peer mentoringu nabízenými na webu ${SITE}, nebo na jeho základě uzavřené.</p>
   <p><strong>Poskytovatel:</strong> ${AUTHOR}, IČ ${ICO}, se sídlem ${ADDRESS}, e-mail <a href="mailto:${EMAIL}">${EMAIL}</a>, web ${SITE} (dále jen „poskytovatel“).</p>
   <p><strong>Klient:</strong> fyzická osoba, která si u poskytovatele objedná některou ze služeb popsaných níže (dále jen „klient“).</p>
   <p>Právní vztahy mezi poskytovatelem a klientem, které tyto podmínky výslovně neupravují, se řídí zejména zákonem č. 89/2012 Sb., občanský zákoník, a je-li klient spotřebitelem, také zákonem č. 634/1992 Sb., o ochraně spotřebitele.</p>
 
-  <h2>2. Charakter služby</h2>
+  <h3>2. Charakter služby</h3>
   <ul class="rules">
     <li>${BRAND} nabízí peer mentoring založený na osobní zkušenosti poskytovatele s OCD.</li>
     <li>Peer mentoring není psychoterapie ani zdravotní služba.</li>
@@ -2088,7 +2090,7 @@ add('/obchodni-podminky', {
     <li>Pokud klient prožívá akutní krizi nebo má myšlenky na sebepoškození, má se obrátit na tísňovou linku 112, zdravotnickou záchrannou službu 155 nebo Linku první psychické pomoci 116 123, ne na poskytovatele.</li>
   </ul>
 
-  <h2>3. Nabízené služby a ceny</h2>
+  <h3>3. Nabízené služby a ceny</h3>
   <ul class="rules">
     <li><strong>Úvodní online konzultace</strong> — 20 minut, zdarma. Konzultace klienta k ničemu nezavazuje a sama o sobě není podmínkou objednání dalších služeb.</li>
     <li><strong>Individuální online mentoring</strong> — 50 minut, 490 Kč.</li>
@@ -2097,7 +2099,7 @@ add('/obchodni-podminky', {
   <p>Aktuální nabídka a ceny jsou vždy k dispozici i přímo v rezervačním systému Reservanto při objednávání. V případě rozporu mezi touto stránkou a rezervačním systémem se použije znění platné v okamžiku objednávky v Reservantu.</p>
   <p>Poskytovatel není plátcem DPH. Uvedené ceny jsou tedy konečné a nejsou navyšovány o DPH.</p>
 
-  <h2>4. Rezervace a platba</h2>
+  <h3>4. Rezervace a platba</h3>
   <ul class="rules">
     <li>Rezervace probíhá online přes rezervační systém Reservanto, dostupný přes tlačítko „Domluvit si konzultaci“ na webu poskytovatele.</li>
     <li>Klient si může rezervovat i termín na tentýž den, pokud je v Reservantu volný.</li>
@@ -2106,7 +2108,7 @@ add('/obchodni-podminky', {
     <li>Služby se poskytují online (např. formou videohovoru), způsob spojení poskytovatel klientovi upřesní před sezením.</li>
   </ul>
 
-  <h2>5. Storno podmínky</h2>
+  <h3>5. Storno podmínky</h3>
   <ul class="rules">
     <li>Zrušení termínu alespoň 24 hodin před jeho začátkem je bezplatné.</li>
     <li>Změna termínu závisí na dostupnosti poskytovatele a vzájemné dohodě.</li>
@@ -2114,7 +2116,7 @@ add('/obchodni-podminky', {
     <li>Zrušení i změnu termínu klient řeší přímo v Reservantu nebo e-mailem na <a href="mailto:${EMAIL}">${EMAIL}</a>.</li>
   </ul>
 
-  <h2 id="odstoupeni">6. Odstoupení od smlouvy (spotřebitelé)</h2>
+  <h3 id="odstoupeni">6. Odstoupení od smlouvy (spotřebitelé)</h3>
   <p>Je-li klient spotřebitelem a smlouva byla uzavřena distančním způsobem (online přes Reservanto), má právo podle § 1829 občanského zákoníku odstoupit od smlouvy do 14 dnů od jejího uzavření, a to bez udání důvodu.</p>
   <p>Toto právo se netýká úvodní konzultace zdarma, protože za ni klient nic neplatí.</p>
   <p>U placené služby, kterou si klient rezervuje na termín spadající ještě do této 14denní lhůty, platí následující zvláštní pravidla:</p>
@@ -2145,26 +2147,66 @@ add('/obchodni-podminky', {
        se musí odkliknout před každým otevřením rezervace v Reservantu. Nespoléhá se tedy na to,
        zda totéž zajišťuje i samotný Reservanto. -->
 
-  <h2>7. Práva a povinnosti stran</h2>
+  <h3>7. Práva a povinnosti stran</h3>
   <ul class="rules">
     <li>Poskytovatel se zavazuje poskytnout objednanou službu s odbornou péčí odpovídající roli peer mentora, v mezích popsaných na stránce <a href="/o-mne#hranice">Moje hranice</a>.</li>
     <li>Klient se zavazuje uvádět při rezervaci pravdivé a aktuální kontaktní údaje a dostavit se na sjednané sezení.</li>
     <li>Pokud klientovy obtíže přesahují rámec peer mentoringu (viz <a href="/pro-koho">Pro koho</a>), poskytovatel ho odkáže na odbornou pomoc.</li>
   </ul>
 
-  <h2>8. Reklamace a stížnosti</h2>
+  <h3>8. Reklamace a stížnosti</h3>
   <p>Pokud nejste se službou spokojeni, napište na <a href="mailto:${EMAIL}">${EMAIL}</a>. Stížnost vyřídíme bez zbytečného odkladu.</p>
   <p>Je-li klient spotřebitelem, může se v případě sporu obrátit také na Českou obchodní inspekci (coi.cz) jako subjekt mimosoudního řešení spotřebitelských sporů.</p>
 
-  <h2>9. Ochrana osobních údajů</h2>
+  <h3>9. Ochrana osobních údajů</h3>
   <p>Zpracování osobních údajů v souvislosti s těmito službami popisují samostatné <a href="/ochrana-osobnich-udaju">zásady ochrany osobních údajů</a>.</p>
 
-  <h2>10. Závěrečná ustanovení</h2>
+  <h3>10. Závěrečná ustanovení</h3>
   <ul class="rules">
-    <li>Tyto obchodní podmínky nabývají účinnosti 1. 12. 2026.</li>
+    <li>Část A těchto obchodních podmínek nabývá účinnosti 1. 12. 2026.</li>
     <li>Poskytovatel může tyto podmínky v přiměřeném rozsahu měnit; aktuální znění je vždy dostupné na této stránce.</li>
     <li>Pokud by se některé ustanovení těchto podmínek ukázalo neplatným nebo neúčinným, nemá to vliv na platnost ostatních ustanovení.</li>
   </ul>
+
+  <h2 id="cast-b">Část B: Online semináře (individuální program pěti setkání)</h2>
+  <p class="small">Část B je platná od 1. 11. 2026 a týká se jen programu popsaného na stránce <a href="/seminare">Online semináře</a>.</p>
+
+  <h3>B1. Prodejce</h3>
+  <p>${AUTHOR}, IČ ${ICO}, se sídlem ${ADDRESS}, e-mail <a href="mailto:${EMAIL}">${EMAIL}</a>. Prodejce není plátcem DPH.</p>
+
+  <h3>B2. Předmět</h3>
+  <p>Individuální program pěti online setkání po 60 minutách, 1× týdně, vždy jen jeden klient. Cena programu je 3 590 Kč.</p>
+
+  <h3>B3. Povaha služby</h3>
+  <p>${POVAHA_SEMINARE}</p>
+
+  <h3>B4. Objednávka a platba</h3>
+  <p>Smlouva vzniká odesláním rezervace. Cena se hradí bankovním převodem s uvedeným variabilním symbolem do 3 dnů od rezervace. Po marném uplynutí lhůty rezervace zaniká. Po připsání platby zašle prodejce odkaz na videohovor, nejpozději 24 hodin před prvním setkáním.</p>
+
+  <h3>B5. Průběh</h3>
+  <p>Videohovor přes Google Meet, setkání se nenahrávají. Účastník zajistí klidné prostředí a funkční připojení. Setkání se nekonají 24. a 31. prosince, program se o tyto týdny posune.</p>
+
+  <h3>B6. Přesun</h3>
+  <p>Setkání lze přesunout zdarma nejpozději 24 hodin předem po domluvě e-mailem, nejvýše dvakrát během programu. Neomluvená neúčast nebo přesun později než 24 hodin předem se počítá jako uskutečněné setkání.</p>
+
+  <h3>B7. Zrušení prodejcem</h3>
+  <p>Pokud prodejce setkání nemůže uskutečnit (např. nemoc), nabídne náhradní termín. Pokud ho účastník nepřijme nebo program nelze dokončit, vrátí poměrnou část ceny za neuskutečněná setkání do 14 dnů.</p>
+
+  <h3 id="odstoupeni-seminar">B8. Odstoupení spotřebitele</h3>
+  <p>Spotřebitel může od smlouvy odstoupit do 14 dnů od jejího uzavření bez udání důvodu e-mailem na <a href="mailto:${EMAIL}">${EMAIL}</a>. Pokud výslovně požádal o zahájení poskytování služby před uplynutím této lhůty a odstoupí po zahájení, uhradí poměrnou část ceny za již poskytnutá setkání. Zbývající část se vrací do 14 dnů stejným způsobem, jakým byla platba přijata.</p>
+
+  <h3>B9. Reklamace</h3>
+  <p>Výhrady k poskytnuté službě lze uplatnit e-mailem, prodejce odpoví do 30 dnů.</p>
+
+  <h3>B10. Osobní údaje</h3>
+  <p>Viz <a href="/ochrana-osobnich-udaju">Zásady ochrany osobních údajů</a>.</p>
+
+  <h3>B11. Mimosoudní řešení sporů</h3>
+  <p>Spotřebitel se může obrátit na Českou obchodní inspekci (<a href="https://www.coi.cz" target="_blank" rel="noopener noreferrer">www.coi.cz</a>).</p>
+
+  <h3>B12. Závěrečná ustanovení</h3>
+  <p>Vztahy se řídí právem České republiky.</p>
+
   <p class="callout-inline disclaimer">${NOTICE}</p>
 </section>
 `,
@@ -2527,6 +2569,7 @@ contentPage({
 
 // --- Offline stránka (pro service worker) ---
 add('/offline', {
+  script: '/assets/js/offline.js',
   title: `Jste offline | ${DOMAIN}`,
   desc: 'Jste offline. Tuto stránku nelze načíst bez připojení, rezervace a formuláře bez internetu nefungují.',
   noindex: true,
@@ -2537,7 +2580,7 @@ add('/offline', {
   <p class="lead">Tuhle stránku se nepodařilo načíst, protože nejste připojeni k internetu. Rezervace konzultací a odesílání formulářů bez připojení nefungují.</p>
 </section>
 <section class="wrap block">
-  <p>Zkuste to znovu, až se připojíte: <button type="button" class="btn btn-ghost btn-sm" onclick="location.reload()">Načíst znovu</button></p>
+  <p>Zkuste to znovu, až se připojíte: <button type="button" class="btn btn-ghost btn-sm" id="nacist-znovu">Načíst znovu</button></p>
   <p>Potřebujete pomoc hned? ${CRISIS_STRONG}.</p>
   <ul class="crisis-list">
     <li><a href="tel:112"><strong>112</strong><span>tísňová linka</span></a></li>
@@ -2673,7 +2716,7 @@ writeFileSync(
 );
 writeFileSync(
   join(OUT, 'robots.txt'),
-  `User-agent: *\nAllow: /\n\nUser-agent: SeznamBot\nAllow: /\n\nUser-agent: Googlebot\nAllow: /\n\nUser-agent: bingbot\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`
+  `User-agent: *\nAllow: /\nDisallow: /api/\n\nUser-agent: SeznamBot\nAllow: /\nDisallow: /api/\n\nUser-agent: Googlebot\nAllow: /\nDisallow: /api/\n\nUser-agent: bingbot\nAllow: /\nDisallow: /api/\n\nSitemap: ${SITE}/sitemap.xml\n`
 );
 
 // seznam stránek pro tools/og.mjs (obrázky 1200×630)
@@ -2717,5 +2760,42 @@ writeFileSync(
 );
 const SW_VERSION = createHash('sha1').update(JSON.stringify(lastmod) + hashAsset('/assets/css/style.css') + hashAsset('/assets/js/rezervace-souhlas.js')).digest('hex').slice(0, 8);
 writeFileSync(join(OUT, 'sw.js'), readFileSync(join(OUT, 'tools/sw.template.js'), 'utf8').replace('__VERSION__', SW_VERSION));
+
+// ---------- Content-Security-Policy ----------
+// Politika se skládá tady a zapisuje do hlavičky v vercel.json. Jediný inline skript webu se povolí hashem,
+// jinak jsou skripty jen z vlastní domény a z Reservanta (rezervační widget). Inline obslužné funkce (onclick) na webu nejsou.
+const inlineHashe = new Set();
+for (const html of Object.values(files)) {
+  for (const m of html.matchAll(/<script(?![^>]*\bsrc=)(?![^>]*application\/ld\+json)[^>]*>([\s\S]*?)<\/script>/g)) {
+    inlineHashe.add(`'sha256-${createHash('sha256').update(m[1]).digest('base64')}'`);
+  }
+  if (/\son(?:click|load|error|submit|change|input|focus|blur|mouse\w+|key\w+)\s*=/i.test(html.replace(/<script[\s\S]*?<\/script>/g, ''))) {
+    throw new Error('Na webu je inline obslužná funkce (onclick apod.), kterou by Content-Security-Policy zablokovala. Použijte addEventListener v externím skriptu.');
+  }
+}
+const RSV = 'https://*.reservanto.cz';
+const CSP = [
+  "default-src 'self'",
+  `script-src 'self' ${[...inlineHashe].sort().join(' ')} ${RSV}`,
+  `style-src 'self' 'unsafe-inline' ${RSV}`,
+  `img-src 'self' data: ${RSV}`,
+  `font-src 'self' ${RSV}`,
+  `connect-src 'self' ${RSV}`,
+  `frame-src ${RSV}`,
+  "media-src 'self'",
+  "manifest-src 'self'",
+  "worker-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+].join('; ');
+{
+  const vercelPath = join(OUT, 'vercel.json');
+  const vercelText = readFileSync(vercelPath, 'utf8');
+  if (!/"key": "Content-Security-Policy", "value": "[^"]*"/.test(vercelText)) throw new Error('V vercel.json chybí hlavička Content-Security-Policy.');
+  const novy = vercelText.replace(/("key": "Content-Security-Policy", "value": ")[^"]*(")/, (_m, a, z) => `${a}${CSP}${z}`);
+  if (novy !== vercelText) writeFileSync(vercelPath, novy);
+}
 
 console.log(Object.keys(files).join('\n'));

@@ -741,3 +741,48 @@ html.calm .motion-toggle { display: none; }
 .ebook-cover img { display: block; width: 100%; height: auto; }
 @media (min-width: 48rem) { .ebook-grid { grid-template-columns: 17rem minmax(0, 1fr); gap: 2.5rem; } }
 @media (prefers-reduced-motion: reduce) { .ebook-cover { transition: none; } .ebook-cover:hover { transform: none; } }
+
+/* ===== Online semináře, rezervace a platba ===== */
+input[type="email"] { width: 100%; font: inherit; color: var(--ink); background: #fff; border: 1px solid #8a8f98; border-radius: 12px; padding: .6rem .8rem; }
+.sem-box { margin-top: 1rem; max-width: 44rem; }
+.sem-box p { margin: 0; }
+.sem-format { font-size: 1.15rem; font-weight: 700; color: var(--ink); max-width: 44rem; }
+.sem-cards .card { position: relative; padding-top: 2.4rem; }
+.sem-num { position: absolute; top: .9rem; right: 1.1rem; margin: 0; width: 2.1rem; height: 2.1rem; border-radius: 50%; background: var(--ink); color: #fff; font-weight: 800; display: grid; place-items: center; }
+.runs { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1.1rem; margin: 1.2rem 0; }
+.run { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.2rem 1.3rem; }
+.run[data-stav="uzavreno"], .run[data-stav="obsazeno"] { border-style: dashed; box-shadow: none; }
+.run-head { display: flex; align-items: center; justify-content: space-between; gap: .8rem; flex-wrap: wrap; }
+.run-head h3 { margin: 0; }
+.run-meta { margin: .3rem 0 .4rem; color: var(--ink-soft); font-weight: 600; }
+.run-dates { margin: .3rem 0 .2rem; padding-left: 1.3rem; }
+.run-dates li { margin: .15rem 0; }
+.run-other { margin: .5rem 0 0; }
+.badge { display: inline-block; padding: .1rem .7rem; border-radius: 999px; font-size: .85rem; font-weight: 800; border: 1.5px solid currentColor; line-height: 1.5; }
+.badge--ok { color: #1f6b46; background: #e7f6ee; }
+.badge--muted { color: #4a5568; background: #eef0f3; }
+.badge--soft { color: #8a4b00; background: #fff4df; }
+.run-choice .run-option { display: grid; grid-template-columns: auto 1fr; gap: .1rem .6rem; align-items: start; padding: .7rem .2rem; border-top: 1px solid var(--line); }
+.run-choice legend + .run-option { border-top: 0; }
+.run-option input { margin-top: .35rem; width: 1.15rem; height: 1.15rem; accent-color: var(--i); }
+.run-option label { font-weight: 700; cursor: pointer; }
+.run-option input:disabled + label { color: var(--ink-soft); cursor: not-allowed; }
+.run-dates-text { grid-column: 2; margin: 0; color: var(--ink-soft); font-size: .95rem; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.field-err { margin: .3rem 0 0; color: #a12a00; font-weight: 600; font-size: .95rem; }
+.field input[aria-invalid="true"] { border-color: #a12a00; border-width: 2px; }
+.field-check { margin: .5rem 0; }
+.field-check input[aria-invalid="true"] { outline: 2px solid #a12a00; outline-offset: 2px; }
+.err-summary { border: 2px solid #a12a00; border-radius: var(--radius); background: #fff6f2; padding: .8rem 1.1rem; margin: 0 0 1.2rem; }
+.err-summary p { margin: 0; }
+.err-summary ul { margin: .3rem 0 0; padding-left: 1.2rem; }
+.err-summary a { color: #a12a00; font-weight: 700; }
+.pay-grid { display: grid; gap: 1.5rem; align-items: start; margin: 1.2rem 0; }
+@media (min-width: 48rem) { .pay-grid { grid-template-columns: 17rem 1fr; gap: 2.5rem; } }
+.qr-box { width: min(100%, 17rem); background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: .6rem; box-shadow: var(--shadow); line-height: 0; }
+.qr-box svg { display: block; width: 100%; height: auto; }
+.pay-qr .small { line-height: 1.4; }
+.pay-list { margin: 0; }
+.pay-row { display: grid; grid-template-columns: 1fr auto; gap: .1rem .8rem; align-items: center; padding: .55rem 0; border-bottom: 1px solid var(--line); }
+.pay-row dt { grid-column: 1 / -1; font-size: .85rem; color: var(--ink-soft); font-weight: 700; }
+.pay-row dd { margin: 0; font-weight: 800; font-size: 1.1rem; overflow-wrap: anywhere; }

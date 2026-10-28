@@ -36,8 +36,15 @@
   },
   {
     "slug": "seminare",
-    "text": "Online semináře o OCD",
-    "sub": "",
+    "text": "Online semináře",
+    "sub": "Pět setkání 1:1 podle knihy o sebepřijetí a sebevíře",
+    "art": "/assets/img/ebook-titulka.webp",
+    "portrait": true
+  },
+  {
+    "slug": "seminare-rezervace",
+    "text": "Rezervace semináře",
+    "sub": "Výběr termínu a platba QR kódem",
     "art": "",
     "portrait": false
   },

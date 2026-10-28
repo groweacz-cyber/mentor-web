@@ -2,10 +2,17 @@
   "name": "ocdmentor-web",
   "private": true,
   "type": "module",
-  "description": "Statický web ocdmentor.cz. Generátor stránek a SEO nástroje.",
+  "description": "Statický web ocdmentor.cz. Generátor stránek, SEO nástroje a serverová funkce rezervace seminářů.",
   "scripts": {
     "gen": "node tools/gen.mjs",
+    "og": "node tools/og.mjs",
     "audit": "node tools/audit.mjs",
+    "test": "node --test tools/test/*.test.mjs",
+    "dev": "node tools/dev-server.mjs",
+    "iban": "node tools/iban.mjs",
     "indexnow": "node tools/indexnow.mjs"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }

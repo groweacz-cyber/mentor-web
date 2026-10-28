@@ -21,6 +21,8 @@ Pravidla: „léčba“ a „terapie“ se u vlastní služby nepoužívají. Sl
 | `/clanky/proc-nutkani-prichazi-ve-vlnach` | nutkání při OCD | vlny úzkosti, jak zvládnout nutkání, nutkavé myšlenky |
 | `/clanky/kompulze-a-prijeti` | kompulze OCD | přijetí vtíravých myšlenek, boj s myšlenkami, rituály při OCD |
 | `/kontakt` | OCD konzultace zdarma | rezervace konzultace, kontakt na peer mentora |
+| `/ebook` | e-book o sebepřijetí s OCD | sebevíra a OCD, příručka OCD, pracovní listy OCD |
+| `/seminare` | online seminář o sebepřijetí s OCD | program pěti setkání 1:1, individuální online seminář, rezervace semináře, seminář podle knihy |
 | `/pomoc` | pomoc při psychické krizi | kam se obrátit při OCD, krizové linky |
 | `/kolik-casu-mi-bere-ocd` | kolik času mi bere OCD | kalkulačka času OCD, čas strávený rituály |
 | `/vtirave-myslenky` | vtíravé myšlenky | nutkavé myšlenky, vtíravé myšlenky OCD, proč se myšlenky lepí, smyčka OCD |
@@ -49,15 +51,13 @@ Pravidla: „léčba“ a „terapie“ se u vlastní služby nepoužívají. Sl
 | `/pribehy` | příběhy lidí s OCD | zkušenost s OCD, sdílení vlastního příběhu s OCD |
 | `/pro-terapeuty` | spolupráce s terapeuty OCD | peer podpora jako doplněk, doporučit klienta |
 
-Stránky `/obchodni-podminky` a `/ochrana-osobnich-udaju` na slova necílí (právní texty).
+Stránky `/obchodni-podminky`, `/ochrana-osobnich-udaju` a `/seminare/rezervace` na slova necílí (právní texty a formulář), `/seminare/rezervace/potvrzeni` je noindex.
 
 ## Připravené, ale zatím neindexované (noindex, dokud nejsou hotové)
 
 | Stránka | Hlavní klíčové slovo | Vedlejší klíčová slova |
 |---|---|---|
-| `/ebook` | e-book o sebepřijetí s OCD | sebevíra a OCD, příručka OCD, pracovní listy OCD |
-| `/seminare` | OCD semináře online | psychoedukace OCD, webinář o OCD |
-| `/kurz` | online kurz OCD | OCD kurz zdarma, co je OCD a co není |
+| `/kurz` | online kurz OCD | OCD kurz zdarma, co je OCD a co není (stránka je noindex a není v menu) |
 
 ## Koncept (noindex, čeká na doplnění ceny a podrobností; seznam na /koncepty)
 

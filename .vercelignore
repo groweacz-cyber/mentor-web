@@ -1,4 +1,7 @@
 tools
 seo
-package.json
 README.md
+.env*
+.vercel
+node_modules
+.git

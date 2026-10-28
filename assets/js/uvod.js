@@ -15,8 +15,8 @@
     var msg = document.getElementById('sc-msg');
     var cta = document.getElementById('sc-cta');
     var TEXTS = {
-      low: 'Dobrý den. I ty se počítají. Sebevíra roste ze zvládnutých chvil.',
-      mid: 'Nutkání tu je, a vy přesto čtete dál. To je přesně ten krok, ze kterého roste sebevíra.',
+      low: 'Dobrý den. I ty se počítají. Sebedůvěra roste ze zvládnutých chvil.',
+      mid: 'Nutkání tu je, a vy přesto čtete dál. To je přesně ten krok, ze kterého roste sebedůvěra.',
       high: 'Vím, jaké to je. Nejste v tom sami a dá se z toho ven krok za krokem.'
     };
 

@@ -85,9 +85,9 @@
     },
     {
       "id": "sebevira",
-      "pojem": "Sebevíra",
-      "auto": "\\bsebevír\\w*",
-      "def": "Druhý pilíř metody: „Ať se stane cokoli, obstojím.“ Nebuduje se afirmacemi, ale zvládnutými situacemi."
+      "pojem": "Sebedůvěra",
+      "auto": "\\bsebedůvěr\\w*|\\bsebevír\\w*",
+      "def": "Třetí pilíř metody: důvěra, že když přijde obtíž, budu hledat způsob, jak ji řešit, a mohu požádat o pomoc. Nejde o záruku, že zvládnu cokoli. Buduje se zvládnutými situacemi, ne afirmacemi."
     },
     {
       "id": "smycka",

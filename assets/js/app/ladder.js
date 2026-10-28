@@ -51,8 +51,8 @@ function render() {
     const as = d.assessments;
     out.push(h('h2', {}, 'Vývoj mezi dotazníky'));
     out.push(lineChart(
-      [{ name: 'Průměrná úzkost', cls: 's-peak', values: as.map(avg) }, { name: 'Sebepřijetí', cls: 's-acc', values: as.map((x) => x.pillars.accept) }, { name: 'Sebevíra', cls: 's-trust', values: as.map((x) => x.pillars.trust) }],
-      as.map((x) => fmtDate(x.at)), 'Vývoj průměrné úzkosti, sebepřijetí a sebevíry mezi dotazníky'));
+      [{ name: 'Průměrná úzkost', cls: 's-peak', values: as.map(avg) }, { name: 'Sebepřijetí', cls: 's-acc', values: as.map((x) => x.pillars.accept) }, { name: 'Sebedůvěra', cls: 's-trust', values: as.map((x) => x.pillars.trust) }],
+      as.map((x) => fmtDate(x.at)), 'Vývoj průměrné úzkosti, sebepřijetí a sebedůvěry mezi dotazníky'));
   }
   root.replaceChildren(...out);
 }

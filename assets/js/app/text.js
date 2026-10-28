@@ -1,4 +1,4 @@
-// Editor expozičního textu: přiznání nejistoty → přijetí nejhoršího → sebevíra. Kontrola ujištění.
+// Editor expozičního textu: přiznání nejistoty → přijetí nejhoršího → sebedůvěra. Kontrola ujištění.
 import { data, save, uid, fmtDate } from './store.js';
 import { h, boot, gate, $ } from './ui.js';
 import { norm, REASSURE, ACCEPT } from './data.js';
@@ -9,7 +9,7 @@ boot(root);
 const SAMPLE = [
   'Tu nemoc můžu mít nebo ji jednou dostat. Nevím to a nikdy to jistě vědět nebudu.',
   'Kdyby přišla, přijmu ji i sebe. Kvůli tomuto strachu se nevzdám života.',
-  'Věřím v sebe i v život, který přijímám takový, jaký je. Věřím, že zvládnu cokoli, co přijde.',
+  'Věřím v sebe i v život, který přijímám takový, jaký je. Věřím, že když přijde obtíž, budu hledat způsob, jak ji řešit, a mohu požádat o pomoc.',
 ];
 
 function check(parts) {
@@ -18,11 +18,11 @@ function check(parts) {
   if (!all) return warn;
   const sentences = all.split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
   const lastS = norm(sentences[sentences.length - 1] || '');
-  if (REASSURE.some((r) => r.test(lastS))) warn.push('Text končí ujištěním. Expoziční text nemá končit „bude to dobré“, ale přijetím nejistoty a sebevírou.');
+  if (REASSURE.some((r) => r.test(lastS))) warn.push('Text končí ujištěním. Expoziční text nemá končit „bude to dobré“, ale přijetím nejistoty a sebedůvěrou.');
   else if (REASSURE.some((r) => r.test(norm(all)))) warn.push('V textu je věta, která zní jako ujištění (např. „jsem zdravý“, „určitě ne“). Zkuste ji přepsat na přijetí nejistoty.');
   if (!ACCEPT.some((r) => r.test(norm(parts[1] || '')))) warn.push('V druhé části chybí přijetí nejhoršího scénáře (např. „kdyby přišla, přijmu ji i sebe“).');
   if (!parts[0].trim()) warn.push('První část má přiznat nejistotu: „nevím to a jistě to vědět nebudu“.');
-  if (!parts[2].trim()) warn.push('Třetí část má vyjádřit sebevíru: „zvládnu cokoli, co přijde“.');
+  if (!parts[2].trim()) warn.push('Třetí část má vyjádřit sebedůvěru: „když přijde obtíž, budu hledat způsob, jak ji řešit“.');
   return warn;
 }
 
@@ -31,7 +31,7 @@ function render() {
   const f = [
     ['p1', '1. Přiznání nejistoty', 'Nevím to a nikdy to jistě vědět nebudu.'],
     ['p2', '2. Přijetí nejhoršího scénáře', 'Kdyby se to stalo, přijmu to i sebe.'],
-    ['p3', '3. Sebevíra', 'Věřím v sebe a zvládnu cokoli, co přijde.'],
+    ['p3', '3. Sebedůvěra', 'Věřím v sebe a když přijde obtíž, budu hledat způsob, jak ji řešit.'],
   ].map(([id, label, hint]) => {
     const t = h('textarea', { id, rows: 3, maxlength: 300 });
     return { id, t, el: h('div', { class: 'field' }, h('label', { for: id }, label, ' ', h('span', { class: 'hint' }, hint)), t) };

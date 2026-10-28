@@ -18,7 +18,7 @@ const GROUPS = [
     ['/aplikace/principy', 'Karty principů', 'Dvanáct pravidel metody'],
   ]],
   ['Já a můj život', [
-    ['/aplikace/pilire', 'Pilíře', 'Týdenní sebepřijetí a sebevíra'],
+    ['/aplikace/pilire', 'Pilíře', 'Týdenní sebepřijetí a sebedůvěra'],
     ['/aplikace/vize', 'Vize', 'Život, který chci žít'],
     ['/aplikace/koreny', 'Kořeny', 'Osa životních milníků'],
     ['/aplikace/hudba', 'Hudba', 'Playlisty před a po expozici'],

@@ -10,7 +10,7 @@ const OPTS = [
   ['ass', 'Dotazníky a žebříček', true],
   ['exp', 'Expoziční deník s grafem', true],
   ['cmp', 'Kompulze (týdenní součty)', true],
-  ['wk', 'Sebepřijetí a sebevíra', true],
+  ['wk', 'Sebepřijetí a sebedůvěra', true],
   ['vis', 'Vize', false],
   ['roots', 'Kořeny (milníky)', false],
   ['txt', 'Expoziční texty', false],
@@ -25,7 +25,7 @@ function build(sel) {
   const out = [h('h2', {}, 'Přehled z aplikace'), h('p', { class: 'small' }, 'Vytvořeno ' + fmtDateLong(Date.now()) + '. Přehled sestavil uživatel sám, není to zdravotnická dokumentace ani diagnóza.')];
   if (sel.ass && d.assessments.length) {
     out.push(h('h3', {}, 'Dotazníky'));
-    out.push(table(['Datum', 'Cesta', 'Sebepřijetí', 'Sebevíra', 'Čas denně'], d.assessments.map((a) => [fmtDate(a.at), pathLabel(a.reco.path), a.pillars.accept, a.pillars.trust, a.impact.time || '–'])));
+    out.push(table(['Datum', 'Cesta', 'Sebepřijetí', 'Sebedůvěra', 'Čas denně'], d.assessments.map((a) => [fmtDate(a.at), pathLabel(a.reco.path), a.pillars.accept, a.pillars.trust, a.impact.time || '–'])));
     const a = latestAssessment();
     out.push(h('h3', {}, 'Témata z posledního dotazníku'));
     out.push(table(['Téma', 'Úzkost 0–10'], a.topics.filter((t) => t.score > 0).sort((x, y) => x.score - y.score).map((t) => [t.name, t.score])));
@@ -46,8 +46,8 @@ function build(sel) {
     out.push(h('p', { class: 'small' }, 'Podle typu: ' + Object.entries(kinds).map(([k, v]) => k + ' ' + v).join(', ')));
   }
   if (sel.wk && d.weeks.length) {
-    out.push(h('h3', {}, 'Sebepřijetí a sebevíra po týdnech'));
-    out.push(table(['Týden', 'Sebepřijetí', 'Sebevíra'], d.weeks.slice(-16).map((w) => [fmtDate(w.at), w.accept, w.trust])));
+    out.push(h('h3', {}, 'Sebepřijetí a sebedůvěra po týdnech'));
+    out.push(table(['Týden', 'Sebepřijetí', 'Sebedůvěra'], d.weeks.slice(-16).map((w) => [fmtDate(w.at), w.accept, w.trust])));
   }
   if (sel.vis && d.vision) out.push(h('h3', {}, 'Vize'), h('p', {}, d.vision.text));
   if (sel.roots && d.roots.length) out.push(h('h3', {}, 'Kořeny'), h('ul', {}, d.roots.map((r) => h('li', {}, (r.when || '–') + ': ' + r.what))));

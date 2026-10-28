@@ -54,7 +54,7 @@ export const PILIR_VTIRAVE = {
     },
     {
       h: 'Jak se k tomu obecně přistupuje',
-      html: `<p>Základní směr je odlišný od boje: zůstat s myšlenkou a s napětím a nepředat se kompulzi. V <a href="/metoda">metodě</a>, kterou používám, k tomu patří sebepřijetí a sebevíra („ať se stane cokoli, obstojím“). V odborné péči se k podobnému směru používá například expozice s prevencí reakce (ERP) nebo inferenční kognitivně-behaviorální přístup (I-CBT). Odborník nastavuje tempo a plán.</p>
+      html: `<p>Základní směr je odlišný od boje: zůstat s myšlenkou a s napětím a nepředat se kompulzi. V <a href="/metoda">metodě</a>, kterou používám, k tomu patří sebepřijetí a sebedůvěra bez záruk („nevím přesně, co se stane, ale když přijde obtíž, budu hledat způsob, jak ji řešit“). V odborné péči se k podobnému směru používá například expozice s prevencí reakce (ERP) nebo inferenční kognitivně-behaviorální přístup (I-CBT). Odborník nastavuje tempo a plán.</p>
 <p>Konkrétní kroky tady nenajdete záměrně. Postup expozic patří do rukou odborníka, ne do návodu na internetu.</p>`,
     },
     {

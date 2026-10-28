@@ -17,7 +17,7 @@ window.OCD_SMYCKA = {
     {
       nazev: 'Katastrofický scénář',
       co: 'Z pochybnosti se stane film o nejhorším možném konci. Působí skutečně, ale je to jen představa.',
-      metoda: 'Sebepřijetí a sebevíra. Ať se stane cokoli, obstojím.'
+      metoda: 'Sebepřijetí a sebedůvěra. Nevím přesně, co se stane. Když přijde obtíž, budu hledat způsob, jak ji řešit.'
     },
     {
       nazev: 'Úzkost',
@@ -27,7 +27,7 @@ window.OCD_SMYCKA = {
     {
       nazev: 'Kompulze',
       co: 'Rituál, kontrola, ujišťování, vyhledávání nebo vyhýbání. Cokoli, co má strach rychle vypnout.',
-      metoda: 'Expozice bez kompulze. Strach může být přítomen a já přesto jednám.'
+      metoda: 'Reagovat jinak na nutkání. Strach může být přítomen a já přesto jednám.'
     },
     {
       nazev: 'Úleva',
@@ -38,7 +38,7 @@ window.OCD_SMYCKA = {
     {
       nazev: 'Posílení',
       co: 'Příště přijde nutkání silnější a smyčka se točí rychleji.',
-      metoda: 'Místo „rituál mě zachránil“ vzniká „zvládám to“. Z toho roste sebevíra.'
+      metoda: 'Místo „rituál mě zachránil“ vzniká „zvládám to“. Z toho roste sebedůvěra.'
     }
   ]
 };

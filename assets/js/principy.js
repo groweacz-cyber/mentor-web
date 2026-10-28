@@ -3,8 +3,8 @@
 window.OCD_PRINCIPY = [
   'Nic v metodě nesmí fungovat jako ochrana před strachem.',
   'Kompulze je akt nepřijetí a nedůvěry k sobě. Odpovědí je návrat k sebepřijetí, ne trest.',
-  'Sebevíra se buduje zvládnutými situacemi. Strach může být přítomen a já přesto jednám.',
-  'Sebepřijetí a sebevíra vtíravé myšlenky nezastaví, ale vezmou jim moc.',
+  'Sebedůvěra se buduje zvládnutými situacemi. Strach může být přítomen a já přesto jednám.',
+  'Sebepřijetí a sebedůvěra vtíravé myšlenky nezastaví, ale vezmou jim moc.',
   'Expoziční text nesmí končit ujištěním.',
   'Cílová vize popisuje život, ne absenci nemoci.',
   'Začínám tam, kde mám šanci vyhrát, a postupuji k tomu, co mě nejvíc omezuje.',

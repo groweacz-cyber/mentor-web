@@ -30,8 +30,8 @@ export const TIME_OPTIONS = ['Méně než 1 hodinu', '1–3 hodiny', '3–6 hodi
 export const PRINCIPLES = [
   { t: 'Žádná ochrana před strachem', x: 'Nic v metodě nesmí fungovat jako ochrana před strachem.' },
   { t: 'Kompulze je akt nepřijetí', x: 'Kompulze je akt nepřijetí a nedůvěry k sobě. Odpovědí je návrat k sebepřijetí, ne trest.' },
-  { t: 'Sebevíra ze zvládnutých situací', x: 'Sebevíra se buduje zvládnutými situacemi. Strach může být přítomen a já přesto jednám.' },
-  { t: 'Myšlenky bez moci', x: 'Sebepřijetí a sebevíra vtíravé myšlenky nezastaví, ale vezmou jim moc.' },
+  { t: 'Sebedůvěra ze zvládnutých situací', x: 'Sebedůvěra se buduje zvládnutými situacemi. Strach může být přítomen a já přesto jednám.' },
+  { t: 'Myšlenky bez moci', x: 'Sebepřijetí a sebedůvěra vtíravé myšlenky nezastaví, ale vezmou jim moc.' },
   { t: 'Expozice bez ujištění', x: 'Expoziční text nesmí končit ujištěním.' },
   { t: 'Vize je život', x: 'Cílová vize popisuje život, ne absenci nemoci.' },
   { t: 'Tam, kde mám šanci', x: 'Začínám tam, kde mám šanci vyhrát, a postupuji k tomu, co mě nejvíc omezuje.' },
@@ -52,7 +52,7 @@ export const MSG_DID = [
 ];
 export const MSG_RESISTED = [
   'Strach byl přítomen a vy jste přesto jednali jinak. To je přesně ta síla, kterou budujete.',
-  'Nejistota zůstala a vy jste šli dál. Takhle roste sebevíra.',
+  'Nejistota zůstala a vy jste šli dál. Takhle roste sebedůvěra.',
   'Zvládli jste to bez ochrany. Zapište si to a jděte dál.',
 ];
 
@@ -73,7 +73,7 @@ export const CIRCLE = [
   { name: 'Úzkost', x: 'Strach může být přítomen a já přesto jednám. Tělo mluví jazykem úzkosti, rozumím mu, ale nenechám ho rozhodovat.', href: '/aplikace/telo', cta: 'Tělo ve strachu' },
   { name: 'Kompulze', x: 'Zábrana reakce: kompulzi neprovedu. Když se stane, je to akt nepřijetí. Odpovědí je návrat k sebepřijetí, ne trest.', href: '/aplikace/kompulze', cta: 'Tracker kompulzí' },
   { name: 'Úleva', x: 'Úleva z kompulze je to, co kruh točí dál. Expozici proto nekončím ujištěním.', href: '/aplikace/text', cta: 'Kontrola textu' },
-  { name: 'Posílení', x: 'Sebevíra se buduje zvládnutými situacemi, ne úlevou. Každá expozice bez ochrany je důkaz.', href: '/aplikace/denik', cta: 'Expoziční deník' },
+  { name: 'Posílení', x: 'Sebedůvěra se buduje zvládnutými situacemi, ne úlevou. Každá expozice bez ochrany je zkušenost, ze které se dá učit.', href: '/aplikace/denik', cta: 'Expoziční deník' },
 ];
 
 // I-CBT: krátké lekce (návrh textů ke schválení autorem).

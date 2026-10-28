@@ -47,7 +47,7 @@ window.OCD_KVIZ = {
   vysledky: {
     metal: {
       nazev: 'Spíš Metal',
-      text: 'Sedí vám jít do strachu přímo: expozice s prevencí reakce (ERP) od začátku, opřená o sebepřijetí a sebevíru.'
+      text: 'Sedí vám jít do strachu přímo: expozice s prevencí reakce (ERP) od začátku, opřená o sebepřijetí a sebedůvěru.'
     },
     mezi: {
       nazev: 'Někde mezi',

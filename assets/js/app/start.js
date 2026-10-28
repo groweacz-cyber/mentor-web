@@ -88,7 +88,7 @@ function run() {
       }],
       ['Pilíře', () => {
         const a = slider('pa', 'Sebepřijetí', '– 0 = nepřijímám se vůbec, 10 = přijímám se celý/celá', D.pillars.accept);
-        const b = slider('pb', 'Sebevíra', '– 0 = nevěřím, že to zvládnu, 10 = „ať se stane cokoli, obstojím“', D.pillars.trust);
+        const b = slider('pb', 'Sebedůvěra', '– 0 = nevěřím, že si s obtížemi poradím, 10 = věřím, že když přijde obtíž, najdu způsob, jak ji řešit', D.pillars.trust);
         a.querySelector('input').addEventListener('input', (e) => { D.pillars.accept = +e.target.value; save(); });
         b.querySelector('input').addEventListener('input', (e) => { D.pillars.trust = +e.target.value; save(); });
         return h('div', {}, h('p', { class: 'hint' }, 'Odhad dnešního stavu. Slouží jen k tomu, abyste později viděli pokrok.'), a, b);
@@ -183,7 +183,7 @@ function run() {
         h('ul', { class: 'rules' },
           h('li', {}, 'Průměrná úzkost u témat: ' + avg(prev).toFixed(1) + ' → ' + avg(a).toFixed(1)),
           h('li', {}, 'Sebepřijetí: ' + prev.pillars.accept + ' → ' + a.pillars.accept),
-          h('li', {}, 'Sebevíra: ' + prev.pillars.trust + ' → ' + a.pillars.trust))));
+          h('li', {}, 'Sebedůvěra: ' + prev.pillars.trust + ' → ' + a.pillars.trust))));
     }
     out.push(h('div', { class: 'actions' },
       h('a', { class: 'btn', href: '/aplikace/zebricek' }, 'Zobrazit žebříček'),

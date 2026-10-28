@@ -762,8 +762,8 @@ add('/', {
 
 // ---------- Metoda ----------
 add('/metoda', {
-  title: "Metoda: sebepřijetí a expozice bez kompulze | ocdmentor.cz",
-  desc: "Čtyři pilíře metody při OCD: sebepřijetí, sebevíra, expozice bez kompulze a život teď. Zjistěte, jak funguje, a zkuste kvíz Metal, nebo Pop.",
+  title: "Metoda: sebepřijetí a práce s nutkáním | ocdmentor.cz",
+  desc: "Čtyři pilíře metody při OCD: sebepřijetí, porozumění sobě, sebedůvěra bez záruk a práce s nutkáním. Zjistěte, jak funguje, a zkuste kvíz Metal, nebo Pop.",
   gloss: true,
   related: ['/pro-koho', '/jak-to-probiha', '/kviz', '/pomoc'],
   ogTitle: 'Metoda: čtyři pilíře a dvě cesty',
@@ -771,7 +771,7 @@ add('/metoda', {
   body: `
 <section class="wrap page-head">
   <h1>Metoda</h1>
-  <p class="lead">Čtyři pilíře, dvě cesty a několik pravidel. Metoda není terapie. Je to způsob, jak se strachu postavit s oporou někoho, kdo to zná.</p>
+  <p class="lead">Čtyři pilíře, dvě cesty a několik pravidel. Metoda není terapie. Je to doprovázení někoho, kdo OCD zná z vlastní zkušenosti. Odbornou péči nenahrazuje, ale může ji doplnit.</p>
 </section>
 
 <section class="wrap block">
@@ -787,10 +787,10 @@ add('/metoda', {
       </svg>
     </div>
   <ol class="pillars">
-    <li><h3>Bezpodmínečné sebepřijetí</h3><p>Přijímám sebe celého: včetně OCD, myšlenek, úzkosti i nejistoty. Nemusím je mít rád. Přestávám s nimi bojovat jako s nepřítelem.</p></li>
-    <li><h3>Sebevíra</h3><p>„Ať se stane cokoli, obstojím.“ Sebevíra se nebuduje afirmacemi. Buduje se zvládnutými situacemi: každá expozice, ve které zůstanete, je důkaz.</p></li>
-    <li><h3>Expozice bez kompulze</h3><p>Strach může být přítomen a já přesto jednám. Kompulzi, tedy reakci, která má strach rychle zmírnit, neprovedu.</p></li>
-    <li><h3>Život teď</h3><p>Cílová vize popisuje život, který chcete žít. Nepopisuje „život bez nemoci“. Žít začínáte už teď, ne až po úlevě.</p></li>
+    <li><h3>Bezpodmínečné sebepřijetí</h3><p>Přijímám sebe celého: včetně OCD, myšlenek, úzkosti i nejistoty. Nemusím je mít rád. Nemusím si přijetí zasloužit tím, že se OCD zbavím. K sobě se můžu chovat laskavěji už teď.</p></li>
+    <li><h3>Porozumění sobě</h3><p>Ptám se, proč mě právě toto téma tolik zasahuje a co pro mě znamená. Souvislosti s minulostí mohou být užitečné, nejsou ale povinnou odpovědí pro každého. Nejde o rozebírání každé myšlenky, protože i to se může stát duševní kompulzí.</p></li>
+    <li><h3>Sebedůvěra bez záruky</h3><p>Nikdo nemá záruku, že zvládne každou situaci. Realističtější než „zvládnu všechno“ je: „Nevím přesně, co se stane. Když přijde obtíž, budu hledat způsob, jak ji řešit, a mohu požádat o pomoc.“</p></li>
+    <li><h3>Reagovat jinak na nutkání</h3><p>Strach může být přítomen a já přesto jednám. Kompulzi, tedy reakci, která má strach rychle zmírnit, neprovedu. Změnu reakcí je vhodné plánovat s odborníkem, aby se z cvičení nestal nový rituál. A na život nemusím čekat, až úzkost zmizí.</p></li>
   </ol>
   </div>
 </section>
@@ -798,7 +798,7 @@ add('/metoda', {
 <section class="wrap block">
   <h2>Smyčka a kompulze</h2>
   ${loopChips}
-  <p>Kompulze je akt nepřijetí: říká, že tento pocit nebo tuto nejistotu snést nemohu. Kompulze funguje podobným mechanismem posilování úlevou: úleva ji pokaždé posílí. Odpovědí na kompulzi není trest ani sebekritika. Odpovědí je návrat k sebepřijetí a další pokus.</p>
+  <p>Kompulze často říká, že tento pocit nebo tuto nejistotu snést nemohu. Úleva z ní je krátkodobá a pokaždé kompulzi posílí. Kompulzí může být i duševní činnost: přehrávání situace, porovnávání, počítání, hledání správného pocitu nebo opakované ujišťování sebe sama. Odpovědí na kompulzi není trest ani sebekritika. Odpovědí je návrat k sebepřijetí a další pokus.</p>
 </section>
 
 <section class="wrap block">
@@ -806,14 +806,14 @@ add('/metoda', {
   <div class="cards">
     <article class="card">
       <h3>Metal cesta</h3>
-      <p>Rovnou <abbr title="expozice s prevencí reakce">ERP</abbr>. ERP znamená postavit se tomu, čeho se bojíte, a nevykonat kompulzi. Pro lidi, kteří chtějí jít do strachu hned.</p>
+      <p>Rovnou <abbr title="expozice s prevencí reakce">ERP</abbr>. ERP znamená postavit se tomu, čeho se bojíte, a nevykonat kompulzi. Pro lidi, kteří jsou na takový start připraveni.</p>
     </article>
     <article class="card">
       <h3>Pop cesta</h3>
       <p>Stabilizace, pak <abbr title="inferenční kognitivně-behaviorální přístup">I-CBT</abbr> (inferenční KBT, přístup zaměřený na úvahy, ze kterých se obava skládá) a nakonec postupná expozice. Pro lidi, kterým intenzivní start nesedí.</p>
     </article>
   </div>
-  <p><strong>ERP i I-CBT jsou odborné metody.</strong> Jako peer mentor vás při nich doprovázím a podporuji. Nevedu je jako terapeut.</p>
+  <p><strong>ERP i I-CBT jsou odborné metody.</strong> ERP má silnou odbornou podporu, existují ale i jiné přístupy. Volba postupu patří do spolupráce s kvalifikovaným odborníkem. Jako peer mentor vás doprovázím a podporuji. Nevedu je jako terapeut.</p>
   <p>Cestu nevybíráme podle toho, která je příjemnější. Rozhoduje <strong>víra v obavy</strong>, <strong>aktuální fungování</strong> a <strong>dřívější zkušenost s ERP</strong>. Cesty lze kombinovat. Orientaci najdete na stránce <a href="/pro-koho">Pro koho</a>.</p>
 </section>
 
@@ -828,8 +828,14 @@ add('/metoda', {
     <li>Expozice se neukončuje ujištěním.</li>
     <li>Hudba a podobné nástroje regulují úzkost mezi expozicemi, ne během nich.</li>
     <li>Cílová vize se nepoužívá jako odpověď na strach.</li>
+    <li>Cvičení nemá vytvářet další rituál. Pokud se k němu vracíte kvůli jistotě, udělejte krok zpět.</li>
   </ul>
   <p>Principy najdete i jako karty v <a href="/aplikace/principy">aplikaci</a>.</p>
+</section>
+
+<section class="wrap block">
+  <h2>Rovnováha místo extrémů</h2>
+  <p>Nemusíte hrát vítěze, který už všechno překonal, ani zůstávat v roli člověka, který se všeho bojí. Když se daří, můžete to přijmout s vděčností a bez přehnané euforie. Když přijde náročnější období, nemusíte panikařit ani se obviňovat. Neznamená to, že jste ztratili, co jste se naučili. Hodnota člověka nezávisí na tom, jak se dnes cítí.</p>
 </section>
 
 <section class="wrap block callout">
@@ -870,7 +876,7 @@ add('/pro-koho', {
     <article class="card">
       <h3>Metal cesta</h3>
       <ul>
-        <li>Chcete jít do strachu hned.</li>
+        <li>Cítíte se na aktivní práci s nutkáním připraveni.</li>
         <li>Dokážete být ve strachu a nechat ho být.</li>
         <li>Máte dobrou zkušenost s expozicí nebo ji chcete zkusit.</li>
         <li>Na obavy jako na příběh se už umíte dívat zpovzdálí.</li>
@@ -886,7 +892,8 @@ add('/pro-koho', {
       </ul>
     </article>
   </div>
-  <p>Cesty lze kombinovat. Nerozhoduje, co je příjemnější, ale co vám v dané fázi opravdu sedí.</p>
+  <p>Cesty lze kombinovat. Nerozhoduje, co je příjemnější, ale co vám v dané fázi opravdu sedí. Vaše cesta nemusí vypadat jako moje: někdo najde největší úlevu v porozumění sobě, jiný potřebuje hlavně pracovat s reakcemi na obsese.</p>
+  <p>Peer mentoring jde dobře skloubit s odbornou péčí. Odborná pomoc a vlastní aktivita se nevylučují. Léky nikdy neměňte ani nevysazujte bez domluvy s lékařem, který vám je předepsal.</p>
 </section>
 
 <section class="wrap block callout">
@@ -903,7 +910,7 @@ add('/pro-koho', {
 
 <section class="wrap block">
   <h2 id="odborna-pece">Kam dál: odborná péče</h2>
-  <p>Peer podpora funguje jako doplněk k odborné péči. Pokud ji zatím nemáte, začněte u lékaře nebo psychoterapeuta.</p>
+  <p>Peer podpora funguje jako doplněk k odborné péči. Pokud ji zatím nemáte, začněte u lékaře nebo psychoterapeuta. Nečekejte, až vše vyřešíte sami, zvlášť když se příznaky zhoršují, kompulze zabírají hodně času nebo se vám nedaří fungovat v běžném životě. Hledejte odborníka se zkušeností s OCD.</p>
   <ul>
     <li><a href="https://www.nudz.cz" target="_blank" rel="noopener">Národní ústav duševního zdraví (NUDZ)</a> – odborné informace a mapa psychosociální podpory.</li>
     <li><a href="https://www.reformapsychiatrie.cz" target="_blank" rel="noopener">Reforma péče o duševní zdraví</a> – síť Center duševního zdraví (CDZ) v jednotlivých krajích, komunitní péče blíž bydlišti.</li>
@@ -1003,7 +1010,7 @@ add('/dotaznik', {
   <legend>5. Pilíře a výběr cesty</legend>
   <p class="hint">Odhad dnešního stavu. Slouží k tomu, abychom později viděli pokrok.</p>
   ${range('prijeti', 'Sebepřijetí', '– 0 = nepřijímám se vůbec, 10 = přijímám se celý/celá')}
-  ${range('sebevira', 'Sebevíra', '– 0 = nevěřím, že bych to zvládl/a, 10 = „ať se stane cokoli, obstojím“')}
+  ${range('sebevira', 'Sebedůvěra', '– 0 = nevěřím, že bych si s obtížemi poradil/a, 10 = věřím, že když přijde obtíž, najdu způsob, jak ji řešit')}
   ${range('vira', 'Víra v obavy', '– 0 = vím, že jde o OCD, 10 = jsem si jistý/á, že se obava splní')}
   <div class="field"><label for="erp">Dřívější zkušenost s ERP (expozice s prevencí reakce)</label>
     <select id="erp" name="erp" data-label="Zkušenost s ERP">
@@ -2666,7 +2673,7 @@ appPage('vice', 'Další nástroje', '', 'Rozcestník nástrojů aplikace.', 'vi
 appPage('kruh', 'Kruh OCD', '', 'Interaktivní kruh OCD a rozbor epizody.', 'kruh');
 appPage('icbt', 'Porozumění pochybnosti', 'Krátké lekce a cvičení pro pop cestu. Orientačně 4–8 týdnů, pak přechod k expozicím.', 'Modul I-CBT.', 'icbt');
 appPage('telo', 'Tělo ve strachu', '', 'Psychoedukace o těle a úzkosti.', 'telo');
-appPage('pilire', 'Pilíře', 'Týdenní hodnocení sebepřijetí a sebevíry.', 'Týdenní hodnocení pilířů.', 'pilire');
+appPage('pilire', 'Pilíře', 'Týdenní hodnocení sebepřijetí a sebedůvěry.', 'Týdenní hodnocení pilířů.', 'pilire');
 appPage('vize', 'Vize', '', 'Editor cílové vize.', 'vize');
 appPage('koreny', 'Kořeny', '', 'Osa životních milníků.', 'koreny');
 appPage('hudba', 'Hudba', '', 'Odkazy na playlisty před a po expozici.', 'hudba');

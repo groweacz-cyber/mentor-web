@@ -1,4 +1,4 @@
-// Týdenní hodnocení sebepřijetí a sebevíry 0–10 s grafem.
+// Týdenní hodnocení sebepřijetí a sebedůvěry 0–10 s grafem.
 import { data, save, weekKey, fmtDate } from './store.js';
 import { h, boot, gate, slider, lineChart, $ } from './ui.js';
 
@@ -10,7 +10,7 @@ function render(note) {
   const key = weekKey(Date.now());
   const cur = d.weeks.find((w) => w.key === key);
   const a = slider('wa', 'Sebepřijetí', '– 0 = nepřijímám se vůbec, 10 = přijímám se celý/celá', cur ? cur.accept : 5);
-  const b = slider('wb', 'Sebevíra', '– 0 = nevěřím, že to zvládnu, 10 = „ať se stane cokoli, obstojím“', cur ? cur.trust : 5);
+  const b = slider('wb', 'Sebedůvěra', '– 0 = nevěřím, že si s obtížemi poradím, 10 = věřím, že když přijde obtíž, najdu způsob, jak ji řešit', cur ? cur.trust : 5);
   const parts = [];
   if (note) parts.push(h('p', { class: 'banner banner-ok', role: 'status' }, note));
   parts.push(h('div', { class: 'card app-card' }, h('h2', {}, 'Tento týden'),
@@ -25,7 +25,7 @@ function render(note) {
   if (d.weeks.length > 1) {
     const ws = d.weeks.slice(-16);
     parts.push(h('h2', {}, 'Vývoj'));
-    parts.push(lineChart([{ name: 'Sebepřijetí', cls: 's-acc', values: ws.map((w) => w.accept) }, { name: 'Sebevíra', cls: 's-trust', values: ws.map((w) => w.trust) }], ws.map((w) => fmtDate(w.at)), 'Týdenní vývoj sebepřijetí a sebevíry'));
+    parts.push(lineChart([{ name: 'Sebepřijetí', cls: 's-acc', values: ws.map((w) => w.accept) }, { name: 'Sebedůvěra', cls: 's-trust', values: ws.map((w) => w.trust) }], ws.map((w) => fmtDate(w.at)), 'Týdenní vývoj sebepřijetí a sebedůvěry'));
   }
   root.replaceChildren(...parts);
 }

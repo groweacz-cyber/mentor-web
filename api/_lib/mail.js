@@ -1,4 +1,4 @@
-// E-maily přes Brevo (transakční API, bez knihoven). Slovo „OCD“ se v e-mailu účastníka nesmí objevit.
+// E-maily přes SMTP (výchozí Gmail, knihovna nodemailer). Slovo „OCD“ se v e-mailu účastníka nesmí objevit.
 import { dlouhyCz, formatCz } from './seminare.js';
 import { POVAHA_SEMINARE_EMAIL, formatCastka } from './texty.js';
 import { ibanPoSkupinach } from './platba.js';
@@ -73,26 +73,42 @@ export function emailMajitel({ rez, osoba, konf, objednano }) {
   return { subject, text, html };
 }
 
-// Odeslání jedné zprávy přes Brevo. Při chybě vyhodí Error s kódem (bez osobních údajů a bez těla odpovědi).
-export async function odesliEmail({ klic, url, od, odJmeno, komu, komuJmeno, replyTo, zprava, fetchImpl = fetch }) {
-  const telo = {
-    sender: { name: odJmeno, email: od },
-    to: [komuJmeno ? { email: komu, name: komuJmeno } : { email: komu }],
-    replyTo: { email: replyTo },
-    subject: zprava.subject,
-    htmlContent: zprava.html,
-    textContent: zprava.text,
-  };
-  let res;
-  try {
-    res = await fetchImpl(url, {
-      method: 'POST',
-      headers: { 'api-key': klic, 'content-type': 'application/json', accept: 'application/json' },
-      body: JSON.stringify(telo),
-      signal: AbortSignal.timeout(9000),
-    });
-  } catch (e) {
-    throw Object.assign(new Error('brevo-sit'), { kod: e && e.name === 'TimeoutError' ? 'brevo-timeout' : 'brevo-sit' });
+// Vrací funkci pro odeslání jedné zprávy. Při chybě vyhodí Error s kódem (bez osobních údajů).
+// Když je nastavena složka MAIL_OUTBOX_DIR (jen vývoj), zprávy se uloží jako soubory a nikam se neodesílají.
+export async function vytvorOdesilac(konf) {
+  if (konf.outboxDir) {
+    const { mkdirSync, writeFileSync } = await import('node:fs');
+    const { join } = await import('node:path');
+    let n = 0;
+    return async (z) => {
+      mkdirSync(konf.outboxDir, { recursive: true });
+      const soubor = join(konf.outboxDir, `${new Date().toISOString().replace(/[:.]/g, '-')}-${++n}.json`);
+      writeFileSync(soubor, JSON.stringify({ komu: z.komu, odJmeno: z.odJmeno, od: z.od, replyTo: z.replyTo, subject: z.zprava.subject, text: z.zprava.text, html: z.zprava.html }, null, 2));
+      console.log(`[vývojová schránka] „${z.zprava.subject}“ pro ${z.komu} -> ${soubor}`);
+    };
   }
-  if (!res.ok) throw Object.assign(new Error(`brevo-http-${res.status}`), { kod: `brevo-http-${res.status}` });
+  const { default: nodemailer } = await import('nodemailer');
+  const transport = nodemailer.createTransport({
+    host: konf.smtp.host,
+    port: konf.smtp.port,
+    secure: konf.smtp.port === 465,
+    auth: { user: konf.smtp.user, pass: konf.smtp.pass },
+    connectionTimeout: 8000,
+    greetingTimeout: 8000,
+    socketTimeout: 10000,
+  });
+  return async (z) => {
+    try {
+      await transport.sendMail({
+        from: { name: z.odJmeno, address: z.od },
+        to: z.komuJmeno ? { name: z.komuJmeno, address: z.komu } : z.komu,
+        replyTo: z.replyTo,
+        subject: z.zprava.subject,
+        text: z.zprava.text,
+        html: z.zprava.html,
+      });
+    } catch (e) {
+      throw Object.assign(new Error('smtp'), { kod: `smtp-${e && (e.code || e.responseCode) || 'chyba'}` });
+    }
+  };
 }

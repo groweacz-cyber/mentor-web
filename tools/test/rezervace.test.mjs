@@ -12,7 +12,7 @@ const ENV = {
   SELLER_ICO: '12345678',
   NOTIFY_EMAIL: 'majitel@example.test',
   MAIL_FROM: 'info@example.test',
-  BREVO_API_KEY: 'testovaci-klic',
+  SMTP_PASSWORD: 'testovaci-heslo',
   ALLOWED_ORIGINS: 'https://ocdmentor.cz',
 };
 const TED = new Date('2026-11-05T10:15:00Z'); // běh 1 je otevřený, běh 2 také
@@ -31,10 +31,10 @@ const dobraZadost = (nahrada = {}) => ({
   ...nahrada,
 });
 
-function zavolej(zadost, { ted = TED, env = ENV, fetchImpl, hlavicky = {}, metoda = 'POST' } = {}) {
+function zavolej(zadost, { ted = TED, env = ENV, odesilac, hlavicky = {}, metoda = 'POST' } = {}) {
   const odeslane = [];
-  const fetchFalesny = fetchImpl || (async (url, init) => { odeslane.push({ url, init, telo: JSON.parse(init.body) }); return { ok: true, status: 201 }; });
-  const handler = vytvorHandler({ env: () => env, fetchImpl: fetchFalesny, ted: () => ted });
+  const odesilacFalesny = odesilac || (() => async (z) => { odeslane.push(z); });
+  const handler = vytvorHandler({ env: () => env, odesilac: odesilacFalesny, ted: () => ted });
   const req = { method: metoda, headers: { 'content-type': 'application/json', origin: 'https://ocdmentor.cz', 'x-forwarded-for': '203.0.113.7', ...hlavicky }, body: zadost, socket: {} };
   let stav; let telo; const h = {};
   const res = { statusCode: 200, setHeader: (k, v) => { h[k.toLowerCase()] = v; }, end: (t) => { stav = res.statusCode; telo = JSON.parse(t); } };
@@ -62,18 +62,17 @@ test('správná rezervace: 200, platební údaje ze serveru, dva e-maily', async
 test('e-mail účastníkovi: obsah podle zadání a bez slova OCD', async () => {
   const r = await zavolej(dobraZadost());
   const m = r.odeslane[0];
-  assert.equal(m.url, 'https://api.brevo.com/v3/smtp/email');
-  assert.equal(m.init.headers['api-key'], 'testovaci-klic');
-  assert.equal(m.telo.sender.email, 'info@example.test');
-  assert.equal(m.telo.replyTo.email, 'majitel@example.test');
-  assert.deepEqual(m.telo.to, [{ email: 'jana@example.test', name: 'Jana Nováková' }]);
-  assert.equal(m.telo.subject, 'Rezervace semináře – platební údaje');
-  const text = m.telo.textContent;
+  assert.equal(m.od, 'info@example.test');
+  assert.equal(m.replyTo, 'majitel@example.test');
+  assert.equal(m.komu, 'jana@example.test');
+  assert.equal(m.komuJmeno, 'Jana Nováková');
+  assert.equal(m.zprava.subject, 'Rezervace semináře – platební údaje');
+  const text = m.zprava.text;
   for (const co of ['3 590 Kč', '19-2000145399/0800', 'čtvrtek 3. 12. 2026 v 18:00', 'čtvrtek 14. 1. 2027 v 18:00', 'do 8. 11. 2026', 'https://ocdmentor.cz/obchodni-podminky', POVAHA_SEMINARE_EMAIL]) {
     assert.ok(text.includes(co), `e-mail obsahuje „${co}“`);
   }
   assert.ok(text.includes(r.telo.vs));
-  for (const celek of [m.telo.subject, m.telo.textContent, m.telo.htmlContent]) {
+  for (const celek of [m.zprava.subject, m.zprava.text, m.zprava.html]) {
     assert.ok(!/\bOCD\b/i.test(celek), 'v e-mailu účastníka není slovo OCD');
   }
   assert.ok(POVAHA_SEMINARE_EMAIL.startsWith('Seminář vychází z mé osobní životní zkušenosti a cesty. Nejde o odbornou ani lékařskou radu'));
@@ -82,10 +81,10 @@ test('e-mail účastníkovi: obsah podle zadání a bez slova OCD', async () => 
 test('e-mail majiteli: jméno, e-mail, běh, termíny, VS, částka, čas objednávky', async () => {
   const r = await zavolej(dobraZadost());
   const m = r.odeslane[1];
-  assert.deepEqual(m.telo.to, [{ email: 'majitel@example.test' }]);
-  assert.equal(m.telo.subject, `Nová rezervace semináře (VS ${r.telo.vs})`);
-  assert.equal(m.telo.replyTo.email, 'jana@example.test');
-  for (const co of ['Jana', 'Nováková', 'jana@example.test', 'Běh 1', r.telo.vs, '3 590 Kč', '5. 11. 2026']) assert.ok(m.telo.textContent.includes(co), co);
+  assert.equal(m.komu, 'majitel@example.test');
+  assert.equal(m.zprava.subject, `Nová rezervace semináře (VS ${r.telo.vs})`);
+  assert.equal(m.replyTo, 'jana@example.test');
+  for (const co of ['Jana', 'Nováková', 'jana@example.test', 'Běh 1', r.telo.vs, '3 590 Kč', '5. 11. 2026']) assert.ok(m.zprava.text.includes(co), co);
 });
 
 test('neplatný vstup: 400 s kódy polí', async () => {
@@ -159,7 +158,7 @@ test('špatná metoda, původ, typ obsahu a chybějící konfigurace', async () 
   assert.equal((await zavolej(dobraZadost(), { metoda: 'GET' })).stav, 405);
   assert.equal((await zavolej(dobraZadost(), { hlavicky: { origin: 'https://zlo.example' } })).stav, 403);
   assert.equal((await zavolej(dobraZadost(), { hlavicky: { 'content-type': 'text/plain' } })).stav, 415);
-  const bezKlice = { ...ENV, BREVO_API_KEY: '' };
+  const bezKlice = { ...ENV, SMTP_PASSWORD: '' };
   const r = await zavolej(dobraZadost(), { env: bezKlice });
   assert.equal(r.stav, 500);
   assert.equal(r.telo.kod, 'konfigurace');
@@ -167,15 +166,15 @@ test('špatná metoda, původ, typ obsahu a chybějící konfigurace', async () 
   assert.equal((await zavolej(dobraZadost(), { env: spatnyUcet })).stav, 500);
 });
 
-test('selhání Brevo: účastníkovi chyba 502, selhání upozornění majiteli rezervaci nezruší', async () => {
-  const spatny = async () => ({ ok: false, status: 401 });
-  const a = await zavolej(dobraZadost(), { fetchImpl: spatny });
+test('selhání SMTP: účastníkovi chyba 502, selhání upozornění majiteli rezervaci nezruší', async () => {
+  const spatny = () => async () => { throw Object.assign(new Error('smtp'), { kod: 'smtp-EAUTH' }); };
+  const a = await zavolej(dobraZadost(), { odesilac: spatny });
   assert.equal(a.stav, 502);
   assert.equal(a.telo.kod, 'email-selhal');
   vynulujLimity();
   let n = 0;
-  const druhySelze = async () => (++n === 1 ? { ok: true, status: 201 } : { ok: false, status: 500 });
-  const b = await zavolej(dobraZadost(), { fetchImpl: druhySelze });
+  const druhySelze = () => async () => { if (++n > 1) throw Object.assign(new Error('smtp'), { kod: 'smtp-ECONNECTION' }); };
+  const b = await zavolej(dobraZadost(), { odesilac: druhySelze });
   assert.equal(b.stav, 200);
 });
 
@@ -188,7 +187,7 @@ test('do logů nejdou osobní údaje', async () => {
   try {
     await zavolej(dobraZadost());
     vynulujLimity();
-    await zavolej(dobraZadost(), { fetchImpl: async () => ({ ok: false, status: 500 }) });
+    await zavolej(dobraZadost(), { odesilac: () => async () => { throw Object.assign(new Error('smtp'), { kod: 'smtp-ETIMEDOUT' }); } });
   } finally {
     console.log = puvodniLog;
     console.error = puvodniErr;

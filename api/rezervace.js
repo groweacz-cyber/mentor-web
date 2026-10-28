@@ -5,7 +5,7 @@ import { spdRetezec, variabilniSymbol } from './_lib/platba.js';
 import { ZPRAVA_PRO_PRIJEMCE } from './_lib/texty.js';
 import { validujRezervaci } from './_lib/validace.js';
 import { limitPrekrocen, otisk } from './_lib/limit.js';
-import { emailMajitel, emailUcastnik, odesliEmail } from './_lib/mail.js';
+import { emailMajitel, emailUcastnik, vytvorOdesilac } from './_lib/mail.js';
 import { nactiKonfiguraci } from './_lib/konfigurace.js';
 
 const MAX_TELO = 4096;
@@ -33,7 +33,7 @@ const ipZPozadavku = (req) =>
     .trim();
 
 // Továrna kvůli testům: prostředí, odesílání a „teď“ lze nahradit. Vercel volá výchozí export s (req, res).
-export function vytvorHandler({ env = () => process.env, fetchImpl = (...a) => fetch(...a), ted = () => new Date() } = {}) {
+export function vytvorHandler({ env = () => process.env, odesilac = vytvorOdesilac, ted = () => new Date() } = {}) {
   return async function handler(req, res) {
     const ted0 = ted();
     let konf;
@@ -91,17 +91,18 @@ export function vytvorHandler({ env = () => process.env, fetchImpl = (...a) => f
       splatnost: splatnost(data, ted0),
     };
     const spd = spdRetezec({ iban: rez.iban, castka: rez.castka, vs, prijemce: konf.majitel, zprava: ZPRAVA_PRO_PRIJEMCE });
-    const spolecne = { klic: konf.brevoKlic, url: konf.brevoUrl, od: konf.mailFrom, odJmeno: konf.majitel, fetchImpl };
+    const odesli = await odesilac(konf);
+    const spolecne = { od: konf.mailFrom, odJmeno: konf.majitel };
 
     try {
-      await odesliEmail({ ...spolecne, komu: v.hodnoty.email, komuJmeno: `${v.hodnoty.jmeno} ${v.hodnoty.prijmeni}`, replyTo: konf.notifyEmail, zprava: emailUcastnik({ rez, konf, odkazPodminky: `${konf.web}/obchodni-podminky` }) });
+      await odesli({ ...spolecne, komu: v.hodnoty.email, komuJmeno: `${v.hodnoty.jmeno} ${v.hodnoty.prijmeni}`, replyTo: konf.notifyEmail, zprava: emailUcastnik({ rez, konf, odkazPodminky: `${konf.web}/obchodni-podminky` }) });
     } catch (e) {
       console.error('rezervace: e-mail účastníkovi se nepodařilo odeslat', { vs, kod: e.kod });
       return odpovez(res, 502, { ok: false, kod: 'email-selhal' });
     }
     try {
       const objednano = new Intl.DateTimeFormat('cs-CZ', { timeZone: 'Europe/Prague', dateStyle: 'medium', timeStyle: 'short' }).format(ted0);
-      await odesliEmail({ ...spolecne, komu: konf.notifyEmail, replyTo: v.hodnoty.email, zprava: emailMajitel({ rez, osoba: v.hodnoty, konf, objednano }) });
+      await odesli({ ...spolecne, komu: konf.notifyEmail, replyTo: v.hodnoty.email, zprava: emailMajitel({ rez, osoba: v.hodnoty, konf, objednano }) });
     } catch (e) {
       // Účastník má platební údaje, rezervace platí. Majitel se o ní dozví z banky nebo z logu (VS).
       console.error('rezervace: upozornění majiteli se nepodařilo odeslat', { vs, kod: e.kod });

@@ -114,7 +114,7 @@ test('patička každé stránky má upozornění, odkazy na právní stránky a 
   }
 });
 
-test('obchodní podmínky obsahují část B přesně podle zadání, zásady ochrany údajů uvádějí Brevo, Vercel a Google', () => {
+test('obchodní podmínky obsahují část B přesně podle zadání, zásady ochrany údajů uvádějí Vercel a Google', () => {
   const t = text(main(nacti('obchodni-podminky/index.html')));
   assert.ok(t.includes('platná od 1. 11. 2026'));
   assert.ok(t.includes(POVAHA_SEMINARE));
@@ -126,7 +126,7 @@ test('obchodní podmínky obsahují část B přesně podle zadání, zásady oc
     'Vztahy se řídí právem České republiky.',
   ]) assert.ok(t.includes(veta), veta);
   const p = text(main(nacti('ochrana-osobnich-udaju/index.html')));
-  for (const k of ['Brevo (Francie)', 'Vercel', 'Google', 'čl. 9 odst. 2 písm. a', 'čl. 6 odst. 1 písm. c', '1 rok po skončení programu', '30 dnů po skončení programu', 'Úřadu pro ochranu osobních údajů']) assert.ok(p.includes(k), k);
+  for (const k of ['Vercel', 'Google', 'čl. 9 odst. 2 písm. a', 'čl. 6 odst. 1 písm. c', '1 rok po skončení programu', '30 dnů po skončení programu', 'Úřadu pro ochranu osobních údajů']) assert.ok(p.includes(k), k);
 });
 
 test('CSP ve vercel.json povoluje hash inline skriptu každé stránky a nic jiného inline', () => {
@@ -151,15 +151,17 @@ test('v repozitáři nejsou tajné ani osobní hodnoty (číslo účtu, klíče)
   const vzorUctu = /\b\d{6,10}\/\d{4}\b/;
   // a hodnota z lokálního .env.local, pokud existuje
   let lokalni = '';
+  let heslo = '';
+  try { heslo = (readFileSync(join(ROOT, '.env.local'), 'utf8').match(/^SMTP_PASSWORD=(.+)$/m) || [])[1] || ''; } catch { heslo = ''; }
   try { lokalni = (readFileSync(join(ROOT, '.env.local'), 'utf8').match(/^BANK_ACCOUNT=(.+)$/m) || [])[1] || ''; } catch { lokalni = ''; }
   for (const s of soubory) {
     const t = nacti(s);
     assert.ok(!vzorUctu.test(t), `${s}: číslo účtu`);
-    assert.ok(!/xkeysib-/.test(t), `${s}: klíč Brevo`);
     if (lokalni.trim()) assert.ok(!t.includes(lokalni.trim()), `${s}: hodnota z .env.local`);
+    if (heslo.trim().length > 7) assert.ok(!t.includes(heslo.trim()), `${s}: heslo z .env.local`);
   }
   const ex = nacti('.env.example');
-  for (const k of ['BANK_ACCOUNT', 'BANK_ACCOUNT_HOLDER', 'SELLER_ICO', 'NOTIFY_EMAIL', 'MAIL_FROM', 'BREVO_API_KEY']) assert.match(ex, new RegExp(`^${k}=$`, 'm'), `${k} bez hodnoty`);
+  for (const k of ['BANK_ACCOUNT', 'BANK_ACCOUNT_HOLDER', 'SELLER_ICO', 'NOTIFY_EMAIL', 'MAIL_FROM', 'SMTP_PASSWORD']) assert.match(ex, new RegExp(`^${k}=$`, 'm'), `${k} bez hodnoty`);
 });
 
 test('stavy běhů se vykreslí správně: Obsazeno, Uzavřeno, Připravujeme, bez tlačítka a s neaktivním výběrem', () => {

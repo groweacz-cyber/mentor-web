@@ -1,7 +1,7 @@
-// Vývojový server: statické soubory + /api/rezervace + atrapa Brevo (e-maily se jen ukládají do tools/.outbox).
+// Vývojový server: statické soubory + /api/rezervace (e-maily se jen ukládají do tools/.outbox).
 // Hlavičky z vercel.json (včetně CSP) se přidávají stejně jako na Vercelu, takže se dá ověřit, že nic nerozbíjejí.
 // Spuštění: npm run dev          (výchozí port 8920)
-//           npm run dev -- --port 3000 --real-mail    (--real-mail = e-maily opravdu odeslat přes Brevo, potřeba BREVO_API_KEY)
+//           npm run dev -- --port 3000 --real-mail    (--real-mail = e-maily opravdu odeslat přes SMTP, potřeba SMTP_PASSWORD)
 import http from 'node:http';
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, extname, join, resolve, sep } from 'node:path';
@@ -17,8 +17,7 @@ const OUTBOX = join(ROOT, 'tools', '.outbox');
 
 if (nactiEnvLocal()) console.log('Načteno .env.local');
 if (!REAL_MAIL) {
-  process.env.BREVO_API_KEY ||= 'dev-klic';
-  process.env.BREVO_API_URL = `http://localhost:${PORT}/__mock/brevo`;
+  process.env.MAIL_OUTBOX_DIR = OUTBOX;
 }
 process.env.ALLOWED_ORIGINS = `http://localhost:${PORT},http://127.0.0.1:${PORT}`;
 process.env.SITE_URL = `http://localhost:${PORT}`;
@@ -48,22 +47,10 @@ const cteni = (req, limit = 100000) =>
     req.on('error', chyba);
   });
 
-let pocitadlo = 0;
-async function atrapaBrevo(req, res) {
-  const telo = JSON.parse(await cteni(req));
-  mkdirSync(OUTBOX, { recursive: true });
-  const soubor = join(OUTBOX, `${new Date().toISOString().replace(/[:.]/g, '-')}-${++pocitadlo}.json`);
-  writeFileSync(soubor, JSON.stringify(telo, null, 2));
-  console.log(`[atrapa Brevo] „${telo.subject}“ pro ${telo.to.map((t) => t.email).join(', ')} -> ${soubor.replace(ROOT + sep, '')}`);
-  res.writeHead(201, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify({ messageId: `<dev-${pocitadlo}@localhost>` }));
-}
-
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://localhost:${PORT}`);
   for (const [k, v] of globalniHlavicky()) res.setHeader(k, v);
   try {
-    if (url.pathname === '/__mock/brevo' && req.method === 'POST' && !REAL_MAIL) return await atrapaBrevo(req, res);
     if (url.pathname === '/__stop' && req.method === 'POST') { res.end('bye'); setTimeout(() => process.exit(0), 100); return; }
     if (url.pathname === '/api/rezervace') {
       const { default: handler } = await import(`${pathToFileURL(join(ROOT, 'api', 'rezervace.js')).href}?t=${Date.now()}`);
@@ -90,7 +77,7 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, () => {
   console.log(`Vývojový server běží na http://localhost:${PORT}`);
-  console.log(REAL_MAIL ? 'E-maily se ODESÍLAJÍ přes Brevo.' : 'E-maily se neodesílají, ukládají se do tools/.outbox (atrapa Brevo).');
+  console.log(REAL_MAIL ? 'E-maily se ODESÍLAJÍ přes SMTP.' : 'E-maily se neodesílají, ukládají se do tools/.outbox.');
   // IBAN k porovnání s internetovým bankovnictvím (QR kód na potvrzovací stránce obsahuje právě tento IBAN)
   if (process.env.BANK_ACCOUNT) {
     try {

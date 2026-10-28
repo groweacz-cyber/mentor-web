@@ -49,7 +49,7 @@ Soubory ze složek `tools` a `seo` se na web nenasazují (`.vercelignore`).
 
 ## Online semináře: rezervace a platba QR kódem
 
-Stránky `/seminare`, `/seminare/rezervace` a `/seminare/rezervace/potvrzeni` jsou statické, rezervaci obsluhuje serverová funkce `api/rezervace.js` (Vercel, region `fra1`, EU). Funkce nic neukládá: ověří vstup, z dat webu vezme termíny a cenu, vygeneruje variabilní symbol a QR Platbu a přes SMTP (Gmail) pošle dva e-maily (účastníkovi platební údaje, majiteli upozornění).
+Stránky `/seminare`, `/seminare/rezervace` a `/seminare/rezervace/potvrzeni` jsou statické, rezervaci obsluhuje serverová funkce `api/rezervace.js` (Vercel, region `fra1`, EU). Funkce nic neukládá: ověří vstup, z dat webu vezme termíny a cenu, vygeneruje variabilní symbol a QR Platbu a přes Resend (nebo SMTP) pošle dva e-maily (účastníkovi platební údaje, majiteli upozornění).
 
 ```
 data/seminare.json        termíny, cena, stavy běhů (čte generátor i funkce)
@@ -70,13 +70,13 @@ tools/test/               testy (npm test)
 
 ### Proměnné prostředí
 
-Vzor je v `.env.example`. Lokálně do `.env.local` (je v `.gitignore`), na Vercelu Settings > Environment Variables (Production): `BANK_ACCOUNT`, `BANK_ACCOUNT_HOLDER`, `SELLER_ICO`, `NOTIFY_EMAIL`, `MAIL_FROM`, `SMTP_PASSWORD` (heslo aplikace Google účtu). Nepovinné: `SMTP_USER`, `SMTP_HOST`, `SMTP_PORT`, `ALLOWED_ORIGINS`, `SITE_URL`. Po změně proměnných je potřeba nové nasazení.
+Vzor je v `.env.example`. Lokálně do `.env.local` (je v `.gitignore`), na Vercelu Settings > Environment Variables (Production): `BANK_ACCOUNT`, `BANK_ACCOUNT_HOLDER`, `SELLER_ICO`, `NOTIFY_EMAIL`, `MAIL_FROM`, `RESEND_API_KEY` (nebo místo něj `SMTP_PASSWORD`). Nepovinné: `SEND_TO_PARTICIPANT` (`ne` = e-mail účastníkovi se neposílá, nutné bez ověřené domény v Resend), `SMTP_USER`, `SMTP_HOST`, `SMTP_PORT`, `ALLOWED_ORIGINS`, `SITE_URL`. Po změně proměnných je potřeba nové nasazení.
 
 ### Lokální vývoj a testy
 
 ```bash
 npm run dev          # http://localhost:8920, e-maily se ukládají do tools/.outbox (bez odesílání)
-npm run dev -- --real-mail   # e-maily se opravdu odešlou (potřeba SMTP_PASSWORD)
+npm run dev -- --real-mail   # e-maily se opravdu odešlou (potřeba RESEND_API_KEY)
 npm run iban         # vypíše IBAN z BANK_ACCOUNT k porovnání s bankovnictvím
 npm test             # jednotkové testy a kontrola vygenerovaných stránek (nejdřív npm run gen)
 ```

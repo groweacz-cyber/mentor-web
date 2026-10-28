@@ -140,7 +140,7 @@ export function rezervaceBody({ data, behy, now = new Date() }) {
   return `
 <section class="wrap page-head">
   <h1>Rezervace místa</h1>
-  <p class="lead">Vyberte termín a vyplňte jméno a e-mail. Po odeslání se vám zobrazí QR kód s platebními údaji a stejné údaje dostanete e-mailem.</p>
+  <p class="lead">Vyberte termín a vyplňte jméno a e-mail. Po odeslání se vám zobrazí QR kód s platebními údaji.</p>
   <div class="callout-inline disclaimer sem-box" role="note">
     <p>${esc(POVAHA_SEMINARE)}</p>
   </div>
@@ -205,7 +205,7 @@ export function potvrzeniBody() {
   return `
 <section class="wrap page-head">
   <h1>Rezervace přijata</h1>
-  <p class="lead">Děkuji. Níže najdete QR kód a platební údaje. Stejné údaje vám přišly e-mailem.</p>
+  <p class="lead">Děkuji. Níže najdete QR kód a platební údaje.<span id="potvrzeni-email" hidden> Stejné údaje vám přišly e-mailem.</span></p>
 </section>
 
 <section class="wrap block" id="potvrzeni-data" hidden>
@@ -235,7 +235,7 @@ ${radekPlatby('splatnost', 'Splatnost', '')}
 </section>
 
 <section class="wrap block" id="potvrzeni-nic">
-  <p>Údaje o rezervaci se na této stránce zobrazují jen v okně, ve kterém jste ji právě odeslali. Platební údaje a termíny najdete také v e-mailu, který vám přišel. Pokud nedorazil, zkontrolujte nevyžádanou poštu nebo mi napište na <a href="mailto:ocdmentor@gmail.com">ocdmentor@gmail.com</a>.</p>
+  <p>Údaje o rezervaci se na této stránce zobrazují jen v okně, ve kterém jste ji právě odeslali. Pokud jste rezervaci právě odeslali a e-mail s platebními údaji vám nepřišel, zkontrolujte nevyžádanou poštu nebo mi napište na <a href="mailto:ocdmentor@gmail.com">ocdmentor@gmail.com</a>.</p>
   <p class="cta"><a class="btn btn-ghost" href="/seminare/rezervace">Zpět na rezervaci</a><a class="btn btn-ghost" href="/seminare">Zpět na přehled</a></p>
 </section>
 `;

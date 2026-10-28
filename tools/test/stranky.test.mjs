@@ -161,7 +161,7 @@ test('v repozitáři nejsou tajné ani osobní hodnoty (číslo účtu, klíče)
     if (heslo.trim().length > 7) assert.ok(!t.includes(heslo.trim()), `${s}: heslo z .env.local`);
   }
   const ex = nacti('.env.example');
-  for (const k of ['BANK_ACCOUNT', 'BANK_ACCOUNT_HOLDER', 'SELLER_ICO', 'NOTIFY_EMAIL', 'MAIL_FROM', 'SMTP_PASSWORD']) assert.match(ex, new RegExp(`^${k}=$`, 'm'), `${k} bez hodnoty`);
+  for (const k of ['BANK_ACCOUNT', 'BANK_ACCOUNT_HOLDER', 'SELLER_ICO', 'NOTIFY_EMAIL', 'MAIL_FROM', 'RESEND_API_KEY']) assert.match(ex, new RegExp(`^${k}=$`, 'm'), `${k} bez hodnoty`);
 });
 
 test('stavy běhů se vykreslí správně: Obsazeno, Uzavřeno, Připravujeme, bez tlačítka a s neaktivním výběrem', () => {

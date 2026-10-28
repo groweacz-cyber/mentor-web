@@ -21,9 +21,10 @@ export function nactiKonfiguraci(env = process.env) {
   for (const klic of ['NOTIFY_EMAIL', 'MAIL_FROM']) {
     if (!EMAIL.test(env[klic].trim())) throw chyba(klic, `${klic} není platný e-mail.`);
   }
-  // Odesílání: SMTP (výchozí Gmail). Heslo je „heslo aplikace“ Google účtu. Pro vývoj lze zapnout složku místo odesílání.
+  // Odesílání: Resend (RESEND_API_KEY) nebo SMTP (SMTP_PASSWORD). Pro vývoj lze zapnout složku místo odesílání.
   const outboxDir = (env.MAIL_OUTBOX_DIR || '').trim();
-  if (!outboxDir && !(env.SMTP_PASSWORD && String(env.SMTP_PASSWORD).trim())) throw chyba('SMTP_PASSWORD', 'Chybí proměnná prostředí SMTP_PASSWORD.');
+  const resendKlic = (env.RESEND_API_KEY || '').trim();
+  if (!outboxDir && !resendKlic && !(env.SMTP_PASSWORD && String(env.SMTP_PASSWORD).trim())) throw chyba('RESEND_API_KEY', 'Chybí proměnná prostředí RESEND_API_KEY (nebo SMTP_PASSWORD).');
   return {
     ucet: ucet.zobrazeni,
     iban,
@@ -38,6 +39,10 @@ export function nactiKonfiguraci(env = process.env) {
       pass: (env.SMTP_PASSWORD || '').replace(/\s+/g, ''),
     },
     outboxDir,
+    resendKlic,
+    resendUrl: (env.RESEND_API_URL || 'https://api.resend.com/emails').trim(),
+    // Bez ověřené domény smí Resend posílat jen majiteli účtu. Pak se e-mail účastníkovi vynechá (platební údaje vidí na stránce).
+    posilatUcastnikovi: String(env.SEND_TO_PARTICIPANT || 'ano').trim().toLowerCase() !== 'ne',
     povoleneOrigin: (env.ALLOWED_ORIGINS || 'https://ocdmentor.cz,https://www.ocdmentor.cz')
       .split(',')
       .map((s) => s.trim())

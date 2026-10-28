@@ -94,11 +94,13 @@ export function vytvorHandler({ env = () => process.env, odesilac = vytvorOdesil
     const odesli = await odesilac(konf);
     const spolecne = { od: konf.mailFrom, odJmeno: konf.majitel };
 
-    try {
-      await odesli({ ...spolecne, komu: v.hodnoty.email, komuJmeno: `${v.hodnoty.jmeno} ${v.hodnoty.prijmeni}`, replyTo: konf.notifyEmail, zprava: emailUcastnik({ rez, konf, odkazPodminky: `${konf.web}/obchodni-podminky` }) });
-    } catch (e) {
-      console.error('rezervace: e-mail účastníkovi se nepodařilo odeslat', { vs, kod: e.kod });
-      return odpovez(res, 502, { ok: false, kod: 'email-selhal' });
+    if (konf.posilatUcastnikovi) {
+      try {
+        await odesli({ ...spolecne, komu: v.hodnoty.email, komuJmeno: `${v.hodnoty.jmeno} ${v.hodnoty.prijmeni}`, replyTo: konf.notifyEmail, zprava: emailUcastnik({ rez, konf, odkazPodminky: `${konf.web}/obchodni-podminky` }) });
+      } catch (e) {
+        console.error('rezervace: e-mail účastníkovi se nepodařilo odeslat', { vs, kod: e.kod });
+        return odpovez(res, 502, { ok: false, kod: 'email-selhal' });
+      }
     }
     try {
       const objednano = new Intl.DateTimeFormat('cs-CZ', { timeZone: 'Europe/Prague', dateStyle: 'medium', timeStyle: 'short' }).format(ted0);
@@ -111,6 +113,7 @@ export function vytvorHandler({ env = () => process.env, odesilac = vytvorOdesil
     console.log('rezervace přijata', { vs });
     return odpovez(res, 200, {
       ok: true,
+      emailOdeslan: konf.posilatUcastnikovi,
       vs,
       castka: rez.castka,
       mena: 'CZK',

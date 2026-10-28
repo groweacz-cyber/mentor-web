@@ -87,6 +87,22 @@ export async function vytvorOdesilac(konf) {
       console.log(`[vývojová schránka] „${z.zprava.subject}“ pro ${z.komu} -> ${soubor}`);
     };
   }
+  if (konf.resendKlic) {
+    return async (z) => {
+      let res;
+      try {
+        res = await fetch(konf.resendUrl, {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${konf.resendKlic}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ from: `${z.odJmeno} <${z.od}>`, to: [z.komu], reply_to: z.replyTo, subject: z.zprava.subject, text: z.zprava.text, html: z.zprava.html }),
+          signal: AbortSignal.timeout(9000),
+        });
+      } catch (e) {
+        throw Object.assign(new Error('resend'), { kod: e && e.name === 'TimeoutError' ? 'resend-timeout' : 'resend-sit' });
+      }
+      if (!res.ok) throw Object.assign(new Error('resend'), { kod: `resend-${res.status}` });
+    };
+  }
   const { default: nodemailer } = await import('nodemailer');
   const transport = nodemailer.createTransport({
     host: konf.smtp.host,

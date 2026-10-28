@@ -138,6 +138,8 @@
     });
   }
 
+  var em = document.getElementById('potvrzeni-email');
+  if (em && d.emailOdeslan !== false) em.hidden = false;
   document.getElementById('potvrzeni-data').hidden = false;
   document.getElementById('potvrzeni-nic').hidden = true;
 }());

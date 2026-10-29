@@ -1224,6 +1224,7 @@ add('/jak-to-probiha', {
 <section class="wrap block">
   <h2>Tři kroky</h2>
   ${routeHtml('')}
+  <p><strong>Jak se spojíme:</strong> sezení probíhají jako videohovor 1:1 přes Google Meet nebo WhatsApp. Nemusíte se mi ozývat sami, po rezervaci se vám ozvu já a domluvíme spojení. Aplikace si můžete stáhnout předem, odkazy do obchodů a QR kódy najdete na stránce <a href="/seminare#spojeni">Online semináře</a>.</p>
   <p><a class="btn btn-ghost btn-sm" href="/dotaznik">Vyplnit vstupní dotazník</a></p>
 </section>
 

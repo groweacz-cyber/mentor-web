@@ -22,14 +22,14 @@ export function emailUcastnik({ rez, konf, odkazPodminky }) {
     '',
     'děkuji za rezervaci semináře. Místo je pro vás rezervované do splatnosti.',
     '',
-    `Termíny (online, videohovor přes Google Meet, ${rez.delkaMinut} minut):`,
+    `Termíny (online, videohovor přes Google Meet nebo WhatsApp, ${rez.delkaMinut} minut):`,
     ...terminy,
     '',
     'Platební údaje:',
     ...radky.map(([k, v]) => `${k}: ${v}`),
     '',
     'Cena je konečná, nejsem plátce DPH. Platí se bankovním převodem. Do zprávy pro příjemce nic nepište, variabilní symbol stačí.',
-    'Po připsání platby vám pošlu odkaz na videohovor.',
+    'Po připsání platby se vám ozvu já e-mailem a domluvíme videohovor. Nemusíte se mi ozývat sami.',
     '',
     `Obchodní podmínky: ${odkazPodminky}`,
     '',
@@ -42,12 +42,12 @@ export function emailUcastnik({ rez, konf, odkazPodminky }) {
   const html = `<!doctype html><html lang="cs"><body style="font-family:Arial,Helvetica,sans-serif;line-height:1.55;color:#1b2a41;max-width:38rem">
 <p>Dobrý den,</p>
 <p>děkuji za rezervaci semináře. Místo je pro vás rezervované do splatnosti.</p>
-<p><strong>Termíny</strong> (online, videohovor přes Google Meet, ${rez.delkaMinut} minut):</p>
+<p><strong>Termíny</strong> (online, videohovor přes Google Meet nebo WhatsApp, ${rez.delkaMinut} minut):</p>
 <ol>${terminy.map((t) => `<li>${esc(t.replace(/^\d+\.\s/, ''))}</li>`).join('')}</ol>
 <p><strong>Platební údaje</strong></p>
 <table style="border-collapse:collapse">${radky.map(([k, v]) => `<tr><td style="padding:2px 14px 2px 0">${esc(k)}</td><td style="padding:2px 0"><strong>${esc(v)}</strong></td></tr>`).join('')}</table>
 <p>Cena je konečná, nejsem plátce DPH. Platí se bankovním převodem. Do zprávy pro příjemce nic nepište, variabilní symbol stačí.</p>
-<p>Po připsání platby vám pošlu odkaz na videohovor.</p>
+<p>Po připsání platby se vám ozvu já e-mailem a domluvíme videohovor. Nemusíte se mi ozývat sami.</p>
 <p>Obchodní podmínky: <a href="${esc(odkazPodminky)}">${esc(odkazPodminky)}</a></p>
 <p style="font-style:italic;border-left:4px solid #f5923e;padding-left:12px">${esc(POVAHA_SEMINARE_EMAIL)}</p>
 <p>S pozdravem<br>${esc(konf.majitel)}<br>IČ ${esc(konf.ico)}</p>

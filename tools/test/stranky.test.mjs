@@ -52,7 +52,7 @@ test('/seminare: FAQ ve viditelném HTML a ve strukturovaných datech mají shod
   const faq = ld(h).find((n) => n['@type'] === 'FAQPage');
   assert.ok(faq, 'FAQPage v JSON-LD');
   const strukturovana = faq.mainEntity.map((e) => ({ q: e.name, a: e.acceptedAnswer.text }));
-  assert.equal(visible.length, 8);
+  assert.equal(visible.length, 10);
   assert.deepEqual(strukturovana, visible);
   assert.deepEqual(visible, FAQ.map((f) => ({ q: f.q, a: f.a })));
 });
@@ -88,7 +88,7 @@ test('potvrzovací stránka je noindex a bez osobních údajů v URL', () => {
   assert.match(h, /<meta name="robots" content="noindex, nofollow">/);
   assert.ok(!/canonical/.test(h));
   const t = text(main(h));
-  assert.ok(t.includes('Místo je pro vás rezervované do splatnosti. Po připsání platby vám pošlu odkaz na videohovor. Do zprávy pro příjemce nic nepište, variabilní symbol stačí.'));
+  assert.ok(t.includes('Místo je pro vás rezervované do splatnosti. Po připsání platby se vám ozvu já e-mailem a domluvíme videohovor (Google Meet nebo WhatsApp). Nemusíte se mi ozývat sami. Do zprávy pro příjemce nic nepište, variabilní symbol stačí.'));
   assert.ok(t.includes('Přidat do kalendáře (.ics)') && t.includes('Kopírovat'));
 });
 

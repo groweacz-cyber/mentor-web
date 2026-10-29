@@ -1,9 +1,47 @@
 // Texty a HTML stránek Online semináře: /seminare, /seminare/rezervace a /seminare/rezervace/potvrzeni.
 // Termíny, cena a stavy běhů se berou z data/seminare.json (přes api/_lib/seminare.js), nikdy se nepíšou ručně.
+import { readFileSync } from 'node:fs';
 import { dlouhyCz, formatCz, stavBehu } from '../../api/_lib/seminare.js';
 import { POVAHA_SEMINARE, formatCastka } from '../../api/_lib/texty.js';
 
 const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+// ---------- komunikace a aplikace ----------
+// QR kódy odkazů do oficiálních obchodů se generují při sestavení webu (stejnou knihovnou jako QR Platba), na stránce nejsou žádné cizí skripty ani obrázky.
+const qrBalik = { exports: {} };
+new Function('module', 'exports', readFileSync(new URL('../../assets/js/vendor/qrcode.js', import.meta.url), 'utf8'))(qrBalik, qrBalik.exports);
+const qrcode = qrBalik.exports;
+const qrSvg = (url, popis) => {
+  const qr = qrcode(0, 'M');
+  qr.addData(url, 'Byte');
+  qr.make();
+  return qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true }).replace('<svg ', `<svg role="img" aria-label="${esc(popis)}" focusable="false" `);
+};
+export const APLIKACE = [
+  {
+    nazev: 'Google Meet',
+    obchody: [
+      ['App Store', 'iPhone a iPad', 'https://apps.apple.com/app/google-meet/id1013231476'],
+      ['Google Play', 'Android', 'https://play.google.com/store/apps/details?id=com.google.android.apps.tachyon'],
+    ],
+  },
+  {
+    nazev: 'WhatsApp',
+    obchody: [
+      ['App Store', 'iPhone a iPad', 'https://apps.apple.com/app/whatsapp-messenger/id310633997'],
+      ['Google Play', 'Android', 'https://play.google.com/store/apps/details?id=com.whatsapp'],
+    ],
+  },
+];
+const aplikaceHtml = () => APLIKACE.map((a) => `    <article class="card app-dl">
+      <h4>${esc(a.nazev)}</h4>
+${a.obchody.map(([obchod, zarizeni, url]) => `      <div class="app-dl-row">
+        <div class="app-dl-qr">${qrSvg(url, `QR kód: ${a.nazev} v obchodě ${obchod}, ${zarizeni}`)}</div>
+        <p><a href="${esc(url)}" target="_blank" rel="noopener">${esc(a.nazev)} v obchodě ${esc(obchod)}<span class="sr-only"> (otevře se nové okno)</span></a><br><span class="small">${esc(zarizeni)}</span></p>
+      </div>`).join('\n')}
+    </article>`).join('\n');
+
+export const SPOJENI_ZKRATKA = 'Po rezervaci a připsání platby se vám ozvu já, nemusíte se mi ozývat sami. Videohovor 1:1 probíhá přes Google Meet nebo WhatsApp.';
 
 export const NADPIS = 'Cesta s OCD: sebepřijetí, sebevíra a svobodnější život';
 export const PODTITUL = 'Individuální program pěti setkání 1:1 podle knihy. Jak jsem na to šel já a co z toho můžeš využít ty.';
@@ -21,7 +59,8 @@ export const KARTY = [
 ];
 
 export const JAK_PROBIHAJI = [
-  'Jen já a vy, videohovor přes Google Meet.',
+  'Jen já a vy, videohovor přes Google Meet nebo WhatsApp (podle toho, co vám vyhovuje).',
+  'Ozvu se vám já: po připsání platby vám napíšu e-mailem a domluvíme spojení. Nemusíte se mi ozývat sami.',
   'Kamera je dobrovolná.',
   'Setkání nenahrávám.',
   'Nic z toho, co zazní, nesdílím dál (výjimka: vážné ohrožení života nebo zdraví).',
@@ -34,7 +73,16 @@ export const PRO_KOHO = 'Program je vhodný pro lidi, kteří jsou v péči odbo
 // Texty odpovědí jsou stejné ve viditelném HTML i ve strukturovaných datech FAQPage. `html` je jen verze s odkazem.
 export const FAQ = [
   { q: 'Je to terapie?', a: 'Ne. Sdílím svou osobní zkušenost a cestu. Neposkytuji odbornou ani lékařskou radu, nediagnostikuji a neradím s léky.' },
-  { q: 'Jak probíhá setkání?', a: 'Videohovor přes Google Meet, 60 minut, jen vy a já. Odkaz vám pošlu e-mailem po připsání platby.' },
+  { q: 'Jak probíhá setkání?', a: 'Videohovor přes Google Meet nebo WhatsApp, 60 minut, jen vy a já. Po připsání platby se vám ozvu já e-mailem a domluvíme, jak se spojíme.' },
+  {
+    q: 'Musím se vám ozvat sám/sama?',
+    a: 'Ne. Po rezervaci a připsání platby se ozvu já, napíšu vám e-mailem a pošlu odkaz na první setkání.',
+  },
+  {
+    q: 'Jakou aplikaci potřebuji?',
+    a: 'Google Meet nebo WhatsApp. Na počítači Google Meet funguje v prohlížeči, na telefonu a tabletu je potřeba aplikace. Odkazy do obchodů a QR kódy najdete na stránce Online semináře.',
+    html: 'Google Meet nebo WhatsApp. Na počítači Google Meet funguje v prohlížeči, na telefonu a tabletu je potřeba aplikace. Odkazy do obchodů a QR kódy najdete na stránce <a href="/seminare#spojeni">Online semináře</a>.',
+  },
   { q: 'Mohu setkání přesunout?', a: 'Ano, nejpozději 24 hodin předem po domluvě e-mailem, nejvýše dvakrát během programu. Neomluvená neúčast se počítá jako uskutečněné setkání.' },
   {
     q: 'Co když se zhorším?',
@@ -93,11 +141,27 @@ export function seminareBody({ data, behy, now = new Date() }) {
 <section class="wrap block" id="terminy">
   <h2>Termíny</h2>
   <p>Programy se konají vždy ve čtvrtek v 18:00. Běhy jdou po sobě, protože v daném čase vedu jen jednoho klienta. Rezervace se uzavírá ${data.uzavreniDniPredZacatkem} dny před prvním setkáním, aby se stihla platba i odeslání odkazu.</p>
+  <p class="callout-inline"><strong>Jak to bude dál:</strong> ${SPOJENI_ZKRATKA} <a href="#spojeni">Podrobnosti a aplikace ke stažení</a>.</p>
   <div class="runs">
 ${behy.map((b) => behKarta(b, data, now)).join('\n')}
   </div>
   <p class="run-none" data-run-none hidden>Aktuálně není otevřený žádný termín. Napište mi a ozvu se, jakmile bude další.</p>
   <p class="run-other"><a href="${mailtoDalsiTermin}">Žádný termín mi nevyhovuje</a></p>
+</section>
+
+<section class="wrap block" id="spojeni">
+  <h2>Jak spolu budeme v kontaktu</h2>
+  <ul class="rules">
+    <li>Setkání probíhají jako videohovor 1:1 přes <strong>Google Meet</strong> nebo <strong>WhatsApp</strong>. Aplikaci si vyberete podle toho, co vám vyhovuje.</li>
+    <li><strong>Nemusíte se mi ozývat.</strong> Po rezervaci a připsání platby se ozvu já: napíšu vám e-mailem, domluvíme způsob spojení a pošlu odkaz na první setkání. U WhatsAppu si e-mailem domluvíme výměnu telefonního čísla.</li>
+    <li>Kamera je dobrovolná. Stačí telefon, tablet nebo počítač s internetem, sluchátka nebo reproduktor a klidné místo.</li>
+  </ul>
+  <h3>Aplikace si můžete stáhnout předem</h3>
+  <p>Google Meet funguje na počítači i v prohlížeči bez instalace. Na telefonu a tabletu je potřeba aplikace. Naskenujte QR kód mobilem, nebo klikněte na odkaz do obchodu. Doporučuji aplikaci vyzkoušet před prvním setkáním.</p>
+  <div class="cards app-dl-grid">
+${aplikaceHtml()}
+  </div>
+  <p class="small">Odkazy vedou do oficiálních obchodů Apple a Google a na externí weby mimo ${esc('ocdmentor.cz')}. Aplikace provozují jejich výrobci.</p>
 </section>
 
 <section class="wrap block">
@@ -151,6 +215,7 @@ export function rezervaceBody({ data, behy, now = new Date() }) {
 
 <section class="wrap block">
   <p class="sem-format">${esc(formatProgramu(data))}</p>
+  <p class="callout-inline"><strong>Jak to bude dál:</strong> ${SPOJENI_ZKRATKA} <a href="/seminare#spojeni">Podrobnosti a aplikace ke stažení</a>.</p>
   <noscript><p class="callout-inline">Rezervační formulář potřebuje zapnutý JavaScript. Bez něj mi prosím napište na <a href="mailto:ocdmentor@gmail.com">ocdmentor@gmail.com</a>.</p></noscript>
   <form id="rez-form" class="form rez-form" novalidate>
     <div id="rez-chyby" class="err-summary" role="alert" tabindex="-1" hidden></div>
@@ -212,7 +277,7 @@ export function potvrzeniBody() {
 </section>
 
 <section class="wrap block" id="potvrzeni-data" hidden>
-  <p class="callout-inline"><strong>Místo je pro vás rezervované do splatnosti.</strong> Po připsání platby vám pošlu odkaz na videohovor. Do zprávy pro příjemce nic nepište, variabilní symbol stačí.</p>
+  <p class="callout-inline"><strong>Místo je pro vás rezervované do splatnosti.</strong> Po připsání platby se vám ozvu já e-mailem a domluvíme videohovor (Google Meet nebo WhatsApp). Nemusíte se mi ozývat sami. Do zprávy pro příjemce nic nepište, variabilní symbol stačí.</p>
   <div class="pay-grid">
     <div class="pay-qr">
       <div id="qr" class="qr-box" role="img" aria-label="QR kód pro platbu semináře"></div>

@@ -23,7 +23,7 @@
   set('pay-vs', d.vs);
   set('pay-majitel', d.majitel);
   set('pay-splatnost', 'do ' + cz(d.splatnost));
-  set('pay-beh', d.beh && d.beh.nazev ? d.beh.nazev + ', online 1:1 přes Google Meet, ' + d.delkaMinut + ' minut' : '');
+  set('pay-beh', d.beh && d.beh.nazev ? d.beh.nazev + ', online 1:1 přes Google Meet nebo WhatsApp, ' + d.delkaMinut + ' minut' : '');
   var seznam = document.getElementById('pay-terminy');
   for (var i = 0; i < d.terminy.length; i++) {
     var li = document.createElement('li');
@@ -116,8 +116,8 @@
         'DTSTART;TZID=Europe/Prague:' + ymd + 'T' + hm[0] + hm[1] + '00',
         'DTEND;TZID=Europe/Prague:' + ymd + 'T' + dvoj(Math.floor(konecMin / 60)) + dvoj(konecMin % 60) + '00',
         'SUMMARY:Seminář',
-        'DESCRIPTION:' + esc('Online setkání 1:1 přes Google Meet. Odkaz pošlu e-mailem po připsání platby.'),
-        'LOCATION:Online (Google Meet)',
+        'DESCRIPTION:' + esc('Online setkání 1:1 přes Google Meet nebo WhatsApp. Po připsání platby se ozvu já e-mailem.'),
+        'LOCATION:Online (Google Meet nebo WhatsApp)',
         'END:VEVENT');
     }
     r.push('END:VCALENDAR');

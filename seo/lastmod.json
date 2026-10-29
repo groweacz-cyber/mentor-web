@@ -52,12 +52,12 @@
     "date": "2026-10-23"
   },
   "/ochrana-osobnich-udaju": {
-    "hash": "ead5dea367e1",
-    "date": "2026-10-28"
+    "hash": "fd34b42f2086",
+    "date": "2026-10-29"
   },
   "/obchodni-podminky": {
-    "hash": "cc9c1e591453",
-    "date": "2026-10-28"
+    "hash": "c7a7dae5b965",
+    "date": "2026-10-29"
   },
   "/pomoc": {
     "hash": "03a99c0706d4",
@@ -172,11 +172,11 @@
     "date": "2026-10-28"
   },
   "/seminare": {
-    "hash": "30d4cd9a1f3b",
+    "hash": "10abd002a433",
     "date": "2026-10-29"
   },
   "/seminare/rezervace": {
-    "hash": "c5044add4f4a",
-    "date": "2026-10-28"
+    "hash": "b813e7fe2b23",
+    "date": "2026-10-29"
   }
 }

@@ -2047,7 +2047,7 @@ add('/ochrana-osobnich-udaju', {
   <p>U dotazníku ani u aplikace žádná: tato data u nás vůbec nejsou uložena. U e-mailové, telefonické a WhatsApp komunikace jen po dobu nutnou k vyřízení dotazu nebo k domluvené spolupráci. Dobu uchování vašich údajů v systému Reservanto určuje Reservanto podle svých podmínek. U rezervace semináře uchovávám údaje o platbě po dobu stanovenou účetními a daňovými předpisy a e-mailovou komunikaci 1 rok po skončení programu. Zápisy ani nahrávky ze setkání nepořizuji, případné krátké poznámky mažu nejpozději 30 dnů po skončení programu.</p>
 
   <h2>Příjemci údajů a předávání do zahraničí</h2>
-  <p>Hostingový poskytovatel Vercel Inc. jako technický zpracovatel provozu webu a serverové funkce rezervace. Google (Gmail, přes který se odesílají e-maily při rezervaci semináře, a videohovory Google Meet). Rezervační systém Reservanto s.r.o. (viz výše). Pokud s vámi komunikuji přes WhatsApp, zprávy zpracovává WhatsApp Ireland Limited (Meta). Vercel, Google a Meta mohou údaje zpracovávat i mimo Evropský hospodářský prostor, a to na základě standardních smluvních doložek nebo rozhodnutí o odpovídající ochraně. Jinak údaje nepředáváme žádným dalším třetím stranám.</p>
+  <p>Hostingový poskytovatel Vercel Inc. jako technický zpracovatel provozu webu a serverové funkce rezervace. Resend, Inc. (odesílání e-mailů při rezervaci semináře). Google (videohovory Google Meet). Rezervační systém Reservanto s.r.o. (viz výše). Pokud s vámi komunikuji přes WhatsApp, zprávy zpracovává WhatsApp Ireland Limited (Meta). Vercel, Resend, Google a Meta mohou údaje zpracovávat i mimo Evropský hospodářský prostor, a to na základě standardních smluvních doložek nebo rozhodnutí o odpovídající ochraně. Jinak údaje nepředáváme žádným dalším třetím stranám.</p>
 
   <h2>Vaše práva</h2>
   <ul class="rules">
@@ -2191,7 +2191,7 @@ add('/obchodni-podminky', {
   <p>Smlouva vzniká odesláním rezervace. Cena se hradí bankovním převodem s uvedeným variabilním symbolem do 3 dnů od rezervace. Po marném uplynutí lhůty rezervace zaniká. Po připsání platby zašle prodejce odkaz na videohovor, nejpozději 24 hodin před prvním setkáním.</p>
 
   <h3>B5. Průběh</h3>
-  <p>Videohovor přes Google Meet, setkání se nenahrávají. Účastník zajistí klidné prostředí a funkční připojení. Setkání se nekonají 24. a 31. prosince, program se o tyto týdny posune.</p>
+  <p>Videohovor přes Google Meet nebo WhatsApp, setkání se nenahrávají. Po připsání platby se poskytovatel účastníkovi ozve e-mailem a domluví spojení. Účastník zajistí klidné prostředí a funkční připojení. Setkání se nekonají 24. a 31. prosince, program se o tyto týdny posune.</p>
 
   <h3>B6. Přesun</h3>
   <p>Setkání lze přesunout zdarma nejpozději 24 hodin předem po domluvě e-mailem, nejvýše dvakrát během programu. Neomluvená neúčast nebo přesun později než 24 hodin předem se počítá jako uskutečněné setkání.</p>

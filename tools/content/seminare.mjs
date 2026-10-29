@@ -88,6 +88,19 @@ export function seminareBody({ data, behy, now = new Date() }) {
 
 <section class="wrap block">
   <p class="sem-format">${esc(formatProgramu(data))}</p>
+</section>
+
+<section class="wrap block" id="terminy">
+  <h2>Termíny</h2>
+  <p>Programy se konají vždy ve čtvrtek v 18:00. Běhy jdou po sobě, protože v daném čase vedu jen jednoho klienta. Rezervace se uzavírá ${data.uzavreniDniPredZacatkem} dny před prvním setkáním, aby se stihla platba i odeslání odkazu.</p>
+  <div class="runs">
+${behy.map((b) => behKarta(b, data, now)).join('\n')}
+  </div>
+  <p class="run-none" data-run-none hidden>Aktuálně není otevřený žádný termín. Napište mi a ozvu se, jakmile bude další.</p>
+  <p class="run-other"><a href="${mailtoDalsiTermin}">Žádný termín mi nevyhovuje</a></p>
+</section>
+
+<section class="wrap block">
   <p>Program vychází z knihy, kterou si můžete stáhnout zdarma: <a href="/ebook">Cesta k sebepřijetí, sebevíře a svobodnějšímu životu s OCD</a>.</p>
 </section>
 
@@ -112,16 +125,6 @@ ${JAK_PROBIHAJI.map((t) => `    <li>${esc(t)}</li>`).join('\n')}
 <section class="wrap block prose">
   <h2>Pro koho to je</h2>
   <p>${esc(PRO_KOHO)}</p>
-</section>
-
-<section class="wrap block" id="terminy">
-  <h2>Termíny</h2>
-  <p>Programy se konají vždy ve čtvrtek v 18:00. Běhy jdou po sobě, protože v daném čase vedu jen jednoho klienta. Rezervace se uzavírá ${data.uzavreniDniPredZacatkem} dny před prvním setkáním, aby se stihla platba i odeslání odkazu.</p>
-  <div class="runs">
-${behy.map((b) => behKarta(b, data, now)).join('\n')}
-  </div>
-  <p class="run-none" data-run-none hidden>Aktuálně není otevřený žádný termín. Napište mi a ozvu se, jakmile bude další.</p>
-  <p class="run-other"><a href="${mailtoDalsiTermin}">Žádný termín mi nevyhovuje</a></p>
 </section>
 
 <section class="wrap block faq">

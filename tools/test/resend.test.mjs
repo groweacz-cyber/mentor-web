@@ -13,7 +13,7 @@ const ENV = {
   RESEND_API_KEY: 're_testovaci',
   ALLOWED_ORIGINS: 'https://ocdmentor.cz',
 };
-const dobra = { jmeno: 'Jana', prijmeni: 'Nováková', email: 'jana@example.test', email2: 'jana@example.test', beh: 'beh-1', souhlasZpracovani: true, souhlasPovaha: true, souhlasPodminky: true, web: '', doba: 15000 };
+const dobra = { jmeno: 'Jana', prijmeni: 'Nováková', email: 'jana@example.test', email2: 'jana@example.test', telefon: '+420 777 123 456', beh: 'beh-1', souhlasZpracovani: true, souhlasPovaha: true, souhlasPodminky: true, web: '', doba: 15000 };
 beforeEach(() => vynulujLimity());
 
 // Resend přes skutečný odesílač a falešné fetch

@@ -181,13 +181,14 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
       <div class="field"><label for="rez-prijmeni">Příjmení</label><input type="text" id="rez-prijmeni" name="prijmeni" maxlength="50" autocomplete="family-name" aria-describedby="err-prijmeni"><p class="field-err" id="err-prijmeni" hidden></p></div>
       <div class="field"><label for="rez-email">E-mail</label><input type="email" id="rez-email" name="email" maxlength="254" autocomplete="email" inputmode="email" aria-describedby="err-email"><p class="field-err" id="err-email" hidden></p></div>
       <div class="field"><label for="rez-email2">E-mail znovu</label><input type="email" id="rez-email2" name="email2" maxlength="254" autocomplete="off" inputmode="email" aria-describedby="err-email2"><p class="field-err" id="err-email2" hidden></p></div>
+      <div class="field"><label for="rez-telefon">Telefon (pro WhatsApp)</label><input type="tel" id="rez-telefon" name="telefon" maxlength="30" autocomplete="tel" inputmode="tel" aria-describedby="hint-telefon err-telefon"><p class="small" id="hint-telefon">Slouží ke spojení přes WhatsApp. Číslo bez předvolby bereme jako české (+420), u zahraničního čísla uveďte předvolbu, například +421.</p><p class="field-err" id="err-telefon" hidden></p></div>
       <div class="hp" aria-hidden="true"><label>Toto pole nechte prázdné <input type="text" name="web" tabindex="-1" autocomplete="off"></label></div>
     </fieldset>
 
     <fieldset>
       <legend>Souhlasy</legend>
       <div class="field-check">
-        <label class="check"><input type="checkbox" id="rez-souhlas-zpracovani" name="souhlasZpracovani" aria-describedby="err-souhlasZpracovani"><span>Souhlasím se zpracováním jména a e-mailu za účelem rezervace a organizace programu. Chápu, že už samotná účast na semináři o OCD může vypovídat o mém zdravotním stavu, a souhlasím se zpracováním i této informace. Souhlas mohu kdykoli odvolat e-mailem. <a href="/ochrana-osobnich-udaju">Zásady ochrany osobních údajů</a>.</span></label>
+        <label class="check"><input type="checkbox" id="rez-souhlas-zpracovani" name="souhlasZpracovani" aria-describedby="err-souhlasZpracovani"><span>Souhlasím se zpracováním jména, e-mailu a telefonního čísla za účelem rezervace, organizace programu a spojení se mnou. Chápu, že už samotná účast na semináři o OCD může vypovídat o mém zdravotním stavu, a souhlasím se zpracováním i této informace. Souhlas mohu kdykoli odvolat e-mailem. <a href="/ochrana-osobnich-udaju">Zásady ochrany osobních údajů</a>.</span></label>
         <p class="field-err" id="err-souhlasZpracovani" hidden></p>
       </div>
       <div class="field-check">
@@ -199,6 +200,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
         <p class="field-err" id="err-souhlasPodminky" hidden></p>
       </div>
     </fieldset>
+
+    <p class="callout-inline"><strong>Zkontrolujte i spam.</strong> Platební údaje a termíny vám pošlu e-mailem z adresy info@ocdmentor.cz. Zpráva může skončit ve spamu nebo v záložce Hromadné či Reklamy. Pokud ji v doručené poště nenajdete, podívejte se tam a označte ji jako „Není spam“. Platební údaje uvidíte i na stránce po odeslání rezervace.</p>
 
     <div class="actions"><button type="submit" class="btn btn-cta" id="rez-odeslat">Odeslat rezervaci</button></div>
     <p id="rez-stav" class="msg" role="status" aria-live="polite"></p>
@@ -246,7 +249,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 
 
 <script src="/assets/js/seminare.js?v=558bdad4" defer></script>
-<script src="/assets/js/rezervace.js?v=37a30433" defer></script>
+<script src="/assets/js/rezervace.js?v=f384950c" defer></script>
 
 </body>
 </html>

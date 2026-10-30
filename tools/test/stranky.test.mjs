@@ -52,7 +52,7 @@ test('/seminare: FAQ ve viditelném HTML a ve strukturovaných datech mají shod
   const faq = ld(h).find((n) => n['@type'] === 'FAQPage');
   assert.ok(faq, 'FAQPage v JSON-LD');
   const strukturovana = faq.mainEntity.map((e) => ({ q: e.name, a: e.acceptedAnswer.text }));
-  assert.equal(visible.length, 10);
+  assert.equal(visible.length, 11);
   assert.deepEqual(strukturovana, visible);
   assert.deepEqual(visible, FAQ.map((f) => ({ q: f.q, a: f.a })));
 });
@@ -67,8 +67,10 @@ test('stránky seminářů nemají placeholdery, štítky koncept ani TODO', () 
 test('/seminare/rezervace: pole, nepředvyplněné souhlasy, honeypot, přesné texty souhlasů', () => {
   const h = nacti('seminare/rezervace/index.html');
   const m = main(h);
-  for (const id of ['rez-jmeno', 'rez-prijmeni', 'rez-email', 'rez-email2']) assert.ok(m.includes(`id="${id}"`), id);
-  assert.ok(!/id="rez-(telefon|duvod)/.test(m), 'žádný telefon ani důvod účasti');
+  for (const id of ['rez-jmeno', 'rez-prijmeni', 'rez-email', 'rez-email2', 'rez-telefon']) assert.ok(m.includes(`id="${id}"`), id);
+  assert.ok(!/id="rez-duvod/.test(m), 'žádný důvod účasti');
+  assert.ok(/<input type="tel" id="rez-telefon"/.test(m), 'telefon je povinný údaj pro WhatsApp');
+  assert.ok(text(m).includes('Zkontrolujte i spam.'), 'upozornění na spam před odesláním');
   const checkboxy = [...m.matchAll(/<input type="checkbox"[^>]*>/g)].map((x) => x[0]);
   assert.equal(checkboxy.length, 3);
   for (const c of checkboxy) assert.ok(!/\schecked\b/.test(c), 'souhlas není předvyplněný');
@@ -76,7 +78,7 @@ test('/seminare/rezervace: pole, nepředvyplněné souhlasy, honeypot, přesné 
   assert.ok(!/<form[^>]*\saction=/.test(m), 'formulář neodesílá bez JavaScriptu na jinou adresu');
   assert.ok(!/<form[^>]*method="get"/i.test(m));
   const t = text(m);
-  assert.ok(t.includes('Souhlasím se zpracováním jména a e-mailu za účelem rezervace a organizace programu. Chápu, že už samotná účast na semináři o OCD může vypovídat o mém zdravotním stavu, a souhlasím se zpracováním i této informace. Souhlas mohu kdykoli odvolat e-mailem. Zásady ochrany osobních údajů.'));
+  assert.ok(t.includes('Souhlasím se zpracováním jména, e-mailu a telefonního čísla za účelem rezervace, organizace programu a spojení se mnou. Chápu, že už samotná účast na semináři o OCD může vypovídat o mém zdravotním stavu, a souhlasím se zpracováním i této informace. Souhlas mohu kdykoli odvolat e-mailem. Zásady ochrany osobních údajů.'));
   assert.ok(t.includes('Rozumím, že seminář vychází z osobní zkušenosti autora a nejde o odbornou ani lékařskou radu, terapii ani zdravotní službu.'));
   assert.ok(t.includes('Souhlasím s obchodními podmínkami.'));
   assert.ok(m.includes('href="/ochrana-osobnich-udaju"') && m.includes('href="/obchodni-podminky"'));

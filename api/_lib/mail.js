@@ -72,6 +72,7 @@ export function emailMajitel({ rez, osoba, konf, objednano, ucastnikOdeslan }) {
     ['Jméno', osoba.jmeno],
     ['Příjmení', osoba.prijmeni],
     ['E-mail', osoba.email],
+    ['Telefon (WhatsApp)', osoba.telefon],
     ['Běh', rez.behNazev],
     ['Termíny', rez.terminy.map((iso) => dlouhyCz(iso, rez.cas)).join('; ')],
     ['Variabilní symbol', rez.vs],

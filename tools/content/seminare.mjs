@@ -89,6 +89,7 @@ export const FAQ = [
     a: 'Obraťte se na svého lékaře nebo terapeuta. Odkazy a krizové kontakty najdete na stránce Pomoc. V akutní krizi volejte 112 nebo 116 123.',
     html: 'Obraťte se na svého lékaře nebo terapeuta. Odkazy a krizové kontakty najdete na stránce <a href="/pomoc">Pomoc</a>. V akutní krizi volejte 112 nebo 116 123.',
   },
+  { q: 'Nedorazil mi e-mail. Co mám dělat?', a: 'Zkontrolujte složku Spam a záložky Hromadné nebo Reklamy. Zprávy chodí z adresy info@ocdmentor.cz a mohou tam spadnout. Zprávu označte jako „Není spam“. Platební údaje máte i na stránce po odeslání rezervace. Pokud e-mail nenajdete ani tam, napište na ocdmentor@gmail.com.' },
   { q: 'Jak se platí?', a: 'Po rezervaci dostanete QR kód a platební údaje. Platí se bankovním převodem do 3 dnů, termín je do té doby držený pro vás.' },
   { q: 'Co je v ceně?', a: 'Všech pět setkání po 60 minutách. Jiné poplatky nejsou.' },
   { q: 'Čím se liší od jednotlivých sezení?', a: 'Jednotlivá sezení jsou volná podpora podle aktuálního tématu. Program je strukturovaný podle knihy a tvoří ho pět propojených setkání.' },
@@ -240,13 +241,14 @@ ${behy.map((b) => {
       <div class="field"><label for="rez-prijmeni">Příjmení</label><input type="text" id="rez-prijmeni" name="prijmeni" maxlength="50" autocomplete="family-name" aria-describedby="err-prijmeni">${chyba('prijmeni')}</div>
       <div class="field"><label for="rez-email">E-mail</label><input type="email" id="rez-email" name="email" maxlength="254" autocomplete="email" inputmode="email" aria-describedby="err-email">${chyba('email')}</div>
       <div class="field"><label for="rez-email2">E-mail znovu</label><input type="email" id="rez-email2" name="email2" maxlength="254" autocomplete="off" inputmode="email" aria-describedby="err-email2">${chyba('email2')}</div>
+      <div class="field"><label for="rez-telefon">Telefon (pro WhatsApp)</label><input type="tel" id="rez-telefon" name="telefon" maxlength="30" autocomplete="tel" inputmode="tel" aria-describedby="hint-telefon err-telefon"><p class="small" id="hint-telefon">Slouží ke spojení přes WhatsApp. Číslo bez předvolby bereme jako české (+420), u zahraničního čísla uveďte předvolbu, například +421.</p>${chyba('telefon')}</div>
       <div class="hp" aria-hidden="true"><label>Toto pole nechte prázdné <input type="text" name="web" tabindex="-1" autocomplete="off"></label></div>
     </fieldset>
 
     <fieldset>
       <legend>Souhlasy</legend>
       <div class="field-check">
-        <label class="check"><input type="checkbox" id="rez-souhlas-zpracovani" name="souhlasZpracovani" aria-describedby="err-souhlasZpracovani"><span>Souhlasím se zpracováním jména a e-mailu za účelem rezervace a organizace programu. Chápu, že už samotná účast na semináři o OCD může vypovídat o mém zdravotním stavu, a souhlasím se zpracováním i této informace. Souhlas mohu kdykoli odvolat e-mailem. <a href="/ochrana-osobnich-udaju">Zásady ochrany osobních údajů</a>.</span></label>
+        <label class="check"><input type="checkbox" id="rez-souhlas-zpracovani" name="souhlasZpracovani" aria-describedby="err-souhlasZpracovani"><span>Souhlasím se zpracováním jména, e-mailu a telefonního čísla za účelem rezervace, organizace programu a spojení se mnou. Chápu, že už samotná účast na semináři o OCD může vypovídat o mém zdravotním stavu, a souhlasím se zpracováním i této informace. Souhlas mohu kdykoli odvolat e-mailem. <a href="/ochrana-osobnich-udaju">Zásady ochrany osobních údajů</a>.</span></label>
         ${chyba('souhlasZpracovani')}
       </div>
       <div class="field-check">
@@ -258,6 +260,8 @@ ${behy.map((b) => {
         ${chyba('souhlasPodminky')}
       </div>
     </fieldset>
+
+    <p class="callout-inline"><strong>Zkontrolujte i spam.</strong> Platební údaje a termíny vám pošlu e-mailem z adresy info@ocdmentor.cz. Zpráva může skončit ve spamu nebo v záložce Hromadné či Reklamy. Pokud ji v doručené poště nenajdete, podívejte se tam a označte ji jako „Není spam“. Platební údaje uvidíte i na stránce po odeslání rezervace.</p>
 
     <div class="actions"><button type="submit" class="btn btn-cta" id="rez-odeslat">Odeslat rezervaci</button></div>
     <p id="rez-stav" class="msg" role="status" aria-live="polite"></p>
@@ -278,6 +282,7 @@ export function potvrzeniBody() {
 
 <section class="wrap block" id="potvrzeni-data" hidden>
   <p class="callout-inline"><strong>Místo je pro vás rezervované do splatnosti.</strong> Po připsání platby se vám ozvu já e-mailem a domluvíme videohovor (Google Meet nebo WhatsApp). Nemusíte se mi ozývat sami. Do zprávy pro příjemce nic nepište, variabilní symbol stačí.</p>
+  <p class="callout-inline"><strong>Zkontrolujte i spam.</strong> Platební údaje a termíny vám pošlu e-mailem z adresy info@ocdmentor.cz. Zpráva může skončit ve spamu nebo v záložce Hromadné či Reklamy. Pokud ji v doručené poště nenajdete, podívejte se tam a označte ji jako „Není spam“. Platební údaje máte i na této stránce.</p>
   <div class="pay-grid">
     <div class="pay-qr">
       <div id="qr" class="qr-box" role="img" aria-label="QR kód pro platbu semináře"></div>

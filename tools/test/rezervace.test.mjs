@@ -22,6 +22,7 @@ const dobraZadost = (nahrada = {}) => ({
   prijmeni: 'Nováková',
   email: 'jana@example.test',
   email2: 'jana@example.test',
+  telefon: '777 123 456',
   beh: 'beh-1',
   souhlasZpracovani: true,
   souhlasPovaha: true,
@@ -84,7 +85,7 @@ test('e-mail majiteli: jméno, e-mail, běh, termíny, VS, částka, čas objedn
   assert.equal(m.komu, 'majitel@example.test');
   assert.equal(m.zprava.subject, `Nová rezervace semináře (VS ${r.telo.vs})`);
   assert.equal(m.replyTo, 'jana@example.test');
-  for (const co of ['Jana', 'Nováková', 'jana@example.test', 'Běh 1', r.telo.vs, '3 590 Kč', '5. 11. 2026']) assert.ok(m.zprava.text.includes(co), co);
+  for (const co of ['Jana', 'Nováková', 'jana@example.test', '+420777123456', 'Běh 1', r.telo.vs, '3 590 Kč', '5. 11. 2026']) assert.ok(m.zprava.text.includes(co), co);
 });
 
 test('neplatný vstup: 400 s kódy polí', async () => {
@@ -106,7 +107,7 @@ test('e-maily se musí shodovat (bez ohledu na velikost písmen)', async () => {
 });
 
 test('vstup s novými řádky (injekce do hlaviček) je odmítnut', async () => {
-  for (const pole of ['jmeno', 'prijmeni', 'email', 'email2']) {
+  for (const pole of ['jmeno', 'prijmeni', 'email', 'email2', 'telefon']) {
     vynulujLimity();
     const r = await zavolej(dobraZadost({ [pole]: 'Jana\r\nBcc: spam@example.test' }));
     assert.equal(r.stav, 400, pole);
@@ -195,4 +196,24 @@ test('do logů nejdou osobní údaje', async () => {
   const vse = radky.join('\n');
   assert.ok(vse.includes('rezervace'), 'něco se loguje');
   for (const nesmi of ['Jana', 'Nováková', 'jana@example.test', '19-2000145399']) assert.ok(!vse.includes(nesmi), `v logu není ${nesmi}`);
+});
+
+test('telefon je povinný, normalizuje se na mezinárodní tvar a nesmí obsahovat písmena', async () => {
+  for (const [vstup, ocekavano] of [['777 123 456', '+420777123456'], ['+421 900 123 456', '+421900123456'], ['00420 777-123-456', '+420777123456'], ['(777) 123.456', '+420777123456']]) {
+    vynulujLimity();
+    const r = await zavolej(dobraZadost({ telefon: vstup }));
+    assert.equal(r.stav, 200, vstup);
+    assert.ok(r.odeslane.some((m) => m.zprava.text.includes(`Telefon (WhatsApp): ${ocekavano}`)), vstup);
+  }
+  for (const spatny of ['', '12345', 'abc', '777 123 45x', '+420 777 123 456 789 123 4', '777+123456']) {
+    vynulujLimity();
+    const r = await zavolej(dobraZadost({ telefon: spatny }));
+    assert.equal(r.stav, 400, spatny);
+    assert.ok(['povinne', 'neplatne'].includes(r.telo.chyby.telefon), spatny);
+    assert.equal(r.odeslane.length, 0);
+  }
+  vynulujLimity();
+  const bez = dobraZadost();
+  delete bez.telefon;
+  assert.equal((await zavolej(bez)).telo.chyby.telefon, 'povinne');
 });

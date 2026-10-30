@@ -13,17 +13,26 @@
     jmeno: { povinne: 'Vyplňte jméno.', neplatne: 'Jméno smí obsahovat jen písmena, mezery, tečku, pomlčku a apostrof (nejvýše 50 znaků).', 'neplatne-znaky': 'Jméno obsahuje nepovolené znaky.' },
     prijmeni: { povinne: 'Vyplňte příjmení.', neplatne: 'Příjmení smí obsahovat jen písmena, mezery, tečku, pomlčku a apostrof (nejvýše 50 znaků).', 'neplatne-znaky': 'Příjmení obsahuje nepovolené znaky.' },
     email: { povinne: 'Vyplňte e-mail.', neplatne: 'Zadejte platný e-mail, například jmeno@example.cz.', 'neplatne-znaky': 'E-mail obsahuje nepovolené znaky.' },
+    telefon: { povinne: 'Vyplňte telefonní číslo.', neplatne: 'Zadejte platné telefonní číslo, například 777 123 456 nebo +421 900 123 456.', 'neplatne-znaky': 'Telefon obsahuje nepovolené znaky.' },
     email2: { povinne: 'Zadejte e-mail ještě jednou.', 'neshoduji-se': 'E-maily se neshodují.', 'neplatne-znaky': 'E-mail obsahuje nepovolené znaky.' },
     souhlasZpracovani: { povinne: 'Bez souhlasu se zpracováním jména a e-mailu rezervaci nelze odeslat.' },
     souhlasPovaha: { povinne: 'Potvrďte, že rozumíte povaze semináře.' },
     souhlasPodminky: { povinne: 'Pro rezervaci je nutný souhlas s obchodními podmínkami.' }
   };
   var POLE_ID = {
-    jmeno: 'rez-jmeno', prijmeni: 'rez-prijmeni', email: 'rez-email', email2: 'rez-email2',
+    jmeno: 'rez-jmeno', prijmeni: 'rez-prijmeni', email: 'rez-email', email2: 'rez-email2', telefon: 'rez-telefon',
     souhlasZpracovani: 'rez-souhlas-zpracovani', souhlasPovaha: 'rez-souhlas-povaha', souhlasPodminky: 'rez-souhlas-podminky'
   };
-  var PORADI = ['beh', 'jmeno', 'prijmeni', 'email', 'email2', 'souhlasZpracovani', 'souhlasPovaha', 'souhlasPodminky'];
+  var PORADI = ['beh', 'jmeno', 'prijmeni', 'email', 'email2', 'telefon', 'souhlasZpracovani', 'souhlasPovaha', 'souhlasPodminky'];
   var EMAIL_RE = /^[A-Za-z0-9.!#$%&'*+\/=?^_`{|}~-]{1,64}@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*\.[A-Za-z]{2,}$/;
+  var TELEFON_ZNAKY = /^[0-9 +()\-.\/]{1,30}$/;
+  function telefonPlatny(v) {
+    if (!TELEFON_ZNAKY.test(v)) return false;
+    var t = v.replace(/[\s().\-\/]/g, '');
+    if (t.indexOf('00') === 0) t = '+' + t.slice(2);
+    if (/^\d{9}$/.test(t)) t = '+420' + t;
+    return /^\+[1-9]\d{8,14}$/.test(t);
+  }
   var JMENO_RE = null;
   try { JMENO_RE = new RegExp('^\\p{L}[\\p{L}\\p{M} \'’.\\-]{0,49}$', 'u'); } catch (e) { JMENO_RE = null; }
 
@@ -101,6 +110,7 @@
     if (!d.prijmeni) c.prijmeni = 'povinne'; else if (JMENO_RE && !JMENO_RE.test(d.prijmeni)) c.prijmeni = 'neplatne';
     if (!d.email) c.email = 'povinne'; else if (d.email.length > 254 || !EMAIL_RE.test(d.email)) c.email = 'neplatne';
     if (!d.email2) c.email2 = 'povinne'; else if (!c.email && d.email.toLowerCase() !== d.email2.toLowerCase()) c.email2 = 'neshoduji-se';
+    if (!d.telefon) c.telefon = 'povinne'; else if (!telefonPlatny(d.telefon)) c.telefon = 'neplatne';
     if (!d.souhlasZpracovani) c.souhlasZpracovani = 'povinne';
     if (!d.souhlasPovaha) c.souhlasPovaha = 'povinne';
     if (!d.souhlasPodminky) c.souhlasPodminky = 'povinne';
@@ -145,6 +155,7 @@
       prijmeni: hodnota('prijmeni'),
       email: hodnota('email'),
       email2: hodnota('email2'),
+      telefon: hodnota('telefon'),
       beh: vybranyBeh(),
       souhlasZpracovani: !!form.elements.souhlasZpracovani.checked,
       souhlasPovaha: !!form.elements.souhlasPovaha.checked,

@@ -80,3 +80,19 @@ test('chyba odesílače nenese osobní údaje', async () => {
     globalThis.fetch = puvodni;
   }
 });
+
+test('e-mail účastníkovi nese QR Platbu jako vloženou přílohu GIF, majitel se dozví, zda účastník e-mail dostal', async () => {
+  const r = await zavolej(ENV, () => ({ ok: true, status: 200 }));
+  const [u, m] = r.volani;
+  assert.equal(u.telo.attachments.length, 1);
+  const p = u.telo.attachments[0];
+  assert.equal(p.content_id, 'qr-platba');
+  assert.equal(p.content_type, 'image/gif');
+  assert.equal(Buffer.from(p.content, 'base64').subarray(0, 6).toString('latin1').slice(0, 3), 'GIF');
+  assert.ok(u.telo.html.includes('src="cid:qr-platba"'));
+  assert.match(m.telo.text, /E-mail s platebními údaji účastníkovi: odeslán/);
+  assert.ok(!m.telo.attachments);
+  vynulujLimity();
+  const ne = await zavolej({ ...ENV, SEND_TO_PARTICIPANT: 'ne' }, () => ({ ok: true, status: 200 }));
+  assert.match(ne.volani[0].telo.text, /E-mail s platebními údaji účastníkovi: neodeslán/);
+});

@@ -96,7 +96,7 @@ export function vytvorHandler({ env = () => process.env, odesilac = vytvorOdesil
 
     if (konf.posilatUcastnikovi) {
       try {
-        await odesli({ ...spolecne, komu: v.hodnoty.email, komuJmeno: `${v.hodnoty.jmeno} ${v.hodnoty.prijmeni}`, replyTo: konf.notifyEmail, zprava: emailUcastnik({ rez, konf, odkazPodminky: `${konf.web}/obchodni-podminky` }) });
+        await odesli({ ...spolecne, komu: v.hodnoty.email, komuJmeno: `${v.hodnoty.jmeno} ${v.hodnoty.prijmeni}`, replyTo: konf.notifyEmail, zprava: emailUcastnik({ rez, konf, odkazPodminky: `${konf.web}/obchodni-podminky`, spd }) });
       } catch (e) {
         console.error('rezervace: e-mail účastníkovi se nepodařilo odeslat', { vs, kod: e.kod });
         return odpovez(res, 502, { ok: false, kod: 'email-selhal' });
@@ -104,7 +104,7 @@ export function vytvorHandler({ env = () => process.env, odesilac = vytvorOdesil
     }
     try {
       const objednano = new Intl.DateTimeFormat('cs-CZ', { timeZone: 'Europe/Prague', dateStyle: 'medium', timeStyle: 'short' }).format(ted0);
-      await odesli({ ...spolecne, komu: konf.notifyEmail, replyTo: v.hodnoty.email, zprava: emailMajitel({ rez, osoba: v.hodnoty, konf, objednano }) });
+      await odesli({ ...spolecne, komu: konf.notifyEmail, replyTo: v.hodnoty.email, zprava: emailMajitel({ rez, osoba: v.hodnoty, konf, objednano, ucastnikOdeslan: konf.posilatUcastnikovi }) });
     } catch (e) {
       // Účastník má platební údaje, rezervace platí. Majitel se o ní dozví z banky nebo z logu (VS).
       console.error('rezervace: upozornění majiteli se nepodařilo odeslat', { vs, kod: e.kod });

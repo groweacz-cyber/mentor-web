@@ -22,7 +22,7 @@ Pravidla: „léčba“ a „terapie“ se u vlastní služby nepoužívají. Sl
 | `/clanky/kompulze-a-prijeti` | kompulze OCD | přijetí vtíravých myšlenek, boj s myšlenkami, rituály při OCD |
 | `/kontakt` | OCD konzultace zdarma | rezervace konzultace, kontakt na peer mentora |
 | `/ebook` | e-book o sebepřijetí s OCD | sebevíra a OCD, příručka OCD, pracovní listy OCD |
-| `/seminare` | online seminář o sebepřijetí s OCD | program pěti setkání 1:1, individuální online seminář, rezervace semináře, seminář podle knihy |
+| `/seminare` | online semináře pro lidi s OCD a pro jejich blízké | program pěti setkání 1:1, program tří setkání pro blízké, individuální online seminář, rezervace semináře, seminář podle knihy |
 | `/pomoc` | pomoc při psychické krizi | kam se obrátit při OCD, krizové linky |
 | `/kolik-casu-mi-bere-ocd` | kolik času mi bere OCD | kalkulačka času OCD, čas strávený rituály |
 | `/vtirave-myslenky` | vtíravé myšlenky | nutkavé myšlenky, vtíravé myšlenky OCD, proč se myšlenky lepí, smyčka OCD |
@@ -45,7 +45,7 @@ Pravidla: „léčba“ a „terapie“ se u vlastní služby nepoužívají. Sl
 | `/typy-ocd/perfekcionisticke-ocd` | perfekcionistické OCD | perfekcionismus a OCD, potřeba dokonalosti |
 | `/typy-ocd/zpovedni-ocd` | zpovědní OCD | nutkání se přiznávat, ujišťování přiznáním |
 | `/typy-ocd/strach-ze-zesileni` | strach ze zešílení | strach ze ztráty kontroly, strach z psychózy |
-| `/pro-blizke` | jak pomoci blízkému s OCD | OCD u partnera, přizpůsobování OCD, jak nekrmit OCD |
+| `/pro-blizke` | jak pomáhat blízkému s OCD, seminář pro blízké | OCD u partnera, přizpůsobování OCD, jak nekrmit OCD, když OCD žije vedle vás |
 | `/myty-o-ocd` | mýty o OCD | OCD pořádkumilovnost, co OCD není |
 | `/slovnicek` | OCD slovníček | obsese a kompulze, co je ERP, co je I-CBT |
 | `/pribehy` | příběhy lidí s OCD | zkušenost s OCD, sdílení vlastního příběhu s OCD |

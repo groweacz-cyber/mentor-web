@@ -32,6 +32,8 @@ export function emailUcastnik({ rez, konf, odkazPodminky, spd }) {
     '',
     'děkuji za rezervaci semináře. Místo je pro vás rezervované do splatnosti.',
     '',
+    `Program: ${rez.programTexty.emailPopis}`,
+    '',
     `Termíny (online, videohovor přes Google Meet nebo WhatsApp, ${rez.delkaMinut} minut):`,
     ...terminy,
     '',
@@ -53,6 +55,7 @@ export function emailUcastnik({ rez, konf, odkazPodminky, spd }) {
   const html = `<!doctype html><html lang="cs"><body style="font-family:Arial,Helvetica,sans-serif;line-height:1.55;color:#1b2a41;max-width:38rem">
 <p>Dobrý den,</p>
 <p>děkuji za rezervaci semináře. Místo je pro vás rezervované do splatnosti.</p>
+<p><strong>Program:</strong> ${esc(rez.programTexty.emailPopis)}</p>
 <p><strong>Termíny</strong> (online, videohovor přes Google Meet nebo WhatsApp, ${rez.delkaMinut} minut):</p>
 <ol>${terminy.map((t) => `<li>${esc(t.replace(/^\d+\.\s/, ''))}</li>`).join('')}</ol>
 <p><strong>Platební údaje</strong></p>
@@ -73,6 +76,7 @@ export function emailMajitel({ rez, osoba, konf, objednano, ucastnikOdeslan }) {
     ['Příjmení', osoba.prijmeni],
     ['E-mail', osoba.email],
     ['Telefon (WhatsApp)', osoba.telefon],
+    ['Program', rez.programTexty.majitelPopis],
     ['Běh', rez.behNazev],
     ['Termíny', rez.terminy.map((iso) => dlouhyCz(iso, rez.cas)).join('; ')],
     ['Variabilní symbol', rez.vs],

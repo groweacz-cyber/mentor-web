@@ -41,7 +41,7 @@ test('odeslání přes SMTP: zpráva dorazí, čeština a předmět se zachovaj�
   const { server, zpravy, port } = await smtpAtrapa();
   try {
     const odesli = await vytvorOdesilac(konf(port));
-    const rez = { terminy: ['2026-12-03'], cas: '18:00', delkaMinut: 60, castka: 3590, ucet: '19-2000145399/0800', iban: 'CZ6508000000192000145399', vs: '2611054321', splatnost: '2026-11-08' };
+    const rez = { programTexty: { emailPopis: 'Seminář – individuální program pěti setkání', majitelPopis: 'pět setkání' }, terminy: ['2026-12-03'], cas: '18:00', delkaMinut: 60, castka: 3590, ucet: '19-2000145399/0800', iban: 'CZ6508000000192000145399', vs: '2611054321', splatnost: '2026-11-08' };
     await odesli({ od: 'a@example.test', odJmeno: 'Bc. Václav Kodeš', komu: 'jana@example.test', komuJmeno: 'Jana Nováková', replyTo: 'b@example.test', zprava: emailUcastnik({ rez, konf: konf(port), odkazPodminky: 'https://ocdmentor.cz/obchodni-podminky' }) });
     assert.equal(zpravy.length, 1);
     assert.match(zpravy[0], /Subject: =\?UTF-8\?/);

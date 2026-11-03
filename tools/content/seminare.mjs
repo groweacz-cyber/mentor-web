@@ -1,8 +1,8 @@
 // Texty a HTML stránek Online semináře: /seminare, /seminare/rezervace a /seminare/rezervace/potvrzeni.
-// Termíny, cena a stavy běhů se berou z data/seminare.json (přes api/_lib/seminare.js), nikdy se nepíšou ručně.
+// Programy, termíny, ceny a stavy běhů se berou z data/seminare.json (přes api/_lib/seminare.js), nikdy se nepíšou ručně.
 import { readFileSync } from 'node:fs';
-import { dlouhyCz, formatCz, stavBehu } from '../../api/_lib/seminare.js';
-import { POVAHA_SEMINARE, formatCastka } from '../../api/_lib/texty.js';
+import { denSPredlozkou, dlouhyCz, formatCz, stavBehu } from '../../api/_lib/seminare.js';
+import { textyProgramu, formatCastka } from '../../api/_lib/texty.js';
 
 const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -43,14 +43,20 @@ ${a.obchody.map(([obchod, zarizeni, url]) => `      <div class="app-dl-row">
 
 export const SPOJENI_ZKRATKA = 'Po rezervaci a připsání platby se vám ozvu já, nemusíte se mi ozývat sami. Videohovor 1:1 probíhá přes Google Meet nebo WhatsApp.';
 
-export const NADPIS = 'Cesta s OCD: sebepřijetí, sebevíra a svobodnější život';
-export const PODTITUL = 'Individuální program pěti setkání 1:1 podle knihy. Jak jsem na to šel já a co z toho můžeš využít ty.';
+export const NADPIS_STRANKY = 'Online semináře';
+export const PODTITUL_STRANKY = 'Dva individuální programy 1:1: jeden pro lidi s OCD, druhý pro jejich blízké. Vyberte ten, který vám sedí.';
 export const KRIZE = 'V akutní krizi volejte 112 nebo Linku první psychické pomoci 116 123.';
+export const SPAM_UPOZORNENI = 'Platební údaje a termíny vám pošlu e-mailem z adresy info@ocdmentor.cz. Zpráva může skončit ve spamu nebo v záložce Hromadné či Reklamy. Pokud ji v doručené poště nenajdete, podívejte se tam a označte ji jako „Není spam“.';
 
-export const formatProgramu = (data) =>
-  `${data.pocetSetkani} setkání po ${data.delkaMinut} minutách, 1× týdně ve čtvrtek v 18:00, online 1:1. Cena ${formatCastka(data.cena)} za celý program. Cena je konečná, nejsem plátce DPH.`;
+// Věta o formátu a ceně z dat programu (den, čas, počet a délka setkání i cena se nepíšou ručně).
+export const formatProgramu = (p) => {
+  const t = textyProgramu(p.id);
+  return `${p.pocetSetkani} setkání po ${p.delkaMinut} minutách, 1× týdně ${denSPredlozkou(p.den)} v ${p.cas}, online 1:1.${t.formatDodatek ? ` ${t.formatDodatek}` : ''} Cena ${formatCastka(p.cena)} za celý program. Cena je konečná, nejsem plátce DPH.`;
+};
+export const shrnutiProgramu = (p) => `Individuální program ${p.pocetSetkani} setkání · ${formatCastka(p.cena)}`;
 
-export const KARTY = [
+// ---------- obsah programů (klíč = id programu v data/seminare.json) ----------
+const KARTY_OCD = [
   ['Nejsi své OCD', 'Jak funguje cyklus OCD a proč sebepřijetí není rezignace.'],
   ['Proč nás některé myšlenky zasahují', 'Význam, který strachu dáváme, a proč myšlenka není předpověď.'],
   ['Zvědomění vzorců a sebepřijetí', 'Naučená pravidla a druhotný boj se sebekritikou.'],
@@ -58,19 +64,59 @@ export const KARTY = [
   ['Kompulze, každodenní svoboda a když se obtíže vracejí', 'Oheň jako metafora a kdy vyhledat odborníka.'],
 ];
 
-export const JAK_PROBIHAJI = [
+const JAK_SPOLECNE = [
   'Jen já a vy, videohovor přes Google Meet nebo WhatsApp (podle toho, co vám vyhovuje).',
   'Ozvu se vám já: po připsání platby vám napíšu e-mailem a domluvíme spojení. Nemusíte se mi ozývat sami.',
   'Kamera je dobrovolná.',
   'Setkání nenahrávám.',
   'Nic z toho, co zazní, nesdílím dál (výjimka: vážné ohrožení života nebo zdraví).',
-  'Neuklidňuji vás ujišťováním typu „nic se vám nestane“ a nevedu vás ke zpracování traumat.',
-  'Praktická cvičení z knihy jsou nepovinná reflexe, ne domácí úkol.',
 ];
 
-export const PRO_KOHO = 'Program je vhodný pro lidi, kteří jsou v péči odborníka nebo se do ní aktivně objednávají. Pokud hledáte léčbu nebo diagnózu, obraťte se na psychologa, psychoterapeuta nebo psychiatra. V akutní krizi volejte 112 nebo Linku první psychické pomoci 116 123.';
+export const OBSAH = {
+  'pro-lidi-s-ocd': {
+    odkaz: '',
+    intro: '',
+    kniha: true,
+    kartyNadpis: 'Pět setkání',
+    karty: KARTY_OCD,
+    jak: [
+      ...JAK_SPOLECNE,
+      'Neuklidňuji vás ujišťováním typu „nic se vám nestane“ a nevedu vás ke zpracování traumat.',
+      'Praktická cvičení z knihy jsou nepovinná reflexe, ne domácí úkol.',
+    ],
+    proKoho: 'Program je vhodný pro lidi, kteří jsou v péči odborníka nebo se do ní aktivně objednávají. Pokud hledáte léčbu nebo diagnózu, obraťte se na psychologa, psychoterapeuta nebo psychiatra. V akutní krizi volejte 112 nebo Linku první psychické pomoci 116 123.',
+    faq: [],
+  },
+  'pro-blizke': {
+    odkaz: '<p>Víc o tématu najdete na stránce <a href="/pro-blizke">Když OCD žije vedle vás</a>.</p>',
+    intro: 'Žijete s člověkem, který má OCD, nebo se o někoho takového staráte? Možná máte pocit, že všechno, co zkusíte, nepomáhá nebo situaci dokonce zhoršuje. Dobře míněná pomoc totiž OCD často nechtěně udržuje. Na tomto programu vám ukážu, jak to vypadá zevnitř, co pomáhá a jak si přitom zachovat vlastní život.',
+    kniha: false,
+    kartyNadpis: 'Tři setkání',
+    karty: [
+      ['OCD zevnitř', 'Jak cyklus OCD funguje, proč se nedá „jen přestat“ a proč rituály dávají člověku s OCD smysl, i když se zvenku jeví nelogicky.'],
+      ['Přizpůsobování a ujišťování', 'Jak OCD nechtěně krmíme dobrou vůlí. Naučíte se odpovídat laskavě a zároveň pevně, například: „Vidím, že se bojíš. Odpověď ti teď dávat nebudu, ale jsem tady s tebou.“ nebo „Chápu, že je to teď těžké. Věřím, že to uneseš.“'],
+      ['Péče o sebe a hranice', 'Jak si zachovat vlastní život, jak mluvit o odborné pomoci a co dělat, když se obtíže zhorší.'],
+    ],
+    jak: [
+      ...JAK_SPOLECNE,
+      'Vycházím z vlastní zkušenosti s OCD, nejsem odborník na rodinné vztahy.',
+      'Neposuzuji konkrétního člověka, neřeším rodinné konflikty a nerozhoduji za vás, zda blízkého k léčbě přesvědčovat.',
+      'Nenaučím vás, jak OCD léčit nebo vést expozice doma, to patří odborníkům.',
+      'Neslibuji, že když budete postupovat správně, OCD zmizí.',
+      'Prosím, nesdílejte o svém blízkém identifikující údaje (jména, diagnózy, podrobnosti). Stačí obecné situace.',
+    ],
+    proKoho: 'Pro partnery, rodiče, dospělé děti, sourozence i přátele lidí s OCD, kteří chtějí lépe rozumět tomu, jak OCD funguje a jak ho nekrmit. Program nenahrazuje péči pro vašeho blízkého ani pro vás. Pokud jste sami v tíživé situaci, obraťte se na svého lékaře nebo psychologa. V akutní krizi volejte 112 nebo Linku první psychické pomoci 116 123.',
+    faq: [
+      { q: 'Musí můj blízký o semináři vědět?', a: 'Nemusí. Pokud je to bezpečné a vhodné, doporučuji mu o semináři říct, aby nemusel mít pocit, že se o něm mluví za zády. Seminář se týká vašeho přístupu, ne jeho léčby.' },
+      { q: 'Můžete mi říct, jestli má můj blízký OCD?', a: 'Ne. Nediagnostikuji a nehodnotím konkrétní lidi. Pokud to potřebujete vědět, obraťte se na psychologa nebo psychiatra.' },
+      { q: 'Naučím se, jak blízkého léčit?', a: 'Ne. Program vysvětluje, jak OCD nekrmit a jak si zachovat vlastní život. Léčba patří odborníkům.' },
+      { q: 'Mohu přijít s partnerem nebo jiným blízkým?', a: 'Ano. Na setkání se může připojit jeden další člověk z vaší domácnosti bez příplatku. Jeho osobní údaje neshromažďuji.' },
+      { q: 'Co když je můj blízký v akutní krizi?', a: 'Volejte 112 nebo Linku první psychické pomoci 116 123. Seminář krizi řešit nemůže.' },
+    ],
+  },
+};
 
-// Texty odpovědí jsou stejné ve viditelném HTML i ve strukturovaných datech FAQPage. `html` je jen verze s odkazem.
+// Společné otázky (jednou pro oba programy). Texty odpovědí jsou stejné ve viditelném HTML i ve strukturovaných datech FAQPage. `html` je jen verze s odkazem.
 export const FAQ = [
   { q: 'Je to terapie?', a: 'Ne. Sdílím svou osobní zkušenost a cestu. Neposkytuji odbornou ani lékařskou radu, nediagnostikuji a neradím s léky.' },
   { q: 'Jak probíhá setkání?', a: 'Videohovor přes Google Meet nebo WhatsApp, 60 minut, jen vy a já. Po připsání platby se vám ozvu já e-mailem a domluvíme, jak se spojíme.' },
@@ -83,7 +129,7 @@ export const FAQ = [
     a: 'Google Meet nebo WhatsApp. Na počítači Google Meet funguje v prohlížeči, na telefonu a tabletu je potřeba aplikace. Odkazy do obchodů a QR kódy najdete na stránce Online semináře.',
     html: 'Google Meet nebo WhatsApp. Na počítači Google Meet funguje v prohlížeči, na telefonu a tabletu je potřeba aplikace. Odkazy do obchodů a QR kódy najdete na stránce <a href="/seminare#spojeni">Online semináře</a>.',
   },
-  { q: 'Mohu setkání přesunout?', a: 'Ano, nejpozději 24 hodin předem po domluvě e-mailem, nejvýše dvakrát během programu. Neomluvená neúčast se počítá jako uskutečněné setkání.' },
+  { q: 'Mohu setkání přesunout?', a: 'Ano, nejpozději 24 hodin předem po domluvě e-mailem. U programu pěti setkání nejvýše dvakrát, u programu tří setkání nejvýše jednou. Neomluvená neúčast se počítá jako uskutečněné setkání.' },
   {
     q: 'Co když se zhorším?',
     a: 'Obraťte se na svého lékaře nebo terapeuta. Odkazy a krizové kontakty najdete na stránce Pomoc. V akutní krizi volejte 112 nebo 116 123.',
@@ -91,15 +137,31 @@ export const FAQ = [
   },
   { q: 'Nedorazil mi e-mail. Co mám dělat?', a: 'Zkontrolujte složku Spam a záložky Hromadné nebo Reklamy. Zprávy chodí z adresy info@ocdmentor.cz a mohou tam spadnout. Zprávu označte jako „Není spam“. Platební údaje máte i na stránce po odeslání rezervace. Pokud e-mail nenajdete ani tam, napište na ocdmentor@gmail.com.' },
   { q: 'Jak se platí?', a: 'Po rezervaci dostanete QR kód a platební údaje. Platí se bankovním převodem do 3 dnů, termín je do té doby držený pro vás.' },
-  { q: 'Co je v ceně?', a: 'Všech pět setkání po 60 minutách. Jiné poplatky nejsou.' },
-  { q: 'Čím se liší od jednotlivých sezení?', a: 'Jednotlivá sezení jsou volná podpora podle aktuálního tématu. Program je strukturovaný podle knihy a tvoří ho pět propojených setkání.' },
-  { q: 'Konají se setkání i o svátcích?', a: 'Ne. O Vánocích a na Silvestra se nekonají, program se o tyto týdny posune.' },
+  { q: 'Co je v ceně?', a: 'Všechna setkání daného programu. Jiné poplatky nejsou.' },
+  { q: 'Čím se liší program od jednotlivých sezení?', a: 'Jednotlivá sezení jsou volná podpora podle aktuálního tématu. Programy jsou strukturované a tvoří je propojená setkání.' },
+  { q: 'Konají se setkání i o svátcích?', a: 'Ne, 24. a 31. prosince se nekonají, program se o tyto týdny posune.' },
 ];
 
-export const faqJsonLd = () => ({
+// Všechny otázky, které jsou na stránce vidět (otázky v záložkách programů i společné), ve stejném pořadí jako na stránce.
+export const vsechnyFaq = (programy) => {
+  const vse = [...programy.flatMap((p) => OBSAH[p.id].faq), ...FAQ];
+  const videne = new Set();
+  for (const f of vse) {
+    if (videne.has(f.q)) throw new Error(`Otázka „${f.q}“ je ve FAQ semináře dvakrát.`);
+    videne.add(f.q);
+  }
+  return vse;
+};
+
+export const faqJsonLd = (programy) => ({
   '@type': 'FAQPage',
-  mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  mainEntity: vsechnyFaq(programy).map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
 });
+
+const faqDetails = (seznam) => seznam.map((f) => `  <details>
+    <summary>${esc(f.q)}</summary>
+    <p>${f.html || esc(f.a)}</p>
+  </details>`).join('\n');
 
 // ---------- stavy běhů ----------
 const STAV = {
@@ -109,48 +171,72 @@ const STAV = {
   pripravujeme: ['Připravujeme', 'badge--soft'],
 };
 const badge = (stav) => `<span class="badge ${STAV[stav][1]}" data-stav-text>${STAV[stav][0]}</span>`;
-const spolecneAtributy = (beh, stav) => `data-beh="${esc(beh.id)}" data-stav="${stav}" data-uzavreni-od="${esc(beh.uzavreniOd)}"`;
+const spolecneAtributy = (beh, stav) => `data-beh="${esc(beh.id)}" data-program="${esc(beh.programId)}" data-stav="${stav}" data-uzavreni-od="${esc(beh.uzavreniOd)}"`;
 const mailtoDalsiTermin = `mailto:ocdmentor@gmail.com?subject=${encodeURIComponent('Dotaz na další termín')}`;
+const odkazRezervace = (program, beh) => `/seminare/rezervace?program=${esc(program)}${beh ? `&amp;beh=${esc(beh)}` : ''}`;
 
 const behKarta = (beh, data, now) => {
   const stav = stavBehu(beh, data, now);
   const posledni = beh.terminy[beh.terminy.length - 1];
   return `    <article class="run" ${spolecneAtributy(beh, stav)}>
-      <div class="run-head"><h3>${esc(beh.nazev)}</h3>${badge(stav)}</div>
+      <div class="run-head"><h4>${esc(beh.nazev)}</h4>${badge(stav)}</div>
       <p class="run-meta">Od ${formatCz(beh.prvniDatum)} do ${formatCz(posledni)}</p>
       <ol class="run-dates">
 ${beh.terminy.map((t) => `        <li><time datetime="${t}T${beh.cas}">${dlouhyCz(t, beh.cas)}</time></li>`).join('\n')}
       </ol>
-${stav === 'otevreno' ? `      <p class="cta" data-rezervovat><a class="btn btn-cta" href="/seminare/rezervace?beh=${esc(beh.id)}">Rezervovat místo</a></p>\n` : ''}    </article>`;
+${stav === 'otevreno' ? `      <p class="cta" data-rezervovat><a class="btn btn-cta" href="${odkazRezervace(beh.programId, beh.id)}">Rezervovat místo</a></p>\n` : ''}    </article>`;
 };
 
-// ---------- /seminare ----------
-export function seminareBody({ data, behy, now = new Date() }) {
-  return `
-<section class="wrap page-head">
-  <h1>${esc(NADPIS)}</h1>
-  <p class="lead">${esc(PODTITUL)}</p>
-  <div class="callout-inline disclaimer sem-box" role="note">
-    <p>${esc(POVAHA_SEMINARE)}</p>
-  </div>
-</section>
+const terminyBlok = (p, data, now) => `      <h3 id="terminy-${esc(p.id)}">Termíny</h3>
+      <p>Program se koná vždy ${denSPredlozkou(p.den)} v ${p.cas}. Běhy jdou po sobě, protože v daném čase vedu jen jednoho klienta. Rezervace se uzavírá ${data.uzavreniDniPredZacatkem} dny před prvním setkáním, aby se stihla platba i odeslání odkazu.</p>
+      <p class="callout-inline"><strong>Jak to bude dál:</strong> ${SPOJENI_ZKRATKA} <a href="#spojeni">Podrobnosti a aplikace ke stažení</a>.</p>
+      <div class="runs">
+${p.behy.map((b) => behKarta(b, data, now)).join('\n')}
+      </div>
+      <p class="run-none" data-run-none hidden>Aktuálně není otevřený žádný termín. Napište mi a ozvu se, jakmile bude další.</p>
+      <p class="run-other"><a href="${mailtoDalsiTermin}">Žádný termín mi nevyhovuje</a></p>`;
 
-<section class="wrap block">
-  <p class="sem-format">${esc(formatProgramu(data))}</p>
-</section>
+const programZalozka = (p, data, now, otevrena) => {
+  const o = OBSAH[p.id];
+  if (!o) throw new Error(`Program „${p.id}“ nemá obsah v tools/content/seminare.mjs (OBSAH).`);
+  const t = textyProgramu(p.id);
+  const maOtevreny = p.behy.some((b) => stavBehu(b, data, now) === 'otevreno');
+  return `  <details class="prog-tab" id="${esc(p.id)}" name="program" data-program-tab${otevrena ? ' open' : ''}>
+    <summary><h2 class="prog-title">${esc(p.nazev)}</h2><span class="prog-meta">${esc(shrnutiProgramu(p))}</span></summary>
+    <div class="prog-body">
+      <p class="lead">${esc(p.podtitul)}</p>
+      <div class="callout-inline disclaimer sem-box" role="note">
+        <p>${esc(t.povaha)}</p>
+      </div>
+      <p class="sem-format">${esc(formatProgramu(p))}</p>
+${o.intro ? `      <p>${esc(o.intro)}</p>\n` : ''}${o.odkaz ? `      ${o.odkaz}\n` : ''}${terminyBlok(p, data, now)}
+${o.kniha ? `      <p>Program vychází z knihy, kterou si můžete stáhnout zdarma: <a href="/ebook">Cesta k sebepřijetí, sebevíře a svobodnějšímu životu s OCD</a>.</p>\n` : ''}
+      <h3>${esc(o.kartyNadpis)}</h3>
+      <div class="cards sem-cards">
+${o.karty.map(([nazev, text], i) => `        <article class="card">
+          <p class="sem-num" aria-hidden="true">${i + 1}</p>
+          <h4>${esc(nazev)}</h4>
+          <p>${esc(text)}</p>
+        </article>`).join('\n')}
+      </div>
 
-<section class="wrap block" id="terminy">
-  <h2>Termíny</h2>
-  <p>Programy se konají vždy ve čtvrtek v 18:00. Běhy jdou po sobě, protože v daném čase vedu jen jednoho klienta. Rezervace se uzavírá ${data.uzavreniDniPredZacatkem} dny před prvním setkáním, aby se stihla platba i odeslání odkazu.</p>
-  <p class="callout-inline"><strong>Jak to bude dál:</strong> ${SPOJENI_ZKRATKA} <a href="#spojeni">Podrobnosti a aplikace ke stažení</a>.</p>
-  <div class="runs">
-${behy.map((b) => behKarta(b, data, now)).join('\n')}
-  </div>
-  <p class="run-none" data-run-none hidden>Aktuálně není otevřený žádný termín. Napište mi a ozvu se, jakmile bude další.</p>
-  <p class="run-other"><a href="${mailtoDalsiTermin}">Žádný termín mi nevyhovuje</a></p>
-</section>
+      <h3>Jak setkání probíhají</h3>
+      <ul class="rules">
+${o.jak.map((x) => `        <li>${esc(x)}</li>`).join('\n')}
+      </ul>
 
-<section class="wrap block" id="spojeni">
+      <h3>Pro koho to je</h3>
+      <p>${esc(o.proKoho)}</p>
+${maOtevreny ? `      <p class="cta" data-rezervovat-program><a class="btn btn-cta" href="${odkazRezervace(p.id)}">Rezervovat místo</a></p>\n` : ''}${o.faq.length ? `
+      <div class="faq">
+        <h3>Časté otázky k tomuto programu</h3>
+${faqDetails(o.faq).replace(/^/gm, '    ')}
+      </div>
+` : ''}    </div>
+  </details>`;
+};
+
+const spojeniSekce = () => `<section class="wrap block" id="spojeni">
   <h2>Jak spolu budeme v kontaktu</h2>
   <ul class="rules">
     <li>Setkání probíhají jako videohovor 1:1 přes <strong>Google Meet</strong> nebo <strong>WhatsApp</strong>. Aplikaci si vyberete podle toho, co vám vyhovuje.</li>
@@ -163,77 +249,111 @@ ${behy.map((b) => behKarta(b, data, now)).join('\n')}
 ${aplikaceHtml()}
   </div>
   <p class="small">Odkazy vedou do oficiálních obchodů Apple a Google a na externí weby mimo ${esc('ocdmentor.cz')}. Aplikace provozují jejich výrobci.</p>
+</section>`;
+
+// ---------- /seminare ----------
+// `konzultaceHtml` = existující tlačítko Reservanto z webu (předává generátor); bez něj se odkazuje na /kontakt.
+export function seminareBody({ data, programy, now = new Date(), konzultaceHtml = '<a class="btn btn-ghost" href="/kontakt">Napsat mi</a>' }) {
+  return `
+<section class="wrap page-head">
+  <h1>${esc(NADPIS_STRANKY)}</h1>
+  <p class="lead">${esc(PODTITUL_STRANKY)}</p>
 </section>
 
-<section class="wrap block">
-  <p>Program vychází z knihy, kterou si můžete stáhnout zdarma: <a href="/ebook">Cesta k sebepřijetí, sebevíře a svobodnějšímu životu s OCD</a>.</p>
+<section class="wrap block prog-tabs">
+${programy.map((p, i) => programZalozka(p, data, now, i === 0)).join('\n\n')}
 </section>
 
-<section class="wrap block">
-  <h2>Pět setkání</h2>
-  <div class="cards sem-cards">
-${KARTY.map(([nazev, text], i) => `    <article class="card">
-      <p class="sem-num" aria-hidden="true">${i + 1}</p>
-      <h3>${esc(nazev)}</h3>
-      <p>${esc(text)}</p>
-    </article>`).join('\n')}
-  </div>
+${spojeniSekce()}
+
+<section class="wrap block faq" id="faq">
+  <h2>Časté otázky k oběma programům</h2>
+${faqDetails(FAQ)}
 </section>
 
-<section class="wrap block prose">
-  <h2>Jak setkání probíhají</h2>
-  <ul class="rules">
-${JAK_PROBIHAJI.map((t) => `    <li>${esc(t)}</li>`).join('\n')}
-  </ul>
-</section>
-
-<section class="wrap block prose">
-  <h2>Pro koho to je</h2>
-  <p>${esc(PRO_KOHO)}</p>
-</section>
-
-<section class="wrap block faq">
-  <h2>Časté dotazy</h2>
-${FAQ.map((f) => `  <details>
-    <summary>${esc(f.q)}</summary>
-    <p>${f.html || esc(f.a)}</p>
-  </details>`).join('\n')}
+<section class="wrap block" id="konzultace">
+  <p><strong>Chcete si nejdřív promluvit?</strong> Rezervujte si úvodní konzultaci zdarma (20 minut).</p>
+  ${konzultaceHtml}
 </section>
 `;
 }
 
 // ---------- /seminare/rezervace ----------
 const chyba = (pole) => `<p class="field-err" id="err-${pole}" hidden></p>`;
-export function rezervaceBody({ data, behy, now = new Date() }) {
+const SOUHLASY = {
+  'pro-lidi-s-ocd': {
+    zpracovani: 'Souhlasím se zpracováním jména, e-mailu a telefonního čísla za účelem rezervace, organizace programu a spojení se mnou. Chápu, že už samotná účast na semináři o OCD může vypovídat o mém zdravotním stavu, a souhlasím se zpracováním i této informace. Souhlas mohu kdykoli odvolat e-mailem. <a href="/ochrana-osobnich-udaju">Zásady ochrany osobních údajů</a>.',
+    povaha: 'Rozumím, že seminář vychází z osobní zkušenosti autora a nejde o odbornou ani lékařskou radu, terapii ani zdravotní službu.',
+  },
+  'pro-blizke': {
+    zpracovani: 'Souhlasím se zpracováním jména, e-mailu a telefonního čísla za účelem rezervace, organizace programu a spojení se mnou. Chápu, že už samotná účast na semináři o OCD může vypovídat o zdravotním stavu účastníka nebo jeho blízkého, a souhlasím se zpracováním i této informace o sobě. Souhlas mohu kdykoli odvolat e-mailem. <a href="/ochrana-osobnich-udaju">Zásady ochrany osobních údajů</a>.',
+    povaha: 'Rozumím, že seminář vychází z osobní zkušenosti autora a nejde o odbornou ani lékařskou radu, terapii, rodinnou terapii ani zdravotní službu, a že na semináři nebudu sdílet identifikující údaje o svém blízkém (jména, diagnózy, podrobnosti).',
+  },
+};
+const PODMINKY_SOUHLAS = 'Souhlasím s <a href="/obchodni-podminky">obchodními podmínkami</a>.';
+
+const blokProgramu = (p, data, now) => {
+  const t = textyProgramu(p.id);
+  return `    <div class="program-blok" id="blok-${esc(p.id)}" data-program="${esc(p.id)}" hidden>
+      <div class="callout-inline disclaimer sem-box" role="note">
+        <p>${esc(t.povaha)}</p>
+      </div>
+      <p class="sem-format">${esc(formatProgramu(p))}</p>
+      <p class="callout-inline"><strong>Jak to bude dál:</strong> ${SPOJENI_ZKRATKA} <a href="/seminare#spojeni">Podrobnosti a aplikace ke stažení</a>.</p>
+      <fieldset class="run-choice" aria-describedby="err-beh-${esc(p.id)}">
+        <legend>Vyberte termín</legend>
+${p.behy.map((b) => {
+    const stav = stavBehu(b, data, now);
+    return `        <div class="run-option" ${spolecneAtributy(b, stav)}>
+          <input type="radio" id="beh-${esc(b.id)}" name="beh" value="${esc(b.id)}" aria-describedby="terminy-${esc(b.id)}"${stav === 'otevreno' ? '' : ' disabled'}>
+          <label for="beh-${esc(b.id)}"><span class="run-name">${esc(b.nazev)}</span> ${badge(stav)}</label>
+          <p id="terminy-${esc(b.id)}" class="run-dates-text">${b.terminy.map((x) => dlouhyCz(x, b.cas)).join('; ')}</p>
+        </div>`;
+  }).join('\n')}
+        ${chyba(`beh-${esc(p.id)}`)}
+        <p class="small"><a href="${mailtoDalsiTermin}">Žádný termín mi nevyhovuje</a></p>
+      </fieldset>
+    </div>`;
+};
+
+const souhlasyProgramu = (p) => {
+  const s = SOUHLASY[p.id];
+  if (!s) throw new Error(`Program „${p.id}“ nemá texty souhlasů v tools/content/seminare.mjs (SOUHLASY).`);
+  const id = esc(p.id);
+  const pole = (kod, idPole, text) => `      <div class="field-check">
+        <label class="check"><input type="checkbox" id="${idPole}-${id}" name="${kod}" aria-describedby="err-${kod}-${id}"><span>${text}</span></label>
+        ${chyba(`${kod}-${id}`)}
+      </div>`;
+  return `    <fieldset class="program-souhlasy" id="souhlasy-${id}" data-program="${id}" hidden>
+      <legend>Souhlasy</legend>
+${pole('souhlasZpracovani', 'rez-souhlas-zpracovani', s.zpracovani)}
+${pole('souhlasPovaha', 'rez-souhlas-povaha', s.povaha)}
+${pole('souhlasPodminky', 'rez-souhlas-podminky', PODMINKY_SOUHLAS)}
+    </fieldset>`;
+};
+
+export function rezervaceBody({ data, programy, now = new Date() }) {
   return `
 <section class="wrap page-head">
   <h1>Rezervace místa</h1>
-  <p class="lead">Vyberte termín a vyplňte jméno a e-mail. Po odeslání se vám zobrazí QR kód s platebními údaji.</p>
-  <div class="callout-inline disclaimer sem-box" role="note">
-    <p>${esc(POVAHA_SEMINARE)}</p>
-  </div>
+  <p class="lead">Vyberte program a termín a vyplňte jméno, e-mail a telefon. Po odeslání se vám zobrazí QR kód s platebními údaji.</p>
 </section>
 
 <section class="wrap block">
-  <p class="sem-format">${esc(formatProgramu(data))}</p>
-  <p class="callout-inline"><strong>Jak to bude dál:</strong> ${SPOJENI_ZKRATKA} <a href="/seminare#spojeni">Podrobnosti a aplikace ke stažení</a>.</p>
   <noscript><p class="callout-inline">Rezervační formulář potřebuje zapnutý JavaScript. Bez něj mi prosím napište na <a href="mailto:ocdmentor@gmail.com">ocdmentor@gmail.com</a>.</p></noscript>
   <form id="rez-form" class="form rez-form" novalidate>
     <div id="rez-chyby" class="err-summary" role="alert" tabindex="-1" hidden></div>
 
-    <fieldset class="run-choice" aria-describedby="err-beh">
-      <legend>Vyberte termín</legend>
-${behy.map((b) => {
-    const stav = stavBehu(b, data, now);
-    return `      <div class="run-option" ${spolecneAtributy(b, stav)}>
-        <input type="radio" id="beh-${esc(b.id)}" name="beh" value="${esc(b.id)}" aria-describedby="terminy-${esc(b.id)}"${stav === 'otevreno' ? '' : ' disabled'}>
-        <label for="beh-${esc(b.id)}"><span class="run-name">${esc(b.nazev)}</span> ${badge(stav)}</label>
-        <p id="terminy-${esc(b.id)}" class="run-dates-text">${b.terminy.map((t) => dlouhyCz(t, b.cas)).join('; ')}</p>
-      </div>`;
-  }).join('\n')}
-      ${chyba('beh')}
-      <p class="small"><a href="${mailtoDalsiTermin}">Žádný termín mi nevyhovuje</a></p>
+    <fieldset class="program-choice" aria-describedby="err-program">
+      <legend>Vyberte program</legend>
+${programy.map((p) => `      <div class="program-option">
+        <input type="radio" id="program-${esc(p.id)}" name="program" value="${esc(p.id)}" aria-controls="blok-${esc(p.id)} souhlasy-${esc(p.id)}">
+        <label for="program-${esc(p.id)}"><span class="run-name">${esc(p.nazev)}</span> <span class="program-meta">${esc(shrnutiProgramu(p))}</span></label>
+      </div>`).join('\n')}
+      ${chyba('program')}
     </fieldset>
+
+${programy.map((p) => blokProgramu(p, data, now)).join('\n\n')}
 
     <fieldset>
       <legend>Vaše údaje</legend>
@@ -245,23 +365,9 @@ ${behy.map((b) => {
       <div class="hp" aria-hidden="true"><label>Toto pole nechte prázdné <input type="text" name="web" tabindex="-1" autocomplete="off"></label></div>
     </fieldset>
 
-    <fieldset>
-      <legend>Souhlasy</legend>
-      <div class="field-check">
-        <label class="check"><input type="checkbox" id="rez-souhlas-zpracovani" name="souhlasZpracovani" aria-describedby="err-souhlasZpracovani"><span>Souhlasím se zpracováním jména, e-mailu a telefonního čísla za účelem rezervace, organizace programu a spojení se mnou. Chápu, že už samotná účast na semináři o OCD může vypovídat o mém zdravotním stavu, a souhlasím se zpracováním i této informace. Souhlas mohu kdykoli odvolat e-mailem. <a href="/ochrana-osobnich-udaju">Zásady ochrany osobních údajů</a>.</span></label>
-        ${chyba('souhlasZpracovani')}
-      </div>
-      <div class="field-check">
-        <label class="check"><input type="checkbox" id="rez-souhlas-povaha" name="souhlasPovaha" aria-describedby="err-souhlasPovaha"><span>Rozumím, že seminář vychází z osobní zkušenosti autora a nejde o odbornou ani lékařskou radu, terapii ani zdravotní službu.</span></label>
-        ${chyba('souhlasPovaha')}
-      </div>
-      <div class="field-check">
-        <label class="check"><input type="checkbox" id="rez-souhlas-podminky" name="souhlasPodminky" aria-describedby="err-souhlasPodminky"><span>Souhlasím s <a href="/obchodni-podminky">obchodními podmínkami</a>.</span></label>
-        ${chyba('souhlasPodminky')}
-      </div>
-    </fieldset>
+${programy.map((p) => souhlasyProgramu(p)).join('\n\n')}
 
-    <p class="callout-inline"><strong>Zkontrolujte i spam.</strong> Platební údaje a termíny vám pošlu e-mailem z adresy info@ocdmentor.cz. Zpráva může skončit ve spamu nebo v záložce Hromadné či Reklamy. Pokud ji v doručené poště nenajdete, podívejte se tam a označte ji jako „Není spam“. Platební údaje uvidíte i na stránce po odeslání rezervace.</p>
+    <p class="callout-inline"><strong>Zkontrolujte i spam.</strong> ${SPAM_UPOZORNENI} Platební údaje uvidíte i na stránce po odeslání rezervace.</p>
 
     <div class="actions"><button type="submit" class="btn btn-cta" id="rez-odeslat">Odeslat rezervaci</button></div>
     <p id="rez-stav" class="msg" role="status" aria-live="polite"></p>
@@ -282,7 +388,7 @@ export function potvrzeniBody() {
 
 <section class="wrap block" id="potvrzeni-data" hidden>
   <p class="callout-inline"><strong>Místo je pro vás rezervované do splatnosti.</strong> Po připsání platby se vám ozvu já e-mailem a domluvíme videohovor (Google Meet nebo WhatsApp). Nemusíte se mi ozývat sami. Do zprávy pro příjemce nic nepište, variabilní symbol stačí.</p>
-  <p class="callout-inline"><strong>Zkontrolujte i spam.</strong> Platební údaje a termíny vám pošlu e-mailem z adresy info@ocdmentor.cz. Zpráva může skončit ve spamu nebo v záložce Hromadné či Reklamy. Pokud ji v doručené poště nenajdete, podívejte se tam a označte ji jako „Není spam“. Platební údaje máte i na této stránce.</p>
+  <p class="callout-inline"><strong>Zkontrolujte i spam.</strong> ${SPAM_UPOZORNENI} Platební údaje máte i na této stránce.</p>
   <div class="pay-grid">
     <div class="pay-qr">
       <div id="qr" class="qr-box" role="img" aria-label="QR kód pro platbu semináře"></div>

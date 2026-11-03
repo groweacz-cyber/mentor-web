@@ -1,27 +1,36 @@
 {
-  "poznamka": "Termíny seminářů. Čte je generátor webu (tools/gen.mjs, text přímo do HTML) i serverová funkce api/rezervace.js. Pět termínů každého běhu se počítá od prvniDatum po 7 dnech, vynechaná data se přeskakují. Stav běhu: otevreno, obsazeno nebo pripravujeme. Po přijetí rezervace nastavte běh na obsazeno a web znovu nasaďte.",
-  "cena": 3590,
-  "pocetSetkani": 5,
-  "delkaMinut": 60,
+  "poznamka": "Programy a termíny seminářů. Čte je generátor webu (tools/gen.mjs, text přímo do HTML) i serverová funkce api/rezervace.js. Termíny každého běhu se počítají od prvniDatum po 7 dnech (počet podle pocetSetkani), vynechaná data se přeskakují. Stav běhu: otevreno, obsazeno nebo pripravujeme. Po přijetí rezervace nastavte běh na obsazeno a web znovu nasaďte. Generátor selže, pokud termín padne na vynechané datum nebo se jakákoli dvě setkání (napříč programy a běhy) překrývají či jsou blíž než 90 minut od sebe.",
   "uzavreniDniPredZacatkem": 4,
   "splatnostDni": 3,
   "vynechaneDatumy": ["2026-12-24", "2026-12-31"],
-  "behy": [
+  "programy": [
     {
-      "id": "beh-1",
-      "nazev": "Běh 1",
+      "id": "pro-lidi-s-ocd",
+      "nazev": "Cesta s OCD: sebepřijetí, sebevíra a svobodnější život",
+      "podtitul": "Individuální program pěti setkání 1:1 podle knihy. Jak jsem na to šel já a co z toho můžeš využít ty.",
+      "pocetSetkani": 5,
+      "delkaMinut": 60,
+      "cena": 3590,
       "den": "čtvrtek",
       "cas": "18:00",
-      "prvniDatum": "2026-12-03",
-      "stav": "otevreno"
+      "behy": [
+        { "id": "beh-1", "prvniDatum": "2026-12-03", "stav": "otevreno" },
+        { "id": "beh-2", "prvniDatum": "2027-01-21", "stav": "otevreno" }
+      ]
     },
     {
-      "id": "beh-2",
-      "nazev": "Běh 2",
-      "den": "čtvrtek",
+      "id": "pro-blizke",
+      "nazev": "Když OCD žije vedle vás: průvodce pro blízké",
+      "podtitul": "Individuální program tří setkání 1:1. Co lidem s OCD pomáhá, co jim naopak škodí a jak se v tom nezničit.",
+      "pocetSetkani": 3,
+      "delkaMinut": 60,
+      "cena": 2190,
+      "den": "úterý",
       "cas": "18:00",
-      "prvniDatum": "2027-01-21",
-      "stav": "otevreno"
+      "behy": [
+        { "id": "blizke-beh-1", "prvniDatum": "2026-12-01", "stav": "otevreno" },
+        { "id": "blizke-beh-2", "prvniDatum": "2027-01-12", "stav": "otevreno" }
+      ]
     }
   ]
 }

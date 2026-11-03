@@ -1,8 +1,8 @@
 // Serverová funkce rezervace semináře (Vercel, region fra1 = EU). POST /api/rezervace, JSON.
 // Nic neukládá. Do logů jde jen variabilní symbol a kódy chyb, žádné osobní údaje.
-import { nactiData, pripravBehy, splatnost, stavBehu } from './_lib/seminare.js';
+import { nactiData, pripravProgramy, splatnost, stavBehu } from './_lib/seminare.js';
 import { spdRetezec, variabilniSymbol } from './_lib/platba.js';
-import { ZPRAVA_PRO_PRIJEMCE } from './_lib/texty.js';
+import { ZPRAVA_PRO_PRIJEMCE, textyProgramu } from './_lib/texty.js';
 import { validujRezervaci } from './_lib/validace.js';
 import { limitPrekrocen, otisk } from './_lib/limit.js';
 import { emailMajitel, emailUcastnik, vytvorOdesilac } from './_lib/mail.js';
@@ -10,10 +10,12 @@ import { nactiKonfiguraci } from './_lib/konfigurace.js';
 
 const MAX_TELO = 4096;
 let cache;
-const behyZData = () => {
+const programyZData = () => {
   if (!cache) {
     const data = nactiData();
-    cache = { data, behy: pripravBehy(data) };
+    const programy = pripravProgramy(data);
+    for (const p of programy) textyProgramu(p.id);
+    cache = { data, programy };
   }
   return cache;
 };
@@ -63,31 +65,35 @@ export function vytvorHandler({ env = () => process.env, odesilac = vytvorOdesil
 
     let cast;
     try {
-      cast = behyZData();
+      cast = programyZData();
     } catch (e) {
       console.error('rezervace: chybná data termínů', { kod: 'data-terminu' });
       return odpovez(res, 500, { ok: false, kod: 'data-terminu' });
     }
-    const { data, behy } = cast;
+    const { data, programy } = cast;
 
-    const v = validujRezervaci(telo, behy.map((b) => b.id));
+    const v = validujRezervaci(telo, programy.map((p) => ({ id: p.id, behy: p.behy.map((b) => b.id) })));
     if (!v.ok) return odpovez(res, 400, { ok: false, kod: v.kod, chyby: v.chyby });
 
-    const beh = behy.find((b) => b.id === v.hodnoty.beh);
+    const program = programy.find((p) => p.id === v.hodnoty.program);
+    const beh = program.behy.find((b) => b.id === v.hodnoty.beh);
+    const programTexty = textyProgramu(program.id);
     if (stavBehu(beh, data, ted0) !== 'otevreno') return odpovez(res, 409, { ok: false, kod: 'beh-neni-otevreny' });
 
     // Cena, termíny a stav se berou jen ze serverových dat, nikdy od klienta.
     const vs = variabilniSymbol(ted0);
     const rez = {
       vs,
-      castka: data.cena,
+      castka: program.cena,
+      programId: program.id,
+      programTexty,
       ucet: konf.ucet,
       iban: konf.iban,
       behId: beh.id,
       behNazev: beh.nazev,
       terminy: beh.terminy,
       cas: beh.cas,
-      delkaMinut: data.delkaMinut,
+      delkaMinut: program.delkaMinut,
       splatnost: splatnost(data, ted0),
     };
     const spd = spdRetezec({ iban: rez.iban, castka: rez.castka, vs, prijemce: konf.majitel, zprava: ZPRAVA_PRO_PRIJEMCE });
@@ -121,6 +127,7 @@ export function vytvorHandler({ env = () => process.env, odesilac = vytvorOdesil
       iban: rez.iban,
       majitel: konf.majitel,
       splatnost: rez.splatnost,
+      program: { id: program.id, popis: programTexty.popis },
       beh: { id: beh.id, nazev: beh.nazev },
       terminy: rez.terminy.map((datum) => ({ datum, cas: rez.cas })),
       delkaMinut: rez.delkaMinut,

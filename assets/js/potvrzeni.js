@@ -23,7 +23,8 @@
   set('pay-vs', d.vs);
   set('pay-majitel', d.majitel);
   set('pay-splatnost', 'do ' + cz(d.splatnost));
-  set('pay-beh', d.beh && d.beh.nazev ? d.beh.nazev + ', online 1:1 přes Google Meet nebo WhatsApp, ' + d.delkaMinut + ' minut' : '');
+  var program = d.program && d.program.popis ? d.program.popis + ', ' : '';
+  set('pay-beh', d.beh && d.beh.nazev ? program + d.beh.nazev + ', online 1:1 přes Google Meet nebo WhatsApp, ' + d.delkaMinut + ' minut' : '');
   var seznam = document.getElementById('pay-terminy');
   for (var i = 0; i < d.terminy.length; i++) {
     var li = document.createElement('li');

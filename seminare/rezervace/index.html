@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rezervace semináře: výběr termínu a platba | ocdmentor.cz</title>
-<meta name="description" content="Rezervace místa v individuálním programu pěti online setkání: vyberte termín, vyplňte jméno a e-mail a zaplaťte QR kódem do 3 dnů.">
+<meta name="description" content="Rezervace místa v individuálním online programu: vyberte program a termín, vyplňte jméno, e-mail a telefon a zaplaťte QR kódem do 3 dnů.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://ocdmentor.cz/seminare/rezervace">
 
@@ -12,7 +12,7 @@
 <meta property="og:locale" content="cs_CZ">
 <meta property="og:site_name" content="OCD mentor">
 <meta property="og:title" content="Rezervace semináře: výběr termínu a platba | ocdmentor.cz">
-<meta property="og:description" content="Rezervace místa v individuálním programu pěti online setkání: vyberte termín, vyplňte jméno a e-mail a zaplaťte QR kódem do 3 dnů.">
+<meta property="og:description" content="Rezervace místa v individuálním online programu: vyberte program a termín, vyplňte jméno, e-mail a telefon a zaplaťte QR kódem do 3 dnů.">
 <meta property="og:url" content="https://ocdmentor.cz/seminare/rezervace">
 <meta property="og:image" content="https://ocdmentor.cz/assets/og/seminare-rezervace.png">
 <meta property="og:image:width" content="1200">
@@ -21,13 +21,13 @@
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Rezervace semináře: výběr termínu a platba | ocdmentor.cz">
-<meta name="twitter:description" content="Rezervace místa v individuálním programu pěti online setkání: vyberte termín, vyplňte jméno a e-mail a zaplaťte QR kódem do 3 dnů.">
+<meta name="twitter:description" content="Rezervace místa v individuálním online programu: vyberte program a termín, vyplňte jméno, e-mail a telefon a zaplaťte QR kódem do 3 dnů.">
 <meta name="twitter:image" content="https://ocdmentor.cz/assets/og/seminare-rezervace.png">
 <meta name="theme-color" content="#1b2a41">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=7f4d7d28">
+<link rel="stylesheet" href="/assets/css/style.css?v=12d432cf">
 
 <script type="application/ld+json">
 {
@@ -146,34 +146,72 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 
 <section class="wrap page-head">
   <h1>Rezervace místa</h1>
-  <p class="lead">Vyberte termín a vyplňte jméno a e-mail. Po odeslání se vám zobrazí QR kód s platebními údaji.</p>
-  <div class="callout-inline disclaimer sem-box" role="note">
-    <p>Seminář vychází z mé osobní životní zkušenosti a cesty s OCD. Nejde o odbornou ani lékařskou radu, psychoterapii ani zdravotní službu a nenahrazuje péči psychologa, psychoterapeuta ani psychiatra. Nejsem psycholog, psychoterapeut ani psychiatr. Na semináři nediagnostikuji, neléčím a neradím s léky.</p>
-  </div>
+  <p class="lead">Vyberte program a termín a vyplňte jméno, e-mail a telefon. Po odeslání se vám zobrazí QR kód s platebními údaji.</p>
 </section>
 
 <section class="wrap block reveal">
-  <p class="sem-format">5 setkání po 60 minutách, 1× týdně ve čtvrtek v 18:00, online 1:1. Cena 3 590 Kč za celý program. Cena je konečná, nejsem plátce DPH.</p>
-  <p class="callout-inline"><strong>Jak to bude dál:</strong> Po rezervaci a připsání platby se vám ozvu já, nemusíte se mi ozývat sami. Videohovor 1:1 probíhá přes Google Meet nebo WhatsApp. <a href="/seminare#spojeni">Podrobnosti a aplikace ke stažení</a>.</p>
   <noscript><p class="callout-inline">Rezervační formulář potřebuje zapnutý JavaScript. Bez něj mi prosím napište na <a href="mailto:ocdmentor@gmail.com">ocdmentor@gmail.com</a>.</p></noscript>
   <form id="rez-form" class="form rez-form" novalidate>
     <div id="rez-chyby" class="err-summary" role="alert" tabindex="-1" hidden></div>
 
-    <fieldset class="run-choice" aria-describedby="err-beh">
-      <legend>Vyberte termín</legend>
-      <div class="run-option" data-beh="beh-1" data-stav="otevreno" data-uzavreni-od="2026-11-29">
-        <input type="radio" id="beh-beh-1" name="beh" value="beh-1" aria-describedby="terminy-beh-1">
-        <label for="beh-beh-1"><span class="run-name">Běh 1</span> <span class="badge badge--ok" data-stav-text>Otevřeno</span></label>
-        <p id="terminy-beh-1" class="run-dates-text">čtvrtek 3. 12. 2026 v 18:00; čtvrtek 10. 12. 2026 v 18:00; čtvrtek 17. 12. 2026 v 18:00; čtvrtek 7. 1. 2027 v 18:00; čtvrtek 14. 1. 2027 v 18:00</p>
+    <fieldset class="program-choice" aria-describedby="err-program">
+      <legend>Vyberte program</legend>
+      <div class="program-option">
+        <input type="radio" id="program-pro-lidi-s-ocd" name="program" value="pro-lidi-s-ocd" aria-controls="blok-pro-lidi-s-ocd souhlasy-pro-lidi-s-ocd">
+        <label for="program-pro-lidi-s-ocd"><span class="run-name">Cesta s OCD: sebepřijetí, sebevíra a svobodnější život</span> <span class="program-meta">Individuální program 5 setkání · 3 590 Kč</span></label>
       </div>
-      <div class="run-option" data-beh="beh-2" data-stav="otevreno" data-uzavreni-od="2027-01-17">
-        <input type="radio" id="beh-beh-2" name="beh" value="beh-2" aria-describedby="terminy-beh-2">
-        <label for="beh-beh-2"><span class="run-name">Běh 2</span> <span class="badge badge--ok" data-stav-text>Otevřeno</span></label>
-        <p id="terminy-beh-2" class="run-dates-text">čtvrtek 21. 1. 2027 v 18:00; čtvrtek 28. 1. 2027 v 18:00; čtvrtek 4. 2. 2027 v 18:00; čtvrtek 11. 2. 2027 v 18:00; čtvrtek 18. 2. 2027 v 18:00</p>
+      <div class="program-option">
+        <input type="radio" id="program-pro-blizke" name="program" value="pro-blizke" aria-controls="blok-pro-blizke souhlasy-pro-blizke">
+        <label for="program-pro-blizke"><span class="run-name">Když OCD žije vedle vás: průvodce pro blízké</span> <span class="program-meta">Individuální program 3 setkání · 2 190 Kč</span></label>
       </div>
-      <p class="field-err" id="err-beh" hidden></p>
-      <p class="small"><a href="mailto:ocdmentor@gmail.com?subject=Dotaz%20na%20dal%C5%A1%C3%AD%20term%C3%ADn">Žádný termín mi nevyhovuje</a></p>
+      <p class="field-err" id="err-program" hidden></p>
     </fieldset>
+
+    <div class="program-blok" id="blok-pro-lidi-s-ocd" data-program="pro-lidi-s-ocd" hidden>
+      <div class="callout-inline disclaimer sem-box" role="note">
+        <p>Seminář vychází z mé osobní životní zkušenosti a cesty s OCD. Nejde o odbornou ani lékařskou radu, psychoterapii ani zdravotní službu a nenahrazuje péči psychologa, psychoterapeuta ani psychiatra. Nejsem psycholog, psychoterapeut ani psychiatr. Na semináři nediagnostikuji, neléčím a neradím s léky.</p>
+      </div>
+      <p class="sem-format">5 setkání po 60 minutách, 1× týdně ve čtvrtek v 18:00, online 1:1. Cena 3 590 Kč za celý program. Cena je konečná, nejsem plátce DPH.</p>
+      <p class="callout-inline"><strong>Jak to bude dál:</strong> Po rezervaci a připsání platby se vám ozvu já, nemusíte se mi ozývat sami. Videohovor 1:1 probíhá přes Google Meet nebo WhatsApp. <a href="/seminare#spojeni">Podrobnosti a aplikace ke stažení</a>.</p>
+      <fieldset class="run-choice" aria-describedby="err-beh-pro-lidi-s-ocd">
+        <legend>Vyberte termín</legend>
+        <div class="run-option" data-beh="beh-1" data-program="pro-lidi-s-ocd" data-stav="otevreno" data-uzavreni-od="2026-11-29">
+          <input type="radio" id="beh-beh-1" name="beh" value="beh-1" aria-describedby="terminy-beh-1">
+          <label for="beh-beh-1"><span class="run-name">Běh 1</span> <span class="badge badge--ok" data-stav-text>Otevřeno</span></label>
+          <p id="terminy-beh-1" class="run-dates-text">čtvrtek 3. 12. 2026 v 18:00; čtvrtek 10. 12. 2026 v 18:00; čtvrtek 17. 12. 2026 v 18:00; čtvrtek 7. 1. 2027 v 18:00; čtvrtek 14. 1. 2027 v 18:00</p>
+        </div>
+        <div class="run-option" data-beh="beh-2" data-program="pro-lidi-s-ocd" data-stav="otevreno" data-uzavreni-od="2027-01-17">
+          <input type="radio" id="beh-beh-2" name="beh" value="beh-2" aria-describedby="terminy-beh-2">
+          <label for="beh-beh-2"><span class="run-name">Běh 2</span> <span class="badge badge--ok" data-stav-text>Otevřeno</span></label>
+          <p id="terminy-beh-2" class="run-dates-text">čtvrtek 21. 1. 2027 v 18:00; čtvrtek 28. 1. 2027 v 18:00; čtvrtek 4. 2. 2027 v 18:00; čtvrtek 11. 2. 2027 v 18:00; čtvrtek 18. 2. 2027 v 18:00</p>
+        </div>
+        <p class="field-err" id="err-beh-pro-lidi-s-ocd" hidden></p>
+        <p class="small"><a href="mailto:ocdmentor@gmail.com?subject=Dotaz%20na%20dal%C5%A1%C3%AD%20term%C3%ADn">Žádný termín mi nevyhovuje</a></p>
+      </fieldset>
+    </div>
+
+    <div class="program-blok" id="blok-pro-blizke" data-program="pro-blizke" hidden>
+      <div class="callout-inline disclaimer sem-box" role="note">
+        <p>Seminář vychází z mé osobní zkušenosti s OCD a z pohledu člověka, který OCD zná z vlastního života. Nejde o odbornou ani lékařskou radu, psychoterapii, rodinnou terapii ani zdravotní službu a nenahrazuje péči psychologa, psychoterapeuta ani psychiatra. Nejsem psycholog, psychoterapeut ani psychiatr. Na semináři nediagnostikuji, neléčím a neradím s léky.</p>
+      </div>
+      <p class="sem-format">3 setkání po 60 minutách, 1× týdně v úterý v 18:00, online 1:1. Na setkání se může připojit i druhý blízký z vaší domácnosti bez příplatku. Cena 2 190 Kč za celý program. Cena je konečná, nejsem plátce DPH.</p>
+      <p class="callout-inline"><strong>Jak to bude dál:</strong> Po rezervaci a připsání platby se vám ozvu já, nemusíte se mi ozývat sami. Videohovor 1:1 probíhá přes Google Meet nebo WhatsApp. <a href="/seminare#spojeni">Podrobnosti a aplikace ke stažení</a>.</p>
+      <fieldset class="run-choice" aria-describedby="err-beh-pro-blizke">
+        <legend>Vyberte termín</legend>
+        <div class="run-option" data-beh="blizke-beh-1" data-program="pro-blizke" data-stav="otevreno" data-uzavreni-od="2026-11-27">
+          <input type="radio" id="beh-blizke-beh-1" name="beh" value="blizke-beh-1" aria-describedby="terminy-blizke-beh-1">
+          <label for="beh-blizke-beh-1"><span class="run-name">Běh 1</span> <span class="badge badge--ok" data-stav-text>Otevřeno</span></label>
+          <p id="terminy-blizke-beh-1" class="run-dates-text">úterý 1. 12. 2026 v 18:00; úterý 8. 12. 2026 v 18:00; úterý 15. 12. 2026 v 18:00</p>
+        </div>
+        <div class="run-option" data-beh="blizke-beh-2" data-program="pro-blizke" data-stav="otevreno" data-uzavreni-od="2027-01-08">
+          <input type="radio" id="beh-blizke-beh-2" name="beh" value="blizke-beh-2" aria-describedby="terminy-blizke-beh-2">
+          <label for="beh-blizke-beh-2"><span class="run-name">Běh 2</span> <span class="badge badge--ok" data-stav-text>Otevřeno</span></label>
+          <p id="terminy-blizke-beh-2" class="run-dates-text">úterý 12. 1. 2027 v 18:00; úterý 19. 1. 2027 v 18:00; úterý 26. 1. 2027 v 18:00</p>
+        </div>
+        <p class="field-err" id="err-beh-pro-blizke" hidden></p>
+        <p class="small"><a href="mailto:ocdmentor@gmail.com?subject=Dotaz%20na%20dal%C5%A1%C3%AD%20term%C3%ADn">Žádný termín mi nevyhovuje</a></p>
+      </fieldset>
+    </div>
 
     <fieldset>
       <legend>Vaše údaje</legend>
@@ -185,19 +223,35 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
       <div class="hp" aria-hidden="true"><label>Toto pole nechte prázdné <input type="text" name="web" tabindex="-1" autocomplete="off"></label></div>
     </fieldset>
 
-    <fieldset>
+    <fieldset class="program-souhlasy" id="souhlasy-pro-lidi-s-ocd" data-program="pro-lidi-s-ocd" hidden>
       <legend>Souhlasy</legend>
       <div class="field-check">
-        <label class="check"><input type="checkbox" id="rez-souhlas-zpracovani" name="souhlasZpracovani" aria-describedby="err-souhlasZpracovani"><span>Souhlasím se zpracováním jména, e-mailu a telefonního čísla za účelem rezervace, organizace programu a spojení se mnou. Chápu, že už samotná účast na semináři o OCD může vypovídat o mém zdravotním stavu, a souhlasím se zpracováním i této informace. Souhlas mohu kdykoli odvolat e-mailem. <a href="/ochrana-osobnich-udaju">Zásady ochrany osobních údajů</a>.</span></label>
-        <p class="field-err" id="err-souhlasZpracovani" hidden></p>
+        <label class="check"><input type="checkbox" id="rez-souhlas-zpracovani-pro-lidi-s-ocd" name="souhlasZpracovani" aria-describedby="err-souhlasZpracovani-pro-lidi-s-ocd"><span>Souhlasím se zpracováním jména, e-mailu a telefonního čísla za účelem rezervace, organizace programu a spojení se mnou. Chápu, že už samotná účast na semináři o OCD může vypovídat o mém zdravotním stavu, a souhlasím se zpracováním i této informace. Souhlas mohu kdykoli odvolat e-mailem. <a href="/ochrana-osobnich-udaju">Zásady ochrany osobních údajů</a>.</span></label>
+        <p class="field-err" id="err-souhlasZpracovani-pro-lidi-s-ocd" hidden></p>
       </div>
       <div class="field-check">
-        <label class="check"><input type="checkbox" id="rez-souhlas-povaha" name="souhlasPovaha" aria-describedby="err-souhlasPovaha"><span>Rozumím, že seminář vychází z osobní zkušenosti autora a nejde o odbornou ani lékařskou radu, terapii ani zdravotní službu.</span></label>
-        <p class="field-err" id="err-souhlasPovaha" hidden></p>
+        <label class="check"><input type="checkbox" id="rez-souhlas-povaha-pro-lidi-s-ocd" name="souhlasPovaha" aria-describedby="err-souhlasPovaha-pro-lidi-s-ocd"><span>Rozumím, že seminář vychází z osobní zkušenosti autora a nejde o odbornou ani lékařskou radu, terapii ani zdravotní službu.</span></label>
+        <p class="field-err" id="err-souhlasPovaha-pro-lidi-s-ocd" hidden></p>
       </div>
       <div class="field-check">
-        <label class="check"><input type="checkbox" id="rez-souhlas-podminky" name="souhlasPodminky" aria-describedby="err-souhlasPodminky"><span>Souhlasím s <a href="/obchodni-podminky">obchodními podmínkami</a>.</span></label>
-        <p class="field-err" id="err-souhlasPodminky" hidden></p>
+        <label class="check"><input type="checkbox" id="rez-souhlas-podminky-pro-lidi-s-ocd" name="souhlasPodminky" aria-describedby="err-souhlasPodminky-pro-lidi-s-ocd"><span>Souhlasím s <a href="/obchodni-podminky">obchodními podmínkami</a>.</span></label>
+        <p class="field-err" id="err-souhlasPodminky-pro-lidi-s-ocd" hidden></p>
+      </div>
+    </fieldset>
+
+    <fieldset class="program-souhlasy" id="souhlasy-pro-blizke" data-program="pro-blizke" hidden>
+      <legend>Souhlasy</legend>
+      <div class="field-check">
+        <label class="check"><input type="checkbox" id="rez-souhlas-zpracovani-pro-blizke" name="souhlasZpracovani" aria-describedby="err-souhlasZpracovani-pro-blizke"><span>Souhlasím se zpracováním jména, e-mailu a telefonního čísla za účelem rezervace, organizace programu a spojení se mnou. Chápu, že už samotná účast na semináři o OCD může vypovídat o zdravotním stavu účastníka nebo jeho blízkého, a souhlasím se zpracováním i této informace o sobě. Souhlas mohu kdykoli odvolat e-mailem. <a href="/ochrana-osobnich-udaju">Zásady ochrany osobních údajů</a>.</span></label>
+        <p class="field-err" id="err-souhlasZpracovani-pro-blizke" hidden></p>
+      </div>
+      <div class="field-check">
+        <label class="check"><input type="checkbox" id="rez-souhlas-povaha-pro-blizke" name="souhlasPovaha" aria-describedby="err-souhlasPovaha-pro-blizke"><span>Rozumím, že seminář vychází z osobní zkušenosti autora a nejde o odbornou ani lékařskou radu, terapii, rodinnou terapii ani zdravotní službu, a že na semináři nebudu sdílet identifikující údaje o svém blízkém (jména, diagnózy, podrobnosti).</span></label>
+        <p class="field-err" id="err-souhlasPovaha-pro-blizke" hidden></p>
+      </div>
+      <div class="field-check">
+        <label class="check"><input type="checkbox" id="rez-souhlas-podminky-pro-blizke" name="souhlasPodminky" aria-describedby="err-souhlasPodminky-pro-blizke"><span>Souhlasím s <a href="/obchodni-podminky">obchodními podmínkami</a>.</span></label>
+        <p class="field-err" id="err-souhlasPodminky-pro-blizke" hidden></p>
       </div>
     </fieldset>
 
@@ -219,6 +273,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
       <li><a href="/obchodni-podminky">Obchodní podmínky</a></li>
       <li><a href="/ochrana-osobnich-udaju">Ochrana osobních údajů</a></li>
       <li><a href="/kontakt">Kontakt</a></li>
+      <li><a href="/pro-blizke">Pro blízké</a></li>
       <li><a href="/pro-terapeuty">Pro terapeuty</a></li>
       <li><a href="/pomoc">Pomoc hned</a></li>
     </ul>
@@ -248,8 +303,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
 <script defer src="/assets/js/rezervace-souhlas.js?v=0bf556f1"></script>
 
 
-<script src="/assets/js/seminare.js?v=558bdad4" defer></script>
-<script src="/assets/js/rezervace.js?v=f384950c" defer></script>
+<script src="/assets/js/seminare.js?v=d574e264" defer></script>
+<script src="/assets/js/rezervace.js?v=9e0b8fdc" defer></script>
 
 </body>
 </html>

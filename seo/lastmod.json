@@ -52,12 +52,12 @@
     "date": "2026-10-23"
   },
   "/ochrana-osobnich-udaju": {
-    "hash": "9b9789ea7dc7",
-    "date": "2026-10-30"
+    "hash": "03892d3a24ba",
+    "date": "2026-11-03"
   },
   "/obchodni-podminky": {
-    "hash": "c7a7dae5b965",
-    "date": "2026-10-29"
+    "hash": "965f7a8a3175",
+    "date": "2026-11-03"
   },
   "/pomoc": {
     "hash": "03a99c0706d4",
@@ -148,8 +148,8 @@
     "date": "2026-10-23"
   },
   "/pro-blizke": {
-    "hash": "5a3084cdfb01",
-    "date": "2026-10-23"
+    "hash": "800f4adae966",
+    "date": "2026-11-03"
   },
   "/myty-o-ocd": {
     "hash": "e06ed0ee3c8c",
@@ -172,11 +172,11 @@
     "date": "2026-10-28"
   },
   "/seminare": {
-    "hash": "2589bfe2de8c",
-    "date": "2026-10-30"
+    "hash": "51d8312734e0",
+    "date": "2026-11-03"
   },
   "/seminare/rezervace": {
-    "hash": "995ea72994db",
-    "date": "2026-10-30"
+    "hash": "c86305698f96",
+    "date": "2026-11-03"
   }
 }

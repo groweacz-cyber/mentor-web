@@ -7,8 +7,8 @@ import { execSync } from 'node:child_process';
 import vm from 'node:vm';
 import * as F2 from './content/faze2.mjs';
 import { TYPY_DALSI } from './content/typy2.mjs';
-import { nactiData as nactiDataSeminare, pripravBehy } from '../api/_lib/seminare.js';
-import { POVAHA_SEMINARE, formatCastka } from '../api/_lib/texty.js';
+import { nactiData as nactiDataSeminare, pripravProgramy } from '../api/_lib/seminare.js';
+import { POVAHA_SEMINARE, POVAHA_BLIZKE, formatCastka } from '../api/_lib/texty.js';
 import * as SEM from './content/seminare.mjs';
 
 const OUT = process.argv[2] ? resolve(process.argv[2]) : resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -551,6 +551,7 @@ ${crumbsHtml}${b}
       <li><a href="/obchodni-podminky">Obchodní podmínky</a></li>
       <li><a href="/ochrana-osobnich-udaju">Ochrana osobních údajů</a></li>
       <li><a href="/kontakt">Kontakt</a></li>
+      <li><a href="/pro-blizke">Pro blízké</a></li>
       <li><a href="/pro-terapeuty">Pro terapeuty</a></li>
       <li><a href="/pomoc">Pomoc hned</a></li>
     </ul>
@@ -1098,32 +1099,34 @@ add('/ebook', {
 });
 
 // ---------- Online semináře ----------
-// Termíny a stavy běhů jsou v data/seminare.json. Generátor selže s jasnou chybou, pokud se běhy překrývají nebo termín spadne na vynechané datum.
+// Programy, termíny a stavy běhů jsou v data/seminare.json. Generátor selže s jasnou chybou, pokud termín spadne na vynechané datum
+// nebo se jakákoli dvě setkání (napříč programy a běhy) překrývají či jsou blíž než 90 minut od sebe.
 const SEMINARE_DATA = nactiDataSeminare();
-const SEMINARE_BEHY = pripravBehy(SEMINARE_DATA);
+const SEMINARE_PROGRAMY = pripravProgramy(SEMINARE_DATA);
+const SEM_CENA = Object.fromEntries(SEMINARE_PROGRAMY.map((p) => [p.id, formatCastka(p.cena)]));
 add('/seminare', {
-  title: 'Online semináře: pět setkání 1:1 podle knihy | ocdmentor.cz',
-  desc: `Individuální program pěti online setkání 1:1 podle knihy o sebepřijetí a sebevíře s OCD. Rezervace termínu a platba QR kódem, cena ${formatCastka(SEMINARE_DATA.cena)}.`,
+  title: 'Online semináře: individuální programy 1:1 | ocdmentor.cz',
+  desc: `Dva individuální online programy 1:1: pět setkání pro lidi s OCD (${SEM_CENA['pro-lidi-s-ocd']}) a tři setkání pro jejich blízké (${SEM_CENA['pro-blizke']}). Rezervace termínu a platba QR kódem.`,
   ogTitle: 'Online semináře',
-  ogSub: 'Pět setkání 1:1 podle knihy o sebepřijetí a sebevíře',
+  ogSub: 'Dva programy pro lidi s OCD a jejich blízké',
   ogArt: '/assets/img/ebook-titulka.webp',
   ogArtPortrait: true,
   crumb: 'Online semináře',
-  jsonld: { '@graph': [SEM.faqJsonLd()] },
+  jsonld: { '@graph': [SEM.faqJsonLd(SEMINARE_PROGRAMY)] },
   script: '/assets/js/seminare.js',
-  body: SEM.seminareBody({ data: SEMINARE_DATA, behy: SEMINARE_BEHY }),
+  body: SEM.seminareBody({ data: SEMINARE_DATA, programy: SEMINARE_PROGRAMY, konzultaceHtml: bookBtn() }),
 });
 
 add('/seminare/rezervace', {
   title: 'Rezervace semináře: výběr termínu a platba | ocdmentor.cz',
-  desc: 'Rezervace místa v individuálním programu pěti online setkání: vyberte termín, vyplňte jméno a e-mail a zaplaťte QR kódem do 3 dnů.',
+  desc: 'Rezervace místa v individuálním online programu: vyberte program a termín, vyplňte jméno, e-mail a telefon a zaplaťte QR kódem do 3 dnů.',
   ogTitle: 'Rezervace semináře',
   ogSub: 'Výběr termínu a platba QR kódem',
   art: false,
   crumb: 'Rezervace',
   parents: [['/seminare', 'Online semináře']],
   script: ['/assets/js/seminare.js', '/assets/js/rezervace.js'],
-  body: SEM.rezervaceBody({ data: SEMINARE_DATA, behy: SEMINARE_BEHY }),
+  body: SEM.rezervaceBody({ data: SEMINARE_DATA, programy: SEMINARE_PROGRAMY }),
 });
 
 add('/seminare/rezervace/potvrzeni', {
@@ -2027,9 +2030,9 @@ add('/ochrana-osobnich-udaju', {
     <li><strong>Vstupní dotazník (/dotaznik):</strong> nic se neukládá na server. Text se sestaví přímo ve vašem prohlížeči a vy si ho sami odešlete e-mailem nebo zkopírujete. Právní základ: váš výslovný souhlas se zpracováním zvláštní kategorie údajů o zdravotním stavu (čl. 9 odst. 2 písm. a GDPR).</li>
     <li><strong>Aplikace (/aplikace):</strong> vaše odpovědi se ukládají jen ve vašem zařízení, v úložišti prohlížeče (localStorage). Nikdy se neodesílají na žádný server ani nám. Smazat je můžete kdykoli v sekci <a href="/aplikace/nastaveni">Data a připomínky</a>. Právní základ: váš souhlas udělený při prvním spuštění aplikace.</li>
     <li><strong>E-mailová komunikace:</strong> pokud nám napíšete, zpracováváme váš e-mail a obsah zprávy jen za účelem odpovědi a vyřízení dotazu. Právní základ: jednání před uzavřením spolupráce nebo oprávněný zájem odpovědět na dotaz (čl. 6 odst. 1 písm. b, f GDPR). E-mail není šifrovaná zpráva.</li>
-    <li><strong>Rezervace konzultace:</strong> tlačítko „Domluvit si konzultaci“ na úvodní stránce načítá widget společnosti Reservanto s.r.o. (IČ 24298395, Liberec). Už samotným načtením stránky se vaše IP adresa dostane k Reservantu. Pokud si rezervaci dokončíte, zadáváte do Reservanta jméno, telefon a e-mail, které slouží k vyřízení rezervace a ke komunikaci s vámi. Zda Reservanto tyto údaje zpracovává jako samostatný správce, nebo jako náš zpracovatel, se řídí jeho aktuálními podmínkami — podrobnosti najdete ve <a href="https://reservanto.cz/ochrana-osobnich-udaju" target="_blank" rel="noopener noreferrer">vlastních zásadách ochrany osobních údajů Reservanta</a>. Právní základ: jednání před uzavřením spolupráce (čl. 6 odst. 1 písm. b GDPR).</li>
+    <li><strong>Rezervace konzultace:</strong> tlačítko pro rezervaci konzultace (na úvodní stránce a na stránkách Jak to probíhá, Online semináře a Pro blízké) načítá widget společnosti Reservanto s.r.o. (IČ 24298395, Liberec). Už samotným načtením stránky se vaše IP adresa dostane k Reservantu. Pokud si rezervaci dokončíte, zadáváte do Reservanta jméno, telefon a e-mail, které slouží k vyřízení rezervace a ke komunikaci s vámi. Zda Reservanto tyto údaje zpracovává jako samostatný správce, nebo jako náš zpracovatel, se řídí jeho aktuálními podmínkami — podrobnosti najdete ve <a href="https://reservanto.cz/ochrana-osobnich-udaju" target="_blank" rel="noopener noreferrer">vlastních zásadách ochrany osobních údajů Reservanta</a>. Právní základ: jednání před uzavřením spolupráce (čl. 6 odst. 1 písm. b GDPR).</li>
     <li><strong>Telefon a WhatsApp:</strong> po rezervaci vás zpravidla kontaktuji telefonicky nebo přes WhatsApp, abychom domluvili podrobnosti sezení. Vaše telefonní číslo k tomu použiji jen za tímto účelem. Komunikace přes WhatsApp probíhá přes službu provozovanou společností WhatsApp Ireland Limited (Meta), která zprávy přenáší přes svou infrastrukturu; neslibuji, že tyto zprávy zůstávají jen na vašem nebo mém zařízení. Právní základ: jednání před uzavřením spolupráce (čl. 6 odst. 1 písm. b GDPR).</li>
-    <li><strong>Rezervace online semináře (/seminare):</strong> zpracovávám jméno, příjmení, e-mail, telefonní číslo (ke spojení, například přes WhatsApp) a informace o rezervaci a platbě (zvolený běh a termíny, variabilní symbol, částka; číslo účtu odesílatele vidím v bance po připsání platby). Samotná účast na semináři o OCD může vypovídat o zdravotním stavu, což je zvláštní kategorie údajů. Formulář odesílá údaje na serverovou funkci webu hostovanou ve Vercelu (region EU), která z nich jen sestaví a odešle e-maily (účastníkovi s platebními údaji a mně s upozorněním na novou rezervaci) a nic neukládá. Účel a právní základ: rezervace a plnění smlouvy (čl. 6 odst. 1 písm. b GDPR), plnění účetních a daňových povinností (čl. 6 odst. 1 písm. c) a výslovný souhlas se zpracováním informace o zdravotním stavu plynoucí z účasti (čl. 9 odst. 2 písm. a).</li>
+    <li><strong>Rezervace online semináře (/seminare):</strong> zpracovávám jméno, příjmení, e-mail, telefonní číslo (ke spojení, například přes WhatsApp) a informace o rezervaci a platbě (zvolený běh a termíny, variabilní symbol, částka; číslo účtu odesílatele vidím v bance po připsání platby). Samotná účast na semináři o OCD může vypovídat o zdravotním stavu účastníka nebo jeho blízkého, což je zvláštní kategorie údajů. U programu pro blízké prodejce údaje o člověku s OCD neshromažďuje. Pokud je účastník přesto na setkání sdělí, použije je prodejce jen pro účel daného hovoru a nezaznamenává je. Formulář odesílá údaje na serverovou funkci webu hostovanou ve Vercelu (region EU), která z nich jen sestaví a odešle e-maily (účastníkovi s platebními údaji a mně s upozorněním na novou rezervaci) a nic neukládá. Účel a právní základ: rezervace a plnění smlouvy (čl. 6 odst. 1 písm. b GDPR), plnění účetních a daňových povinností (čl. 6 odst. 1 písm. c) a výslovný souhlas se zpracováním informace o zdravotním stavu plynoucí z účasti (čl. 9 odst. 2 písm. a).</li>
     <li><strong>Technické údaje o připojení</strong> (např. IP adresa) zpracovává automaticky náš hostingový poskytovatel Vercel Inc. jen za účelem doručení stránky a zabezpečení provozu, po krátkou technicky nutnou dobu. Sami vlastní cookies, analytiku ani žádné vlastní sledování nepoužíváme. Widget Reservanto (viz výše) je ale skript třetí strany a může při načtení nebo otevření rezervace nastavit vlastní cookies podle svých podmínek.</li>
   </ol>
 
@@ -2177,26 +2180,33 @@ add('/obchodni-podminky', {
     <li>Pokud by se některé ustanovení těchto podmínek ukázalo neplatným nebo neúčinným, nemá to vliv na platnost ostatních ustanovení.</li>
   </ul>
 
-  <h2 id="cast-b">Část B: Online semináře (individuální program pěti setkání)</h2>
-  <p class="small">Část B je platná od 1. 11. 2026 a týká se jen programu popsaného na stránce <a href="/seminare">Online semináře</a>.</p>
+  <h2 id="cast-b">Část B: Online semináře (individuální programy)</h2>
+  <p class="small">Část B je platná od 1. 11. 2026, naposledy upraveno 3. 11. 2026, a týká se jen programů popsaných na stránce <a href="/seminare">Online semináře</a>.</p>
 
   <h3>B1. Prodejce</h3>
   <p>${AUTHOR}, IČ ${ICO}, se sídlem ${ADDRESS}, e-mail <a href="mailto:${EMAIL}">${EMAIL}</a>. Prodejce není plátcem DPH.</p>
 
   <h3>B2. Předmět</h3>
-  <p>Individuální program pěti online setkání po 60 minutách, 1× týdně, vždy jen jeden klient. Cena programu je 3 590 Kč.</p>
+  <p>Prodejce nabízí dva programy, vždy jen jeden klient:</p>
+  <ul class="rules">
+    <li>(a) individuální program pěti online setkání po 60 minutách, 1× týdně ve čtvrtek v 18:00, cena ${SEM_CENA['pro-lidi-s-ocd']};</li>
+    <li>(b) individuální program tří online setkání po 60 minutách, 1× týdně v úterý v 18:00, cena ${SEM_CENA['pro-blizke']}, určený blízkým lidí s OCD.</li>
+  </ul>
+  <p>Obě ceny jsou konečné, prodejce není plátcem DPH.</p>
 
   <h3>B3. Povaha služby</h3>
-  <p>${POVAHA_SEMINARE}</p>
+  <p><strong>Program (a), pro lidi s OCD:</strong> ${POVAHA_SEMINARE}</p>
+  <p><strong>Program (b), pro blízké:</strong> ${POVAHA_BLIZKE}</p>
 
   <h3>B4. Objednávka a platba</h3>
   <p>Smlouva vzniká odesláním rezervace. Cena se hradí bankovním převodem s uvedeným variabilním symbolem do 3 dnů od rezervace. Po marném uplynutí lhůty rezervace zaniká. Po připsání platby zašle prodejce odkaz na videohovor, nejpozději 24 hodin před prvním setkáním.</p>
 
   <h3>B5. Průběh</h3>
   <p>Videohovor přes Google Meet nebo WhatsApp, setkání se nenahrávají. Po připsání platby se poskytovatel účastníkovi ozve e-mailem a domluví spojení. Účastník zajistí klidné prostředí a funkční připojení. Setkání se nekonají 24. a 31. prosince, program se o tyto týdny posune.</p>
+  <p>U programu tří setkání se na setkání může připojit jeden další člověk z domácnosti účastníka bez příplatku. Jeho osobní údaje prodejce nezpracovává. Účastník zajistí, že se připojí s jeho vědomím. Účastníci nesdílejí identifikující údaje o třetích osobách (jména, diagnózy, podrobnosti).</p>
 
   <h3>B6. Přesun</h3>
-  <p>Setkání lze přesunout zdarma nejpozději 24 hodin předem po domluvě e-mailem, nejvýše dvakrát během programu. Neomluvená neúčast nebo přesun později než 24 hodin předem se počítá jako uskutečněné setkání.</p>
+  <p>Setkání lze přesunout zdarma nejpozději 24 hodin předem po domluvě e-mailem, u programu pěti setkání nejvýše dvakrát, u programu tří setkání nejvýše jednou. Neomluvená neúčast nebo přesun později než 24 hodin předem se počítá jako uskutečněné setkání.</p>
 
   <h3>B7. Zrušení prodejcem</h3>
   <p>Pokud prodejce setkání nemůže uskutečnit (např. nemoc), nabídne náhradní termín. Pokud ho účastník nepřijme nebo program nelze dokončit, vrátí poměrnou část ceny za neuskutečněná setkání do 14 dnů.</p>
@@ -2377,14 +2387,27 @@ for (const t of TYPY_DATA.typy) {
   });
 }
 
+// Úvod stránky Pro blízké: nahrazuje původní krátký úvod; tlačítko konzultace je existující widget Reservanto z webu (jiný popisek).
+const PRO_BLIZKE_UVOD = `<section class="wrap block prose">
+  <p>OCD se často udržuje i dobře míněnou pomocí: když za člověka kontrolujeme, odpovídáme na stále stejné otázky nebo se vyhýbáme věcem, které spouštějí strach. Zvenku to vypadá jako laskavost, ale strach to z dlouhodobého hlediska krmí. Dá se to dělat jinak, bez vyčítání sobě i blízkému.</p>
+  <p>Na semináři „Když OCD žije vedle vás“ vám z pohledu člověka, který OCD zná z vlastního života, ukážu, co pomáhá a co škodí a jak si přitom zachovat vlastní život. Nejsem psycholog ani terapeut, neposkytuji rodinnou terapii ani radu k vašemu konkrétnímu případu.</p>
+  <p class="cta"><a class="btn btn-cta" href="/seminare#pro-blizke">Zobrazit seminář pro blízké</a></p>
+  <div class="cta-konzultace">${bookDiv.replace('data-text="Domluvit si konzultaci"', 'data-text="Úvodní konzultace zdarma"')}
+${bookScript}</div>
+  <div class="callout-inline disclaimer sem-box" role="note">
+    <p>${POVAHA_BLIZKE}</p>
+  </div>
+  <p>Akutní krize nebo myšlenky na sebepoškození: ${CRISIS_STRONG}.</p>
+</section>`;
 // --- Pro blízké ---
 contentPage({
   path: '/pro-blizke',
-  title: 'Pro blízké: jak pomáhat a nekrmit OCD | ocdmentor.cz',
-  desc: 'Jak pomáhat blízkému s OCD a nekrmit smyčku: co je přizpůsobování, proč ujišťování nepomáhá a jak odpovídat. Podpora i pro vás.',
-  h1: 'Pro blízké: jak pomáhat a nekrmit OCD',
-  lead: F2.PRO_BLIZKE.lead,
-  sections: F2.PRO_BLIZKE.sections,
+  title: 'Jak pomáhat blízkému s OCD | ocdmentor.cz',
+  desc: 'Žijete s člověkem s OCD? Zjistěte, jak ho nekrmit dobře míněnou pomocí a jak si zachovat vlastní život. Individuální program pro blízké.',
+  h1: 'Když OCD žije vedle vás',
+  lead: 'Žijete s člověkem, který má OCD, nebo se o někoho takového staráte? Možná se ptáte, jak mu pomoci, a přitom máte pocit, že všechno, co zkusíte, nepomáhá nebo to dokonce zhoršuje. Nejste v tom sami.',
+  updated: '2026-11-03',
+  sectionsHtml: `${PRO_BLIZKE_UVOD}\n\n${proseSections(F2.PRO_BLIZKE.sections)}`,
   related: F2.PRO_BLIZKE.related,
   sources: [F2.SRC.lebowitz, F2.SRC.prasko],
   ogTitle: 'Pro blízké',

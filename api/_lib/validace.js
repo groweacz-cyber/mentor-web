@@ -17,8 +17,8 @@ export function normalizujTelefon(v) {
 
 const retezec = (v) => (typeof v === 'string' ? v.trim() : null);
 
-// Vrací { ok: true, hodnoty } nebo { ok: false, kod, chyby: { pole: kod } }.
-export function validujRezervaci(vstup, znameBehy) {
+// `programy` = [{ id, behy: [id běhů] }]. Vrací { ok: true, hodnoty } nebo { ok: false, kod, chyby: { pole: kod } }.
+export function validujRezervaci(vstup, programy) {
   const chyby = {};
   if (!vstup || typeof vstup !== 'object' || Array.isArray(vstup)) return { ok: false, kod: 'neplatny-pozadavek', chyby: {} };
 
@@ -33,9 +33,10 @@ export function validujRezervaci(vstup, znameBehy) {
   const email = retezec(vstup.email);
   const email2 = retezec(vstup.email2);
   const telefon = retezec(vstup.telefon);
+  const program = retezec(vstup.program);
   const beh = retezec(vstup.beh);
 
-  for (const [pole, hodnota] of [['jmeno', jmeno], ['prijmeni', prijmeni], ['email', email], ['email2', email2], ['telefon', telefon], ['beh', beh]]) {
+  for (const [pole, hodnota] of [['jmeno', jmeno], ['prijmeni', prijmeni], ['email', email], ['email2', email2], ['telefon', telefon], ['program', program], ['beh', beh]]) {
     if (hodnota === null || hodnota === '') chyby[pole] = 'povinne';
     else if (ZNAKY_OVLADACI.test(hodnota)) chyby[pole] = 'neplatne-znaky';
   }
@@ -45,12 +46,14 @@ export function validujRezervaci(vstup, znameBehy) {
   if (!chyby.email2 && !chyby.email && email.toLowerCase() !== email2.toLowerCase()) chyby.email2 = 'neshoduji-se';
   const telefonNormalizovany = chyby.telefon ? null : normalizujTelefon(telefon);
   if (!chyby.telefon && !telefonNormalizovany) chyby.telefon = 'neplatne';
-  if (!chyby.beh && !znameBehy.includes(beh)) chyby.beh = 'neznamy-beh';
+  const zvolenyProgram = chyby.program ? null : programy.find((p) => p.id === program);
+  if (!chyby.program && !zvolenyProgram) chyby.program = 'neznamy-program';
+  if (!chyby.beh && zvolenyProgram && !zvolenyProgram.behy.includes(beh)) chyby.beh = 'neznamy-beh';
 
   for (const pole of ['souhlasZpracovani', 'souhlasPovaha', 'souhlasPodminky']) {
     if (vstup[pole] !== true) chyby[pole] = 'povinne';
   }
 
   if (Object.keys(chyby).length) return { ok: false, kod: 'neplatny-vstup', chyby };
-  return { ok: true, hodnoty: { jmeno, prijmeni, email: email.toLowerCase(), telefon: telefonNormalizovany, beh } };
+  return { ok: true, hodnoty: { jmeno, prijmeni, email: email.toLowerCase(), telefon: telefonNormalizovany, program, beh } };
 }

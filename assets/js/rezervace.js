@@ -1,6 +1,6 @@
 // Rezervační formulář semináře. Údaje se odesílají jen na /api/rezervace (POST, JSON). Nic se neposílá v adrese stránky
-// a nic se neukládá do localStorage. Do sessionStorage se po úspěchu uloží jen odpověď serveru (platební údaje a termíny,
-// bez jména a e-mailu), aby ji mohla zobrazit potvrzovací stránka.
+// (v adrese je jen označení programu a běhu) a nic se neukládá do localStorage. Do sessionStorage se po úspěchu uloží jen
+// odpověď serveru (platební údaje a termíny, bez jména a e-mailu), aby ji mohla zobrazit potvrzovací stránka.
 (function () {
   'use strict';
 
@@ -9,21 +9,24 @@
 
   var KONTAKT = 'ocdmentor@gmail.com';
   var HLASKY = {
-    beh: { povinne: 'Vyberte termín.', 'neznamy-beh': 'Vybraný termín neexistuje. Obnovte stránku a vyberte znovu.' },
+    program: { povinne: 'Vyberte program.', 'neznamy-program': 'Vybraný program neexistuje. Obnovte stránku a vyberte znovu.' },
+    beh: { povinne: 'Vyberte termín.', 'neznamy-beh': 'Vybraný termín k tomuto programu nepatří. Obnovte stránku a vyberte znovu.' },
     jmeno: { povinne: 'Vyplňte jméno.', neplatne: 'Jméno smí obsahovat jen písmena, mezery, tečku, pomlčku a apostrof (nejvýše 50 znaků).', 'neplatne-znaky': 'Jméno obsahuje nepovolené znaky.' },
     prijmeni: { povinne: 'Vyplňte příjmení.', neplatne: 'Příjmení smí obsahovat jen písmena, mezery, tečku, pomlčku a apostrof (nejvýše 50 znaků).', 'neplatne-znaky': 'Příjmení obsahuje nepovolené znaky.' },
     email: { povinne: 'Vyplňte e-mail.', neplatne: 'Zadejte platný e-mail, například jmeno@example.cz.', 'neplatne-znaky': 'E-mail obsahuje nepovolené znaky.' },
     telefon: { povinne: 'Vyplňte telefonní číslo.', neplatne: 'Zadejte platné telefonní číslo, například 777 123 456 nebo +421 900 123 456.', 'neplatne-znaky': 'Telefon obsahuje nepovolené znaky.' },
     email2: { povinne: 'Zadejte e-mail ještě jednou.', 'neshoduji-se': 'E-maily se neshodují.', 'neplatne-znaky': 'E-mail obsahuje nepovolené znaky.' },
-    souhlasZpracovani: { povinne: 'Bez souhlasu se zpracováním jména a e-mailu rezervaci nelze odeslat.' },
+    souhlasZpracovani: { povinne: 'Bez souhlasu se zpracováním jména, e-mailu a telefonu rezervaci nelze odeslat.' },
     souhlasPovaha: { povinne: 'Potvrďte, že rozumíte povaze semináře.' },
     souhlasPodminky: { povinne: 'Pro rezervaci je nutný souhlas s obchodními podmínkami.' }
   };
+  // Pole, jejichž prvky mají v každém programu vlastní id (přípona = id programu).
+  var PO_PROGRAMECH = { beh: 1, souhlasZpracovani: 1, souhlasPovaha: 1, souhlasPodminky: 1 };
   var POLE_ID = {
-    jmeno: 'rez-jmeno', prijmeni: 'rez-prijmeni', email: 'rez-email', email2: 'rez-email2', telefon: 'rez-telefon',
-    souhlasZpracovani: 'rez-souhlas-zpracovani', souhlasPovaha: 'rez-souhlas-povaha', souhlasPodminky: 'rez-souhlas-podminky'
+    program: 'program-', jmeno: 'rez-jmeno', prijmeni: 'rez-prijmeni', email: 'rez-email', email2: 'rez-email2', telefon: 'rez-telefon',
+    souhlasZpracovani: 'rez-souhlas-zpracovani-', souhlasPovaha: 'rez-souhlas-povaha-', souhlasPodminky: 'rez-souhlas-podminky-'
   };
-  var PORADI = ['beh', 'jmeno', 'prijmeni', 'email', 'email2', 'telefon', 'souhlasZpracovani', 'souhlasPovaha', 'souhlasPodminky'];
+  var PORADI = ['program', 'beh', 'jmeno', 'prijmeni', 'email', 'email2', 'telefon', 'souhlasZpracovani', 'souhlasPovaha', 'souhlasPodminky'];
   var EMAIL_RE = /^[A-Za-z0-9.!#$%&'*+\/=?^_`{|}~-]{1,64}@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*\.[A-Za-z]{2,}$/;
   var TELEFON_ZNAKY = /^[0-9 +()\-.\/]{1,30}$/;
   function telefonPlatny(v) {
@@ -41,42 +44,62 @@
   var tlacitko = document.getElementById('rez-odeslat');
 
   function hodnota(id) { return form.elements[id] ? String(form.elements[id].value || '').trim() : ''; }
-  function vybranyBeh() {
-    var r = form.querySelector('input[name="beh"]:checked');
+
+  // ---------- program ----------
+  function vybranyProgram() {
+    var r = form.querySelector('input[name="program"]:checked');
     return r ? r.value : '';
   }
-  function idPole(pole) {
-    if (pole === 'beh') {
-      var prvni = form.querySelector('input[name="beh"]:not(:disabled)') || form.querySelector('input[name="beh"]');
+  function zobrazProgram(id) {
+    var bloky = form.querySelectorAll('[data-program]');
+    for (var i = 0; i < bloky.length; i++) {
+      var b = bloky[i];
+      if (!b.classList.contains('program-blok') && !b.classList.contains('program-souhlasy')) continue;
+      b.hidden = b.getAttribute('data-program') !== id;
+    }
+  }
+  function vybranyBeh(program) {
+    var r = program && form.querySelector('#blok-' + program + ' input[name="beh"]:checked');
+    return r ? r.value : '';
+  }
+  function zaskrtnuto(kod, program) {
+    var el = program && form.querySelector('#souhlasy-' + program + ' input[name="' + kod + '"]');
+    return !!(el && el.checked);
+  }
+  function idPole(pole, program) {
+    if (pole === 'program') {
+      var prvni = form.querySelector('input[name="program"]');
       return prvni ? prvni.id : '';
     }
-    return POLE_ID[pole];
+    if (pole === 'beh') {
+      if (!program) return '';
+      var r = form.querySelector('#blok-' + program + ' input[name="beh"]:not(:disabled)') || form.querySelector('#blok-' + program + ' input[name="beh"]');
+      return r ? r.id : '';
+    }
+    return PO_PROGRAMECH[pole] ? POLE_ID[pole] + program : POLE_ID[pole];
   }
+  function idChyby(pole, program) { return 'err-' + pole + (PO_PROGRAMECH[pole] ? '-' + program : ''); }
 
   function vycistit() {
     souhrn.hidden = true;
     souhrn.innerHTML = '';
     stav.textContent = '';
     stav.className = 'msg';
-    for (var i = 0; i < PORADI.length; i++) {
-      var p = PORADI[i];
-      var err = document.getElementById('err-' + p);
-      if (err) { err.hidden = true; err.textContent = ''; }
-      var id = idPole(p);
-      var el = id && document.getElementById(id);
-      if (el) el.removeAttribute('aria-invalid');
-    }
+    var chyby = form.querySelectorAll('.field-err');
+    for (var i = 0; i < chyby.length; i++) { chyby[i].hidden = true; chyby[i].textContent = ''; }
+    var neplatne = form.querySelectorAll('[aria-invalid]');
+    for (var j = 0; j < neplatne.length; j++) neplatne[j].removeAttribute('aria-invalid');
   }
 
-  function zobrazChyby(chyby) {
+  function zobrazChyby(chyby, program) {
     var polozky = [];
     for (var i = 0; i < PORADI.length; i++) {
       var p = PORADI[i];
       if (!chyby[p]) continue;
       var text = (HLASKY[p] && HLASKY[p][chyby[p]]) || 'Zkontrolujte toto pole.';
-      var err = document.getElementById('err-' + p);
+      var err = document.getElementById(idChyby(p, program));
       if (err) { err.textContent = text; err.hidden = false; }
-      var id = idPole(p);
+      var id = idPole(p, program);
       var el = id && document.getElementById(id);
       if (el) el.setAttribute('aria-invalid', 'true');
       polozky.push({ id: id, text: text });
@@ -105,15 +128,18 @@
   // Kontrola v prohlížeči jen pro pohodlí, server vše kontroluje znovu.
   function zkontroluj(d) {
     var c = {};
-    if (!d.beh) c.beh = 'povinne';
+    if (!d.program) c.program = 'povinne';
+    if (d.program && !d.beh) c.beh = 'povinne';
     if (!d.jmeno) c.jmeno = 'povinne'; else if (JMENO_RE && !JMENO_RE.test(d.jmeno)) c.jmeno = 'neplatne';
     if (!d.prijmeni) c.prijmeni = 'povinne'; else if (JMENO_RE && !JMENO_RE.test(d.prijmeni)) c.prijmeni = 'neplatne';
     if (!d.email) c.email = 'povinne'; else if (d.email.length > 254 || !EMAIL_RE.test(d.email)) c.email = 'neplatne';
     if (!d.email2) c.email2 = 'povinne'; else if (!c.email && d.email.toLowerCase() !== d.email2.toLowerCase()) c.email2 = 'neshoduji-se';
     if (!d.telefon) c.telefon = 'povinne'; else if (!telefonPlatny(d.telefon)) c.telefon = 'neplatne';
-    if (!d.souhlasZpracovani) c.souhlasZpracovani = 'povinne';
-    if (!d.souhlasPovaha) c.souhlasPovaha = 'povinne';
-    if (!d.souhlasPodminky) c.souhlasPodminky = 'povinne';
+    if (d.program) {
+      if (!d.souhlasZpracovani) c.souhlasZpracovani = 'povinne';
+      if (!d.souhlasPovaha) c.souhlasPovaha = 'povinne';
+      if (!d.souhlasPodminky) c.souhlasPodminky = 'povinne';
+    }
     return c;
   }
 
@@ -124,11 +150,35 @@
     if (cil) { e.preventDefault(); cil.focus(); }
   });
 
-  // Předvybraný termín z odkazu „Rezervovat místo“ (v adrese je jen označení běhu, žádné osobní údaje).
+  // Přepnutí programu: zobrazí se jeho blok a jeho souhlasy, v adrese zůstane jen označení programu.
+  var volbyProgramu = form.querySelectorAll('input[name="program"]');
+  function naProgram(id, zmenitAdresu) {
+    zobrazProgram(id);
+    if (zmenitAdresu && window.history && history.replaceState) {
+      try { history.replaceState(null, '', window.location.pathname + '?program=' + encodeURIComponent(id)); } catch (e) { /* adresa se nezmění */ }
+    }
+  }
+  for (var v = 0; v < volbyProgramu.length; v++) {
+    volbyProgramu[v].addEventListener('change', function () { if (this.checked) naProgram(this.value, true); });
+  }
+
+  // Předvolba z odkazu „Rezervovat místo“ (v adrese je jen označení programu a běhu, žádné osobní údaje).
+  // Starý odkaz jen s během se převede na jeho program.
   try {
-    var predvolba = new URLSearchParams(window.location.search).get('beh');
-    var radio = predvolba && form.querySelector('input[name="beh"][value="' + predvolba.replace(/[^a-z0-9-]/g, '') + '"]');
-    if (radio && !radio.disabled) radio.checked = true;
+    var parametry = new URLSearchParams(window.location.search);
+    var program = (parametry.get('program') || '').replace(/[^a-z0-9-]/g, '');
+    var behPredvolba = (parametry.get('beh') || '').replace(/[^a-z0-9-]/g, '');
+    var radioBeh = behPredvolba && form.querySelector('input[name="beh"][value="' + behPredvolba + '"]');
+    if (!program && radioBeh) {
+      var blokBehu = radioBeh.closest('[data-program]');
+      program = blokBehu ? blokBehu.getAttribute('data-program') : '';
+    }
+    var radioProgram = program && form.querySelector('input[name="program"][value="' + program + '"]');
+    if (radioProgram) {
+      radioProgram.checked = true;
+      naProgram(program, false);
+      if (radioBeh && !radioBeh.disabled && radioBeh.closest('#blok-' + program)) radioBeh.checked = true;
+    }
   } catch (e) { /* bez předvolby */ }
 
   var zahajeno = Date.now();
@@ -136,8 +186,8 @@
     return window.performance && performance.now ? Math.round(performance.now()) : Date.now() - zahajeno;
   }
 
-  function chybaServeru(status, j) {
-    if (j && j.kod === 'neplatny-vstup' && j.chyby) { zobrazChyby(j.chyby); return; }
+  function chybaServeru(status, j, program) {
+    if (j && j.kod === 'neplatny-vstup' && j.chyby) { zobrazChyby(j.chyby, program); return; }
     var texty = {
       'prilis-rychle': 'Formulář byl odeslán příliš rychle. Zkuste to prosím za chvíli znovu.',
       'beh-neni-otevreny': 'Tento termín už není k dispozici. Obnovte stránku a vyberte jiný.',
@@ -150,21 +200,23 @@
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     vycistit();
+    var program = vybranyProgram();
     var d = {
+      program: program,
       jmeno: hodnota('jmeno'),
       prijmeni: hodnota('prijmeni'),
       email: hodnota('email'),
       email2: hodnota('email2'),
       telefon: hodnota('telefon'),
-      beh: vybranyBeh(),
-      souhlasZpracovani: !!form.elements.souhlasZpracovani.checked,
-      souhlasPovaha: !!form.elements.souhlasPovaha.checked,
-      souhlasPodminky: !!form.elements.souhlasPodminky.checked,
+      beh: vybranyBeh(program),
+      souhlasZpracovani: zaskrtnuto('souhlasZpracovani', program),
+      souhlasPovaha: zaskrtnuto('souhlasPovaha', program),
+      souhlasPodminky: zaskrtnuto('souhlasPodminky', program),
       web: form.elements.web ? form.elements.web.value : '',
       doba: doba()
     };
     var chyby = zkontroluj(d);
-    if (Object.keys(chyby).length) { zobrazChyby(chyby); return; }
+    if (Object.keys(chyby).length) { zobrazChyby(chyby, program); return; }
 
     tlacitko.disabled = true;
     stav.textContent = 'Odesílám rezervaci…';
@@ -184,7 +236,7 @@
       }
       stav.textContent = '';
       tlacitko.disabled = false;
-      chybaServeru(o.status, o.j);
+      chybaServeru(o.status, o.j, program);
     }).catch(function () {
       stav.textContent = '';
       tlacitko.disabled = false;

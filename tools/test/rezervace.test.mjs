@@ -18,6 +18,7 @@ const ENV = {
 const TED = new Date('2026-11-05T10:15:00Z'); // běh 1 je otevřený, běh 2 také
 
 const dobraZadost = (nahrada = {}) => ({
+  program: 'pro-lidi-s-ocd',
   jmeno: 'Jana',
   prijmeni: 'Nováková',
   email: 'jana@example.test',
@@ -76,7 +77,8 @@ test('e-mail účastníkovi: obsah podle zadání a bez slova OCD', async () => 
   for (const celek of [m.zprava.subject, m.zprava.text, m.zprava.html]) {
     assert.ok(!/\bOCD\b/i.test(celek), 'v e-mailu účastníka není slovo OCD');
   }
-  assert.ok(POVAHA_SEMINARE_EMAIL.startsWith('Seminář vychází z mé osobní životní zkušenosti a cesty. Nejde o odbornou ani lékařskou radu'));
+  assert.ok(POVAHA_SEMINARE_EMAIL.startsWith('Seminář vychází z mé osobní životní zkušenosti. Nejde o odbornou ani lékařskou radu, psychoterapii, rodinnou terapii ani zdravotní službu'));
+  assert.ok(text.includes('Program: Seminář – individuální program pěti setkání'));
 });
 
 test('e-mail majiteli: jméno, e-mail, běh, termíny, VS, částka, čas objednávky', async () => {
@@ -85,7 +87,7 @@ test('e-mail majiteli: jméno, e-mail, běh, termíny, VS, částka, čas objedn
   assert.equal(m.komu, 'majitel@example.test');
   assert.equal(m.zprava.subject, `Nová rezervace semináře (VS ${r.telo.vs})`);
   assert.equal(m.replyTo, 'jana@example.test');
-  for (const co of ['Jana', 'Nováková', 'jana@example.test', '+420777123456', 'Běh 1', r.telo.vs, '3 590 Kč', '5. 11. 2026']) assert.ok(m.zprava.text.includes(co), co);
+  for (const co of ['Jana', 'Nováková', 'jana@example.test', '+420777123456', 'Program: pět setkání', 'Běh 1', r.telo.vs, '3 590 Kč', '5. 11. 2026']) assert.ok(m.zprava.text.includes(co), co);
 });
 
 test('neplatný vstup: 400 s kódy polí', async () => {
@@ -216,4 +218,58 @@ test('telefon je povinný, normalizuje se na mezinárodní tvar a nesmí obsahov
   const bez = dobraZadost();
   delete bez.telefon;
   assert.equal((await zavolej(bez)).telo.chyby.telefon, 'povinne');
+});
+
+test('program pro blízké: cena 2 190 Kč, úterní termíny, QR i e-maily bez slova OCD', async () => {
+  const r = await zavolej(dobraZadost({ program: 'pro-blizke', beh: 'blizke-beh-1' }));
+  assert.equal(r.stav, 200);
+  assert.equal(r.telo.castka, 2190);
+  assert.deepEqual(r.telo.terminy.map((t) => t.datum), ['2026-12-01', '2026-12-08', '2026-12-15']);
+  assert.equal(r.telo.beh.id, 'blizke-beh-1');
+  assert.equal(r.telo.program.id, 'pro-blizke');
+  assert.equal(r.telo.program.popis, 'Individuální program tří setkání');
+  assert.match(r.telo.spd, /\*AM:2190\.00\*CC:CZK\*X-VS:\d{10}\*RN:[A-Z .]+\*MSG:SEMINAR$/);
+  const [ucastnik, majitel] = r.odeslane;
+  assert.equal(ucastnik.zprava.subject, 'Rezervace semináře – platební údaje');
+  for (const co of ['2 190 Kč', 'úterý 1. 12. 2026 v 18:00', 'úterý 15. 12. 2026 v 18:00', 'Program: Seminář – individuální program tří setkání', POVAHA_SEMINARE_EMAIL]) assert.ok(ucastnik.zprava.text.includes(co), co);
+  assert.ok(!ucastnik.zprava.text.includes('3 590'), 'v e-mailu není cena druhého programu');
+  assert.ok(majitel.zprava.text.includes('Program: tři setkání pro blízké'));
+  for (const m of r.odeslane) for (const celek of [m.zprava.subject, m.zprava.text, m.zprava.html]) assert.ok(!/\bOCD\b/i.test(celek), 'v e-mailu není slovo OCD');
+});
+
+test('neznámý nebo chybějící program a běh z jiného programu jsou odmítnuty', async () => {
+  const cizi = await zavolej(dobraZadost({ program: 'neexistuje' }));
+  assert.equal(cizi.stav, 400);
+  assert.equal(cizi.telo.chyby.program, 'neznamy-program');
+  vynulujLimity();
+  const bez = dobraZadost();
+  delete bez.program;
+  const chybi = await zavolej(bez);
+  assert.equal(chybi.stav, 400);
+  assert.equal(chybi.telo.chyby.program, 'povinne');
+  vynulujLimity();
+  const spatnyBeh = await zavolej(dobraZadost({ program: 'pro-blizke', beh: 'beh-1' }));
+  assert.equal(spatnyBeh.stav, 400);
+  assert.equal(spatnyBeh.telo.chyby.beh, 'neznamy-beh');
+  vynulujLimity();
+  const obracene = await zavolej(dobraZadost({ program: 'pro-lidi-s-ocd', beh: 'blizke-beh-1' }));
+  assert.equal(obracene.telo.chyby.beh, 'neznamy-beh');
+  assert.equal(obracene.odeslane.length, 0);
+});
+
+test('cenu, počet setkání ani termíny nelze poslat od klienta (berou se ze serveru)', async () => {
+  const r = await zavolej(dobraZadost({ program: 'pro-blizke', beh: 'blizke-beh-1', cena: 1, castka: 1, pocetSetkani: 99, terminy: ['2020-01-01'] }));
+  assert.equal(r.stav, 200);
+  assert.equal(r.telo.castka, 2190);
+  assert.equal(r.telo.terminy.length, 3);
+});
+
+test('běh druhého programu se 4 dny před začátkem uzavře', async () => {
+  // blizke-beh-1 začíná 1. 12. 2026, uzavřeno od 27. 11. 2026
+  const otevreny = await zavolej(dobraZadost({ program: 'pro-blizke', beh: 'blizke-beh-1' }), { ted: new Date('2026-11-26T10:00:00Z') });
+  assert.equal(otevreny.stav, 200);
+  vynulujLimity();
+  const zavreny = await zavolej(dobraZadost({ program: 'pro-blizke', beh: 'blizke-beh-1' }), { ted: new Date('2026-11-27T10:00:00Z') });
+  assert.equal(zavreny.stav, 409);
+  assert.equal(zavreny.telo.kod, 'beh-neni-otevreny');
 });

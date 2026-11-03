@@ -818,3 +818,29 @@ h4 { font-size: 1.05rem; font-weight: 700; line-height: 1.15; letter-spacing: -.
 .program-option label { font-weight: 700; cursor: pointer; }
 .program-meta { display: block; color: var(--ink-soft); font-weight: 600; font-size: .95rem; }
 .program-blok[hidden], .program-souhlasy[hidden] { display: none; }
+
+/* ===== Hlavní menu: na širokém displeji jeden zarovnaný řádek, jinak rozbalovací „Menu“ ===== */
+.site-header .bar { flex-wrap: wrap; align-items: center; gap: .2rem 1rem; padding-bottom: .35rem; }
+.site-header nav { flex: 0 0 100%; order: 3; min-width: 0; border-top: 1px solid var(--line); padding-top: .3rem; }
+.site-header nav > ul { flex-wrap: nowrap; justify-content: space-between; gap: .1rem; }
+.site-header nav a, .site-header .nav-sub-toggle { padding: .45rem .6rem; font-size: .95rem; white-space: nowrap; }
+.nav-toggle { display: none; align-items: center; gap: .6rem; padding: .5rem .95rem; border: 1.5px solid var(--ink); border-radius: 999px; background: transparent; color: var(--ink); font: inherit; font-weight: 700; cursor: pointer; transition: background .2s, color .2s; }
+.nav-toggle:hover { background: #f3ead6; }
+.nav-toggle:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.nav-toggle-icon { width: 1.15rem; height: .95rem; background: linear-gradient(currentColor, currentColor) 0 0 / 100% 2px no-repeat, linear-gradient(currentColor, currentColor) 0 50% / 100% 2px no-repeat, linear-gradient(currentColor, currentColor) 0 100% / 100% 2px no-repeat; }
+.menu-open .nav-toggle { background: var(--ink); color: #fff; }
+.menu-open .nav-toggle-icon { background: linear-gradient(45deg, transparent 44%, currentColor 44% 56%, transparent 56%), linear-gradient(-45deg, transparent 44%, currentColor 44% 56%, transparent 56%); }
+@media (max-width: 62.99rem) {
+  .site-header .bar { padding-bottom: .7rem; }
+  .site-header nav { border-top: 0; padding-top: 0; }
+  .site-header nav > ul { flex-wrap: wrap; justify-content: flex-start; }
+  .js .nav-toggle { display: inline-flex; }
+  .js .site-header nav { display: none; }
+  .js .site-header.menu-open nav { display: block; border-top: 1px solid var(--line); }
+  .js .site-header nav > ul { flex-direction: column; flex-wrap: nowrap; gap: 0; max-height: calc(100vh - 9.5rem); overflow-y: auto; overscroll-behavior: contain; padding: .2rem 0 .5rem; }
+  .js .site-header nav > ul > li { border-top: 1px solid var(--line); }
+  .js .site-header nav a, .js .site-header .nav-sub-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: .8rem .6rem; border-radius: 10px; font-size: 1.05rem; white-space: normal; text-align: left; }
+  .js .has-sub .sub-nav { position: static; min-width: 0; max-width: none; padding: 0 0 .4rem 1rem; background: transparent; border: 0; box-shadow: none; }
+  .js .sub-nav a { padding: .65rem .6rem; font-size: 1rem; }
+  .notice { padding: .4rem 1rem; font-size: .85rem; }
+}

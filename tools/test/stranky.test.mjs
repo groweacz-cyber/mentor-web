@@ -173,7 +173,7 @@ test('potvrzovací stránka je noindex a bez osobních údajů v URL', () => {
 
 test('menu: jen „Online semináře“, „Online kurz“ v menu není; /kurz je noindex a mimo sitemapu', () => {
   const h = nacti('index.html');
-  const nav = h.slice(h.indexOf('<nav aria-label="Hlavní navigace">'), h.indexOf('</nav>'));
+  const nav = h.slice(h.indexOf('<nav id="hlavni-nav" aria-label="Hlavní navigace">'), h.indexOf('</nav>'));
   assert.ok(nav.includes('<a href="/seminare">Online semináře</a>'));
   assert.ok(!/Online kurz|href="\/kurz"|Online semináře a kurzy/.test(nav));
   const kurz = nacti('kurz/index.html');

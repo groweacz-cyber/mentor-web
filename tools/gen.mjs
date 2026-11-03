@@ -232,6 +232,16 @@ function placeSub(ul){
   }
 }
 document.addEventListener('click',function(){closeAllSub(null);});
+var nt=document.getElementById('nav-toggle'),hd=document.querySelector('.site-header');
+if(nt&&hd){
+  var setMenu=function(o){hd.classList.toggle('menu-open',o);nt.setAttribute('aria-expanded',o?'true':'false');var t=nt.querySelector('.nav-toggle-text');if(t)t.textContent=o?'Zavřít':'Menu';};
+  nt.addEventListener('click',function(e){e.stopPropagation();setMenu(!hd.classList.contains('menu-open'));});
+  document.addEventListener('click',function(e){if(hd.classList.contains('menu-open')&&!hd.contains(e.target))setMenu(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&hd.classList.contains('menu-open')){setMenu(false);nt.focus();}});
+  var wide=matchMedia('(min-width: 63rem)');
+  var wideChange=function(){if(wide.matches)setMenu(false);};
+  if(wide.addEventListener)wide.addEventListener('change',wideChange);else if(wide.addListener)wide.addListener(wideChange);
+}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(null);});
 }catch(e){d.classList.remove('js');}});
 })();
@@ -535,7 +545,8 @@ ${siteScript}
 <header class="site-header">
   <div class="wrap bar">
     <a class="brand" href="/">${brandSun}<span>${BRAND}</span></a>
-    <nav aria-label="Hlavní navigace"><ul>${navHtml}</ul></nav>
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="hlavni-nav"><span class="nav-toggle-icon" aria-hidden="true"></span><span class="nav-toggle-text">Menu</span></button>
+    <nav id="hlavni-nav" aria-label="Hlavní navigace"><ul>${navHtml}</ul></nav>
   </div>
 </header>
 ${app ? appNav(path) : ''}

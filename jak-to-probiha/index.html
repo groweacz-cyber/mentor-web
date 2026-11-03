@@ -27,7 +27,7 @@
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=dd65521b">
+<link rel="stylesheet" href="/assets/css/style.css?v=a8c99ca1">
 
 <script type="application/ld+json">
 {
@@ -70,7 +70,7 @@
           "name": "Jak probíhá online sezení?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Přes videohovor (Google Meet nebo WhatsApp), z domova nebo odkudkoli, kde máte klid. Stačí počítač nebo telefon se sluchátky. Nemusíte se mi ozývat sami: po rezervaci se vám ozvu já a domluvíme, jakou aplikaci použijeme. Aplikace si můžete stáhnout předem, odkazy do obchodů a QR kódy jsou na stránce Online semináře."
+            "text": "Přes videohovor (Google Meet nebo WhatsApp), z domova nebo odkudkoli, kde máte klid. Stačí počítač nebo telefon se sluchátky. Nemusíte se mi ozývat sami: po rezervaci se vám ozvu já a domluvíme, jakou aplikaci použijeme. Aplikace si můžete stáhnout předem, odkazy do obchodů a QR kódy jsou na stránkách jednotlivých seminářů."
           }
         },
         {
@@ -208,24 +208,10 @@ if(s&&v){
     if(uIcon)uIcon.hidden=v.muted;
   });
 }
-var subToggles=document.querySelectorAll('.nav-sub-toggle');
-function closeAllSub(except){
-  for(var k=0;k<subToggles.length;k++){
-    if(subToggles[k]===except)continue;
-    subToggles[k].setAttribute('aria-expanded','false');
-    subToggles[k].parentNode.classList.remove('open');
-  }
-}
-for(var m=0;m<subToggles.length;m++){
-  subToggles[m].addEventListener('click',function(e){
-    e.stopPropagation();
-    var li=this.parentNode;
-    var open=li.classList.toggle('open');
-    this.setAttribute('aria-expanded',open?'true':'false');
-    closeAllSub(this);
-    if(open)placeSub(li.querySelector('.sub-nav'));
-  });
-}
+var subLis=document.querySelectorAll('.has-sub');
+var wideMq=matchMedia('(min-width: 63rem)');
+var hd=document.querySelector('.site-header'),nt=document.getElementById('nav-toggle');
+function toggleOf(li){return li.querySelector('.nav-sub-toggle');}
 function placeSub(ul){
   if(!ul)return;
   ul.style.left='';ul.style.right='';
@@ -236,18 +222,48 @@ function placeSub(ul){
     if(r.left<8){ul.style.left='0';ul.style.right='auto';}
   }
 }
-document.addEventListener('click',function(){closeAllSub(null);});
-var nt=document.getElementById('nav-toggle'),hd=document.querySelector('.site-header');
-if(nt&&hd){
-  var setMenu=function(o){hd.classList.toggle('menu-open',o);nt.setAttribute('aria-expanded',o?'true':'false');var t=nt.querySelector('.nav-toggle-text');if(t)t.textContent=o?'Zavřít':'Menu';};
-  nt.addEventListener('click',function(e){e.stopPropagation();setMenu(!hd.classList.contains('menu-open'));});
-  document.addEventListener('click',function(e){if(hd.classList.contains('menu-open')&&!hd.contains(e.target))setMenu(false);});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&hd.classList.contains('menu-open')){setMenu(false);nt.focus();}});
-  var wide=matchMedia('(min-width: 63rem)');
-  var wideChange=function(){if(wide.matches)setMenu(false);};
-  if(wide.addEventListener)wide.addEventListener('change',wideChange);else if(wide.addListener)wide.addListener(wideChange);
+function openSub(li){li.classList.add('open');var b=toggleOf(li);if(b)b.setAttribute('aria-expanded','true');placeSub(li.querySelector('.sub-nav'));}
+function closeSub(li){li.classList.remove('open');var b=toggleOf(li);if(b)b.setAttribute('aria-expanded','false');}
+function closeAllSub(except){for(var k=0;k<subLis.length;k++){if(subLis[k]!==except)closeSub(subLis[k]);}}
+function setMenu(o){
+  if(!hd||!nt)return;
+  hd.classList.toggle('menu-open',o);
+  nt.setAttribute('aria-expanded',o?'true':'false');
+  var t=nt.querySelector('.nav-toggle-text');if(t)t.textContent=o?'Zavřít':'Menu';
+  if(!o)closeAllSub(null);
 }
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(null);});
+for(var m=0;m<subLis.length;m++){(function(li){
+  var b=toggleOf(li);if(!b)return;
+  b.addEventListener('click',function(e){e.stopPropagation();if(li.classList.contains('open'))closeSub(li);else{closeAllSub(li);openSub(li);}});
+  if(li.classList.contains('has-split')){
+    // Na počítači se podmenu otevře najetím myší i zaostřením klávesnicí; na dotykovém displeji jen tlačítkem.
+    li.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse'&&wideMq.matches){closeAllSub(li);openSub(li);}});
+    li.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse'&&wideMq.matches)closeSub(li);});
+    li.addEventListener('focusin',function(e){
+      if(!wideMq.matches||li._esc)return;
+      var kb=true;try{kb=e.target.matches(':focus-visible');}catch(x){}
+      if(kb){closeAllSub(li);openSub(li);}
+    });
+    li.addEventListener('focusout',function(e){if(!wideMq.matches)return;var to=e.relatedTarget;if(!to||!li.contains(to))closeSub(li);});
+  }
+})(subLis[m]);}
+document.addEventListener('click',function(e){closeAllSub(null);if(hd&&hd.classList.contains('menu-open')&&!hd.contains(e.target))setMenu(false);});
+if(nt&&hd)nt.addEventListener('click',function(e){e.stopPropagation();setMenu(!hd.classList.contains('menu-open'));});
+// Esc nejdřív zavře otevřené podmenu a vrátí fokus na jeho tlačítko, až potom celé menu na úzkém displeji.
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Escape')return;
+  var closed=false,ae=document.activeElement;
+  for(var k=0;k<subLis.length;k++){
+    var li=subLis[k];
+    if(li.classList.contains('open')){
+      closeSub(li);closed=true;
+      if(li.contains(ae)){var b=toggleOf(li);if(b){li._esc=true;b.focus();li._esc=false;}}
+    }
+  }
+  if(!closed&&hd&&hd.classList.contains('menu-open')){setMenu(false);if(nt)nt.focus();}
+});
+var wideChange=function(){if(wideMq.matches)setMenu(false);};
+if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(wideMq.addListener)wideMq.addListener(wideChange);
 }catch(e){d.classList.remove('js');}});
 })();
 </script>
@@ -259,9 +275,13 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   <div class="wrap bar">
     <a class="brand" href="/"><svg class="brand-sun" viewBox="-16 -16 32 32" width="28" height="28" aria-hidden="true" focusable="false"><g stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round"><line y1="-10" y2="-14" transform="rotate(0)"/><line y1="-10" y2="-14" transform="rotate(45)"/><line y1="-10" y2="-14" transform="rotate(90)"/><line y1="-10" y2="-14" transform="rotate(135)"/><line y1="-10" y2="-14" transform="rotate(180)"/><line y1="-10" y2="-14" transform="rotate(225)"/><line y1="-10" y2="-14" transform="rotate(270)"/><line y1="-10" y2="-14" transform="rotate(315)"/></g><circle r="6.5" fill="#ffc83d" stroke="#f59e0b" stroke-width="1.5"/></svg><span>OCD mentor</span></a>
     <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="hlavni-nav"><span class="nav-toggle-icon" aria-hidden="true"></span><span class="nav-toggle-text">Menu</span></button>
-    <nav id="hlavni-nav" aria-label="Hlavní navigace"><ul><li><a href="/metoda">Metoda</a></li><li><a href="/pro-koho">Pro koho</a></li><li><a href="/jak-to-probiha" aria-current="page">Jak to probíhá</a></li><li><a href="/dotaznik">Dotazník</a></li><li><a href="/aplikace">Aplikace</a></li><li><a href="/seminare">Online semináře</a></li><li><a href="/ebook">E-book</a></li><li class="has-sub">
-          <button type="button" class="nav-sub-toggle" aria-expanded="false">O OCD</button>
-          <ul class="sub-nav"><li><a href="/vtirave-myslenky">Vtíravé myšlenky</a></li><li><a href="/typy-ocd">Typy OCD</a></li><li><a href="/myty-o-ocd">Mýty o OCD</a></li><li><a href="/slovnicek">Slovníček pojmů</a></li><li><a href="/pro-blizke">Pro blízké</a></li><li><a href="/pribehy">Příběhy</a></li></ul>
+    <nav id="hlavni-nav" aria-label="Hlavní navigace"><ul><li><a href="/metoda">Metoda</a></li><li><a href="/pro-koho">Pro koho</a></li><li><a href="/jak-to-probiha" aria-current="page">Jak to probíhá</a></li><li><a href="/dotaznik">Dotazník</a></li><li><a href="/aplikace">Aplikace</a></li><li class="has-sub has-split">
+          <a href="/seminare">Online semináře</a>
+          <button type="button" class="nav-sub-toggle nav-sub-arrow" aria-expanded="false" aria-controls="sub-online-seminare" aria-label="Podmenu: Online semináře"></button>
+          <ul class="sub-nav" id="sub-online-seminare"><li><a href="/seminare/cesta-s-ocd"><span class="sub-title">Cesta s OCD</span><span class="sub-meta">Pro lidi s OCD · 5 setkání</span></a></li><li><a href="/seminare/pro-blizke"><span class="sub-title">Když OCD žije vedle vás</span><span class="sub-meta">Pro blízké · 3 setkání</span></a></li></ul>
+        </li><li><a href="/ebook">E-book</a></li><li class="has-sub">
+          <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-controls="sub-o-ocd">O OCD</button>
+          <ul class="sub-nav" id="sub-o-ocd"><li><a href="/vtirave-myslenky">Vtíravé myšlenky</a></li><li><a href="/typy-ocd">Typy OCD</a></li><li><a href="/myty-o-ocd">Mýty o OCD</a></li><li><a href="/slovnicek">Slovníček pojmů</a></li><li><a href="/pro-blizke">Pro blízké</a></li><li><a href="/pribehy">Příběhy</a></li></ul>
         </li><li><a href="/clanky">Články</a></li><li><a href="/o-mne">O mně</a></li><li><a href="/kontakt">Kontakt</a></li></ul></nav>
   </div>
 </header>
@@ -284,7 +304,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   <li><h3>Vstupní dotazník</h3><p>Zmapujeme témata, kompulze a dopad na život. Z toho postavíme žebřík od nejslabšího tématu a vybereme cestu: Metal, Pop, nebo něco mezi.</p></li>
   <li><h3>Pravidelná sezení</h3><p class="route-meta">50 min, online</p><p>Videohovor přes Google Meet nebo WhatsApp. Kroky mezi sezeními, podpora a sledování pokroku. Vedle péče odborníka, ne místo ní.</p></li>
 </ol>
-  <p><strong>Jak se spojíme:</strong> sezení probíhají jako videohovor 1:1 přes Google Meet nebo WhatsApp. Nemusíte se mi ozývat sami, po rezervaci se vám ozvu já a domluvíme spojení. Aplikace si můžete stáhnout předem, odkazy do obchodů a QR kódy najdete na stránce <a href="/seminare#spojeni">Online semináře</a>.</p>
+  <p><strong>Jak se spojíme:</strong> sezení probíhají jako videohovor 1:1 přes Google Meet nebo WhatsApp. Nemusíte se mi ozývat sami, po rezervaci se vám ozvu já a domluvíme spojení. Aplikace si můžete stáhnout předem, odkazy do obchodů a QR kódy najdete u každého semináře, například na stránce <a href="/seminare/cesta-s-ocd#spojeni">Cesta s OCD</a>.</p>
   <p><a class="btn btn-ghost btn-sm" href="/dotaznik">Vyplnit vstupní dotazník</a></p>
 </section>
 
@@ -328,7 +348,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(
   </details>
   <details>
     <summary>Jak probíhá online sezení?</summary>
-    <p>Přes videohovor (Google Meet nebo WhatsApp), z domova nebo odkudkoli, kde máte klid. Stačí počítač nebo telefon se sluchátky. Nemusíte se mi ozývat sami: po rezervaci se vám ozvu já a domluvíme, jakou aplikaci použijeme. Aplikace si můžete stáhnout předem, odkazy do obchodů a QR kódy jsou na stránce Online semináře.</p>
+    <p>Přes videohovor (Google Meet nebo WhatsApp), z domova nebo odkudkoli, kde máte klid. Stačí počítač nebo telefon se sluchátky. Nemusíte se mi ozývat sami: po rezervaci se vám ozvu já a domluvíme, jakou aplikaci použijeme. Aplikace si můžete stáhnout předem, odkazy do obchodů a QR kódy jsou na stránkách jednotlivých seminářů.</p>
   </details>
   <details>
     <summary>Kolik to stojí a jak se platí?</summary>

@@ -81,13 +81,23 @@ const CRISIS_STRONG = 'volejte <strong>112</strong>, <strong>155</strong> nebo L
 const NOTICE = 'Peer podpora je doplněk k odborné péči. Nenahrazuje psychoterapii ani lékaře.';
 const FOOT = 'Nejde o zdravotní službu ani psychoterapii. Spolupráce nenahrazuje odbornou péči.';
 
+// ---------- Programy seminářů (data/seminare.json) ----------
+// Menu, stránky i JSON-LD berou programy odtud. Generátor selže s jasnou chybou, pokud termín spadne na vynechané datum,
+// nebo se jakákoli dvě setkání (napříč programy a běhy) překrývají či jsou blíž než 90 minut od sebe.
+const SEMINARE_DATA = nactiDataSeminare();
+const SEMINARE_PROGRAMY = pripravProgramy(SEMINARE_DATA);
+SEM.zkontrolujTextyProgramu(SEMINARE_PROGRAMY);
+const SEM_CENA = Object.fromEntries(SEMINARE_PROGRAMY.map((p) => [p.id, formatCastka(p.cena)]));
+const SEM_ADRESA = Object.fromEntries(SEMINARE_PROGRAMY.map((p) => [p.id, SEM.adresaProgramu(p)]));
+const SEM_STRANKY_PROGRAMU = new Set(Object.values(SEM_ADRESA));
+
 const nav = [
   ['/metoda', 'Metoda'],
   ['/pro-koho', 'Pro koho'],
   ['/jak-to-probiha', 'Jak to probíhá'],
   ['/dotaznik', 'Dotazník'],
   ['/aplikace', 'Aplikace'],
-  ['/seminare', 'Online semináře'],
+  ['/seminare', 'Online semináře', SEMINARE_PROGRAMY.map((p) => [SEM.adresaProgramu(p), p.kratkyNazev, SEM.podtitulMenu(p)]), 'split'],
   ['/ebook', 'E-book'],
   [null, 'O OCD', [
     ['/vtirave-myslenky', 'Vtíravé myšlenky'],
@@ -203,24 +213,10 @@ if(s&&v){
     if(uIcon)uIcon.hidden=v.muted;
   });
 }
-var subToggles=document.querySelectorAll('.nav-sub-toggle');
-function closeAllSub(except){
-  for(var k=0;k<subToggles.length;k++){
-    if(subToggles[k]===except)continue;
-    subToggles[k].setAttribute('aria-expanded','false');
-    subToggles[k].parentNode.classList.remove('open');
-  }
-}
-for(var m=0;m<subToggles.length;m++){
-  subToggles[m].addEventListener('click',function(e){
-    e.stopPropagation();
-    var li=this.parentNode;
-    var open=li.classList.toggle('open');
-    this.setAttribute('aria-expanded',open?'true':'false');
-    closeAllSub(this);
-    if(open)placeSub(li.querySelector('.sub-nav'));
-  });
-}
+var subLis=document.querySelectorAll('.has-sub');
+var wideMq=matchMedia('(min-width: 63rem)');
+var hd=document.querySelector('.site-header'),nt=document.getElementById('nav-toggle');
+function toggleOf(li){return li.querySelector('.nav-sub-toggle');}
 function placeSub(ul){
   if(!ul)return;
   ul.style.left='';ul.style.right='';
@@ -231,18 +227,48 @@ function placeSub(ul){
     if(r.left<8){ul.style.left='0';ul.style.right='auto';}
   }
 }
-document.addEventListener('click',function(){closeAllSub(null);});
-var nt=document.getElementById('nav-toggle'),hd=document.querySelector('.site-header');
-if(nt&&hd){
-  var setMenu=function(o){hd.classList.toggle('menu-open',o);nt.setAttribute('aria-expanded',o?'true':'false');var t=nt.querySelector('.nav-toggle-text');if(t)t.textContent=o?'Zavřít':'Menu';};
-  nt.addEventListener('click',function(e){e.stopPropagation();setMenu(!hd.classList.contains('menu-open'));});
-  document.addEventListener('click',function(e){if(hd.classList.contains('menu-open')&&!hd.contains(e.target))setMenu(false);});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&hd.classList.contains('menu-open')){setMenu(false);nt.focus();}});
-  var wide=matchMedia('(min-width: 63rem)');
-  var wideChange=function(){if(wide.matches)setMenu(false);};
-  if(wide.addEventListener)wide.addEventListener('change',wideChange);else if(wide.addListener)wide.addListener(wideChange);
+function openSub(li){li.classList.add('open');var b=toggleOf(li);if(b)b.setAttribute('aria-expanded','true');placeSub(li.querySelector('.sub-nav'));}
+function closeSub(li){li.classList.remove('open');var b=toggleOf(li);if(b)b.setAttribute('aria-expanded','false');}
+function closeAllSub(except){for(var k=0;k<subLis.length;k++){if(subLis[k]!==except)closeSub(subLis[k]);}}
+function setMenu(o){
+  if(!hd||!nt)return;
+  hd.classList.toggle('menu-open',o);
+  nt.setAttribute('aria-expanded',o?'true':'false');
+  var t=nt.querySelector('.nav-toggle-text');if(t)t.textContent=o?'Zavřít':'Menu';
+  if(!o)closeAllSub(null);
 }
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAllSub(null);});
+for(var m=0;m<subLis.length;m++){(function(li){
+  var b=toggleOf(li);if(!b)return;
+  b.addEventListener('click',function(e){e.stopPropagation();if(li.classList.contains('open'))closeSub(li);else{closeAllSub(li);openSub(li);}});
+  if(li.classList.contains('has-split')){
+    // Na počítači se podmenu otevře najetím myší i zaostřením klávesnicí; na dotykovém displeji jen tlačítkem.
+    li.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse'&&wideMq.matches){closeAllSub(li);openSub(li);}});
+    li.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse'&&wideMq.matches)closeSub(li);});
+    li.addEventListener('focusin',function(e){
+      if(!wideMq.matches||li._esc)return;
+      var kb=true;try{kb=e.target.matches(':focus-visible');}catch(x){}
+      if(kb){closeAllSub(li);openSub(li);}
+    });
+    li.addEventListener('focusout',function(e){if(!wideMq.matches)return;var to=e.relatedTarget;if(!to||!li.contains(to))closeSub(li);});
+  }
+})(subLis[m]);}
+document.addEventListener('click',function(e){closeAllSub(null);if(hd&&hd.classList.contains('menu-open')&&!hd.contains(e.target))setMenu(false);});
+if(nt&&hd)nt.addEventListener('click',function(e){e.stopPropagation();setMenu(!hd.classList.contains('menu-open'));});
+// Esc nejdřív zavře otevřené podmenu a vrátí fokus na jeho tlačítko, až potom celé menu na úzkém displeji.
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Escape')return;
+  var closed=false,ae=document.activeElement;
+  for(var k=0;k<subLis.length;k++){
+    var li=subLis[k];
+    if(li.classList.contains('open')){
+      closeSub(li);closed=true;
+      if(li.contains(ae)){var b=toggleOf(li);if(b){li._esc=true;b.focus();li._esc=false;}}
+    }
+  }
+  if(!closed&&hd&&hd.classList.contains('menu-open')){setMenu(false);if(nt)nt.focus();}
+});
+var wideChange=function(){if(wideMq.matches)setMenu(false);};
+if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(wideMq.addListener)wideMq.addListener(wideChange);
 }catch(e){d.classList.remove('js');}});
 })();
 </script>`;
@@ -450,13 +476,24 @@ function page({ path, title, desc, body, jsonld, noindex, robots, script, art, a
   const isNoindex = !!noindex || /noindex/.test(robots || '');
   const robotsContent = robots || (noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large');
   const navHtml = nav
-    .map(([h, t, sub]) => {
+    .map(([h, t, sub, typ]) => {
+      const slugPodmenu = 'sub-' + t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      if (sub && typ === 'split') {
+        // Odkaz na přehled + samostatné tlačítko podmenu (vzor „disclosure“: tlačítko a seznam odkazů, ne role menu).
+        const aktivni = path === h || path.startsWith(h + '/');
+        const subHtml = sub.map(([sh, st, meta]) => `<li><a href="${sh}"${sh === path ? ' aria-current="page"' : ''}><span class="sub-title">${st}</span>${meta ? `<span class="sub-meta">${meta}</span>` : ''}</a></li>`).join('');
+        return `<li class="has-sub has-split${aktivni ? ' is-active' : ''}">
+          <a href="${h}"${h === path ? ' aria-current="page"' : ''}>${t}</a>
+          <button type="button" class="nav-sub-toggle nav-sub-arrow" aria-expanded="false" aria-controls="${slugPodmenu}" aria-label="Podmenu: ${t}"></button>
+          <ul class="sub-nav" id="${slugPodmenu}">${subHtml}</ul>
+        </li>`;
+      }
       if (sub) {
         const active = sub.some(([sh]) => sh === path || path.startsWith(sh + '/'));
         const subHtml = sub.map(([sh, st]) => `<li><a href="${sh}"${sh === path ? ' aria-current="page"' : ''}>${st}</a></li>`).join('');
         return `<li class="has-sub${active ? ' is-active' : ''}">
-          <button type="button" class="nav-sub-toggle" aria-expanded="false">${t}</button>
-          <ul class="sub-nav">${subHtml}</ul>
+          <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-controls="${slugPodmenu}">${t}</button>
+          <ul class="sub-nav" id="${slugPodmenu}">${subHtml}</ul>
         </li>`;
       }
       return `<li><a href="${h}"${h === path || (h === '/aplikace' && path.startsWith('/aplikace')) ? ' aria-current="page"' : ''}>${t}</a></li>`;
@@ -486,7 +523,7 @@ function page({ path, title, desc, body, jsonld, noindex, robots, script, art, a
   // strukturovaná data: vše v jednom @graph
   const nodes = [];
   if (path === '/') nodes.push(websiteNode());
-  if (['/', '/o-mne', '/jak-to-probiha'].includes(path)) nodes.push(personNode());
+  if (['/', '/o-mne', '/jak-to-probiha'].includes(path) || SEM_STRANKY_PROGRAMU.has(path)) nodes.push(personNode());
   if (path === '/o-mne') nodes.push({ '@type': 'ProfilePage', url, name: title, mainEntity: { '@id': PERSON_ID }, inLanguage: 'cs' });
   nodes.push(...normalizeLd(jsonld));
   if (trail && !isNoindex) nodes.push(breadcrumbNode(trail));
@@ -498,7 +535,7 @@ function page({ path, title, desc, body, jsonld, noindex, robots, script, art, a
     CFG.verification?.bing ? `<meta name="msvalidate.01" content="${attr(CFG.verification.bing)}">` : '',
   ].filter(Boolean).join('\n');
 
-  const FLOAT_OFF = new Set(['/pomoc', '/kviz', '/kontakt', '/jak-to-probiha', '/dotaznik', '/obchodni-podminky', '/ochrana-osobnich-udaju', '/koncepty', '/offline', '/404', '/seminare', '/seminare/rezervace', '/seminare/rezervace/potvrzeni']);
+  const FLOAT_OFF = new Set(['/pomoc', '/kviz', '/kontakt', '/jak-to-probiha', '/dotaznik', '/obchodni-podminky', '/ochrana-osobnich-udaju', '/koncepty', '/offline', '/404', '/seminare', ...SEM_STRANKY_PROGRAMU, '/seminare/rezervace', '/seminare/rezervace/potvrzeni']);
   const showFloat = floatCta ?? (!isNoindex && !app && !draft && !FLOAT_OFF.has(path));
   const floatHtml = showFloat
     ? `<aside class="float-cta js-only" id="float-cta" aria-label="Konzultace zdarma" hidden>\n  <a class="btn btn-cta btn-sm float-book" href="/kontakt">Konzultace zdarma</a>\n  <button type="button" class="float-close" aria-label="Zavřít lištu">×</button>\n</aside>\n`
@@ -1110,23 +1147,65 @@ add('/ebook', {
 });
 
 // ---------- Online semináře ----------
-// Programy, termíny a stavy běhů jsou v data/seminare.json. Generátor selže s jasnou chybou, pokud termín spadne na vynechané datum
-// nebo se jakákoli dvě setkání (napříč programy a běhy) překrývají či jsou blíž než 90 minut od sebe.
-const SEMINARE_DATA = nactiDataSeminare();
-const SEMINARE_PROGRAMY = pripravProgramy(SEMINARE_DATA);
-const SEM_CENA = Object.fromEntries(SEMINARE_PROGRAMY.map((p) => [p.id, formatCastka(p.cena)]));
+// Tři stránky: přehled /seminare, stránky programů /seminare/<stranka> a rezervace (společná pro oba programy).
+const SEM_TITULEK = {
+  'pro-lidi-s-ocd': (p) => `${p.kratkyNazev}: individuální program ${p.pocetSetkani} setkání | ocdmentor.cz`,
+  'pro-blizke': (p) => `${p.kratkyNazev}: program pro blízké | ocdmentor.cz`,
+};
+const SEM_POPIS = {
+  'pro-lidi-s-ocd': (p) => `Individuální online program ${p.pocetSetkani} setkání 1:1 pro lidi s OCD podle knihy o sebepřijetí. ${formatCastka(p.cena)}, termíny a rezervace s platbou QR kódem. Nenahrazuje odbornou péči.`,
+  'pro-blizke': (p) => `Program ${p.pocetSetkani} setkání 1:1 pro blízké lidí s OCD: jak OCD nekrmit dobře míněnou pomocí a zachovat si vlastní život. ${formatCastka(p.cena)}, rezervace s platbou QR kódem.`,
+};
+const programServiceNode = (p) => {
+  const url = `${SITE}${SEM.adresaProgramu(p)}`;
+  return {
+    '@type': 'Service',
+    '@id': `${url}#sluzba`,
+    name: p.nazev,
+    serviceType: 'Online individuální program',
+    description: `${p.anotace} Nenahrazuje odbornou péči.`,
+    url,
+    provider: { '@id': PERSON_ID },
+    areaServed: { '@type': 'Country', name: 'Česko' },
+    availableChannel: { '@type': 'ServiceChannel', name: 'Online (videohovor)', serviceUrl: url },
+    offers: { '@type': 'Offer', name: `${p.nazev}: ${p.pocetSetkani} setkání po ${p.delkaMinut} minutách`, price: String(p.cena), priceCurrency: 'CZK', url },
+  };
+};
+
 add('/seminare', {
-  title: 'Online semináře: individuální programy 1:1 | ocdmentor.cz',
-  desc: `Dva individuální online programy 1:1: pět setkání pro lidi s OCD (${SEM_CENA['pro-lidi-s-ocd']}) a tři setkání pro jejich blízké (${SEM_CENA['pro-blizke']}). Rezervace termínu a platba QR kódem.`,
+  title: 'Online semináře | ocdmentor.cz',
+  desc: `Dva individuální online programy 1:1 podle osobní zkušenosti s OCD: pro lidi s OCD (${SEMINARE_PROGRAMY[0].pocetSetkani} setkání, ${SEM_CENA[SEMINARE_PROGRAMY[0].id]}) a pro jejich blízké (${SEMINARE_PROGRAMY[1].pocetSetkani} setkání, ${SEM_CENA[SEMINARE_PROGRAMY[1].id]}).`,
   ogTitle: 'Online semináře',
   ogSub: 'Dva programy pro lidi s OCD a jejich blízké',
   ogArt: '/assets/img/ebook-titulka.webp',
   ogArtPortrait: true,
   crumb: 'Online semináře',
-  jsonld: { '@graph': [SEM.faqJsonLd(SEMINARE_PROGRAMY)] },
+  jsonld: {
+    '@graph': [{
+      '@type': 'ItemList',
+      name: 'Online semináře',
+      itemListElement: SEMINARE_PROGRAMY.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.nazev, url: `${SITE}${SEM.adresaProgramu(p)}` })),
+    }],
+  },
   script: '/assets/js/seminare.js',
-  body: SEM.seminareBody({ data: SEMINARE_DATA, programy: SEMINARE_PROGRAMY, konzultaceHtml: bookBtn() }),
+  body: SEM.prehledBody({ programy: SEMINARE_PROGRAMY, konzultaceHtml: bookBtn() }),
 });
+
+for (const p of SEMINARE_PROGRAMY) {
+  add(SEM.adresaProgramu(p), {
+    title: SEM_TITULEK[p.id](p),
+    desc: SEM_POPIS[p.id](p),
+    ogTitle: p.kratkyNazev,
+    ogSub: SEM.shrnutiProgramu(p),
+    ogArt: '/assets/img/ebook-titulka.webp',
+    ogArtPortrait: true,
+    crumb: p.kratkyNazev,
+    parents: [['/seminare', 'Online semináře']],
+    jsonld: { '@graph': [programServiceNode(p), SEM.faqJsonLd(p, SEMINARE_DATA)] },
+    script: '/assets/js/seminare.js',
+    body: SEM.programBody({ program: p, programy: SEMINARE_PROGRAMY, data: SEMINARE_DATA }),
+  });
+}
 
 add('/seminare/rezervace', {
   title: 'Rezervace semináře: výběr termínu a platba | ocdmentor.cz',
@@ -1238,7 +1317,7 @@ add('/jak-to-probiha', {
 <section class="wrap block">
   <h2>Tři kroky</h2>
   ${routeHtml('')}
-  <p><strong>Jak se spojíme:</strong> sezení probíhají jako videohovor 1:1 přes Google Meet nebo WhatsApp. Nemusíte se mi ozývat sami, po rezervaci se vám ozvu já a domluvíme spojení. Aplikace si můžete stáhnout předem, odkazy do obchodů a QR kódy najdete na stránce <a href="/seminare#spojeni">Online semináře</a>.</p>
+  <p><strong>Jak se spojíme:</strong> sezení probíhají jako videohovor 1:1 přes Google Meet nebo WhatsApp. Nemusíte se mi ozývat sami, po rezervaci se vám ozvu já a domluvíme spojení. Aplikace si můžete stáhnout předem, odkazy do obchodů a QR kódy najdete u každého semináře, například na stránce <a href="${SEM_ADRESA['pro-lidi-s-ocd']}#spojeni">${SEMINARE_PROGRAMY[0].kratkyNazev}</a>.</p>
   <p><a class="btn btn-ghost btn-sm" href="/dotaznik">Vyplnit vstupní dotazník</a></p>
 </section>
 
@@ -2402,7 +2481,7 @@ for (const t of TYPY_DATA.typy) {
 const PRO_BLIZKE_UVOD = `<section class="wrap block prose">
   <p>OCD se často udržuje i dobře míněnou pomocí: když za člověka kontrolujeme, odpovídáme na stále stejné otázky nebo se vyhýbáme věcem, které spouštějí strach. Zvenku to vypadá jako laskavost, ale strach to z dlouhodobého hlediska krmí. Dá se to dělat jinak, bez vyčítání sobě i blízkému.</p>
   <p>Na semináři „Když OCD žije vedle vás“ vám z pohledu člověka, který OCD zná z vlastního života, ukážu, co pomáhá a co škodí a jak si přitom zachovat vlastní život. Nejsem psycholog ani terapeut, neposkytuji rodinnou terapii ani radu k vašemu konkrétnímu případu.</p>
-  <p class="cta"><a class="btn btn-cta" href="/seminare#pro-blizke">Zobrazit seminář pro blízké</a></p>
+  <p class="cta"><a class="btn btn-cta" href="${SEM_ADRESA['pro-blizke']}">Zobrazit seminář pro blízké</a></p>
   <div class="cta-konzultace">${bookDiv.replace('data-text="Domluvit si konzultaci"', 'data-text="Úvodní konzultace zdarma"')}
 ${bookScript}</div>
   <div class="callout-inline disclaimer sem-box" role="note">

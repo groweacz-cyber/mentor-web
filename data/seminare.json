@@ -1,12 +1,16 @@
 {
-  "poznamka": "Programy a termíny seminářů. Čte je generátor webu (tools/gen.mjs, text přímo do HTML) i serverová funkce api/rezervace.js. Termíny každého běhu se počítají od prvniDatum po 7 dnech (počet podle pocetSetkani), vynechaná data se přeskakují. Stav běhu: otevreno, obsazeno nebo pripravujeme. Po přijetí rezervace nastavte běh na obsazeno a web znovu nasaďte. Generátor selže, pokud termín padne na vynechané datum nebo se jakákoli dvě setkání (napříč programy a běhy) překrývají či jsou blíž než 90 minut od sebe.",
+  "poznamka": "Programy a termíny seminářů. Čte je generátor webu (tools/gen.mjs, text přímo do HTML) i serverová funkce api/rezervace.js. Termíny každého běhu se počítají od prvniDatum po 7 dnech (počet podle pocetSetkani), vynechaná data se přeskakují. Stav běhu: otevreno, obsazeno nebo pripravujeme. Po přijetí rezervace nastavte běh na obsazeno a web znovu nasaďte. Pole stranka je adresa programu (/seminare/<stranka>), kratkyNazev a komu se zobrazují v menu a v drobečkové navigaci. Generátor selže, pokud termín padne na vynechané datum nebo se jakákoli dvě setkání (napříč programy a běhy) překrývají či jsou blíž než 90 minut od sebe.",
   "uzavreniDniPredZacatkem": 4,
   "splatnostDni": 3,
   "vynechaneDatumy": ["2026-12-24", "2026-12-31"],
   "programy": [
     {
       "id": "pro-lidi-s-ocd",
+      "stranka": "cesta-s-ocd",
       "nazev": "Cesta s OCD: sebepřijetí, sebevíra a svobodnější život",
+      "kratkyNazev": "Cesta s OCD",
+      "komu": "Pro lidi s OCD",
+      "anotace": "Setkání podle mé knihy o sebepřijetí a cestě k větší svobodě, pro lidi, kteří s OCD žijí.",
       "podtitul": "Individuální program pěti setkání 1:1 podle knihy. Jak jsem na to šel já a co z toho můžeš využít ty.",
       "pocetSetkani": 5,
       "delkaMinut": 60,
@@ -20,7 +24,11 @@
     },
     {
       "id": "pro-blizke",
+      "stranka": "pro-blizke",
       "nazev": "Když OCD žije vedle vás: průvodce pro blízké",
+      "kratkyNazev": "Když OCD žije vedle vás",
+      "komu": "Pro blízké",
+      "anotace": "Jak OCD nekrmit dobře míněnou pomocí a zachovat si vlastní život, pro partnery, rodiče i přátele lidí s OCD.",
       "podtitul": "Individuální program tří setkání 1:1. Co lidem s OCD pomáhá, co jim naopak škodí a jak se v tom nezničit.",
       "pocetSetkani": 3,
       "delkaMinut": 60,

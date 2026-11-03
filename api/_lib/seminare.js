@@ -69,6 +69,7 @@ export function zkontrolujData(data) {
   if (!Array.isArray(data.programy) || !data.programy.length) chyby.push('programy musí být neprázdné pole.');
 
   const programIds = new Set();
+  const stranky = new Set(['rezervace']);
   const behIds = new Set();
   const setkani = [];
   for (const program of data.programy || []) {
@@ -76,9 +77,12 @@ export function zkontrolujData(data) {
     if (!/^[a-z0-9-]+$/.test(program.id || '')) chyby.push(`${pkdo}: id smí obsahovat jen malá písmena, číslice a pomlčku.`);
     if (programIds.has(program.id)) chyby.push(`${pkdo}: id se opakuje.`);
     programIds.add(program.id);
-    for (const pole of ['nazev', 'podtitul']) {
+    for (const pole of ['nazev', 'podtitul', 'kratkyNazev', 'komu', 'anotace']) {
       if (typeof program[pole] !== 'string' || !program[pole].trim()) chyby.push(`${pkdo}: chybí ${pole}.`);
     }
+    if (!/^[a-z0-9-]+$/.test(program.stranka || '')) chyby.push(`${pkdo}: stranka (adresa /seminare/<stranka>) smí obsahovat jen malá písmena, číslice a pomlčku.`);
+    if (stranky.has(program.stranka)) chyby.push(`${pkdo}: stranka se opakuje.`);
+    stranky.add(program.stranka);
     if (!Number.isInteger(program.cena) || program.cena <= 0) chyby.push(`${pkdo}: cena musí být kladné celé číslo.`);
     if (!Number.isInteger(program.pocetSetkani) || program.pocetSetkani < 1) chyby.push(`${pkdo}: pocetSetkani musí být kladné celé číslo.`);
     if (!Number.isInteger(program.delkaMinut) || program.delkaMinut < 15) chyby.push(`${pkdo}: delkaMinut musí být celé číslo (aspoň 15).`);

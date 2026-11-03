@@ -49,7 +49,7 @@ Soubory ze složek `tools` a `seo` se na web nenasazují (`.vercelignore`).
 
 ## Online semináře: rezervace a platba QR kódem
 
-Stránky `/seminare`, `/seminare/rezervace` a `/seminare/rezervace/potvrzeni` jsou statické, rezervaci obsluhuje serverová funkce `api/rezervace.js` (Vercel, region `fra1`, EU). Na `/seminare` jsou dvě rozbalovací záložky (dva programy). Funkce nic neukládá: ověří vstup (program a běh, který k němu patří), z dat webu vezme termíny a cenu zvoleného programu, vygeneruje variabilní symbol a QR Platbu a přes Resend (nebo SMTP) pošle dva e-maily (účastníkovi platební údaje, majiteli upozornění).
+Stránky `/seminare` (přehled dvou programů), `/seminare/<stranka>` (jedna stránka na program: `/seminare/cesta-s-ocd`, `/seminare/pro-blizke`), `/seminare/rezervace` a `/seminare/rezervace/potvrzeni` jsou statické, rezervaci obsluhuje serverová funkce `api/rezervace.js` (Vercel, region `fra1`, EU). V hlavním menu má „Online semináře“ odkaz na přehled a samostatné tlačítko podmenu se dvěma programy (menu a stránky se generují z `data/seminare.json`). Starý odkaz s kotvou `/seminare#pro-blizke` nebo `#pro-lidi-s-ocd` přesměruje skript `assets/js/seminare.js` na stránku programu. Funkce nic neukládá: ověří vstup (program a běh, který k němu patří), z dat webu vezme termíny a cenu zvoleného programu, vygeneruje variabilní symbol a QR Platbu a přes Resend (nebo SMTP) pošle dva e-maily (účastníkovi platební údaje, majiteli upozornění).
 
 ```
 data/seminare.json        programy (cena, počet setkání, den, čas), běhy, termíny a stavy (čte generátor i funkce)
@@ -63,9 +63,9 @@ tools/test/               testy (npm test)
 
 ### Správa termínů (`data/seminare.json`)
 
-- Pole `programy`: každý program má `id`, `nazev`, `podtitul`, `pocetSetkani`, `delkaMinut`, `cena`, `den`, `cas` a `behy`. Běh má `id` (jedinečné napříč programy) a `prvniDatum` a `stav` (`otevreno`, `obsazeno`, `pripravujeme`); název „Běh 1“, „Běh 2“ se odvodí z pořadí. Termíny se počítají po 7 dnech od `prvniDatum` (počet podle `pocetSetkani`), data ze společného pole `vynechaneDatumy` se přeskakují.
+- Pole `programy`: každý program má `id` (zůstává v adrese rezervace `?program=`), `stranka` (adresa `/seminare/<stranka>`), `nazev`, `kratkyNazev` a `komu` (menu, drobečky, karty), `anotace` (věta na kartě přehledu), `podtitul`, `pocetSetkani`, `delkaMinut`, `cena`, `den`, `cas` a `behy`. Běh má `id` (jedinečné napříč programy) a `prvniDatum` a `stav` (`otevreno`, `obsazeno`, `pripravujeme`); název „Běh 1“, „Běh 2“ se odvodí z pořadí. Termíny se počítají po 7 dnech od `prvniDatum` (počet podle `pocetSetkani`), data ze společného pole `vynechaneDatumy` se přeskakují.
 - `npm run gen` selže s jasnou chybou, pokud termín spadá na vynechané datum, první datum není v den týdne programu, nebo se jakákoli dvě setkání (napříč všemi programy a běhy) překrývají či mezi koncem jednoho a začátkem dalšího chybí aspoň 90 minut (jeden klient v daném čase).
-- **Nový program:** záznam v `programy`, texty v `TEXTY_PROGRAMU` (`api/_lib/texty.js`), obsah a souhlasy v `OBSAH` a `SOUHLASY` (`tools/content/seminare.mjs`). Generátor i server selžou, pokud program texty nemá.
+- **Nový program:** záznam v `programy`, texty v `TEXTY_PROGRAMU` (`api/_lib/texty.js`, včetně `pocet`, který se musí shodovat s `pocetSetkani`), obsah a souhlasy v `OBSAH` a `SOUHLASY` (`tools/content/seminare.mjs`) a titulek a popis v `SEM_TITULEK` a `SEM_POPIS` (`tools/gen.mjs`). Generátor i server selžou, pokud program texty nemá. Ceny, počty setkání, termíny i věty ve FAQ (přesuny, splatnost, vynechané dny) se berou z dat.
 - Rezervace se uzavírá `uzavreniDniPredZacatkem` (4) dny před prvním setkáním. Stav „Uzavřeno“ se na webu upraví i bez nového nasazení (skript podle data v Praze), server ho při rezervaci kontroluje vždy.
 - **Po každé přijaté rezervaci nastavte běh na `obsazeno`, spusťte `npm run gen` a web nasaďte.** Funkce nemá databázi, takže jinak by si stejný běh mohl rezervovat další člověk.
 

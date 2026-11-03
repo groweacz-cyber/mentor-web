@@ -2,15 +2,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { FAQ, OBSAH, formatProgramu, vsechnyFaq } from '../content/seminare.mjs';
-import { POVAHA_SEMINARE, POVAHA_BLIZKE } from '../../api/_lib/texty.js';
+import { OBSAH, formatProgramu, faqProgramu, vynechanaDnyText, programBody, rezervaceBody } from '../content/seminare.mjs';
+import { POVAHA_SEMINARE, POVAHA_BLIZKE, POVAHA_PREHLED } from '../../api/_lib/texty.js';
 import { nactiData, pripravProgramy } from '../../api/_lib/seminare.js';
-import { seminareBody, rezervaceBody } from '../content/seminare.mjs';
 
-const nactiPripraveneProgramy = () => pripravProgramy(nactiData());
+const pripraveny = (id) => pripravProgramy(nactiData()).find((p) => p.id === id);
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const nacti = (p) => readFileSync(join(ROOT, p), 'utf8');
 // Blokové značky se mění na mezeru, vložené (a, strong, span, time) na nic, aby věta „…e-mailem. Zásady…“ zůstala věta.
@@ -21,111 +20,224 @@ const text = (h) => dekoduj(bezZnacek(h)).replace(/\s+/g, ' ').trim();
 const main = (h) => h.slice(h.indexOf('<main'), h.indexOf('</main>'));
 const ld = (h) => [...h.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].flatMap((m) => JSON.parse(m[1])['@graph'] || []);
 
-const PODTITUL_BLIZKE = 'Individuální program tří setkání 1:1. Co lidem s OCD pomáhá, co jim naopak škodí a jak se v tom nezničit.';
 const FORMAT_OCD = '5 setkání po 60 minutách, 1× týdně ve čtvrtek v 18:00, online 1:1. Cena 3 590 Kč za celý program. Cena je konečná, nejsem plátce DPH.';
 const FORMAT_BLIZKE = '3 setkání po 60 minutách, 1× týdně v úterý v 18:00, online 1:1. Na setkání se může připojit i druhý blízký z vaší domácnosti bez příplatku. Cena 2 190 Kč za celý program. Cena je konečná, nejsem plátce DPH.';
-const zalozka = (h, id) => h.match(new RegExp(`<details class="prog-tab" id="${id}"[\\s\\S]*?\\n  </details>`))[0];
+const STRANKY = { 'pro-lidi-s-ocd': 'seminare/cesta-s-ocd/index.html', 'pro-blizke': 'seminare/pro-blizke/index.html' };
+const meta = (h, nazev) => (h.match(new RegExp(`<meta (?:name|property)="${nazev}" content="([^"]*)"`)) || [])[1];
+const html = (h) => h.replace(/&amp;/g, '&');
+const ldVse = (h) => ld(h);
 
-test('/seminare: nadpis stránky a dvě rozbalovací záložky s anotacemi v řádku summary', () => {
+test('menu: Online semináře má odkaz na přehled, samostatné tlačítko podmenu (disclosure) a dva semináře s podtitulky', () => {
+  const h = nacti('index.html');
+  const li = h.match(/<li class="has-sub has-split[^"]*">[\s\S]*?<\/ul>\s*<\/li>/)[0];
+  assert.match(li, /<a href="\/seminare">Online semináře<\/a>/);
+  assert.match(li, /<button type="button" class="nav-sub-toggle nav-sub-arrow" aria-expanded="false" aria-controls="sub-online-seminare" aria-label="Podmenu: Online semináře"><\/button>/);
+  assert.match(li, /<ul class="sub-nav" id="sub-online-seminare">/);
+  assert.ok(li.includes('<a href="/seminare/cesta-s-ocd"><span class="sub-title">Cesta s OCD</span><span class="sub-meta">Pro lidi s OCD · 5 setkání</span></a>'));
+  assert.ok(li.includes('<a href="/seminare/pro-blizke"><span class="sub-title">Když OCD žije vedle vás</span><span class="sub-meta">Pro blízké · 3 setkání</span></a>'));
+  assert.ok(!/role="menu|role="menuitem/.test(h), 'vzor disclosure, ne ARIA role menu');
+  // stejné menu je na všech stránkách programů i přehledu, aktivní položka je označená
+  for (const [p, aktivniOdkaz] of [['seminare/index.html', '<a href="/seminare" aria-current="page">Online semináře</a>'], [STRANKY['pro-lidi-s-ocd'], 'href="/seminare/cesta-s-ocd" aria-current="page"'], [STRANKY['pro-blizke'], 'href="/seminare/pro-blizke" aria-current="page"']]) {
+    const x = nacti(p);
+    const nav = x.slice(x.indexOf('<nav id="hlavni-nav"'), x.indexOf('</nav>'));
+    assert.ok(nav.includes(aktivniOdkaz), `${p}: aria-current v menu`);
+    assert.match(nav, /<li class="has-sub has-split is-active">/, `${p}: položka je označená jako aktivní`);
+  }
+});
+
+test('menu: skript otevírá podmenu myší i klávesnicí, Esc vrací fokus na tlačítko; bez JavaScriptu funguje CSS', () => {
+  const h = nacti('index.html');
+  const skript = h.match(/<script>([\s\S]*?)<\/script>/)[1];
+  for (const k of ['pointerenter', 'pointerleave', 'focusin', 'focusout', "e.key!=='Escape'", "setAttribute('aria-expanded'", 'b.focus()', ':focus-visible']) assert.ok(skript.includes(k), k);
+  assert.doesNotThrow(() => new Function(skript), 'skript je syntakticky v pořádku');
+  const css = nacti('assets/css/style.css');
+  assert.match(css, /html:not\(\.js\) \.has-sub:hover > \.sub-nav, html:not\(\.js\) \.has-sub:focus-within > \.sub-nav \{ display: flex; \}/);
+  assert.match(css, /\.has-split \.sub-nav::before \{[^}]*top: -\.5rem; height: \.5rem;/, 'podmenu nemizí při přejetí myši (bez mezery)');
+  assert.match(css, /\.js \.has-split > \.nav-sub-arrow \{[^}]*min-height: 2\.9rem/, 'dostatečná klepací plocha na mobilu');
+});
+
+test('/seminare: přehled má úvod, dvě karty, rámeček o povaze semináře, konzultaci zdarma a krizové kontakty, bez záložek a FAQ', () => {
   const h = nacti('seminare/index.html');
   const m = main(h);
-  assert.match(m, /<h1>Online semináře<\/h1>/);
-  const tabs = [...m.matchAll(/<details class="prog-tab"([^>]*)>/g)].map((x) => x[1]);
-  assert.equal(tabs.length, 2);
-  assert.ok(/id="pro-lidi-s-ocd"/.test(tabs[0]) && /id="pro-blizke"/.test(tabs[1]), 'kotvy záložek');
-  for (const t of tabs) assert.ok(/name="program"/.test(t), 'jedna skupina (otevřená vždy jen jedna)');
-  assert.ok(/\sopen\b/.test(tabs[0]) && !/\sopen\b/.test(tabs[1]), 'otevřená je první záložka');
   const t = text(m);
-  assert.ok(t.includes('Cesta s OCD: sebepřijetí, sebevíra a svobodnější život Individuální program 5 setkání · 3 590 Kč'));
-  assert.ok(t.includes('Když OCD žije vedle vás: průvodce pro blízké Individuální program 3 setkání · 2 190 Kč'));
-  assert.equal(nactiData().programy[0].nazev, 'Cesta s OCD: sebepřijetí, sebevíra a svobodnější život');
-  assert.equal(nactiData().programy[1].nazev, 'Když OCD žije vedle vás: průvodce pro blízké');
-});
-
-test('/seminare: každá záložka má podtitul, rámeček o povaze semináře a větu o formátu přesně podle zadání', () => {
-  const h = nacti('seminare/index.html');
-  const programy = nactiData().programy;
-  assert.equal(formatProgramu(programy[0]), FORMAT_OCD);
-  assert.equal(formatProgramu(programy[1]), FORMAT_BLIZKE);
-  const kontrola = [['pro-lidi-s-ocd', 'Individuální program pěti setkání 1:1 podle knihy. Jak jsem na to šel já a co z toho můžeš využít ty.', POVAHA_SEMINARE, FORMAT_OCD], ['pro-blizke', PODTITUL_BLIZKE, POVAHA_BLIZKE, FORMAT_BLIZKE]];
-  for (const [id, podtitul, povaha, format] of kontrola) {
-    const z = zalozka(h, id);
-    const t = text(z);
-    assert.ok(t.includes(podtitul), `${id}: podtitul`);
-    assert.ok(t.includes(povaha), `${id}: rámeček o povaze semináře`);
-    assert.ok(t.includes(format), `${id}: formát`);
-    // pořadí: podtitul, rámeček, formát
-    assert.ok(z.indexOf('class="lead"') < z.indexOf('class="callout-inline disclaimer sem-box"') && z.indexOf('class="callout-inline disclaimer sem-box"') < z.indexOf('class="sem-format"'), `${id}: pořadí`);
+  assert.match(m, /<h1>Online semináře<\/h1>/);
+  assert.ok(t.includes('Dva individuální programy podle mé osobní zkušenosti s OCD. Vyberte ten, který vám sedí.'));
+  assert.ok(!/<details|data-program-tab|prog-tab|class="faq"|Časté dotazy|Časté otázky/.test(m), 'žádné záložky ani společné FAQ');
+  const karty = [...m.matchAll(/<article class="card prog-card">[\s\S]*?<\/article>/g)].map((x) => x[0]);
+  assert.equal(karty.length, 2);
+  const data = nactiData();
+  for (const [i, p] of data.programy.entries()) {
+    const k = text(karty[i]);
+    assert.ok(k.includes(p.nazev) && k.includes(p.anotace) && k.includes(p.komu), p.id);
+    assert.ok(k.includes(`${p.pocetSetkani} setkání po ${p.delkaMinut} minutách`), `${p.id}: formát`);
+    assert.ok(k.includes(p.cena === 3590 ? '3 590 Kč' : '2 190 Kč'), `${p.id}: cena`);
+    assert.ok(karty[i].includes(`href="/seminare/${p.stranka}"`) && k.includes('Zobrazit program'), `${p.id}: tlačítko`);
   }
-  assert.ok(text(zalozka(h, 'pro-blizke')).includes('Žijete s člověkem, který má OCD, nebo se o někoho takového staráte? Možná máte pocit, že všechno, co zkusíte, nepomáhá nebo situaci dokonce zhoršuje. Dobře míněná pomoc totiž OCD často nechtěně udržuje. Na tomto programu vám ukážu, jak to vypadá zevnitř, co pomáhá a jak si přitom zachovat vlastní život.'));
+  assert.ok(m.indexOf('class="prog-cards"') < m.indexOf('class="callout-inline disclaimer sem-box"'), 'rámeček je pod kartami');
+  assert.ok(t.includes(POVAHA_PREHLED));
+  assert.ok(t.includes('Chcete si nejdřív promluvit? Rezervujte si úvodní konzultaci zdarma (20 minut).'));
+  assert.ok(/reservanto-widget/.test(m), 'existující tlačítko Reservanto');
+  assert.ok(/112/.test(t) && /116 123/.test(t), 'krizové kontakty');
 });
 
-test('/seminare: karty, průběh, pro koho, termíny a tlačítka rezervace v obou záložkách', () => {
-  const h = nacti('seminare/index.html');
-  const ocd = text(zalozka(h, 'pro-lidi-s-ocd'));
-  const blizke = text(zalozka(h, 'pro-blizke'));
-  for (const [id, t] of [['pro-lidi-s-ocd', ocd], ['pro-blizke', blizke]]) {
-    const o = OBSAH[id];
-    assert.ok(t.includes(o.kartyNadpis), id);
+test('SEO: každá ze tří stránek má vlastní title, popis, canonical a Open Graph; všechny jsou v sitemap.xml', () => {
+  const sitemap = nacti('sitemap.xml');
+  const ocekavane = {
+    'seminare/index.html': ['/seminare', 'Online semináře | ocdmentor.cz'],
+    [STRANKY['pro-lidi-s-ocd']]: ['/seminare/cesta-s-ocd', 'Cesta s OCD: individuální program 5 setkání | ocdmentor.cz'],
+    [STRANKY['pro-blizke']]: ['/seminare/pro-blizke', 'Když OCD žije vedle vás: program pro blízké | ocdmentor.cz'],
+  };
+  const popisy = new Set();
+  for (const [soubor, [cesta, title]] of Object.entries(ocekavane)) {
+    const h = nacti(soubor);
+    assert.match(h, new RegExp(`<title>${title.replace(/[|]/g, '\\|')}</title>`), `${soubor}: title`);
+    const popis = meta(h, 'description');
+    assert.ok(popis && popis.length > 60 && popis.length <= 175, `${soubor}: popis (${popis && popis.length})`);
+    popisy.add(popis);
+    assert.ok(h.includes(`<link rel="canonical" href="https://ocdmentor.cz${cesta}">`), `${soubor}: canonical`);
+    assert.equal(meta(h, 'og:url'), `https://ocdmentor.cz${cesta}`);
+    assert.ok(meta(h, 'og:image') && meta(h, 'og:description'));
+    assert.ok(!/noindex/.test(h.slice(0, h.indexOf('</head>'))), `${soubor}: indexovatelná`);
+    assert.ok(sitemap.includes(`https://ocdmentor.cz${cesta}<`), `${soubor}: sitemap`);
+  }
+  assert.equal(popisy.size, 3, 'popisy se neopakují');
+  assert.ok(!sitemap.includes('/seminare/rezervace/potvrzeni'));
+});
+
+test('/seminare: JSON-LD přehledu (ItemList, BreadcrumbList) a stránek programů (Service + Offer, FAQPage, BreadcrumbList), bez lékařských typů', () => {
+  const data = nactiData();
+  const prehled = nacti('seminare/index.html');
+  for (const m of prehled.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) assert.doesNotThrow(() => JSON.parse(m[1]));
+  const lp = ldVse(prehled);
+  const seznam = lp.find((n) => n['@type'] === 'ItemList');
+  assert.deepEqual(seznam.itemListElement.map((e) => e.url), ['https://ocdmentor.cz/seminare/cesta-s-ocd', 'https://ocdmentor.cz/seminare/pro-blizke']);
+  assert.deepEqual(seznam.itemListElement.map((e) => e.name), data.programy.map((p) => p.nazev));
+  const kr = lp.find((n) => n['@type'] === 'BreadcrumbList');
+  assert.deepEqual(kr.itemListElement.map((e) => e.name), ['Domů', 'Online semináře']);
+  for (const p of data.programy) {
+    const h = nacti(STRANKY[p.id]);
+    for (const m of h.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) assert.doesNotThrow(() => JSON.parse(m[1]));
+    const l = ldVse(h);
+    const sluzba = l.find((n) => n['@type'] === 'Service');
+    assert.equal(sluzba.name, p.nazev);
+    assert.equal(sluzba.offers['@type'], 'Offer');
+    assert.equal(sluzba.offers.price, String(p.cena), 'cena z data/seminare.json');
+    assert.equal(sluzba.offers.priceCurrency, 'CZK');
+    assert.ok(l.some((n) => n['@type'] === 'FAQPage'));
+    const drobky = l.find((n) => n['@type'] === 'BreadcrumbList');
+    assert.deepEqual(drobky.itemListElement.map((e) => e.name), ['Domů', 'Online semináře', p.kratkyNazev]);
+    assert.ok(!/Medical|Review|Rating/.test(JSON.stringify(l)), 'žádné medicínské typy ani hodnocení');
+  }
+});
+
+test('stránky programů: nadpis, podtitul, rámeček o povaze, formát přesně podle zadání, drobečky a odkazy zpět a na druhý program', () => {
+  const data = nactiData();
+  const kontrola = {
+    'pro-lidi-s-ocd': { podtitul: 'Individuální program pěti setkání 1:1 podle knihy. Jak jsem na to šel já a co z toho můžeš využít ty.', povaha: POVAHA_SEMINARE, format: FORMAT_OCD, druha: ['Hledáte seminář pro blízké?', '/seminare/pro-blizke'], kniha: true },
+    'pro-blizke': { podtitul: 'Individuální program tří setkání 1:1. Co lidem s OCD pomáhá, co jim naopak škodí a jak se v tom nezničit.', povaha: POVAHA_BLIZKE, format: FORMAT_BLIZKE, druha: ['Hledáte seminář pro lidi s OCD?', '/seminare/cesta-s-ocd'], kniha: false },
+  };
+  for (const p of data.programy) {
+    const k = kontrola[p.id];
+    const h = nacti(STRANKY[p.id]);
+    const m = main(h);
+    const t = text(m);
+    assert.match(m, new RegExp(`<h1>${p.nazev.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}</h1>`));
+    assert.ok(t.includes(k.podtitul) && t.includes(k.povaha) && t.includes(k.format));
+    assert.equal(formatProgramu(p), k.format);
+    assert.ok(m.indexOf('class="lead"') < m.indexOf('class="callout-inline disclaimer sem-box"') && m.indexOf('class="callout-inline disclaimer sem-box"') < m.indexOf('class="sem-format"'), 'pořadí: podtitul, rámeček, formát');
+    assert.match(h, new RegExp(`<nav class="crumbs" aria-label="Drobečková navigace"><ol><li><a href="/">Domů</a></li><li><a href="/seminare">Online semináře</a></li><li aria-current="page">${p.kratkyNazev}</li></ol></nav>`));
+    assert.ok(m.includes('<a class="btn btn-ghost" href="/seminare">Zpět na přehled seminářů</a>'));
+    assert.ok(m.includes(`<strong>${k.druha[0]}</strong> <a href="${k.druha[1]}">`), 'odkaz na druhý program');
+    assert.equal(m.includes('href="/ebook"'), k.kniha, 'odkaz na knihu jen u prvního programu');
+    assert.ok(m.includes(`href="/seminare/rezervace?program=${p.id}"`) && m.includes(`href="/seminare/rezervace?program=${p.id}&amp;beh=${p.behy[0].id}"`), 'tlačítka Rezervovat místo');
+    assert.ok(t.includes('Žádný termín mi nevyhovuje') && m.includes('mailto:ocdmentor@gmail.com?subject=Dotaz%20na%20dal%C5%A1%C3%AD%20term%C3%ADn'));
+    assert.ok(m.includes('id="spojeni"') && m.includes('id="terminy"') && m.includes('id="faq"'));
+    assert.ok(!/<details class="prog-tab"|data-program-tab/.test(m));
+    // obsah programu
+    const o = OBSAH[p.id];
+    assert.ok(t.includes(o.kartyNadpis));
     for (const [nazev, popis] of o.karty) { assert.ok(t.includes(nazev), nazev); assert.ok(t.includes(popis), popis); }
     for (const r of o.jak) assert.ok(t.includes(r), r);
     assert.ok(t.includes(o.proKoho));
-    assert.ok(t.includes('Žádný termín mi nevyhovuje'));
+    assert.ok(!t.includes('24. 12. 2026') && !t.includes('31. 12. 2026'), 'vynechaná data se nezobrazují jako termíny');
   }
   assert.equal(OBSAH['pro-lidi-s-ocd'].karty.length, 5);
   assert.equal(OBSAH['pro-blizke'].karty.length, 3);
-  assert.ok(h.includes('href="/ebook"'));
-  assert.ok(!blizke.includes('Program vychází z knihy'));
+  const ocd = text(main(nacti(STRANKY['pro-lidi-s-ocd'])));
   for (const d of ['čtvrtek 3. 12. 2026 v 18:00', 'čtvrtek 7. 1. 2027 v 18:00', 'čtvrtek 14. 1. 2027 v 18:00', 'čtvrtek 21. 1. 2027 v 18:00', 'čtvrtek 18. 2. 2027 v 18:00']) assert.ok(ocd.includes(d), d);
+  const blizke = text(main(nacti(STRANKY['pro-blizke'])));
   for (const d of ['úterý 1. 12. 2026 v 18:00', 'úterý 8. 12. 2026 v 18:00', 'úterý 15. 12. 2026 v 18:00', 'úterý 12. 1. 2027 v 18:00', 'úterý 19. 1. 2027 v 18:00', 'úterý 26. 1. 2027 v 18:00']) assert.ok(blizke.includes(d), d);
-  const t = text(main(h));
-  assert.ok(!t.includes('24. 12. 2026') && !t.includes('31. 12. 2026'), 'vynechaná data se nezobrazují jako termíny');
-  assert.equal([...h.matchAll(/mailto:ocdmentor@gmail\.com\?subject=Dotaz%20na%20dal%C5%A1%C3%AD%20term%C3%ADn/g)].length, 2, 'odkaz „Žádný termín mi nevyhovuje“ pod každým programem');
-  assert.ok(zalozka(h, 'pro-lidi-s-ocd').includes('href="/seminare/rezervace?program=pro-lidi-s-ocd"'));
-  assert.ok(zalozka(h, 'pro-blizke').includes('href="/seminare/rezervace?program=pro-blizke"'));
-  assert.ok(zalozka(h, 'pro-blizke').includes('href="/seminare/rezervace?program=pro-blizke&amp;beh=blizke-beh-1"'));
-  assert.ok(h.includes('href="/pro-blizke"'), 'odkaz na stránku Pro blízké');
+  assert.ok(blizke.includes('Žijete s člověkem, který má OCD, nebo se o někoho takového staráte? Možná máte pocit, že všechno, co zkusíte, nepomáhá nebo situaci dokonce zhoršuje. Dobře míněná pomoc totiž OCD často nechtěně udržuje. Na tomto programu vám ukážu, jak to vypadá zevnitř, co pomáhá a jak si přitom zachovat vlastní život.'));
 });
 
-test('/seminare: společné FAQ pod záložkami, konzultace zdarma a komunikace', () => {
+test('stránky programů: FAQ je ve viditelném HTML a ve strukturovaných datech shodné, bez duplicit, s hodnotami daného programu', () => {
+  const data = nactiData();
+  const ocekavaneVse = { 'pro-lidi-s-ocd': 11, 'pro-blizke': 16 };
+  for (const p of data.programy) {
+    const h = nacti(STRANKY[p.id]);
+    const visible = [...h.matchAll(/<details>\s*<summary>([\s\S]*?)<\/summary>\s*<p>([\s\S]*?)<\/p>\s*<\/details>/g)].map((m) => ({ q: text(m[1]), a: text(m[2]) }));
+    const faq = ldVse(h).find((n) => n['@type'] === 'FAQPage');
+    const strukturovana = faq.mainEntity.map((e) => ({ q: e.name, a: e.acceptedAnswer.text }));
+    assert.equal(visible.length, ocekavaneVse[p.id], p.id);
+    assert.equal(new Set(visible.map((v) => v.q)).size, visible.length, 'žádné duplicitní otázky');
+    assert.deepEqual(strukturovana, visible);
+    assert.deepEqual(visible, faqProgramu(pripraveny(p.id), data).map((f) => ({ q: f.q, a: f.a })));
+  }
+  const odp = (id, q) => text(nacti(STRANKY[id])).includes(q);
+  const najdi = (id, q) => [...nacti(STRANKY[id]).matchAll(/<summary>([\s\S]*?)<\/summary>\s*<p>([\s\S]*?)<\/p>/g)].map((m) => [text(m[1]), text(m[2])]).find(([k]) => k === q)[1];
+  assert.equal(najdi('pro-lidi-s-ocd', 'Co je v ceně?'), 'Všech pět setkání po 60 minutách. Jiné poplatky nejsou.');
+  assert.equal(najdi('pro-blizke', 'Co je v ceně?'), 'Všechna tři setkání po 60 minutách. Jiné poplatky nejsou.');
+  assert.equal(najdi('pro-lidi-s-ocd', 'Mohu setkání přesunout?'), 'Ano, nejpozději 24 hodin předem po domluvě e-mailem, nejvýše dvakrát během programu. Neomluvená neúčast se počítá jako uskutečněné setkání.');
+  assert.equal(najdi('pro-blizke', 'Mohu setkání přesunout?'), 'Ano, nejpozději 24 hodin předem po domluvě e-mailem, nejvýše jednou během programu. Neomluvená neúčast se počítá jako uskutečněné setkání.');
+  assert.equal(najdi('pro-lidi-s-ocd', 'Čím se liší program od jednotlivých sezení?'), 'Jednotlivá sezení jsou volná podpora podle aktuálního tématu. Program je strukturovaný podle knihy a tvoří ho pět propojených setkání.');
+  assert.equal(najdi('pro-blizke', 'Čím se liší program od jednotlivých sezení?'), 'Jednotlivá sezení jsou volná podpora podle aktuálního tématu. Program je strukturovaný a tvoří ho tři propojená setkání.');
+  for (const id of ['pro-lidi-s-ocd', 'pro-blizke']) {
+    assert.equal(najdi(id, 'Konají se setkání i o svátcích?'), 'Ne, 24. a 31. prosince se nekonají, program se o tyto týdny posune.');
+    assert.equal(najdi(id, 'Jak se platí?'), 'Po rezervaci dostanete QR kód a platební údaje. Platí se bankovním převodem do 3 dnů, termín je do té doby držený pro vás.');
+    assert.ok(najdi(id, 'Jak probíhá setkání?').startsWith('Videohovor přes Google Meet nebo WhatsApp, 60 minut, jen vy a já.'));
+    assert.ok(odp(id, 'Co když se zhorším?'));
+  }
+  for (const q of ['Musí můj blízký o semináři vědět?', 'Můžete mi říct, jestli má můj blízký OCD?', 'Naučím se, jak blízkého léčit?', 'Mohu přijít s partnerem nebo jiným blízkým?', 'Co když je můj blízký v akutní krizi?']) {
+    assert.ok(odp('pro-blizke', q), q);
+    assert.ok(!odp('pro-lidi-s-ocd', q), `${q} patří jen k programu pro blízké`);
+  }
+  assert.equal(vynechanaDnyText(data), '24. a 31. prosince');
+});
+
+test('staré kotvy a odkazy: přehled přesměruje #pro-blizke a #pro-lidi-s-ocd na stránky programů, na webu nezůstal odkaz na zrušené záložky', () => {
   const h = nacti('seminare/index.html');
-  const m = main(h);
-  assert.ok(m.indexOf('</details>\n</section>\n\n<section class="wrap block" id="spojeni">') > 0 || m.indexOf('id="spojeni"') > m.lastIndexOf('data-program-tab'));
-  assert.ok(m.indexOf('id="faq"') > m.indexOf('id="spojeni"') && m.indexOf('id="konzultace"') > m.indexOf('id="faq"'));
-  assert.ok(text(m).includes('Časté otázky k oběma programům'));
-  assert.ok(text(m).includes('Chcete si nejdřív promluvit? Rezervujte si úvodní konzultaci zdarma (20 minut).'));
-  assert.ok(/reservanto-widget/.test(m.slice(m.indexOf('id="konzultace"'))), 'existující tlačítko Reservanto');
-  assert.ok(m.includes('id="spojeni"') && m.includes('Google Meet') && m.includes('WhatsApp'));
-});
-
-test('/seminare: FAQ ve viditelném HTML (záložky i společná část) a ve strukturovaných datech mají shodné texty bez duplicit', () => {
-  const h = nacti('seminare/index.html');
-  const visible = [...h.matchAll(/<details>\s*<summary>([\s\S]*?)<\/summary>\s*<p>([\s\S]*?)<\/p>\s*<\/details>/g)].map((m) => ({ q: text(m[1]), a: text(m[2]) }));
-  const faq = ld(h).find((n) => n['@type'] === 'FAQPage');
-  assert.ok(faq, 'FAQPage v JSON-LD');
-  const strukturovana = faq.mainEntity.map((e) => ({ q: e.name, a: e.acceptedAnswer.text }));
-  assert.equal(visible.length, 5 + FAQ.length);
-  assert.equal(new Set(visible.map((v) => v.q)).size, visible.length, 'žádné duplicitní otázky');
-  assert.deepEqual(strukturovana, visible);
-  const spolecne = [...vsechnyFaq(nactiPripraveneProgramy())].map((f) => ({ q: f.q, a: f.a }));
-  assert.deepEqual(visible, spolecne);
-  for (const q of ['Jak probíhá setkání?', 'Mohu setkání přesunout?', 'Jak se platí?', 'Co je v ceně?', 'Čím se liší program od jednotlivých sezení?', 'Konají se setkání i o svátcích?', 'Co když se zhorším?']) assert.ok(visible.some((v) => v.q === q), q);
-  const presun = visible.find((v) => v.q === 'Mohu setkání přesunout?').a;
-  assert.equal(presun, 'Ano, nejpozději 24 hodin předem po domluvě e-mailem. U programu pěti setkání nejvýše dvakrát, u programu tří setkání nejvýše jednou. Neomluvená neúčast se počítá jako uskutečněné setkání.');
-  assert.equal(visible.find((v) => v.q === 'Konají se setkání i o svátcích?').a, 'Ne, 24. a 31. prosince se nekonají, program se o tyto týdny posune.');
-  assert.equal(visible.find((v) => v.q === 'Co je v ceně?').a, 'Všechna setkání daného programu. Jiné poplatky nejsou.');
-  for (const q of ['Musí můj blízký o semináři vědět?', 'Můžete mi říct, jestli má můj blízký OCD?', 'Naučím se, jak blízkého léčit?', 'Mohu přijít s partnerem nebo jiným blízkým?', 'Co když je můj blízký v akutní krizi?']) assert.ok(visible.some((v) => v.q === q), q);
-  // JSON-LD: platný JSON, jen FAQPage, žádné lékařské typy ani hodnocení
-  for (const m of h.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) assert.doesNotThrow(() => JSON.parse(m[1]));
-  const typy = ld(h).map((n) => n['@type']);
-  assert.ok(typy.includes('FAQPage'));
-  assert.ok(!/Medical|Review|Rating/.test(JSON.stringify(ld(h))), 'žádné medicínské typy ani hodnocení');
-});
-
-test('stránky seminářů nemají placeholdery, štítky koncept ani TODO', () => {
-  for (const p of ['seminare/index.html', 'seminare/rezervace/index.html', 'seminare/rezervace/potvrzeni/index.html', 'obchodni-podminky/index.html', 'ochrana-osobnich-udaju/index.html', 'ebook/index.html', 'pro-blizke/index.html']) {
-    const h = nacti(p);
-    assert.ok(!/class="placeholder"|draft-badge|TODO|\[[A-ZĚŠČŘŽÝÁÍÉ][^\]]{3,}\]/.test(h), `${p}: placeholder, koncept nebo TODO`);
+  const mapa = JSON.parse(h.match(/data-stare-kotvy='([^']*)'/)[1]);
+  assert.deepEqual(mapa, { 'pro-lidi-s-ocd': '/seminare/cesta-s-ocd', 'pro-blizke': '/seminare/pro-blizke' });
+  const skript = nacti('assets/js/seminare.js');
+  assert.ok(skript.includes('data-stare-kotvy') && skript.includes('window.location.replace(mapa[id])'));
+  // simulace skriptu: přesměrování podle hash
+  const presmeruj = (hash) => {
+    let cil = null;
+    const okno = { location: { hash, replace: (u) => { cil = u; } } };
+    const dokument = { querySelector: (s) => (s === '[data-stare-kotvy]' ? { getAttribute: () => JSON.stringify(mapa) } : null), querySelectorAll: () => [] };
+    new Function('window', 'document', 'Intl', skript)(okno, dokument, Intl);
+    return cil;
+  };
+  assert.equal(presmeruj('#pro-blizke'), '/seminare/pro-blizke');
+  assert.equal(presmeruj('#pro-lidi-s-ocd'), '/seminare/cesta-s-ocd');
+  assert.equal(presmeruj('#neco-jineho'), null);
+  assert.equal(presmeruj(''), null);
+  // žádný odkaz na staré kotvy ani na prvky zrušených záložek v celém vygenerovaném webu
+  const soubory = [];
+  const projdi = (dir) => {
+    for (const e of readdirSync(join(ROOT, dir), { withFileTypes: true })) {
+      if (['node_modules', '.git', '.vercel', 'tools', 'seo', 'api', 'data'].includes(e.name)) continue;
+      const rel = dir ? `${dir}/${e.name}` : e.name;
+      if (e.isDirectory()) projdi(rel);
+      else if (/\.(html|js)$/.test(e.name) && e.name !== 'sw.js') soubory.push(rel);
+    }
+  };
+  projdi('');
+  assert.ok(soubory.length > 60);
+  for (const s of soubory) {
+    const t = nacti(s);
+    assert.ok(!/\/seminare#(pro-|spojeni|terminy|faq)/.test(t), `${s}: odkaz na starou kotvu`);
+    if (s.endsWith('.html')) assert.ok(!/data-program-tab|class="prog-tab"|<details[^>]*\sname="program"/.test(t), `${s}: zbytek záložek`);
   }
 });
 
@@ -153,13 +265,20 @@ test('/seminare/rezervace: volba programu, pole, nepředvyplněné souhlasy obou
   assert.ok(t.includes('Rozumím, že seminář vychází z osobní zkušenosti autora a nejde o odbornou ani lékařskou radu, terapii, rodinnou terapii ani zdravotní službu, a že na semináři nebudu sdílet identifikující údaje o svém blízkém (jména, diagnózy, podrobnosti).'));
   assert.equal(t.split('Souhlasím s obchodními podmínkami.').length - 1, 2);
   assert.ok(m.includes('href="/ochrana-osobnich-udaju"') && m.includes('href="/obchodni-podminky"'));
-  // každý program má v rezervaci svůj rámeček o povaze, formát a výběr běhu
+  assert.ok(m.includes('href="/seminare/cesta-s-ocd#spojeni"') && m.includes('href="/seminare/pro-blizke#spojeni"'), 'podrobnosti o spojení vedou na stránky programů');
   const blok = (id) => m.match(new RegExp(`<div class="program-blok" id="blok-${id}"[\\s\\S]*?</fieldset>\\s*</div>`))[0];
   assert.ok(text(blok('pro-lidi-s-ocd')).includes(POVAHA_SEMINARE) && text(blok('pro-lidi-s-ocd')).includes(FORMAT_OCD));
   assert.ok(text(blok('pro-blizke')).includes(POVAHA_BLIZKE) && text(blok('pro-blizke')).includes(FORMAT_BLIZKE));
   assert.equal([...blok('pro-lidi-s-ocd').matchAll(/<input type="radio"[^>]*name="beh"/g)].length, 2);
   assert.equal([...blok('pro-blizke').matchAll(/<input type="radio"[^>]*name="beh"/g)].length, 2);
   assert.ok(/class="program-blok"[^>]*\shidden/.test(m), 'bloky programů se zobrazí až po volbě programu');
+});
+
+test('stránky seminářů nemají placeholdery, štítky koncept ani TODO', () => {
+  for (const p of ['seminare/index.html', ...Object.values(STRANKY), 'seminare/rezervace/index.html', 'seminare/rezervace/potvrzeni/index.html', 'obchodni-podminky/index.html', 'ochrana-osobnich-udaju/index.html', 'ebook/index.html', 'pro-blizke/index.html']) {
+    const h = nacti(p);
+    assert.ok(!/class="placeholder"|draft-badge|TODO|\[[A-ZĚŠČŘŽÝÁÍÉ][^\]]{3,}\]/.test(h), `${p}: placeholder, koncept nebo TODO`);
+  }
 });
 
 test('potvrzovací stránka je noindex a bez osobních údajů v URL', () => {
@@ -259,28 +378,30 @@ test('stavy běhů se vykreslí správně: Obsazeno, Uzavřeno, Připravujeme, b
   data.programy[0].behy[0].stav = 'obsazeno';
   const programy = pripravProgramy(data);
   const ted = new Date('2027-01-17T12:00:00Z'); // běh 2 programu pro lidi s OCD je od 17. 1. 2027 uzavřený (4 dny před 21. 1.)
-  const sem = seminareBody({ data, programy, now: ted });
-  const run = (html, id) => html.match(new RegExp(`<article class="run" data-beh="${id}"[\\s\\S]*?</article>`))[0];
-  assert.match(run(sem, 'beh-1'), /data-stav="obsazeno"[\s\S]*Obsazeno/);
-  assert.match(run(sem, 'beh-2'), /data-stav="uzavreno"[\s\S]*Uzavřeno/);
-  assert.ok(!/Rezervovat místo/.test(run(sem, 'beh-1')) && !/Rezervovat místo/.test(run(sem, 'beh-2')));
-  // druhý program: běh 1 (od 1. 12. 2026) je 17. 1. 2027 už po začátku, tedy uzavřený; běh 2 (od 12. 1.) také
-  assert.match(run(sem, 'blizke-beh-1'), /data-stav="uzavreno"/);
-  assert.match(run(sem, 'blizke-beh-2'), /data-stav="uzavreno"/);
+  const ocd = programBody({ program: programy[0], programy, data, now: ted });
+  const blizke = programBody({ program: programy[1], programy, data, now: ted });
+  const run = (h, id) => h.match(new RegExp(`<article class="run" data-beh="${id}"[\\s\\S]*?</article>`))[0];
+  assert.match(run(ocd, 'beh-1'), /data-stav="obsazeno"[\s\S]*Obsazeno/);
+  assert.match(run(ocd, 'beh-2'), /data-stav="uzavreno"[\s\S]*Uzavřeno/);
+  assert.ok(!/Rezervovat místo/.test(ocd), 'bez otevřeného běhu není tlačítko rezervace');
+  // druhý program: oba běhy už začaly, tedy jsou uzavřené
+  assert.match(run(blizke, 'blizke-beh-1'), /data-stav="uzavreno"/);
+  assert.match(run(blizke, 'blizke-beh-2'), /data-stav="uzavreno"/);
+  assert.ok(!/Rezervovat místo/.test(blizke));
   const rez = rezervaceBody({ data, programy, now: ted });
   assert.equal([...rez.matchAll(/<input type="radio"[^>]*name="beh"[^>]*disabled/g)].length, 4, 'všechny čtyři běhy jsou v rezervaci neaktivní');
   data.programy[1].behy[0].stav = 'pripravujeme';
-  assert.match(seminareBody({ data, programy: pripravProgramy(data), now: new Date('2026-10-01T10:00:00Z') }), /Připravujeme/);
+  assert.match(programBody({ program: pripravProgramy(data)[1], programy: pripravProgramy(data), data, now: new Date('2026-10-01T10:00:00Z') }), /Připravujeme/);
   // otevřený běh má tlačítko a odkaz s předvybraným programem a během
   const dnes = nactiData();
-  const otevreny = seminareBody({ data: dnes, programy: pripravProgramy(dnes), now: new Date('2026-10-01T10:00:00Z') });
+  const pr = pripravProgramy(dnes);
+  const otevreny = programBody({ program: pr[0], programy: pr, data: dnes, now: new Date('2026-10-01T10:00:00Z') });
   assert.ok(otevreny.includes('href="/seminare/rezervace?program=pro-lidi-s-ocd&amp;beh=beh-1"') && otevreny.includes('Rezervovat místo'));
-  // když není otevřený žádný běh programu, obecné tlačítko ani odkaz na rezervaci v jeho záložce nejsou
+  // když není otevřený žádný běh programu, obecné tlačítko rezervace chybí
   const zadny = nactiData();
   zadny.programy[1].behy.forEach((b) => { b.stav = 'obsazeno'; });
-  const bez = seminareBody({ data: zadny, programy: pripravProgramy(zadny), now: new Date('2026-10-01T10:00:00Z') });
-  const zalozkaBlizke = bez.match(/<details class="prog-tab" id="pro-blizke"[\s\S]*?\n  <\/details>/)[0];
-  assert.ok(!/Rezervovat místo/.test(zalozkaBlizke));
+  const pz = pripravProgramy(zadny);
+  assert.ok(!/Rezervovat místo/.test(programBody({ program: pz[1], programy: pz, data: zadny, now: new Date('2026-10-01T10:00:00Z') })));
 });
 
 test('/pro-blizke: nový úvod, title a popis, tlačítka, rámeček o povaze a krizové kontakty; je indexovatelná a propojená', () => {
@@ -298,13 +419,14 @@ test('/pro-blizke: nový úvod, title a popis, tlačítka, rámeček o povaze a 
     'Zobrazit seminář pro blízké',
     POVAHA_BLIZKE,
   ]) assert.ok(t.includes(veta), veta.slice(0, 50));
-  assert.ok(m.includes('href="/seminare#pro-blizke"'));
+  assert.ok(m.includes('href="/seminare/pro-blizke">Zobrazit seminář pro blízké</a>'), 'tlačítko vede na stránku semináře pro blízké');
+  assert.ok(!m.includes('/seminare#'), 'žádný odkaz na zrušené záložky');
   assert.ok(/reservanto-widget[^>]*data-text="Úvodní konzultace zdarma"/.test(m), 'tlačítko úvodní konzultace zdarma (existující Reservanto)');
   assert.ok(/112/.test(t) && /116 123/.test(t), 'krizové kontakty');
   assert.ok(t.indexOf('Zobrazit seminář pro blízké') < t.indexOf(POVAHA_BLIZKE), 'rámeček je pod tlačítky');
   const sitemap = nacti('sitemap.xml');
   assert.ok(sitemap.includes('https://ocdmentor.cz/pro-blizke<'));
-  assert.ok(nacti('seminare/index.html').includes('href="/pro-blizke"'));
+  assert.ok(nacti(STRANKY['pro-blizke']).includes('href="/pro-blizke"'), 'stránka semináře odkazuje na obsahovou stránku');
   const f = nacti('index.html');
   assert.ok(f.slice(f.indexOf('<footer')).includes('href="/pro-blizke"'), 'odkaz z patičky');
 });

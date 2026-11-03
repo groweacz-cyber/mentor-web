@@ -20,8 +20,8 @@
     "date": "2026-10-28"
   },
   "/jak-to-probiha": {
-    "hash": "9393204e5538",
-    "date": "2026-10-29"
+    "hash": "75b9a75760d0",
+    "date": "2026-11-03"
   },
   "/o-mne": {
     "hash": "90c4159fd4d7",
@@ -148,7 +148,7 @@
     "date": "2026-10-23"
   },
   "/pro-blizke": {
-    "hash": "800f4adae966",
+    "hash": "17a206fed25f",
     "date": "2026-11-03"
   },
   "/myty-o-ocd": {
@@ -172,11 +172,19 @@
     "date": "2026-10-28"
   },
   "/seminare": {
-    "hash": "51d8312734e0",
+    "hash": "fb9f11ad77ef",
     "date": "2026-11-03"
   },
   "/seminare/rezervace": {
-    "hash": "c86305698f96",
+    "hash": "7b4e99ecba62",
+    "date": "2026-11-03"
+  },
+  "/seminare/cesta-s-ocd": {
+    "hash": "cd01a1a54475",
+    "date": "2026-11-03"
+  },
+  "/seminare/pro-blizke": {
+    "hash": "77dfb87e384b",
     "date": "2026-11-03"
   }
 }

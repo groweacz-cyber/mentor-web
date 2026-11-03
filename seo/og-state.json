@@ -4,7 +4,7 @@
   "pro-koho": "b9c3dffeb260",
   "dotaznik": "3a841c350587",
   "ebook": "0ab01502cc1d",
-  "seminare": "55054a459cde",
+  "seminare": "228f64ef4cbc",
   "kurz": "e7949e65e4f9",
   "kviz": "7c33bd1deea1",
   "jak-to-probiha": "29dbd70dd601",
@@ -43,5 +43,8 @@
   "myty-o-ocd": "a742c49b874b",
   "slovnicek": "eb6278790933",
   "pribehy": "bd1ccf8e8b45",
-  "pro-terapeuty": "d4b6554be7ba"
+  "pro-terapeuty": "d4b6554be7ba",
+  "seminare-cesta-s-ocd": "af8137500943",
+  "seminare-pro-blizke": "b416911d6728",
+  "seminare-rezervace": "5f1d55ddc350"
 }

@@ -798,20 +798,6 @@ input[type="email"] { width: 100%; font: inherit; color: var(--ink); background:
 h4 { font-size: 1.05rem; font-weight: 700; line-height: 1.15; letter-spacing: -.01em; margin: 1rem 0 .3rem; color: var(--ink); }
 .card h4, .run-head h4 { margin-top: 0; }
 .run-head h4 { margin: 0; }
-.prog-tabs { display: grid; gap: 1rem; }
-.prog-tab { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
-.prog-tab > summary { cursor: pointer; list-style: none; display: grid; gap: .25rem; position: relative; padding: 1.1rem 3.4rem 1.1rem 1.4rem; }
-.prog-tab > summary::-webkit-details-marker { display: none; }
-.prog-tab > summary::after { content: "+"; position: absolute; right: 1.3rem; top: 50%; transform: translateY(-50%); font-size: 1.9rem; font-weight: 700; line-height: 1; color: var(--ink-soft); }
-.prog-tab[open] > summary::after { content: "−"; }
-.prog-tab[open] > summary { border-bottom: 1px solid var(--line); margin-bottom: 1.2rem; }
-.prog-tab > summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: var(--radius); }
-.prog-title { margin: 0; font-size: clamp(1.25rem, 3vw, 1.7rem); }
-.prog-meta { color: var(--ink-soft); font-weight: 700; }
-.prog-body { padding: 0 1.4rem 1.6rem; }
-.prog-body > .lead { margin-top: 0; }
-.prog-body .faq details { max-width: none; }
-.cta-konzultace { margin: 1rem 0; }
 .program-choice .program-option { display: grid; grid-template-columns: auto 1fr; gap: .1rem .6rem; align-items: start; padding: .7rem .2rem; border-top: 1px solid var(--line); }
 .program-choice legend + .program-option { border-top: 0; }
 .program-option input { margin-top: .35rem; width: 1.15rem; height: 1.15rem; accent-color: var(--i); }
@@ -843,4 +829,42 @@ h4 { font-size: 1.05rem; font-weight: 700; line-height: 1.15; letter-spacing: -.
   .js .has-sub .sub-nav { position: static; min-width: 0; max-width: none; padding: 0 0 .4rem 1rem; background: transparent; border: 0; box-shadow: none; }
   .js .sub-nav a { padding: .65rem .6rem; font-size: 1rem; }
   .notice { padding: .4rem 1rem; font-size: .85rem; }
+}
+
+/* Přehled seminářů: karty programů vedle sebe (na mobilu pod sebou) */
+.prog-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1.2rem; margin: 0 0 1.4rem; }
+.prog-card { display: flex; flex-direction: column; }
+.prog-card h2 { font-size: clamp(1.3rem, 2.6vw, 1.55rem); margin: 0 0 .5rem; }
+.prog-komu { margin: 0 0 .3rem; color: var(--ink-soft); font-weight: 800; font-size: .85rem; letter-spacing: .04em; text-transform: uppercase; }
+.prog-format { font-weight: 600; margin-bottom: .4rem; }
+.prog-cena { margin: 0 0 1rem; color: var(--ink-soft); }
+.prog-cena strong { color: var(--ink); font-size: 1.3rem; }
+.prog-card .cta { margin: auto 0 0; }
+.prog-dalsi p { max-width: 44rem; }
+.cta-konzultace { margin: 1rem 0; }
+
+/* Hlavní menu: položka s odkazem a samostatným tlačítkem podmenu (Online semináře) */
+.has-split { display: flex; align-items: center; }
+.has-split > a { border-radius: 999px 0 0 999px; padding-right: .3rem; }
+.has-split > .nav-sub-arrow { border-radius: 0 999px 999px 0; padding: .45rem .6rem .45rem .35rem; min-width: 1.9rem; justify-content: center; }
+.has-split.is-active > a, .has-split.is-active > .nav-sub-toggle { background: var(--ink); color: #fff; }
+.has-split .sub-nav { min-width: 16rem; top: 100%; margin-top: .4rem; }
+.has-split .sub-nav::before { content: ""; position: absolute; left: 0; right: 0; top: -.5rem; height: .5rem; }
+.sub-nav a .sub-title { display: block; font-weight: 700; }
+.sub-nav a .sub-meta { display: block; margin-top: .1rem; font-size: .82rem; font-weight: 500; color: var(--ink-soft); }
+.sub-nav a[aria-current="page"] .sub-meta { color: #dbe3f0; }
+.sub-nav a:hover .sub-meta { color: var(--ink-soft); }
+/* Bez JavaScriptu se podmenu ukazuje přes CSS (najetí myší, zaostření klávesnicí). */
+html:not(.js) .has-sub:hover > .sub-nav, html:not(.js) .has-sub:focus-within > .sub-nav { display: flex; }
+html:not(.js) .nav-sub-arrow { display: none; }
+@media (max-width: 62.99rem) {
+  .js .has-split { flex-wrap: wrap; }
+  .js .has-split > a { flex: 1 1 0; width: auto; border-radius: 10px; }
+  .js .has-split > .nav-sub-arrow { flex: 0 0 3.25rem; width: 3.25rem; min-height: 2.9rem; padding: 0; border-radius: 10px; justify-content: center; }
+  .js .has-split .sub-nav { flex: 0 0 100%; margin-top: 0; min-width: 0; }
+  .js .has-split .sub-nav::before { display: none; }
+  .js .sub-nav a .sub-meta { font-size: .85rem; }
+  .js .site-header .sub-nav a { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: .05rem; }
+  .js .has-split.is-active > a, .js .has-split.is-active > .nav-sub-toggle { background: transparent; color: var(--ink); }
+  .js .has-split.is-active > a { background: var(--ink); color: #fff; }
 }

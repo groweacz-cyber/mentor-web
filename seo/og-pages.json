@@ -42,6 +42,20 @@
     "portrait": true
   },
   {
+    "slug": "seminare-cesta-s-ocd",
+    "text": "Cesta s OCD",
+    "sub": "Individuální program 5 setkání · 3 590 Kč",
+    "art": "/assets/img/ebook-titulka.webp",
+    "portrait": true
+  },
+  {
+    "slug": "seminare-pro-blizke",
+    "text": "Když OCD žije vedle vás",
+    "sub": "Individuální program 3 setkání · 2 190 Kč",
+    "art": "/assets/img/ebook-titulka.webp",
+    "portrait": true
+  },
+  {
     "slug": "seminare-rezervace",
     "text": "Rezervace semináře",
     "sub": "Výběr termínu a platba QR kódem",

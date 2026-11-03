@@ -22,7 +22,9 @@ Pravidla: „léčba“ a „terapie“ se u vlastní služby nepoužívají. Sl
 | `/clanky/kompulze-a-prijeti` | kompulze OCD | přijetí vtíravých myšlenek, boj s myšlenkami, rituály při OCD |
 | `/kontakt` | OCD konzultace zdarma | rezervace konzultace, kontakt na peer mentora |
 | `/ebook` | e-book o sebepřijetí s OCD | sebevíra a OCD, příručka OCD, pracovní listy OCD |
-| `/seminare` | online semináře pro lidi s OCD a pro jejich blízké | program pěti setkání 1:1, program tří setkání pro blízké, individuální online seminář, rezervace semináře, seminář podle knihy |
+| `/seminare` | online semináře (přehled) | online semináře OCD, individuální programy, seminář pro lidi s OCD a pro blízké |
+| `/seminare/cesta-s-ocd` | seminář Cesta s OCD | program pěti setkání 1:1, individuální online seminář, seminář podle knihy, sebepřijetí a OCD |
+| `/seminare/pro-blizke` | seminář pro blízké lidí s OCD | seminář Když OCD žije vedle vás, program pro blízké, jak OCD nekrmit |
 | `/pomoc` | pomoc při psychické krizi | kam se obrátit při OCD, krizové linky |
 | `/kolik-casu-mi-bere-ocd` | kolik času mi bere OCD | kalkulačka času OCD, čas strávený rituály |
 | `/vtirave-myslenky` | vtíravé myšlenky | nutkavé myšlenky, vtíravé myšlenky OCD, proč se myšlenky lepí, smyčka OCD |

@@ -239,19 +239,22 @@ p { margin: 0 0 1rem; }
 .cta-split .reservanto-widget .reservanto-button { width: 100%; }
 .cta-split > .btn-ghost { flex: 1 1 0; }
 
-/* Tlačítko Reservanto si kreslí vlastním skriptem (třída .reservanto-button); tady ho jen tvarově sjednotíme se zbytkem webu. */
-.reservanto-widget { display: inline-flex; vertical-align: middle; }
-.reservanto-widget .reservanto-button {
+/* Tlačítko Reservanto si kreslí vlastním skriptem (třída .reservanto-button) a obalu nastavuje pevnou výšku 35 px.
+   Obal proto jen srovnáme a celý vzhled i animaci dostane samotné tlačítko, stejně jako .btn-cta. */
+.reservanto-widget.reservanto-widget { display: inline-flex !important; height: auto !important; vertical-align: middle; }
+.reservanto-widget .reservanto-button.reservanto-button {
   display: inline-flex !important; align-items: center !important; justify-content: center !important;
   min-height: 2.9rem !important; height: auto !important; box-sizing: border-box !important;
-  font: inherit !important; font-weight: 800 !important;
-  padding: .6rem 1.4rem !important; border-radius: 999px !important; border: 2px solid #163a41 !important;
-  box-shadow: none !important;
+  font: inherit !important; font-weight: 800 !important; font-size: 1.05rem !important; text-decoration: none !important; text-shadow: none !important; cursor: pointer;
+  padding: .75rem 1.7rem !important; border-radius: 999px !important; border: 2px solid #163a41 !important; color: #fff !important;
+  background-color: #1f6b46;
+  background-image: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .26) 50%, transparent 70%), linear-gradient(135deg, #2a7f5b, #1f6b46);
+  background-size: 250% 100%, 100% 100%; background-repeat: no-repeat; background-position: 160% 0, 0 0;
+  box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55);
   transition: transform .2s ease, box-shadow .2s ease !important;
+  animation: cta-halo 9s ease-in-out infinite, cta-shine 5s ease-in-out infinite, cta-breathe 1.8s ease-in-out infinite;
 }
-.reservanto-widget .reservanto-button:hover {
-  box-shadow: none !important; transform: translateY(-2px);
-}
+.reservanto-widget .reservanto-button.reservanto-button:hover { animation: none; transform: translateY(-2px) scale(1.03); box-shadow: 0 16px 30px -10px rgba(31, 107, 70, .7), 0 0 0 4px rgba(252, 201, 52, .55), 0 0 26px 4px rgba(245, 146, 62, .45); }
 /* Živé zvýraznění tlačítek s výzvou k akci (konzultace, semináře, rezervace): barvy duhy webu putují kolem tlačítka a přes ně
    čas od času přejede světelný pruh. Respektuje „Zastavit animace“, klidný režim i systémové snížení pohybu (viz níže). */
 @keyframes cta-halo {
@@ -280,19 +283,6 @@ p { margin: 0 0 1rem; }
   0%, 45% { background-position: 160% 0, 0 0; }
   80%, 100% { background-position: -60% 0, 0 0; }
 }
-@keyframes cta-shine-only {
-  0%, 45% { background-position: 160% 0; }
-  80%, 100% { background-position: -60% 0; }
-}
-/* Tlačítko Reservanto: prstenec se kreslí na obalu, světelný pruh přes tlačítko samotné (barvu pozadí nastavuje widget) */
-.reservanto-widget { border-radius: 999px; box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55); animation: cta-halo 9s ease-in-out infinite, cta-breathe 1.8s ease-in-out infinite; }
-.reservanto-widget:hover { animation: none; transform: scale(1.02); box-shadow: 0 16px 30px -10px rgba(31, 107, 70, .7), 0 0 0 4px rgba(252, 201, 52, .55), 0 0 26px 4px rgba(245, 146, 62, .45); }
-.reservanto-widget .reservanto-button {
-  background-image: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .26) 50%, transparent 70%);
-  background-size: 250% 100%; background-repeat: no-repeat; background-position: 160% 0;
-  animation: cta-shine-only 5s ease-in-out infinite;
-}
-.reservanto-widget:hover .reservanto-button { animation: none; }
 
 /* ===== Karty, pilíře, smyčka ===== */
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.1rem; margin: 1.2rem 0; }
@@ -766,7 +756,7 @@ html.calm *, html.calm *::before, html.calm *::after { animation: none !importan
 html.calm .reveal, html.calm .js .reveal { opacity: 1 !important; transform: none !important; }
 html.calm img, html.calm video, html.calm .brand-sun, html.calm .scene { filter: saturate(.55); }
 html.calm .site-header::after, html.calm .site-footer::before, html.calm .card::before, html.calm .callout::before, html.calm .hl, html.calm .loop-line { filter: saturate(.35); }
-html.calm .btn, html.calm .reservanto-widget { box-shadow: none; }
+html.calm .btn { box-shadow: none; }
 html.calm .btn-cta { background: #4a6a5c; background-image: none; border-color: #2e473c; }
 html.calm .motion-toggle { display: none; }
 
@@ -933,5 +923,4 @@ html:not(.js) .nav-sub-arrow { display: none; }
 /* Tlačítka s výzvou k akci (konzultace, semináře, rezervace) se hýbou vždy, i v klidném režimu a při „Zastavit animace“. */
 .btn-cta:not(:disabled):not(:hover) { animation: cta-halo 9s ease-in-out infinite, cta-shine 5s ease-in-out infinite, cta-breathe 1.8s ease-in-out infinite !important; }
 .btn-cta:not(:disabled):not(:hover):nth-of-type(even) { animation: cta-halo 9s ease-in-out -4.1s infinite, cta-shine 5s ease-in-out -2.2s infinite, cta-breathe 1.8s ease-in-out -.9s infinite !important; }
-.reservanto-widget:not(:hover) { animation: cta-halo 9s ease-in-out infinite, cta-breathe 1.8s ease-in-out infinite !important; }
-.reservanto-widget:not(:hover) .reservanto-button { animation: cta-shine-only 5s ease-in-out infinite !important; }
+.reservanto-widget .reservanto-button.reservanto-button:not(:hover) { animation: cta-halo 9s ease-in-out infinite, cta-shine 5s ease-in-out infinite, cta-breathe 1.8s ease-in-out infinite !important; }

@@ -77,6 +77,7 @@ export function vytvorHandler({ env = () => process.env, odesilac = vytvorOdesil
 
     const program = programy.find((p) => p.id === v.hodnoty.program);
     const beh = program.behy.find((b) => b.id === v.hodnoty.beh);
+    const jaz = v.hodnoty.jazyk;
     const programTexty = textyProgramu(program.id);
     if (stavBehu(beh, data, ted0) !== 'otevreno') return odpovez(res, 409, { ok: false, kod: 'beh-neni-otevreny' });
 
@@ -102,7 +103,7 @@ export function vytvorHandler({ env = () => process.env, odesilac = vytvorOdesil
 
     if (konf.posilatUcastnikovi) {
       try {
-        await odesli({ ...spolecne, komu: v.hodnoty.email, komuJmeno: `${v.hodnoty.jmeno} ${v.hodnoty.prijmeni}`, replyTo: konf.notifyEmail, zprava: emailUcastnik({ rez, konf, odkazPodminky: `${konf.web}/obchodni-podminky`, spd }) });
+        await odesli({ ...spolecne, komu: v.hodnoty.email, komuJmeno: `${v.hodnoty.jmeno} ${v.hodnoty.prijmeni}`, replyTo: konf.notifyEmail, zprava: emailUcastnik({ rez, konf, odkazPodminky: `${konf.web}${jaz === 'en' ? '/en/terms' : '/obchodni-podminky'}`, spd, jazyk: jaz }) });
       } catch (e) {
         console.error('rezervace: e-mail účastníkovi se nepodařilo odeslat', { vs, kod: e.kod });
         return odpovez(res, 502, { ok: false, kod: 'email-selhal' });
@@ -110,7 +111,7 @@ export function vytvorHandler({ env = () => process.env, odesilac = vytvorOdesil
     }
     try {
       const objednano = new Intl.DateTimeFormat('cs-CZ', { timeZone: 'Europe/Prague', dateStyle: 'medium', timeStyle: 'short' }).format(ted0);
-      await odesli({ ...spolecne, komu: konf.notifyEmail, replyTo: v.hodnoty.email, zprava: emailMajitel({ rez, osoba: v.hodnoty, konf, objednano, ucastnikOdeslan: konf.posilatUcastnikovi }) });
+      await odesli({ ...spolecne, komu: konf.notifyEmail, replyTo: v.hodnoty.email, zprava: emailMajitel({ rez, osoba: v.hodnoty, konf, objednano, ucastnikOdeslan: konf.posilatUcastnikovi, jazyk: jaz }) });
     } catch (e) {
       // Účastník má platební údaje, rezervace platí. Majitel se o ní dozví z banky nebo z logu (VS).
       console.error('rezervace: upozornění majiteli se nepodařilo odeslat', { vs, kod: e.kod });
@@ -127,8 +128,8 @@ export function vytvorHandler({ env = () => process.env, odesilac = vytvorOdesil
       iban: rez.iban,
       majitel: konf.majitel,
       splatnost: rez.splatnost,
-      program: { id: program.id, popis: programTexty.popis },
-      beh: { id: beh.id, nazev: beh.nazev },
+      program: { id: program.id, popis: jaz === 'en' ? programTexty.en.popis : programTexty.popis },
+      beh: { id: beh.id, nazev: jaz === 'en' ? `Run ${beh.nazev.replace(/\D+/g, '')}` : beh.nazev },
       terminy: rez.terminy.map((datum) => ({ datum, cas: rez.cas })),
       delkaMinut: rez.delkaMinut,
       spd,

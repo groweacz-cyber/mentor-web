@@ -10,10 +10,15 @@
   try { d = JSON.parse(raw); } catch (e) { return; }
   if (!d || d.ok !== true || !/^[1-9]\d{9}$/.test(String(d.vs)) || typeof d.spd !== 'string' || d.spd.indexOf('SPD*1.0*') !== 0 || !d.terminy || !d.terminy.length) return;
 
+  var EN = document.documentElement.lang === 'en';
   var DNY = ['neděle', 'pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota'];
-  function cz(iso) { var p = iso.split('-'); return Number(p[2]) + '. ' + Number(p[1]) + '. ' + p[0]; }
+  function cz(iso) {
+    var p = iso.split('-');
+    if (EN) return new Date(Date.UTC(+p[0], +p[1] - 1, +p[2])).toLocaleDateString('en-GB', { timeZone: 'UTC', day: 'numeric', month: 'long', year: 'numeric' });
+    return Number(p[2]) + '. ' + Number(p[1]) + '. ' + p[0];
+  }
   function den(iso) { var p = iso.split('-'); return DNY[new Date(Date.UTC(+p[0], +p[1] - 1, +p[2])).getUTCDay()]; }
-  function kc(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' Kč'; }
+  function kc(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, EN ? ',' : ' ') + ' Kč'; }
   function skupiny(iban) { return iban.replace(/(.{4})/g, '$1 ').trim(); }
   function set(id, text) { var el = document.getElementById(id); if (el) el.textContent = text; }
 

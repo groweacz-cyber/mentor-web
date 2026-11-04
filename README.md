@@ -86,6 +86,18 @@ npm test             # jednotkové testy a kontrola vygenerovaných stránek (ne
 
 Politika se skládá v `tools/gen.mjs` a zapisuje do hlavičky v `vercel.json` při každém `npm run gen` (jediný inline skript webu se povolí hashem, skripty smí být jen z vlastní domény a z Reservanta). Generátor selže, pokud by na webu byla inline obslužná funkce (`onclick` apod.).
 
+## Anglická verze (/en/…)
+
+Každá stránka, která má záznam v `tools/i18n/slugs.mjs`, má anglickou dvojnici (`/en/…`), přepínač jazyka (CZ | EN) v záhlaví, `hreflang` a položku v sitemapě. Koncepty (`/skupiny`) anglickou verzi nemají.
+
+- **Stránky:** generátor vyrobí českou stránku a anglickou vytvoří překladem podle slovníku `tools/i18n/en/*.mjs` (dvojice `[česky, anglicky]`, vložené značky se zapisují jako `{1}…{/1}`, čísla ve vzorech jako `{#}`). Seminářové stránky se píšou anglicky přímo (`opts.en`, parametr `jaz` v `tools/content/seminare.mjs`).
+- **Skripty:** `tools/i18n/jsbuild.mjs` vyrobí z `assets/js/**` anglické kopie v `assets/js/en/**` (nahradí textové literály, šablony a regulární výrazy podle slovníku `tools/i18n/en-js/*.mjs`; logika se nemění). Jazykově závislou logiku (datum, měna, `jazyk` v rezervaci) čtou skripty z `<html lang>`.
+- **Chybějící překlad:** po `npm run gen` musí být `tools/i18n/chybejici.json` a `tools/i18n/chybejici-js.json` prázdné (`jednotek: 0`), jinak selže test. Nový nebo změněný český text se tedy po generování objeví v seznamu a stačí k němu doplnit dvojici do slovníku (nová dvojice do nového souboru `tools/i18n/en/NN-nazev.mjs`, resp. `tools/i18n/en-js/`).
+- **Rezervace seminářů:** formulář posílá `jazyk: "en"`, server pak píše e-mail účastníkovi a odpověď anglicky (e-mail majiteli zůstává česky a uvádí jazyk stránky). Setkání se konají anglicky nebo česky.
+- **Mimo překlad:** právní stránky (podmínky, zásady) mají anglický courtesy překlad, rozhodující je české znění. Widget Reservanto se přepnout do angličtiny nedá.
+- **Obrázky pro sociální sítě:** `npm run og` vyrobí i anglické (`assets/og/en-*.png`). Offline stránku pro angličtinu zajišťuje `sw.js` (`/en/offline`).
+- **Aplikace:** uložená data (`localStorage`) obsahují u některých voleb text v jazyce, ve kterém se vyplňovaly; při přepnutí jazyka uprostřed používání se staré odpovědi u těchto voleb nezobrazí jako zaškrtnuté.
+
 ## Koncepty a schvalování
 
 Obsahové stránky (Typy OCD, Vtíravé myšlenky, Pro blízké, Mýty, Slovníček, Příběhy, Pro terapeuty) jsou od 23. 10. 2026 zveřejněné: mají drobečky, JSON-LD (Article a BreadcrumbList), OG obrázek, jsou v sitemapě a v menu „O OCD“. Funkce `contentPage` v `tools/gen.mjs` stránku zveřejní sama; **koncept** je stránka s `draft: true`: má `noindex, nofollow`, štítek „Koncept“, není v navigaci ani v sitemapě a je v přehledu `/koncepty` (jen pro kontrolu autorem). Aktuálně je konceptem jen `/skupiny` (čeká na cenu a podrobnosti skupin). Zveřejní se odstraněním `draft: true` u jejího volání `contentPage`, potom `npm run gen`, `npm run og` a `npm run audit`.

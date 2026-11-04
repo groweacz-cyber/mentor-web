@@ -33,6 +33,22 @@ export const formatCz = (iso) => {
   return `${d}. ${m}. ${y}`;
 };
 export const dlouhyCz = (iso, cas) => `${nazevDne(iso)} ${formatCz(iso)}${cas ? ` v ${cas}` : ''}`;
+
+// Anglické tvary pro anglickou verzi webu a e-maily.
+const NAZVY_DNU_EN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const MESICE_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const DEN_EN = { neděle: 'Sunday', pondělí: 'Monday', úterý: 'Tuesday', středa: 'Wednesday', čtvrtek: 'Thursday', pátek: 'Friday', sobota: 'Saturday' };
+export const nazevDneEn = (iso) => NAZVY_DNU_EN[denVTydnu(iso)];
+export const formatEn = (iso) => {
+  const [y, m, d] = iso.split('-').map(Number);
+  return `${d} ${MESICE_EN[m - 1]} ${y}`;
+};
+export const dlouhyEn = (iso, cas) => `${nazevDneEn(iso)} ${formatEn(iso)}${cas ? ` at ${cas}` : ''}`;
+export const denSPredlozkouEn = (den) => `on ${DEN_EN[den] || den}s`;
+export const mesiceEn = MESICE_EN;
+// Podle jazyka ('cs' nebo 'en').
+export const formatDatumJ = (iso, jaz) => (jaz === 'en' ? formatEn(iso) : formatCz(iso));
+export const dlouhyDatumJ = (iso, cas, jaz) => (jaz === 'en' ? dlouhyEn(iso, cas) : dlouhyCz(iso, cas));
 const minutyZCasu = (cas) => {
   const [h, m] = cas.split(':').map(Number);
   return h * 60 + m;

@@ -1,14 +1,18 @@
 // Service worker webu ocdmentor.cz. Generuje ho tools/gen.mjs (verze se mění s obsahem webu).
 // Ukládá jen vlastní statické soubory (/assets/) a stránky, které si návštěvník otevřel. HTML jde přes síť jako první,
 // při výpadku se zobrazí uložená stránka nebo /offline. Cizí adresy (například rezervace Reservanto) vůbec nezachytává.
-var VERSION = 'b541ba18';
+var VERSION = '3a3f8ae4';
 var CACHE = 'ocdmentor-' + VERSION;
 var OFFLINE = '/offline';
+var OFFLINE_EN = '/en/offline';
+
+// Při výpadku sítě se anglickým stránkám (/en/…) ukáže anglická offline stránka, ostatním česká.
+function offlineFor(pathname) { return pathname === '/en' || pathname.indexOf('/en/') === 0 ? OFFLINE_EN : OFFLINE; }
 
 self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(CACHE).then(function (cache) {
-      return cache.addAll([OFFLINE, '/assets/img/favicon.svg']);
+      return cache.addAll([OFFLINE, OFFLINE_EN, '/assets/img/favicon.svg']);
     }).then(function () { return self.skipWaiting(); })
   );
 });
@@ -38,7 +42,7 @@ self.addEventListener('fetch', function (event) {
         }
         return res;
       }).catch(function () {
-        return caches.match(req).then(function (m) { return m || caches.match(OFFLINE); });
+        return caches.match(req).then(function (m) { return m || caches.match(offlineFor(url.pathname)); });
       })
     );
     return;

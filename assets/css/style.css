@@ -815,6 +815,25 @@ h4 { font-size: 1.05rem; font-weight: 700; line-height: 1.15; letter-spacing: -.
 .nav-toggle:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 .nav-toggle-icon { width: 1.15rem; height: .95rem; background: linear-gradient(currentColor, currentColor) 0 0 / 100% 2px no-repeat, linear-gradient(currentColor, currentColor) 0 50% / 100% 2px no-repeat, linear-gradient(currentColor, currentColor) 0 100% / 100% 2px no-repeat; }
 .menu-open .nav-toggle { background: var(--ink); color: #fff; }
+
+/* Přepínač jazyka (CZ | EN) vedle tlačítka menu */
+.bar-actions { display: flex; align-items: center; gap: .6rem; margin-left: auto; }
+.lang-switch { display: inline-flex; align-items: stretch; border: 1.5px solid var(--ink); border-radius: 999px; overflow: hidden; font-size: .85rem; font-weight: 700; letter-spacing: .04em; line-height: 1; }
+.lang-switch .lang-cur, .lang-switch a { display: inline-flex; align-items: center; justify-content: center; min-width: 2.5rem; min-height: 2.2rem; padding: 0 .75rem; text-decoration: none; }
+.lang-switch .lang-cur { background: var(--ink); color: #fff; }
+.lang-switch a { color: var(--ink); background: transparent; }
+.lang-switch a:hover { background: #f3ead6; }
+.lang-switch a:focus-visible { outline: 3px solid var(--focus); outline-offset: -4px; border-radius: 999px; }
+/* Anglické názvy v menu jsou delší: na počítači se zmenší odsazení, aby se menu vešlo do jednoho řádku */
+@media (min-width: 63rem) {
+  html[lang="en"] .site-header nav a, html[lang="en"] .site-header .nav-sub-toggle { padding: .45rem .36rem; font-size: .9rem; }
+}
+/* Na úzkém telefonu se přepínač jazyka a tlačítko menu vejdou vedle značky */
+@media (max-width: 30rem) {
+  .bar-actions { gap: .4rem; }
+  .lang-switch .lang-cur, .lang-switch a { min-width: 2.2rem; padding: 0 .5rem; }
+  .bar-actions .nav-toggle { padding: .5rem .8rem; gap: .45rem; }
+}
 .menu-open .nav-toggle-icon { background: linear-gradient(45deg, transparent 44%, currentColor 44% 56%, transparent 56%), linear-gradient(-45deg, transparent 44%, currentColor 44% 56%, transparent 56%); }
 @media (max-width: 62.99rem) {
   .site-header .bar { padding-bottom: .7rem; }

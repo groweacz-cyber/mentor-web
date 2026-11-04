@@ -8,8 +8,13 @@ import vm from 'node:vm';
 import * as F2 from './content/faze2.mjs';
 import { TYPY_DALSI } from './content/typy2.mjs';
 import { nactiData as nactiDataSeminare, pripravProgramy } from '../api/_lib/seminare.js';
-import { POVAHA_SEMINARE, POVAHA_BLIZKE, formatCastka } from '../api/_lib/texty.js';
+import { POVAHA_SEMINARE, POVAHA_BLIZKE, formatCastka, formatCastkaEn } from '../api/_lib/texty.js';
 import * as SEM from './content/seminare.mjs';
+import { createTranslator, normText } from './i18n/translate.mjs';
+import { maAnglickouVerzi, anglickaAdresa } from './i18n/slugs.mjs';
+import dictPairs from './i18n/dict.mjs';
+import jsDictPairs, { ignore as jsIgnore } from './i18n/dict-js.mjs';
+import { sestavAnglickeSkripty, kodujKlic } from './i18n/jsbuild.mjs';
 
 const OUT = process.argv[2] ? resolve(process.argv[2]) : resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const BRAND = 'OCD mentor';
@@ -471,8 +476,54 @@ const videoNode = () => ({
 });
 const normalizeLd = (j) => (!j ? [] : (j['@graph'] || [j]).map(({ '@context': _c, ...n }) => n));
 
-function page({ path, title, desc, body, jsonld, noindex, robots, script, art, app, module, ogImage, ogTitle, ogSub, ogType, published, modified, crumb, parents, gloss, glossAlways, draft, crumbs, related, floatCta }) {
-  const url = SITE + (path === '/' ? '/' : path);
+// ---------- Angličtina (/en/...) ----------
+// Stránky se generují česky a anglická verze vzniká překladem podle slovníku (tools/i18n/en/*.mjs). Stránky s daty (semináře) mají
+// anglickou verzi psanou přímo (opts.en). Jednotky bez překladu zůstanou česky a hlásí se v seznamu EN_MISSING (test pak selže).
+const EN_ZAPNUTO = true;
+const mapUrlEn = (u) => {
+  if (!u.startsWith(SITE)) return u;
+  const rest = u.slice(SITE.length) || '/';
+  const m = rest.match(/^([^?#]*)([?#].*)?$/);
+  const p = m[1] === '' ? '/' : m[1].length > 1 ? m[1].replace(/\/$/, '') : m[1];
+  const e = anglickaAdresa(p);
+  return e ? SITE + e + (m[2] || '') : u;
+};
+const mapHrefEn = (href) => {
+  if (href.startsWith(SITE)) return mapUrlEn(href);
+  if (!href.startsWith('/') || href.startsWith('//')) return href;
+  const m = href.match(/^([^?#]*)([?#].*)?$/);
+  const p = m[1].length > 1 ? m[1].replace(/\/$/, '') : m[1];
+  if (p.startsWith('/assets/') || p.startsWith('/api/')) return href;
+  const e = anglickaAdresa(p);
+  return e ? e + (m[2] || '') : href;
+};
+const TR = createTranslator({ dictPairs, mapHref: mapHrefEn });
+const EN_MISSING = {};
+const trTitleEn = (title, miss) => {
+  const i = title.lastIndexOf(' | ');
+  const cast = i < 0 ? title : title.slice(0, i);
+  const sufix = i < 0 ? '' : title.slice(i);
+  const en = TR.prostyText(cast);
+  if (en === null) { miss.add(normText(cast)); return title; }
+  return en + sufix;
+};
+const trPlainEn = (t, miss) => {
+  if (!t) return t;
+  const en = TR.prostyText(t);
+  if (en === null) { miss.add(normText(t)); return t; }
+  return en;
+};
+// Anglické kopie skriptů (assets/js/en/…) vznikají překladem textových literálů podle tools/i18n/en-js/*.mjs; anglické stránky načítají je.
+const EN_JS = await sestavAnglickeSkripty({ out: OUT, dictPairs: jsDictPairs, ignore: jsIgnore, htmlPairs: dictPairs });
+const EN_SKRIPTY = EN_JS.skripty;
+
+function page({ path: pathArg, title, desc, body, jsonld, noindex, robots, script, art, app, module, ogImage, ogTitle, ogSub, ogType, published, modified, crumb, parents, gloss, glossAlways, draft, crumbs, related, floatCta, lang, czPath, native }) {
+  const EN = lang === 'en';
+  const path = czPath || pathArg; // česká adresa (menu, aktivní položka); pathArg je adresa skutečné stránky
+  const miss = new Set();
+  if (EN && !native) { title = trTitleEn(title, miss); desc = trPlainEn(desc, miss); }
+  const url = SITE + (pathArg === '/' ? '/' : pathArg);
+  const jsPro = (src) => (EN && EN_SKRIPTY.has(src) ? src.replace('/assets/js/', '/assets/js/en/') : src);
   const isNoindex = !!noindex || /noindex/.test(robots || '');
   const robotsContent = robots || (noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large');
   const navHtml = nav
@@ -504,7 +555,8 @@ function page({ path, title, desc, body, jsonld, noindex, robots, script, art, a
     .replace(/<article class="card">(\s*<h3>Metal cesta)/g, '<article class="card card--metal">$1')
     .replace(/<article class="card">(\s*<h3>Pop cesta)/g, '<article class="card card--pop">$1');
   if (art) b = b.replace('<section class="wrap page-head">', '<section class="wrap page-head">' + miniScene());
-  if (gloss && (draft || glossAlways || CFG.glossaryOnPublicPages)) b = glossify(b);
+  if (!EN && gloss && (draft || glossAlways || CFG.glossaryOnPublicPages)) b = glossify(b);
+  if (EN && native) b = '<!--EN:NATIVE-->' + b + '<!--/EN:NATIVE-->';
 
   // drobečková navigace (viditelná i ve strukturovaných datech)
   let trail = null;
@@ -512,7 +564,7 @@ function page({ path, title, desc, body, jsonld, noindex, robots, script, art, a
     const h1 = (body.match(/<h1[^>]*>([\s\S]*?)<\/h1>/) || [])[1];
     const label = crumb || (h1 ? stripTags(h1) : title);
     const par = parents || (path.startsWith('/clanky/') ? [['/clanky', 'Články']] : []);
-    trail = [['/', 'Domů'], ...par, [path, label]];
+    trail = [['/', 'Domů'], ...par, [pathArg, label]];
   }
   const crumbsHtml = trail
     ? `<div class="wrap crumbs-wrap"><nav class="crumbs" aria-label="Drobečková navigace"><ol>${trail
@@ -525,9 +577,11 @@ function page({ path, title, desc, body, jsonld, noindex, robots, script, art, a
   if (path === '/') nodes.push(websiteNode());
   if (['/', '/o-mne', '/jak-to-probiha'].includes(path) || SEM_STRANKY_PROGRAMU.has(path)) nodes.push(personNode());
   if (path === '/o-mne') nodes.push({ '@type': 'ProfilePage', url, name: title, mainEntity: { '@id': PERSON_ID }, inLanguage: 'cs' });
-  nodes.push(...normalizeLd(jsonld));
-  if (trail && !isNoindex) nodes.push(breadcrumbNode(trail));
-  const ld = nodes.length ? { '@context': 'https://schema.org', '@graph': nodes } : null;
+  const vlastniUzly = normalizeLd(jsonld);
+  const drobkyUzel = trail && !isNoindex ? [breadcrumbNode(trail)] : [];
+  const tj = (arr) => arr.map((n) => TR.jsonLd(n, miss, mapUrlEn));
+  const vsechnyUzly = EN ? [...tj(nodes), ...(native ? vlastniUzly : tj(vlastniUzly)), ...tj(drobkyUzel)] : [...nodes, ...vlastniUzly, ...drobkyUzel];
+  const ld = vsechnyUzly.length ? { '@context': 'https://schema.org', '@graph': vsechnyUzly } : null;
 
   const verify = [
     CFG.verification?.google ? `<meta name="google-site-verification" content="${attr(CFG.verification.google)}">` : '',
@@ -540,10 +594,16 @@ function page({ path, title, desc, body, jsonld, noindex, robots, script, art, a
   const floatHtml = showFloat
     ? `<aside class="float-cta js-only" id="float-cta" aria-label="Konzultace zdarma" hidden>\n  <a class="btn btn-cta btn-sm float-book" href="/kontakt">Konzultace zdarma</a>\n  <button type="button" class="float-close" aria-label="Zavřít lištu">×</button>\n</aside>\n`
     : '';
-  const ogUrl = `${SITE}${ogPath(noindex ? '/' : path)}`;
+  const ogUrl = `${SITE}${ogPath(noindex ? '/' : pathArg)}`;
+  const csUrl = SITE + (path === '/' ? '/' : path);
+  const enUrl = maAnglickouVerzi(path) ? SITE + anglickaAdresa(path) : null;
+  const alternates = !isNoindex && enUrl ? `<link rel="alternate" hreflang="cs" href="${csUrl}">\n<link rel="alternate" hreflang="en" href="${enUrl}">\n<link rel="alternate" hreflang="x-default" href="${csUrl}">` : '';
+  const prepinacJazyka = EN
+    ? `<!--EN:NATIVE--><div class="lang-switch" role="group" aria-label="Language / Jazyk"><span class="lang-cur" lang="en" aria-current="true">EN</span><a href="${path}" hreflang="cs" lang="cs" title="Česky"><span aria-hidden="true">CZ</span><span class="sr-only">Česky</span></a></div><!--/EN:NATIVE-->`
+    : `<div class="lang-switch" role="group" aria-label="Jazyk / Language"><span class="lang-cur" lang="cs" aria-current="true">CZ</span><a href="${maAnglickouVerzi(path) ? anglickaAdresa(path) : '/en'}" hreflang="en" lang="en" title="English version"><span aria-hidden="true">EN</span><span class="sr-only">English</span></a></div>`;
   const t = attr(title), d = attr(desc);
-  const html = `<!doctype html>
-<html lang="cs">
+  let html = `<!doctype html>
+<html lang="${EN ? 'en' : 'cs'}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -551,9 +611,10 @@ function page({ path, title, desc, body, jsonld, noindex, robots, script, art, a
 <meta name="description" content="${d}">
 <meta name="robots" content="${robotsContent}">
 ${isNoindex ? '' : `<link rel="canonical" href="${url}">`}
+${alternates}
 ${verify}
 <meta property="og:type" content="${ogType || 'website'}">
-<meta property="og:locale" content="cs_CZ">
+<meta property="og:locale" content="${EN ? 'en_US' : 'cs_CZ'}">
 <meta property="og:site_name" content="${BRAND}">
 <meta property="og:title" content="${t}">
 <meta property="og:description" content="${d}">
@@ -582,7 +643,10 @@ ${siteScript}
 <header class="site-header">
   <div class="wrap bar">
     <a class="brand" href="/">${brandSun}<span>${BRAND}</span></a>
-    <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="hlavni-nav"><span class="nav-toggle-icon" aria-hidden="true"></span><span class="nav-toggle-text">Menu</span></button>
+    <div class="bar-actions">
+      ${prepinacJazyka}
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="hlavni-nav"><span class="nav-toggle-icon" aria-hidden="true"></span><span class="nav-toggle-text">Menu</span></button>
+    </div>
     <nav id="hlavni-nav" aria-label="Hlavní navigace"><ul>${navHtml}</ul></nav>
   </div>
 </header>
@@ -626,14 +690,23 @@ ${floatHtml}<dialog id="rsv-modal" aria-labelledby="rsv-modal-h" aria-modal="tru
     </div>
   </div>
 </dialog>
-<script defer src="/assets/js/rezervace-souhlas.js"></script>
-${b.includes('class="gl-wrap"') ? '<script src="/assets/js/slovnicek.js" defer></script>' : ''}
-${showFloat ? '<script src="/assets/js/lista.js" defer></script>' : ''}
-${[].concat(script || []).map((s) => `<script src="${s}" defer></script>`).join('\n')}
-${module ? `<script type="module" src="${module}"></script>` : ''}
+<script defer src="${jsPro('/assets/js/rezervace-souhlas.js')}"></script>
+${b.includes('class="gl-wrap"') ? `<script src="${jsPro('/assets/js/slovnicek.js')}" defer></script>` : ''}
+${showFloat ? `<script src="${jsPro('/assets/js/lista.js')}" defer></script>` : ''}
+${[].concat(script || []).map((s) => `<script src="${jsPro(s)}" defer></script>`).join('\n')}
+${module ? `<script type="module" src="${jsPro(module)}"></script>` : ''}
 </body>
 </html>
 `;
+  if (EN) {
+    const i = html.indexOf('<body>');
+    html = html.slice(0, i) + TR.translateFragment(html.slice(i), miss).replace(/<!--\/?EN:NATIVE-->/g, '');
+    html = html.replace("o?'Zavřít':'Menu'", "o?'Close':'Menu'");
+    html = html.replace('<track kind="captions" srclang="cs" label="Česky" src="/assets/video/uvod.cs.vtt" default>', '<track kind="captions" srclang="en" label="English" src="/assets/video/uvod.en.vtt" default>');
+    // skripty vložené přímo do těla stránky (<script src="/assets/js/…">) taky anglické kopie
+    html = html.replace(/(<script\b[^>]*\bsrc=")(\/assets\/js\/)(?!en\/)([^"?#]+)(")/g, (m, a, b, c, d) => (EN_SKRIPTY.has(b + c) ? `${a}${b}en/${c}${d}` : m));
+    EN_MISSING[pathArg] = miss;
+  }
   return versionAssets(html);
 }
 
@@ -641,9 +714,34 @@ const files = {};
 const pagesMeta = [];
 const add = (path, opts) => {
   const f = path === '/' ? 'index.html' : `${path.slice(1)}/index.html`;
+  const { en: enOpts, ...czOpts } = opts;
+  opts = czOpts;
   files[f] = page({ path, art: path !== '/', ...opts });
   const noindex = !!opts.noindex || /noindex/.test(opts.robots || '');
   pagesMeta.push({ path, file: f, noindex, hardNoindex: !!opts.noindex, title: opts.title, ogTitle: opts.ogTitle, ogSub: opts.ogSub, ogArt: opts.ogImage || opts.ogArt, ogArtPortrait: !!opts.ogArtPortrait, modified: opts.modified });
+  if (EN_ZAPNUTO && maAnglickouVerzi(path)) {
+    const enPath = anglickaAdresa(path);
+    const nativni = !!enOpts;
+    const enVse = nativni ? { ...opts, ...enOpts, native: true } : opts;
+    const fEn = enPath === '/en' ? 'en/index.html' : `${enPath.slice(1)}/index.html`;
+    files[fEn] = page({ path: enPath, czPath: path, lang: 'en', art: path !== '/', ...enVse });
+    const miss = new Set();
+    const titulek = nativni ? enVse.title : trTitleEn(opts.title, miss);
+    pagesMeta.push({
+      path: enPath,
+      czPath: path,
+      file: fEn,
+      noindex,
+      hardNoindex: !!opts.noindex,
+      title: titulek,
+      ogTitle: nativni ? enVse.ogTitle : opts.ogTitle ? trPlainEn(opts.ogTitle, EN_MISSING[enPath] || miss) : undefined,
+      ogSub: nativni ? enVse.ogSub : opts.ogSub ? trPlainEn(opts.ogSub, EN_MISSING[enPath] || miss) : undefined,
+      ogArt: opts.ogImage || opts.ogArt,
+      ogArtPortrait: !!opts.ogArtPortrait,
+      modified: opts.modified,
+    });
+    if (miss.size) for (const k of miss) EN_MISSING[enPath].add(k);
+  }
 };
 
 const loopSvg = `<svg class="loop-line" viewBox="0 0 600 60" width="600" height="60" aria-hidden="true" focusable="false"><defs><linearGradient id="gLoop" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#5b6fd6"/><stop offset=".3" stop-color="#4aa3df"/><stop offset=".55" stop-color="#5bbf8a"/><stop offset=".78" stop-color="#fcc934"/><stop offset="1" stop-color="#f5923e"/></linearGradient></defs><path pathLength="1" d="M0 44 H150 C205 44 225 6 192 5 C155 4 163 44 205 44 H600" fill="none" stroke="url(#gLoop)" stroke-width="3" stroke-linecap="round"/></svg>`;
@@ -1147,7 +1245,8 @@ add('/ebook', {
 });
 
 // ---------- Online semináře ----------
-// Tři stránky: přehled /seminare, stránky programů /seminare/<stranka> a rezervace (společná pro oba programy).
+// Čtyři stránky: přehled /seminare, stránky programů /seminare/<stranka>, rezervace a potvrzení. Anglické verze (opts.en) se píšou přímo
+// v tools/content/seminare.mjs (parametr jaz), protože obsahují data (termíny, ceny), ne překladem podle slovníku.
 const SEM_TITULEK = {
   'pro-lidi-s-ocd': (p) => `${p.kratkyNazev}: individuální program ${p.pocetSetkani} setkání | ocdmentor.cz`,
   'pro-blizke': (p) => `${p.kratkyNazev}: program pro blízké | ocdmentor.cz`,
@@ -1156,21 +1255,32 @@ const SEM_POPIS = {
   'pro-lidi-s-ocd': (p) => `Individuální online program ${p.pocetSetkani} setkání 1:1 pro lidi s OCD podle knihy o sebepřijetí. ${formatCastka(p.cena)}, termíny a rezervace s platbou QR kódem. Nenahrazuje odbornou péči.`,
   'pro-blizke': (p) => `Program ${p.pocetSetkani} setkání 1:1 pro blízké lidí s OCD: jak OCD nekrmit dobře míněnou pomocí a zachovat si vlastní život. ${formatCastka(p.cena)}, rezervace s platbou QR kódem.`,
 };
-const programServiceNode = (p) => {
-  const url = `${SITE}${SEM.adresaProgramu(p)}`;
+const SEM_TITULEK_EN = {
+  'pro-lidi-s-ocd': (pp, p) => `${pp.kratkyNazev}: individual programme of ${p.pocetSetkani} meetings | ocdmentor.cz`,
+  'pro-blizke': (pp) => `${pp.kratkyNazev}: programme for relatives | ocdmentor.cz`,
+};
+const SEM_POPIS_EN = {
+  'pro-lidi-s-ocd': (p) => `Individual online programme of ${p.pocetSetkani} one-to-one meetings for people with OCD, based on a book about self-acceptance. ${formatCastkaEn(p.cena)}, dates and booking with QR payment. It does not replace professional care.`,
+  'pro-blizke': (p) => `Programme of ${p.pocetSetkani} one-to-one meetings for relatives of people with OCD: how not to feed OCD with well-meant help and keep your own life. ${formatCastkaEn(p.cena)}, booking with QR payment.`,
+};
+const programServiceNode = (p, jaz = 'cs') => {
+  const pp = SEM.popisProgramu(p, jaz);
+  const adresa = SEM.adresaProgramu(p, jaz);
+  const url = `${SITE}${adresa}`;
   return {
     '@type': 'Service',
     '@id': `${url}#sluzba`,
-    name: p.nazev,
-    serviceType: 'Online individuální program',
-    description: `${p.anotace} Nenahrazuje odbornou péči.`,
+    name: pp.nazev,
+    serviceType: jaz === 'en' ? 'Online individual programme' : 'Online individuální program',
+    description: jaz === 'en' ? `${pp.anotace} It does not replace professional care.` : `${pp.anotace} Nenahrazuje odbornou péči.`,
     url,
-    provider: { '@id': PERSON_ID },
-    areaServed: { '@type': 'Country', name: 'Česko' },
-    availableChannel: { '@type': 'ServiceChannel', name: 'Online (videohovor)', serviceUrl: url },
-    offers: { '@type': 'Offer', name: `${p.nazev}: ${p.pocetSetkani} setkání po ${p.delkaMinut} minutách`, price: String(p.cena), priceCurrency: 'CZK', url },
+    provider: { '@id': jaz === 'en' ? mapUrlEn(PERSON_ID) : PERSON_ID },
+    areaServed: { '@type': 'Country', name: jaz === 'en' ? 'Czechia' : 'Česko' },
+    availableChannel: { '@type': 'ServiceChannel', name: jaz === 'en' ? 'Online (video call)' : 'Online (videohovor)', serviceUrl: url },
+    offers: { '@type': 'Offer', name: jaz === 'en' ? `${pp.nazev}: ${p.pocetSetkani} meetings of ${p.delkaMinut} minutes` : `${pp.nazev}: ${p.pocetSetkani} setkání po ${p.delkaMinut} minutách`, price: String(p.cena), priceCurrency: 'CZK', url },
   };
 };
+const bookBtnEn = () => `${bookDiv.replace('data-text="Domluvit si konzultaci"', 'data-text="Book a consultation"')}\n${bookScript}\n  <p class="small">The booking calendar opens in Czech. If you prefer, write to me at <a href="mailto:ocdmentor@gmail.com">ocdmentor@gmail.com</a>.</p>`;
 
 add('/seminare', {
   title: 'Online semináře | ocdmentor.cz',
@@ -1189,9 +1299,24 @@ add('/seminare', {
   },
   script: '/assets/js/seminare.js',
   body: SEM.prehledBody({ programy: SEMINARE_PROGRAMY, konzultaceHtml: bookBtn() }),
+  en: {
+    title: 'Online seminars | ocdmentor.cz',
+    desc: `Two individual online programmes 1:1 based on personal experience with OCD: for people with OCD (${SEMINARE_PROGRAMY[0].pocetSetkani} meetings, ${formatCastkaEn(SEMINARE_PROGRAMY[0].cena)}) and for their relatives (${SEMINARE_PROGRAMY[1].pocetSetkani} meetings, ${formatCastkaEn(SEMINARE_PROGRAMY[1].cena)}).`,
+    ogTitle: 'Online seminars',
+    ogSub: 'Two programmes for people with OCD and their relatives',
+    jsonld: {
+      '@graph': [{
+        '@type': 'ItemList',
+        name: 'Online seminars',
+        itemListElement: SEMINARE_PROGRAMY.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: SEM.popisProgramu(p, 'en').nazev, url: `${SITE}${SEM.adresaProgramu(p, 'en')}` })),
+      }],
+    },
+    body: SEM.prehledBody({ programy: SEMINARE_PROGRAMY, konzultaceHtml: bookBtnEn(), jaz: 'en' }),
+  },
 });
 
 for (const p of SEMINARE_PROGRAMY) {
+  const pp = SEM.popisProgramu(p, 'en');
   add(SEM.adresaProgramu(p), {
     title: SEM_TITULEK[p.id](p),
     desc: SEM_POPIS[p.id](p),
@@ -1204,6 +1329,14 @@ for (const p of SEMINARE_PROGRAMY) {
     jsonld: { '@graph': [programServiceNode(p), SEM.faqJsonLd(p, SEMINARE_DATA)] },
     script: '/assets/js/seminare.js',
     body: SEM.programBody({ program: p, programy: SEMINARE_PROGRAMY, data: SEMINARE_DATA }),
+    en: {
+      title: SEM_TITULEK_EN[p.id](pp, p),
+      desc: SEM_POPIS_EN[p.id](p),
+      ogTitle: pp.kratkyNazev,
+      ogSub: SEM.shrnutiProgramu(p, 'en'),
+      jsonld: { '@graph': [programServiceNode(p, 'en'), SEM.faqJsonLd(p, SEMINARE_DATA, 'en')] },
+      body: SEM.programBody({ program: p, programy: SEMINARE_PROGRAMY, data: SEMINARE_DATA, jaz: 'en' }),
+    },
   });
 }
 
@@ -1217,6 +1350,13 @@ add('/seminare/rezervace', {
   parents: [['/seminare', 'Online semináře']],
   script: ['/assets/js/seminare.js', '/assets/js/rezervace.js'],
   body: SEM.rezervaceBody({ data: SEMINARE_DATA, programy: SEMINARE_PROGRAMY }),
+  en: {
+    title: 'Seminar booking: choose dates and pay | ocdmentor.cz',
+    desc: 'Book a place in an individual online programme: choose a programme and dates, fill in your name, e-mail and phone number and pay by QR code within 3 days.',
+    ogTitle: 'Seminar booking',
+    ogSub: 'Choose dates and pay by QR code',
+    body: SEM.rezervaceBody({ data: SEMINARE_DATA, programy: SEMINARE_PROGRAMY, jaz: 'en' }),
+  },
 });
 
 add('/seminare/rezervace/potvrzeni', {
@@ -1229,6 +1369,11 @@ add('/seminare/rezervace/potvrzeni', {
   parents: [['/seminare', 'Online semináře'], ['/seminare/rezervace', 'Rezervace']],
   script: ['/assets/js/vendor/qrcode.js', '/assets/js/potvrzeni.js'],
   body: SEM.potvrzeniBody(),
+  en: {
+    title: 'Booking received | ocdmentor.cz',
+    desc: 'Seminar booking confirmation: QR code, payment details and dates. The page is shown only after a booking is submitted.',
+    body: SEM.potvrzeniBody('en'),
+  },
 });
 
 // ---------- Online kurz ----------
@@ -2832,8 +2977,14 @@ writeFileSync(lmFile, JSON.stringify(lastmod, null, 2) + '\n');
 
 writeFileSync(
   join(OUT, 'sitemap.xml'),
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${indexable
-    .map((p) => `  <url><loc>${SITE}${p.path === '/' ? '/' : p.path}</loc><lastmod>${lastmod[p.path].date}</lastmod></url>`)
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${indexable
+    .map((p) => {
+      const csP = p.czPath || p.path;
+      const alt = maAnglickouVerzi(csP)
+        ? `\n    <xhtml:link rel="alternate" hreflang="cs" href="${SITE}${csP === '/' ? '/' : csP}"/>\n    <xhtml:link rel="alternate" hreflang="en" href="${SITE}${anglickaAdresa(csP)}"/>`
+        : '';
+      return `  <url><loc>${SITE}${p.path === '/' ? '/' : p.path}</loc><lastmod>${lastmod[p.path].date}</lastmod>${alt}${alt ? '\n  ' : ''}</url>`;
+    })
     .join('\n')}\n</urlset>\n`
 );
 writeFileSync(
@@ -2920,4 +3071,21 @@ const CSP = [
   if (novy !== vercelText) writeFileSync(vercelPath, novy);
 }
 
+{
+  const chybejici = Object.entries(EN_MISSING).filter(([, v]) => v.size);
+  if (chybejici.length) {
+    const vse = new Set();
+    for (const [, v] of chybejici) for (const k of v) vse.add(k);
+    writeFileSync(join(OUT, 'tools/i18n/chybejici.json'), JSON.stringify({ stranek: chybejici.length, jednotek: vse.size, polozky: [...vse] }, null, 1) + '\n');
+    console.warn(`ANGLIČTINA: ${chybejici.length} stránek má nepřeložené jednotky (celkem ${vse.size} jedinečných). Seznam: tools/i18n/chybejici.json`);
+  } else if (existsSync(join(OUT, 'tools/i18n/chybejici.json'))) {
+    writeFileSync(join(OUT, 'tools/i18n/chybejici.json'), JSON.stringify({ stranek: 0, jednotek: 0, polozky: [] }) + '\n');
+  }
+}
+{
+  const vse = new Set();
+  for (const [, k] of EN_JS.chybi) for (const x of k) vse.add(x);
+  writeFileSync(join(OUT, 'tools/i18n/chybejici-js.json'), JSON.stringify({ jednotek: vse.size, polozky: [...vse].map(kodujKlic) }, null, 1) + '\n');
+  if (vse.size) console.warn(`ANGLIČTINA (skripty): ${vse.size} nepřeložených textů. Seznam: tools/i18n/chybejici-js.json`);
+}
 console.log(Object.keys(files).join('\n'));

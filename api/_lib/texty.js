@@ -49,6 +49,48 @@ export function textyProgramu(id) {
   return t;
 }
 
+// Anglické verze textů o povaze semináře (informativní překlad, rozhodující je české znění).
+export const POVAHA_SEMINARE_EN =
+  'The seminar is based on my personal life experience and my journey with OCD. It is not professional or medical advice, psychotherapy or a health service, and it does not replace the care of a psychologist, psychotherapist or psychiatrist. I am not a psychologist, psychotherapist or psychiatrist. At the seminar I do not diagnose, treat or advise on medication.';
+export const POVAHA_BLIZKE_EN =
+  'The seminar is based on my personal experience with OCD and on the perspective of someone who knows OCD from their own life. It is not professional or medical advice, psychotherapy, family therapy or a health service, and it does not replace the care of a psychologist, psychotherapist or psychiatrist. I am not a psychologist, psychotherapist or psychiatrist. At the seminar I do not diagnose, treat or advise on medication.';
+export const POVAHA_PREHLED_EN =
+  'The seminars are based on my personal life experience. They are not professional or medical advice, psychotherapy, family therapy or a health service, and they do not replace the care of a psychologist, psychotherapist or psychiatrist. I am not a psychologist, psychotherapist or psychiatrist. At the seminars I do not diagnose, treat or advise on medication.';
+// V e-mailu se slovo „OCD“ nesmí objevit ani v angličtině.
+export const POVAHA_SEMINARE_EMAIL_EN =
+  'The seminar is based on my personal life experience. It is not professional or medical advice, psychotherapy, family therapy or a health service, and it does not replace the care of a psychologist, psychotherapist or psychiatrist. I am not a psychologist, psychotherapist or psychiatrist. At the seminar I do not diagnose, treat or advise on medication.';
+
+TEXTY_PROGRAMU['pro-lidi-s-ocd'].en = {
+  povaha: POVAHA_SEMINARE_EN,
+  nazev: 'The Path with OCD: self-acceptance, self-belief and a freer life',
+  kratkyNazev: 'The Path with OCD',
+  komu: 'For people with OCD',
+  anotace: 'Meetings based on my book about self-acceptance and the way to greater freedom, for people who live with OCD.',
+  podtitul: 'An individual programme of five 1:1 meetings based on the book. How I did it and what you can take from it.',
+  vsechnaSetkani: 'All five meetings',
+  propojenaSetkani: 'five connected meetings',
+  presunuSlovy: 'twice',
+  formatDodatek: '',
+  popis: 'Individual programme of five meetings',
+  emailPopis: 'Seminar – individual programme of five meetings',
+};
+TEXTY_PROGRAMU['pro-blizke'].en = {
+  povaha: POVAHA_BLIZKE_EN,
+  nazev: 'When OCD Lives Next to You: a guide for relatives',
+  kratkyNazev: 'When OCD Lives Next to You',
+  komu: 'For relatives',
+  anotace: 'How not to feed OCD with well-meant help and how to keep your own life, for partners, parents and friends of people with OCD.',
+  podtitul: 'An individual programme of three 1:1 meetings. What helps people with OCD, what harms them, and how not to wear yourself out.',
+  vsechnaSetkani: 'All three meetings',
+  propojenaSetkani: 'three connected meetings',
+  presunuSlovy: 'once',
+  formatDodatek: 'One more relative from your household can join the meetings at no extra charge.',
+  popis: 'Individual programme of three meetings',
+  emailPopis: 'Seminar – individual programme of three meetings',
+};
+
 export const ZPRAVA_PRO_PRIJEMCE = 'SEMINAR';
 
 export const formatCastka = (kc) => `${String(kc).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} Kč`;
+export const formatCastkaEn = (kc) => `${String(kc).replace(/\B(?=(\d{3})+(?!\d))/g, ',')} CZK`;
+export const formatCastkaJ = (kc, jaz) => (jaz === 'en' ? formatCastkaEn(kc) : formatCastka(kc));

@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seminar booking: choose dates and pay | ocdmentor.cz</title>
+<meta name="description" content="Book a place in an individual online programme: choose a programme and dates, fill in your name, e-mail and phone number and pay by QR code within 3 days.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://ocdmentor.cz/en/seminars/booking">
+<link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/seminare/rezervace">
+<link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/seminars/booking">
+<link rel="alternate" hreflang="x-default" href="https://ocdmentor.cz/seminare/rezervace">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="OCD mentor">
+<meta property="og:title" content="Seminar booking: choose dates and pay | ocdmentor.cz">
+<meta property="og:description" content="Book a place in an individual online programme: choose a programme and dates, fill in your name, e-mail and phone number and pay by QR code within 3 days.">
+<meta property="og:url" content="https://ocdmentor.cz/en/seminars/booking">
+<meta property="og:image" content="https://ocdmentor.cz/assets/og/en-seminars-booking.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Seminar booking: choose dates and pay | ocdmentor.cz">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Seminar booking: choose dates and pay | ocdmentor.cz">
+<meta name="twitter:description" content="Book a place in an individual online programme: choose a programme and dates, fill in your name, e-mail and phone number and pay by QR code within 3 days.">
+<meta name="twitter:image" content="https://ocdmentor.cz/assets/og/en-seminars-booking.png">
+<meta name="theme-color" content="#1b2a41">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/css/style.css?v=f707c036">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://ocdmentor.cz/en"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Online seminars",
+          "item": "https://ocdmentor.cz/en/seminars"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Booking",
+          "item": "https://ocdmentor.cz/en/seminars/booking"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<script>
+(function(){var d=document.documentElement;d.classList.add('js');
+try{if(localStorage.getItem('ocd-calm')==='1')d.classList.add('calm');}catch(e){}
+document.addEventListener('DOMContentLoaded',function(){try{
+var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var els=document.querySelectorAll('.reveal');
+if(!('IntersectionObserver' in window)||reduced){for(var i=0;i<els.length;i++)els[i].classList.add('in');}
+else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -6% 0px'});for(var j=0;j<els.length;j++)io.observe(els[j]);}
+var b=document.getElementById('motion-toggle');
+var v=document.getElementById('hero-video');
+if(reduced){d.classList.add('motion-off');if(b)b.setAttribute('aria-pressed','true');if(v)v.pause();}
+var sd=navigator.connection&&navigator.connection.saveData;
+function startVideo(){if(v&&!reduced&&!sd&&!d.classList.contains('motion-off')&&!d.classList.contains('calm'))v.play().catch(function(){});}
+if(v){var go=function(){(window.requestIdleCallback||function(f){setTimeout(f,300);})(startVideo);};if(document.readyState==='complete')go();else window.addEventListener('load',go);}
+var cb=document.getElementById('calm-toggle');
+if(cb){cb.setAttribute('aria-pressed',d.classList.contains('calm')?'true':'false');
+cb.addEventListener('click',function(){var on=d.classList.toggle('calm');cb.setAttribute('aria-pressed',on?'true':'false');try{localStorage.setItem('ocd-calm',on?'1':'0');}catch(e){}if(v){if(on)v.pause();else startVideo();}});}
+if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});
+if(b)b.addEventListener('click',function(){
+  var off=d.classList.toggle('motion-off');
+  b.setAttribute('aria-pressed',off?'true':'false');
+  if(v){if(off)v.pause();else v.play().catch(function(){});}
+});
+var s=document.getElementById('sound-toggle');
+if(s&&v){
+  var mIcon=s.querySelector('.icon-muted'),uIcon=s.querySelector('.icon-unmuted');
+  s.addEventListener('click',function(){
+    v.muted=!v.muted;
+    if(!v.muted&&!d.classList.contains('motion-off'))v.play().catch(function(){});
+    s.setAttribute('aria-pressed',v.muted?'false':'true');
+    s.setAttribute('aria-label',v.muted?'Zapnout zvuk':'Vypnout zvuk');
+    if(mIcon)mIcon.hidden=!v.muted;
+    if(uIcon)uIcon.hidden=v.muted;
+  });
+}
+var subLis=document.querySelectorAll('.has-sub');
+var wideMq=matchMedia('(min-width: 63rem)');
+var hd=document.querySelector('.site-header'),nt=document.getElementById('nav-toggle');
+function toggleOf(li){return li.querySelector('.nav-sub-toggle');}
+function placeSub(ul){
+  if(!ul)return;
+  ul.style.left='';ul.style.right='';
+  var r=ul.getBoundingClientRect();
+  if(r.right>innerWidth-8){
+    ul.style.left='auto';ul.style.right='0';
+    r=ul.getBoundingClientRect();
+    if(r.left<8){ul.style.left='0';ul.style.right='auto';}
+  }
+}
+function openSub(li){li.classList.add('open');var b=toggleOf(li);if(b)b.setAttribute('aria-expanded','true');placeSub(li.querySelector('.sub-nav'));}
+function closeSub(li){li.classList.remove('open');var b=toggleOf(li);if(b)b.setAttribute('aria-expanded','false');}
+function closeAllSub(except){for(var k=0;k<subLis.length;k++){if(subLis[k]!==except)closeSub(subLis[k]);}}
+function setMenu(o){
+  if(!hd||!nt)return;
+  hd.classList.toggle('menu-open',o);
+  nt.setAttribute('aria-expanded',o?'true':'false');
+  var t=nt.querySelector('.nav-toggle-text');if(t)t.textContent=o?'Close':'Menu';
+  if(!o)closeAllSub(null);
+}
+for(var m=0;m<subLis.length;m++){(function(li){
+  var b=toggleOf(li);if(!b)return;
+  b.addEventListener('click',function(e){e.stopPropagation();if(li.classList.contains('open'))closeSub(li);else{closeAllSub(li);openSub(li);}});
+  if(li.classList.contains('has-split')){
+    // Na počítači se podmenu otevře najetím myší i zaostřením klávesnicí; na dotykovém displeji jen tlačítkem.
+    li.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse'&&wideMq.matches){closeAllSub(li);openSub(li);}});
+    li.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse'&&wideMq.matches)closeSub(li);});
+    li.addEventListener('focusin',function(e){
+      if(!wideMq.matches||li._esc)return;
+      var kb=true;try{kb=e.target.matches(':focus-visible');}catch(x){}
+      if(kb){closeAllSub(li);openSub(li);}
+    });
+    li.addEventListener('focusout',function(e){if(!wideMq.matches)return;var to=e.relatedTarget;if(!to||!li.contains(to))closeSub(li);});
+  }
+})(subLis[m]);}
+document.addEventListener('click',function(e){closeAllSub(null);if(hd&&hd.classList.contains('menu-open')&&!hd.contains(e.target))setMenu(false);});
+if(nt&&hd)nt.addEventListener('click',function(e){e.stopPropagation();setMenu(!hd.classList.contains('menu-open'));});
+// Esc nejdřív zavře otevřené podmenu a vrátí fokus na jeho tlačítko, až potom celé menu na úzkém displeji.
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Escape')return;
+  var closed=false,ae=document.activeElement;
+  for(var k=0;k<subLis.length;k++){
+    var li=subLis[k];
+    if(li.classList.contains('open')){
+      closeSub(li);closed=true;
+      if(li.contains(ae)){var b=toggleOf(li);if(b){li._esc=true;b.focus();li._esc=false;}}
+    }
+  }
+  if(!closed&&hd&&hd.classList.contains('menu-open')){setMenu(false);if(nt)nt.focus();}
+});
+var wideChange=function(){if(wideMq.matches)setMenu(false);};
+if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(wideMq.addListener)wideMq.addListener(wideChange);
+}catch(e){d.classList.remove('js');}});
+})();
+</script>
+</head>
+<body>
+<a class="skip" href="#obsah">Skip to content</a>
+<p class="notice" role="note">Peer support is a complement to professional care. It does not replace psychotherapy or a doctor. <a class="help-link" href="/en/help">I need help now</a> <button type="button" class="calm-toggle js-only" id="calm-toggle" aria-pressed="false">Calm mode</button></p>
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="/en"><svg class="brand-sun" viewBox="-16 -16 32 32" width="28" height="28" aria-hidden="true" focusable="false"><g stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round"><line y1="-10" y2="-14" transform="rotate(0)"/><line y1="-10" y2="-14" transform="rotate(45)"/><line y1="-10" y2="-14" transform="rotate(90)"/><line y1="-10" y2="-14" transform="rotate(135)"/><line y1="-10" y2="-14" transform="rotate(180)"/><line y1="-10" y2="-14" transform="rotate(225)"/><line y1="-10" y2="-14" transform="rotate(270)"/><line y1="-10" y2="-14" transform="rotate(315)"/></g><circle r="6.5" fill="#ffc83d" stroke="#f59e0b" stroke-width="1.5"/></svg><span>OCD mentor</span></a>
+    <div class="bar-actions">
+      <div class="lang-switch" role="group" aria-label="Language / Jazyk"><span class="lang-cur" lang="en" aria-current="true">EN</span><a href="/seminare/rezervace" hreflang="cs" lang="cs" title="Česky"><span aria-hidden="true">CZ</span><span class="sr-only">Česky</span></a></div>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="hlavni-nav"><span class="nav-toggle-icon" aria-hidden="true"></span><span class="nav-toggle-text">Menu</span></button>
+    </div>
+    <nav id="hlavni-nav" aria-label="Main navigation"><ul><li><a href="/en/method">Method</a></li><li><a href="/en/who-its-for">Who it is for</a></li><li><a href="/en/how-it-works">How it works</a></li><li><a href="/en/questionnaire">Questionnaire</a></li><li><a href="/en/app">App</a></li><li class="has-sub has-split is-active">
+          <a href="/en/seminars">Online seminars</a>
+          <button type="button" class="nav-sub-toggle nav-sub-arrow" aria-expanded="false" aria-controls="sub-online-seminare" aria-label="Submenu: Online seminars"></button>
+          <ul class="sub-nav" id="sub-online-seminare"><li><a href="/en/seminars/the-path-with-ocd"><span class="sub-title">The Path with OCD</span><span class="sub-meta">For people with OCD · 5 meetings</span></a></li><li><a href="/en/seminars/for-relatives"><span class="sub-title">When OCD Lives Next to You</span><span class="sub-meta">For relatives · 3 meetings</span></a></li></ul>
+        </li><li><a href="/en/ebook">E-book</a></li><li class="has-sub">
+          <button type="button" class="nav-sub-toggle" aria-expanded="false" aria-controls="sub-o-ocd">About OCD</button>
+          <ul class="sub-nav" id="sub-o-ocd"><li><a href="/en/intrusive-thoughts">Intrusive thoughts</a></li><li><a href="/en/types-of-ocd">Types of OCD</a></li><li><a href="/en/ocd-myths">OCD myths</a></li><li><a href="/en/glossary">Glossary</a></li><li><a href="/en/for-relatives">For relatives</a></li><li><a href="/en/stories">Stories</a></li></ul>
+        </li><li><a href="/en/articles">Articles</a></li><li><a href="/en/about">About me</a></li><li><a href="/en/contact">Contact</a></li></ul></nav>
+  </div>
+</header>
+
+<main id="obsah">
+<div class="wrap crumbs-wrap"><nav class="crumbs" aria-label="Breadcrumb navigation"><ol><li><a href="/en">Home</a></li><li><a href="/en/seminars">Online seminars</a></li><li aria-current="page">Booking</li></ol></nav></div>
+
+<section class="wrap page-head">
+  <h1>Book your place</h1>
+  <p class="lead">Choose a programme and dates and fill in your name, e-mail and phone number. After you submit, you will see a QR code with the payment details.</p>
+</section>
+
+<section class="wrap block reveal">
+  <noscript><p class="callout-inline">The booking form needs JavaScript. Without it, please write to me at <a href="mailto:ocdmentor@gmail.com">ocdmentor@gmail.com</a>.</p></noscript>
+  <form id="rez-form" class="form rez-form" novalidate>
+    <div id="rez-chyby" class="err-summary" role="alert" tabindex="-1" hidden></div>
+
+    <fieldset class="program-choice" aria-describedby="err-program">
+      <legend>Choose a programme</legend>
+      <div class="program-option">
+        <input type="radio" id="program-pro-lidi-s-ocd" name="program" value="pro-lidi-s-ocd" aria-controls="blok-pro-lidi-s-ocd souhlasy-pro-lidi-s-ocd">
+        <label for="program-pro-lidi-s-ocd"><span class="run-name">The Path with OCD: self-acceptance, self-belief and a freer life</span> <span class="program-meta">Individual programme of 5 meetings · 3,590 CZK</span></label>
+      </div>
+      <div class="program-option">
+        <input type="radio" id="program-pro-blizke" name="program" value="pro-blizke" aria-controls="blok-pro-blizke souhlasy-pro-blizke">
+        <label for="program-pro-blizke"><span class="run-name">When OCD Lives Next to You: a guide for relatives</span> <span class="program-meta">Individual programme of 3 meetings · 2,190 CZK</span></label>
+      </div>
+      <p class="field-err" id="err-program" hidden></p>
+    </fieldset>
+
+    <div class="program-blok" id="blok-pro-lidi-s-ocd" data-program="pro-lidi-s-ocd" hidden>
+      <div class="callout-inline disclaimer sem-box" role="note">
+        <p>The seminar is based on my personal life experience and my journey with OCD. It is not professional or medical advice, psychotherapy or a health service, and it does not replace the care of a psychologist, psychotherapist or psychiatrist. I am not a psychologist, psychotherapist or psychiatrist. At the seminar I do not diagnose, treat or advise on medication.</p>
+      </div>
+      <p class="sem-format">5 meetings of 60 minutes, once a week on Thursdays at 18:00 (Prague time), online 1:1. Price: 3,590 CZK for the whole programme. The price is final, I am not a VAT payer.</p>
+      <p class="callout-inline"><strong>What happens next:</strong> After you book and your payment arrives, I will contact you, you do not need to contact me. The one-to-one video call takes place on Google Meet or WhatsApp. <a href="/en/seminars/the-path-with-ocd#spojeni">Details and apps to download</a>.</p>
+      <fieldset class="run-choice" aria-describedby="err-beh-pro-lidi-s-ocd">
+        <legend>Choose dates</legend>
+        <div class="run-option" data-beh="beh-1" data-program="pro-lidi-s-ocd" data-stav="otevreno" data-uzavreni-od="2026-11-29">
+          <input type="radio" id="beh-beh-1" name="beh" value="beh-1" aria-describedby="terminy-beh-1">
+          <label for="beh-beh-1"><span class="run-name">Run 1</span> <span class="badge badge--ok" data-stav-text>Open</span></label>
+          <p id="terminy-beh-1" class="run-dates-text">Thursday 3 December 2026 at 18:00; Thursday 10 December 2026 at 18:00; Thursday 17 December 2026 at 18:00; Thursday 7 January 2027 at 18:00; Thursday 14 January 2027 at 18:00</p>
+        </div>
+        <div class="run-option" data-beh="beh-2" data-program="pro-lidi-s-ocd" data-stav="otevreno" data-uzavreni-od="2027-01-17">
+          <input type="radio" id="beh-beh-2" name="beh" value="beh-2" aria-describedby="terminy-beh-2">
+          <label for="beh-beh-2"><span class="run-name">Run 2</span> <span class="badge badge--ok" data-stav-text>Open</span></label>
+          <p id="terminy-beh-2" class="run-dates-text">Thursday 21 January 2027 at 18:00; Thursday 28 January 2027 at 18:00; Thursday 4 February 2027 at 18:00; Thursday 11 February 2027 at 18:00; Thursday 18 February 2027 at 18:00</p>
+        </div>
+        <p class="field-err" id="err-beh-pro-lidi-s-ocd" hidden></p>
+        <p class="small"><a href="mailto:ocdmentor@gmail.com?subject=Question%20about%20another%20date">None of the dates suit me</a></p>
+      </fieldset>
+    </div>
+
+    <div class="program-blok" id="blok-pro-blizke" data-program="pro-blizke" hidden>
+      <div class="callout-inline disclaimer sem-box" role="note">
+        <p>The seminar is based on my personal experience with OCD and on the perspective of someone who knows OCD from their own life. It is not professional or medical advice, psychotherapy, family therapy or a health service, and it does not replace the care of a psychologist, psychotherapist or psychiatrist. I am not a psychologist, psychotherapist or psychiatrist. At the seminar I do not diagnose, treat or advise on medication.</p>
+      </div>
+      <p class="sem-format">3 meetings of 60 minutes, once a week on Tuesdays at 18:00 (Prague time), online 1:1. One more relative from your household can join the meetings at no extra charge. Price: 2,190 CZK for the whole programme. The price is final, I am not a VAT payer.</p>
+      <p class="callout-inline"><strong>What happens next:</strong> After you book and your payment arrives, I will contact you, you do not need to contact me. The one-to-one video call takes place on Google Meet or WhatsApp. <a href="/en/seminars/for-relatives#spojeni">Details and apps to download</a>.</p>
+      <fieldset class="run-choice" aria-describedby="err-beh-pro-blizke">
+        <legend>Choose dates</legend>
+        <div class="run-option" data-beh="blizke-beh-1" data-program="pro-blizke" data-stav="otevreno" data-uzavreni-od="2026-11-27">
+          <input type="radio" id="beh-blizke-beh-1" name="beh" value="blizke-beh-1" aria-describedby="terminy-blizke-beh-1">
+          <label for="beh-blizke-beh-1"><span class="run-name">Run 1</span> <span class="badge badge--ok" data-stav-text>Open</span></label>
+          <p id="terminy-blizke-beh-1" class="run-dates-text">Tuesday 1 December 2026 at 18:00; Tuesday 8 December 2026 at 18:00; Tuesday 15 December 2026 at 18:00</p>
+        </div>
+        <div class="run-option" data-beh="blizke-beh-2" data-program="pro-blizke" data-stav="otevreno" data-uzavreni-od="2027-01-08">
+          <input type="radio" id="beh-blizke-beh-2" name="beh" value="blizke-beh-2" aria-describedby="terminy-blizke-beh-2">
+          <label for="beh-blizke-beh-2"><span class="run-name">Run 2</span> <span class="badge badge--ok" data-stav-text>Open</span></label>
+          <p id="terminy-blizke-beh-2" class="run-dates-text">Tuesday 12 January 2027 at 18:00; Tuesday 19 January 2027 at 18:00; Tuesday 26 January 2027 at 18:00</p>
+        </div>
+        <p class="field-err" id="err-beh-pro-blizke" hidden></p>
+        <p class="small"><a href="mailto:ocdmentor@gmail.com?subject=Question%20about%20another%20date">None of the dates suit me</a></p>
+      </fieldset>
+    </div>
+
+    <fieldset>
+      <legend>Your details</legend>
+      <div class="field"><label for="rez-jmeno">First name</label><input type="text" id="rez-jmeno" name="jmeno" maxlength="50" autocomplete="given-name" aria-describedby="err-jmeno"><p class="field-err" id="err-jmeno" hidden></p></div>
+      <div class="field"><label for="rez-prijmeni">Last name</label><input type="text" id="rez-prijmeni" name="prijmeni" maxlength="50" autocomplete="family-name" aria-describedby="err-prijmeni"><p class="field-err" id="err-prijmeni" hidden></p></div>
+      <div class="field"><label for="rez-email">E-mail</label><input type="email" id="rez-email" name="email" maxlength="254" autocomplete="email" inputmode="email" aria-describedby="err-email"><p class="field-err" id="err-email" hidden></p></div>
+      <div class="field"><label for="rez-email2">E-mail again</label><input type="email" id="rez-email2" name="email2" maxlength="254" autocomplete="off" inputmode="email" aria-describedby="err-email2"><p class="field-err" id="err-email2" hidden></p></div>
+      <div class="field"><label for="rez-telefon">Phone (for WhatsApp)</label><input type="tel" id="rez-telefon" name="telefon" maxlength="30" autocomplete="tel" inputmode="tel" aria-describedby="hint-telefon err-telefon"><p class="small" id="hint-telefon">Used to reach you on WhatsApp. A number without a country code is taken as Czech (+420); for a foreign number include the country code, for example +44.</p><p class="field-err" id="err-telefon" hidden></p></div>
+      <div class="hp" aria-hidden="true"><label>Leave this field empty <input type="text" name="web" tabindex="-1" autocomplete="off"></label></div>
+    </fieldset>
+
+    <fieldset class="program-souhlasy" id="souhlasy-pro-lidi-s-ocd" data-program="pro-lidi-s-ocd" hidden>
+      <legend>Consents</legend>
+      <div class="field-check">
+        <label class="check"><input type="checkbox" id="rez-souhlas-zpracovani-pro-lidi-s-ocd" name="souhlasZpracovani" aria-describedby="err-souhlasZpracovani-pro-lidi-s-ocd"><span>I consent to the processing of my name, e-mail address and phone number for the purpose of booking, organising the programme and contacting me. I understand that merely taking part in a seminar about OCD may say something about my health, and I consent to the processing of this information too. I can withdraw my consent at any time by e-mail. <a href="/en/privacy">Privacy policy</a>.</span></label>
+        <p class="field-err" id="err-souhlasZpracovani-pro-lidi-s-ocd" hidden></p>
+      </div>
+      <div class="field-check">
+        <label class="check"><input type="checkbox" id="rez-souhlas-povaha-pro-lidi-s-ocd" name="souhlasPovaha" aria-describedby="err-souhlasPovaha-pro-lidi-s-ocd"><span>I understand that the seminar is based on the author's personal experience and is not professional or medical advice, therapy or a health service.</span></label>
+        <p class="field-err" id="err-souhlasPovaha-pro-lidi-s-ocd" hidden></p>
+      </div>
+      <div class="field-check">
+        <label class="check"><input type="checkbox" id="rez-souhlas-podminky-pro-lidi-s-ocd" name="souhlasPodminky" aria-describedby="err-souhlasPodminky-pro-lidi-s-ocd"><span>I agree to the <a href="/en/terms">terms and conditions</a>.</span></label>
+        <p class="field-err" id="err-souhlasPodminky-pro-lidi-s-ocd" hidden></p>
+      </div>
+    </fieldset>
+
+    <fieldset class="program-souhlasy" id="souhlasy-pro-blizke" data-program="pro-blizke" hidden>
+      <legend>Consents</legend>
+      <div class="field-check">
+        <label class="check"><input type="checkbox" id="rez-souhlas-zpracovani-pro-blizke" name="souhlasZpracovani" aria-describedby="err-souhlasZpracovani-pro-blizke"><span>I consent to the processing of my name, e-mail address and phone number for the purpose of booking, organising the programme and contacting me. I understand that merely taking part in a seminar about OCD may say something about the health of the participant or their relative, and I consent to the processing of this information about myself too. I can withdraw my consent at any time by e-mail. <a href="/en/privacy">Privacy policy</a>.</span></label>
+        <p class="field-err" id="err-souhlasZpracovani-pro-blizke" hidden></p>
+      </div>
+      <div class="field-check">
+        <label class="check"><input type="checkbox" id="rez-souhlas-povaha-pro-blizke" name="souhlasPovaha" aria-describedby="err-souhlasPovaha-pro-blizke"><span>I understand that the seminar is based on the author's personal experience and is not professional or medical advice, therapy, family therapy or a health service, and that I will not share identifying details about my relative at the seminar (names, diagnoses, specifics).</span></label>
+        <p class="field-err" id="err-souhlasPovaha-pro-blizke" hidden></p>
+      </div>
+      <div class="field-check">
+        <label class="check"><input type="checkbox" id="rez-souhlas-podminky-pro-blizke" name="souhlasPodminky" aria-describedby="err-souhlasPodminky-pro-blizke"><span>I agree to the <a href="/en/terms">terms and conditions</a>.</span></label>
+        <p class="field-err" id="err-souhlasPodminky-pro-blizke" hidden></p>
+      </div>
+    </fieldset>
+
+    <p class="callout-inline"><strong>Check your spam folder too.</strong> I will send the payment details and dates from info@ocdmentor.cz. The message may end up in spam or in the Promotions or Updates tab. If you cannot find it in your inbox, look there and mark it as "Not spam". You will also see the payment details on the page after you submit the booking.</p>
+
+    <div class="actions"><button type="submit" class="btn btn-cta" id="rez-odeslat">Submit booking</button></div>
+    <p id="rez-stav" class="msg" role="status" aria-live="polite"></p>
+    <p class="small">The details are sent only for the booking. They are not sent in the page address and are not stored in the browser. In an acute crisis call 112 (emergency services) or the Czech psychological first-aid line 116 123 (in Czech).</p>
+  </form>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="foot-notice"><strong>Peer support is a complement to professional care. It does not replace psychotherapy or a doctor.</strong></p>
+    <p class="foot-disclaimer">This is not a health service or psychotherapy. The cooperation does not replace professional care.</p>
+    <p>Acute crisis or thoughts of self-harm: call <strong>112</strong>, <strong>155</strong> or the Czech first psychological help line <strong>116 123</strong>.</p>
+    <ul class="foot-links">
+      <li><a href="/en/terms">Terms and conditions</a></li>
+      <li><a href="/en/privacy">Privacy policy</a></li>
+      <li><a href="/en/contact">Contact</a></li>
+      <li><a href="/en/for-relatives">For relatives</a></li>
+      <li><a href="/en/for-professionals">For professionals</a></li>
+      <li><a href="/en/help">Help now</a></li>
+    </ul>
+    <p class="small">© 2026 OCDmentor.cz All rights reserved. We do not use our own cookies or analytics. The Reservanto booking widget may set its own cookies when opened – see the <a href="/en/privacy">privacy policy</a>.</p>
+    <p class="small">Website by <a href="https://growea.eu" target="_blank" rel="noopener">GROWEA.eu</a></p>
+  </div>
+</footer>
+
+<dialog id="rsv-modal" aria-labelledby="rsv-modal-h" aria-modal="true">
+  <div class="rsv-inner">
+    <h2 id="rsv-modal-h">Start of service and right of withdrawal</h2>
+    <div class="rsv-text">
+      <p>As a consumer you have, under the conditions set by law, the right to withdraw from a contract concluded at a distance within 14 days of its conclusion.</p>
+      <p>If you request that the service be provided before this period expires, you must give an express request for it to start. If you then withdraw from the contract after the service has started at your request, you may be obliged to pay a proportionate part of the price for the performance provided up to the moment of withdrawal, if the statutory conditions are met.</p>
+      <p>If the service is provided in full before the withdrawal period expires, you may, under the conditions set by law, lose the right to withdraw from the contract. This requires your prior express consent to the complete provision of the service and your acknowledgement that you lose the right of withdrawal.</p>
+    </div>
+    <label class="rsv-check">
+      <input type="checkbox" id="rsv-consent"> <span>I expressly request that the provider start providing the service I have booked before the 14-day withdrawal period expires, if the booked date falls within this period. I agree that in that case the service will be provided in full at my request before this period expires, and I acknowledge that once it has been fully provided I may, under the conditions set by law, lose the right to withdraw from the contract. I also acknowledge that if I withdraw from the contract after the service has started, I may be obliged to pay a proportionate part of the price for the performance already provided, if the statutory conditions are met.</span>
+    </label>
+    <div class="rsv-actions">
+      <button type="button" id="rsv-confirm" class="btn btn-cta" disabled>I agree and continue to booking</button>
+      <button type="button" id="rsv-cancel" class="btn btn-ghost">Back</button>
+    </div>
+  </div>
+</dialog>
+<script defer src="/assets/js/rezervace-souhlas.js?v=0bf556f1"></script>
+
+
+<script src="/assets/js/en/seminare.js?v=3ae3e7b0" defer></script>
+<script src="/assets/js/en/rezervace.js?v=a5358176" defer></script>
+
+</body>
+</html>

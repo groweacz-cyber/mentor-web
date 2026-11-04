@@ -126,7 +126,7 @@ export function riskLevel(sf) {
 // Žebříček z posledního dotazníku: od nejslabšího po nejsilnější. Doporučený start má úzkost 4–6.
 export function buildLadder(a) {
   if (!a) return [];
-  const items = a.topics.filter((t) => t.score > 0).map((t) => ({ id: t.id, name: t.name, score: t.score })).sort((x, y) => x.score - y.score || x.name.localeCompare(y.name, 'cs'));
+  const items = a.topics.filter((t) => t.score > 0).map((t) => ({ id: t.id, name: (TOPICS.find((x) => x[0] === t.id) || [])[1] || t.name, score: t.score })).sort((x, y) => x.score - y.score || x.name.localeCompare(y.name, 'cs'));
   return items;
 }
 export function recommendedStart(items, done) {

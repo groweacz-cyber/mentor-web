@@ -215,11 +215,16 @@ p { margin: 0 0 1rem; }
 .btn.placeholder:hover { transform: none; background: #fff3cd; color: #4a3a00; }
 
 .btn-cta {
-  color: #fff; background: linear-gradient(135deg, #2a7f5b, #1f6b46); border-color: #163a41;
-  padding: .75rem 1.7rem; font-size: 1.05rem; box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 0 rgba(91, 191, 138, .6);
-  animation: cta-glow 2.6s ease-in-out infinite;
+  --cta-shine: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .26) 50%, transparent 70%);
+  color: #fff; background-color: #1f6b46; border-color: #163a41;
+  background-image: var(--cta-shine), linear-gradient(135deg, #2a7f5b, #1f6b46);
+  background-size: 250% 100%, 100% 100%; background-repeat: no-repeat; background-position: 160% 0, 0 0;
+  padding: .75rem 1.7rem; font-size: 1.05rem;
+  box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55);
+  animation: cta-halo 9s ease-in-out infinite, cta-shine 5s ease-in-out infinite, cta-breathe 1.8s ease-in-out infinite;
 }
-.btn-cta:hover { color: #fff; box-shadow: 0 16px 30px -10px rgba(31, 107, 70, .7), 0 0 0 0 rgba(91, 191, 138, .6); }
+.btn-cta:nth-of-type(even) { animation-delay: -4.1s, -2.2s, -0.9s; }
+.btn-cta:hover { color: #fff; animation: none; transform: translateY(-2px) scale(1.03); box-shadow: 0 16px 30px -10px rgba(31, 107, 70, .7), 0 0 0 4px rgba(252, 201, 52, .55), 0 0 26px 4px rgba(245, 146, 62, .45); }
 .btn-cta span { margin-left: .3rem; transition: transform .2s ease; }
 .btn-cta:hover span { transform: translateX(3px); }
 .btn-cta.placeholder { color: #4a3a00; background: #fff3cd; border-color: #8a6d00; animation: none; box-shadow: none; }
@@ -247,10 +252,47 @@ p { margin: 0 0 1rem; }
 .reservanto-widget .reservanto-button:hover {
   box-shadow: none !important; transform: translateY(-2px);
 }
-@keyframes cta-glow {
-  0%, 100% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 0 rgba(91, 191, 138, .5); }
-  50% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 9px rgba(91, 191, 138, 0); }
+/* Živé zvýraznění tlačítek s výzvou k akci (konzultace, semináře, rezervace): barvy duhy webu putují kolem tlačítka a přes ně
+   čas od času přejede světelný pruh. Respektuje „Zastavit animace“, klidný režim i systémové snížení pohybu (viz níže). */
+@keyframes cta-halo {
+  0% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 0px rgba(245, 146, 62, .65), 0 0 26px 3px rgba(245, 146, 62, .6); }
+  10% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 12px rgba(245, 146, 62, 0), 0 0 26px 3px rgba(249, 174, 57, .7); }
+  10.01% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 0px rgba(252, 201, 52, 0), 0 0 26px 3px rgba(249, 174, 57, .7); }
+  20% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 0px rgba(252, 201, 52, .65), 0 0 26px 3px rgba(252, 201, 52, .6); }
+  30% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 12px rgba(252, 201, 52, 0), 0 0 26px 3px rgba(172, 196, 95, .7); }
+  30.009999999999998% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 0px rgba(91, 191, 138, 0), 0 0 26px 3px rgba(172, 196, 95, .7); }
+  40% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 0px rgba(91, 191, 138, .65), 0 0 26px 3px rgba(91, 191, 138, .6); }
+  50% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 12px rgba(91, 191, 138, 0), 0 0 26px 3px rgba(83, 177, 181, .7); }
+  50.01% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 0px rgba(74, 163, 223, 0), 0 0 26px 3px rgba(83, 177, 181, .7); }
+  60% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 0px rgba(74, 163, 223, .65), 0 0 26px 3px rgba(74, 163, 223, .6); }
+  70% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 12px rgba(74, 163, 223, 0), 0 0 26px 3px rgba(114, 137, 216, .7); }
+  70.01% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 0px rgba(154, 111, 208, 0), 0 0 26px 3px rgba(114, 137, 216, .7); }
+  80% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 0px rgba(154, 111, 208, .65), 0 0 26px 3px rgba(154, 111, 208, .6); }
+  90% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 12px rgba(154, 111, 208, 0), 0 0 26px 3px rgba(200, 129, 135, .7); }
+  90.01% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 0px rgba(245, 146, 62, 0), 0 0 26px 3px rgba(200, 129, 135, .7); }
+  100% { box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55), 0 0 0 0px rgba(245, 146, 62, .65), 0 0 26px 3px rgba(245, 146, 62, .6); }
 }
+@keyframes cta-breathe {
+  0%, 50%, 100% { transform: scale(1); }
+  25% { transform: scale(1.035); }
+}
+@keyframes cta-shine {
+  0%, 45% { background-position: 160% 0, 0 0; }
+  80%, 100% { background-position: -60% 0, 0 0; }
+}
+@keyframes cta-shine-only {
+  0%, 45% { background-position: 160% 0; }
+  80%, 100% { background-position: -60% 0; }
+}
+/* Tlačítko Reservanto: prstenec se kreslí na obalu, světelný pruh přes tlačítko samotné (barvu pozadí nastavuje widget) */
+.reservanto-widget { border-radius: 999px; box-shadow: 0 10px 24px -8px rgba(31, 107, 70, .55); animation: cta-halo 9s ease-in-out infinite, cta-breathe 1.8s ease-in-out infinite; }
+.reservanto-widget:hover { animation: none; transform: scale(1.02); box-shadow: 0 16px 30px -10px rgba(31, 107, 70, .7), 0 0 0 4px rgba(252, 201, 52, .55), 0 0 26px 4px rgba(245, 146, 62, .45); }
+.reservanto-widget .reservanto-button {
+  background-image: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .26) 50%, transparent 70%);
+  background-size: 250% 100%; background-repeat: no-repeat; background-position: 160% 0;
+  animation: cta-shine-only 5s ease-in-out infinite;
+}
+.reservanto-widget:hover .reservanto-button { animation: none; }
 
 /* ===== Karty, pilíře, smyčka ===== */
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.1rem; margin: 1.2rem 0; }
@@ -724,7 +766,7 @@ html.calm *, html.calm *::before, html.calm *::after { animation: none !importan
 html.calm .reveal, html.calm .js .reveal { opacity: 1 !important; transform: none !important; }
 html.calm img, html.calm video, html.calm .brand-sun, html.calm .scene { filter: saturate(.55); }
 html.calm .site-header::after, html.calm .site-footer::before, html.calm .card::before, html.calm .callout::before, html.calm .hl, html.calm .loop-line { filter: saturate(.35); }
-html.calm .btn { box-shadow: none; }
+html.calm .btn, html.calm .reservanto-widget { box-shadow: none; }
 html.calm .btn-cta { background: #4a6a5c; background-image: none; border-color: #2e473c; }
 html.calm .motion-toggle { display: none; }
 
@@ -887,3 +929,9 @@ html:not(.js) .nav-sub-arrow { display: none; }
   .js .has-split.is-active > a, .js .has-split.is-active > .nav-sub-toggle { background: transparent; color: var(--ink); }
   .js .has-split.is-active > a { background: var(--ink); color: #fff; }
 }
+
+/* Tlačítka s výzvou k akci (konzultace, semináře, rezervace) se hýbou vždy, i v klidném režimu a při „Zastavit animace“. */
+.btn-cta:not(:disabled):not(:hover) { animation: cta-halo 9s ease-in-out infinite, cta-shine 5s ease-in-out infinite, cta-breathe 1.8s ease-in-out infinite !important; }
+.btn-cta:not(:disabled):not(:hover):nth-of-type(even) { animation: cta-halo 9s ease-in-out -4.1s infinite, cta-shine 5s ease-in-out -2.2s infinite, cta-breathe 1.8s ease-in-out -.9s infinite !important; }
+.reservanto-widget:not(:hover) { animation: cta-halo 9s ease-in-out infinite, cta-breathe 1.8s ease-in-out infinite !important; }
+.reservanto-widget:not(:hover) .reservanto-button { animation: cta-shine-only 5s ease-in-out infinite !important; }

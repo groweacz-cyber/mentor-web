@@ -1518,9 +1518,10 @@ add('/o-mne', {
     <img src="/assets/img/certifikat-ocd-alison.webp" width="535" height="370" alt="Certifikát Alison.com – Understanding Obsessive-Compulsive Disorder (OCD), Bc. Václav Kodeš, 21. října 2026" loading="lazy">
   </a>
   <ul>
-    <li><strong>Understanding Obsessive-Compulsive Disorder (OCD)</strong> (Porozumění obsedantně-kompulzivní poruše) – Alison.com, říjen 2026. <a href="https://alison.com/verify/beeebe5a83" target="_blank" rel="noopener">Ověřit certifikát</a>.</li>
-    <li><strong>Overcoming OCD: Diagnosis, Treatment Options</strong> (Překonání OCD: diagnostika, možnosti léčby)</li>
-    <li><strong>Cognitive Behavioural Therapy for Anxiety</strong> (Kognitivně-behaviorální terapie úzkosti)</li>
+    <li>Certifikát: <strong>Understanding Obsessive-Compulsive Disorder (OCD)</strong> (Porozumění obsedantně-kompulzivní poruše) – Alison.com, říjen 2026. <a href="https://alison.com/verify/beeebe5a83" target="_blank" rel="noopener">Ověřit certifikát</a>.</li>
+    <li>Certifikát: <strong>Overcoming OCD: Diagnosis, Treatment Options</strong> (Překonání OCD: diagnostika, možnosti léčby)</li>
+    <li>Certifikát: <strong>Cognitive Behavioural Therapy for Anxiety</strong> (Kognitivně-behaviorální terapie úzkosti)</li>
+    <li><strong>Diploma in Psychology of Everyday Life</strong> (Diplom z psychologie každodenního života)</li>
   </ul>
   <!-- [DALŠÍ KURZY A CERTIFIKÁTY: název, organizace, rok, odkaz na ověření; doplní autor] -->
   <p class="small disclaimer">Nenahrazuje vzdělání psychiatra, psychologa ani psychoterapeuta.</p>

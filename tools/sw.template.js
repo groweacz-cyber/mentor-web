@@ -5,14 +5,19 @@ var VERSION = '__VERSION__';
 var CACHE = 'ocdmentor-' + VERSION;
 var OFFLINE = '/offline';
 var OFFLINE_EN = '/en/offline';
+var OFFLINE_SK = '/sk/offline';
 
-// Při výpadku sítě se anglickým stránkám (/en/…) ukáže anglická offline stránka, ostatním česká.
-function offlineFor(pathname) { return pathname === '/en' || pathname.indexOf('/en/') === 0 ? OFFLINE_EN : OFFLINE; }
+// Při výpadku sítě se anglickým stránkám (/en/…) ukáže anglická offline stránka, slovenským (/sk/…) slovenská, ostatním česká.
+function offlineFor(pathname) {
+  if (pathname === '/en' || pathname.indexOf('/en/') === 0) return OFFLINE_EN;
+  if (pathname === '/sk' || pathname.indexOf('/sk/') === 0) return OFFLINE_SK;
+  return OFFLINE;
+}
 
 self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(CACHE).then(function (cache) {
-      return cache.addAll([OFFLINE, OFFLINE_EN, '/assets/img/favicon.svg']);
+      return cache.addAll([OFFLINE, OFFLINE_EN, OFFLINE_SK, '/assets/img/favicon.svg']);
     }).then(function () { return self.skipWaiting(); })
   );
 });

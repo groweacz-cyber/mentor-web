@@ -3,377 +3,706 @@
   <url><loc>https://ocdmentor.cz/</loc><lastmod>2026-10-29</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk"/>
   </url>
   <url><loc>https://ocdmentor.cz/en</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk"/>
   </url>
   <url><loc>https://ocdmentor.cz/metoda</loc><lastmod>2026-10-28</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/metoda"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/method"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/metoda"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/method</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/metoda"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/method"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/metoda"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/metoda</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/metoda"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/method"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/metoda"/>
   </url>
   <url><loc>https://ocdmentor.cz/pro-koho</loc><lastmod>2026-10-28</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/pro-koho"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/who-its-for"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/pre-koho"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/who-its-for</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/pro-koho"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/who-its-for"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/pre-koho"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/pre-koho</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/pro-koho"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/who-its-for"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/pre-koho"/>
   </url>
   <url><loc>https://ocdmentor.cz/dotaznik</loc><lastmod>2026-10-28</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/dotaznik"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/questionnaire"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/dotaznik"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/questionnaire</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/dotaznik"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/questionnaire"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/dotaznik"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/dotaznik</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/dotaznik"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/questionnaire"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/dotaznik"/>
   </url>
   <url><loc>https://ocdmentor.cz/ebook</loc><lastmod>2026-10-28</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/ebook"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/ebook"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/ebook"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/ebook</loc><lastmod>2026-11-04</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/ebook"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/ebook"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/ebook"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/ebook</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/ebook"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/ebook"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/ebook"/>
   </url>
   <url><loc>https://ocdmentor.cz/seminare</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/seminare"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/seminars"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/seminare"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/seminars</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/seminare"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/seminars"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/seminare"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/seminare</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/seminare"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/seminars"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/seminare"/>
   </url>
   <url><loc>https://ocdmentor.cz/seminare/cesta-s-ocd</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/seminare/cesta-s-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/seminars/the-path-with-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/seminare/cesta-s-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/seminars/the-path-with-ocd</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/seminare/cesta-s-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/seminars/the-path-with-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/seminare/cesta-s-ocd"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/seminare/cesta-s-ocd</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/seminare/cesta-s-ocd"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/seminars/the-path-with-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/seminare/cesta-s-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/seminare/pro-blizke</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/seminare/pro-blizke"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/seminars/for-relatives"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/seminare/pre-blizkych"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/seminars/for-relatives</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/seminare/pro-blizke"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/seminars/for-relatives"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/seminare/pre-blizkych"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/seminare/pre-blizkych</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/seminare/pro-blizke"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/seminars/for-relatives"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/seminare/pre-blizkych"/>
   </url>
   <url><loc>https://ocdmentor.cz/seminare/rezervace</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/seminare/rezervace"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/seminars/booking"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/seminare/rezervacia"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/seminars/booking</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/seminare/rezervace"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/seminars/booking"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/seminare/rezervacia"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/seminare/rezervacia</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/seminare/rezervace"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/seminars/booking"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/seminare/rezervacia"/>
   </url>
   <url><loc>https://ocdmentor.cz/kviz</loc><lastmod>2026-10-28</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/kviz"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/quiz"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/kviz"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/quiz</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/kviz"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/quiz"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/kviz"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/kviz</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/kviz"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/quiz"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/kviz"/>
   </url>
   <url><loc>https://ocdmentor.cz/jak-to-probiha</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/jak-to-probiha"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/how-it-works"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/ako-to-prebieha"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/how-it-works</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/jak-to-probiha"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/how-it-works"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/ako-to-prebieha"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/ako-to-prebieha</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/jak-to-probiha"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/how-it-works"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/ako-to-prebieha"/>
   </url>
   <url><loc>https://ocdmentor.cz/o-mne</loc><lastmod>2026-11-05</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/o-mne"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/about"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/o-mne"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/about</loc><lastmod>2026-11-05</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/o-mne"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/about"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/o-mne"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/o-mne</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/o-mne"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/about"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/o-mne"/>
   </url>
   <url><loc>https://ocdmentor.cz/clanky</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/clanky"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/articles"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/clanky"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/articles</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/clanky"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/articles"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/clanky"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/clanky</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/clanky"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/articles"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/clanky"/>
   </url>
   <url><loc>https://ocdmentor.cz/clanky/druhy-ocd-9-typu</loc><lastmod>2026-10-25</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/clanky/druhy-ocd-9-typu"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/articles/nine-types-of-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/clanky/druhy-ocd-9-typov"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/articles/nine-types-of-ocd</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/clanky/druhy-ocd-9-typu"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/articles/nine-types-of-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/clanky/druhy-ocd-9-typov"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/clanky/druhy-ocd-9-typov</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/clanky/druhy-ocd-9-typu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/articles/nine-types-of-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/clanky/druhy-ocd-9-typov"/>
   </url>
   <url><loc>https://ocdmentor.cz/clanky/proc-ujisteni-krmi-ocd</loc><lastmod>2026-10-25</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/clanky/proc-ujisteni-krmi-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/articles/why-reassurance-feeds-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/clanky/preco-uistovanie-zivi-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/articles/why-reassurance-feeds-ocd</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/clanky/proc-ujisteni-krmi-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/articles/why-reassurance-feeds-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/clanky/preco-uistovanie-zivi-ocd"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/clanky/preco-uistovanie-zivi-ocd</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/clanky/proc-ujisteni-krmi-ocd"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/articles/why-reassurance-feeds-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/clanky/preco-uistovanie-zivi-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/clanky/proc-nutkani-prichazi-ve-vlnach</loc><lastmod>2026-10-25</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/clanky/proc-nutkani-prichazi-ve-vlnach"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/articles/why-urges-come-in-waves"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/clanky/preco-nutkanie-prichadza-vo-vlnach"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/articles/why-urges-come-in-waves</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/clanky/proc-nutkani-prichazi-ve-vlnach"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/articles/why-urges-come-in-waves"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/clanky/preco-nutkanie-prichadza-vo-vlnach"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/clanky/preco-nutkanie-prichadza-vo-vlnach</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/clanky/proc-nutkani-prichazi-ve-vlnach"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/articles/why-urges-come-in-waves"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/clanky/preco-nutkanie-prichadza-vo-vlnach"/>
   </url>
   <url><loc>https://ocdmentor.cz/clanky/kompulze-a-prijeti</loc><lastmod>2026-10-25</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/clanky/kompulze-a-prijeti"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/articles/compulsions-and-acceptance"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/clanky/kompulzie-a-prijatie"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/articles/compulsions-and-acceptance</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/clanky/kompulze-a-prijeti"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/articles/compulsions-and-acceptance"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/clanky/kompulzie-a-prijatie"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/clanky/kompulzie-a-prijatie</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/clanky/kompulze-a-prijeti"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/articles/compulsions-and-acceptance"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/clanky/kompulzie-a-prijatie"/>
   </url>
   <url><loc>https://ocdmentor.cz/kontakt</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/kontakt"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/kontakt"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/contact</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/kontakt"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/kontakt"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/kontakt</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/kontakt"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/kontakt"/>
   </url>
   <url><loc>https://ocdmentor.cz/ochrana-osobnich-udaju</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/ochrana-osobnich-udaju"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/ochrana-osobnych-udajov"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/privacy</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/ochrana-osobnich-udaju"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/ochrana-osobnych-udajov"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/ochrana-osobnych-udajov</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/ochrana-osobnich-udaju"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/ochrana-osobnych-udajov"/>
   </url>
   <url><loc>https://ocdmentor.cz/obchodni-podminky</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/obchodni-podminky"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/obchodne-podmienky"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/terms</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/obchodni-podminky"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/obchodne-podmienky"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/obchodne-podmienky</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/obchodni-podminky"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/obchodne-podmienky"/>
   </url>
   <url><loc>https://ocdmentor.cz/vtirave-myslenky</loc><lastmod>2026-10-28</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/vtirave-myslenky"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/intrusive-thoughts"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/vtierave-myslienky"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/intrusive-thoughts</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/vtirave-myslenky"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/intrusive-thoughts"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/vtierave-myslienky"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/vtierave-myslienky</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/vtirave-myslenky"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/intrusive-thoughts"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/vtierave-myslienky"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/zdravotni-ocd</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/zdravotni-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/health-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/zdravotne-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/health-ocd</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/zdravotni-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/health-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/zdravotne-ocd"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/zdravotne-ocd</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/zdravotni-ocd"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/health-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/zdravotne-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/kontrolovani</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/kontrolovani"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/checking-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/kontrolovanie"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/checking-ocd</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/kontrolovani"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/checking-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/kontrolovanie"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/kontrolovanie</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/kontrolovani"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/checking-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/kontrolovanie"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/vztahove-ocd</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/vztahove-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/relationship-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/vztahove-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/relationship-ocd</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/vztahove-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/relationship-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/vztahove-ocd"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/vztahove-ocd</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/vztahove-ocd"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/relationship-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/vztahove-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/kontaminace</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/kontaminace"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/contamination-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/kontaminacia"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/contamination-ocd</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/kontaminace"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/contamination-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/kontaminacia"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/kontaminacia</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/kontaminace"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/contamination-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/kontaminacia"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/symetrie-just-right</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/symetrie-just-right"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/symmetry-just-right-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/symetria-just-right"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/symmetry-just-right-ocd</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/symetrie-just-right"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/symmetry-just-right-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/symetria-just-right"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/symetria-just-right</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/symetrie-just-right"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/symmetry-just-right-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/symetria-just-right"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/agresivni-vtirave-myslenky</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/agresivni-vtirave-myslenky"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/aggressive-intrusive-thoughts"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/agresivne-vtierave-myslienky"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/aggressive-intrusive-thoughts</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/agresivni-vtirave-myslenky"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/aggressive-intrusive-thoughts"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/agresivne-vtierave-myslienky"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/agresivne-vtierave-myslienky</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/agresivni-vtirave-myslenky"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/aggressive-intrusive-thoughts"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/agresivne-vtierave-myslienky"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/sexualni-vtirave-myslenky</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/sexualni-vtirave-myslenky"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/sexual-intrusive-thoughts"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/sexualne-vtierave-myslienky"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/sexual-intrusive-thoughts</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/sexualni-vtirave-myslenky"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/sexual-intrusive-thoughts"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/sexualne-vtierave-myslienky"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/sexualne-vtierave-myslienky</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/sexualni-vtirave-myslenky"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/sexual-intrusive-thoughts"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/sexualne-vtierave-myslienky"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/skrupulozita</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/skrupulozita"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/scrupulosity"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/skrupuloznost"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/scrupulosity</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/skrupulozita"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/scrupulosity"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/skrupuloznost"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/skrupuloznost</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/skrupulozita"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/scrupulosity"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/skrupuloznost"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/pure-o</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/pure-o"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/pure-o"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/pure-o"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/pure-o</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/pure-o"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/pure-o"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/pure-o"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/pure-o</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/pure-o"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/pure-o"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/pure-o"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/senzomotoricke-ocd</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/senzomotoricke-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/sensorimotor-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/senzomotoricke-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/sensorimotor-ocd</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/senzomotoricke-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/sensorimotor-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/senzomotoricke-ocd"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/senzomotoricke-ocd</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/senzomotoricke-ocd"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/sensorimotor-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/senzomotoricke-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/existencialni-ocd</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/existencialni-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/existential-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/existencialne-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/existential-ocd</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/existencialni-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/existential-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/existencialne-ocd"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/existencialne-ocd</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/existencialni-ocd"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/existential-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/existencialne-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/magicke-mysleni</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/magicke-mysleni"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/magical-thinking"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/magicke-myslenie"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/magical-thinking</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/magicke-mysleni"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/magical-thinking"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/magicke-myslenie"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/magicke-myslenie</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/magicke-mysleni"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/magical-thinking"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/magicke-myslenie"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/hyperzodpovednost</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/hyperzodpovednost"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/hyper-responsibility"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/hyperzodpovednost"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/hyper-responsibility</loc><lastmod>2026-11-04</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/hyperzodpovednost"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/hyper-responsibility"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/hyperzodpovednost"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/hyperzodpovednost</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/hyperzodpovednost"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/hyper-responsibility"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/hyperzodpovednost"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/real-event-ocd</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/real-event-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/real-event-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/real-event-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/real-event-ocd</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/real-event-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/real-event-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/real-event-ocd"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/real-event-ocd</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/real-event-ocd"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/real-event-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/real-event-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/emetofobni-ocd</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/emetofobni-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/emetophobia-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/emetofobne-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/emetophobia-ocd</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/emetofobni-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/emetophobia-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/emetofobne-ocd"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/emetofobne-ocd</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/emetofobni-ocd"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/emetophobia-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/emetofobne-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/perfekcionisticke-ocd</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/perfekcionisticke-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/perfectionism-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/perfekcionisticke-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/perfectionism-ocd</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/perfekcionisticke-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/perfectionism-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/perfekcionisticke-ocd"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/perfekcionisticke-ocd</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/perfekcionisticke-ocd"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/perfectionism-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/perfekcionisticke-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/zpovedni-ocd</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/zpovedni-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/confession-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/spovedne-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/confession-ocd</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/zpovedni-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/confession-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/spovedne-ocd"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/spovedne-ocd</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/zpovedni-ocd"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/confession-ocd"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/spovedne-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/typy-ocd/strach-ze-zesileni</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/strach-ze-zesileni"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/fear-of-going-mad"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/strach-zo-sialenstva"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/types-of-ocd/fear-of-going-mad</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/strach-ze-zesileni"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/fear-of-going-mad"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/strach-zo-sialenstva"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/typy-ocd/strach-zo-sialenstva</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/typy-ocd/strach-ze-zesileni"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/types-of-ocd/fear-of-going-mad"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/typy-ocd/strach-zo-sialenstva"/>
   </url>
   <url><loc>https://ocdmentor.cz/pro-blizke</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/pro-blizke"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/for-relatives"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/pre-blizkych"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/for-relatives</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/pro-blizke"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/for-relatives"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/pre-blizkych"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/pre-blizkych</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/pro-blizke"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/for-relatives"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/pre-blizkych"/>
   </url>
   <url><loc>https://ocdmentor.cz/myty-o-ocd</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/myty-o-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/ocd-myths"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/myty-o-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/ocd-myths</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/myty-o-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/ocd-myths"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/myty-o-ocd"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/myty-o-ocd</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/myty-o-ocd"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/ocd-myths"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/myty-o-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/slovnicek</loc><lastmod>2026-10-28</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/slovnicek"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/glossary"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/slovnicek"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/glossary</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/slovnicek"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/glossary"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/slovnicek"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/slovnicek</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/slovnicek"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/glossary"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/slovnicek"/>
   </url>
   <url><loc>https://ocdmentor.cz/pribehy</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/pribehy"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/stories"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/pribehy"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/stories</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/pribehy"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/stories"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/pribehy"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/pribehy</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/pribehy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/stories"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/pribehy"/>
   </url>
   <url><loc>https://ocdmentor.cz/pro-terapeuty</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/pro-terapeuty"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/for-professionals"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/pre-terapeutov"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/for-professionals</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/pro-terapeuty"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/for-professionals"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/pre-terapeutov"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/pre-terapeutov</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/pro-terapeuty"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/for-professionals"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/pre-terapeutov"/>
   </url>
   <url><loc>https://ocdmentor.cz/pomoc</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/pomoc"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/help"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/pomoc"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/help</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/pomoc"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/help"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/pomoc"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/pomoc</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/pomoc"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/help"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/pomoc"/>
   </url>
   <url><loc>https://ocdmentor.cz/kolik-casu-mi-bere-ocd</loc><lastmod>2026-10-23</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/kolik-casu-mi-bere-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/how-much-time-does-ocd-take"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/kolko-casu-mi-berie-ocd"/>
   </url>
   <url><loc>https://ocdmentor.cz/en/how-much-time-does-ocd-take</loc><lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/kolik-casu-mi-bere-ocd"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/how-much-time-does-ocd-take"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/kolko-casu-mi-berie-ocd"/>
+  </url>
+  <url><loc>https://ocdmentor.cz/sk/kolko-casu-mi-berie-ocd</loc><lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://ocdmentor.cz/kolik-casu-mi-bere-ocd"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ocdmentor.cz/en/how-much-time-does-ocd-take"/>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://ocdmentor.cz/sk/kolko-casu-mi-berie-ocd"/>
   </url>
 </urlset>

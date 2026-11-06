@@ -46,6 +46,11 @@ export const formatEn = (iso) => {
 export const dlouhyEn = (iso, cas) => `${nazevDneEn(iso)} ${formatEn(iso)}${cas ? ` at ${cas}` : ''}`;
 export const denSPredlozkouEn = (den) => `on ${DEN_EN[den] || den}s`;
 export const mesiceEn = MESICE_EN;
+
+// Slovenské tvary pro slovenskou verzi webu a e-maily.
+const NAZVY_DNU_SK = ['nedeľa', 'pondelok', 'utorok', 'streda', 'štvrtok', 'piatok', 'sobota'];
+export const nazevDneSk = (iso) => NAZVY_DNU_SK[denVTydnu(iso)];
+export const dlouhySk = (iso, cas) => `${nazevDneSk(iso)} ${formatCz(iso)}${cas ? ` o ${cas}` : ''}`;
 // Podle jazyka ('cs' nebo 'en').
 export const formatDatumJ = (iso, jaz) => (jaz === 'en' ? formatEn(iso) : formatCz(iso));
 export const dlouhyDatumJ = (iso, cas, jaz) => (jaz === 'en' ? dlouhyEn(iso, cas) : dlouhyCz(iso, cas));

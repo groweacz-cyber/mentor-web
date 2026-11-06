@@ -111,12 +111,12 @@ export function createJsTranslator({ dictPairs, ignore = [], htmlPairs = [] }) {
 
 // Sestaví anglické kopie všech skriptů do assets/js/en/. Moduly aplikace (assets/js/app) se kopírují vždy celé, protože se importují
 // relativními cestami; ostatní skripty jen tehdy, když se překladem změnily. Vrací množinu zdrojových adres (/assets/js/…), které mají anglickou kopii.
-export async function sestavAnglickeSkripty({ out, dictPairs, ignore = [], htmlPairs = [] }) {
+export async function sestavAnglickeSkripty({ out, dictPairs, ignore = [], htmlPairs = [], kod = 'en' }) {
   const { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, rmSync } = await import('node:fs');
   const { join } = await import('node:path');
   const tr = createJsTranslator({ dictPairs, ignore, htmlPairs });
   const koren = join(out, 'assets/js');
-  const cil = join(koren, 'en');
+  const cil = join(koren, kod);
   const zdroje = [];
   for (const f of readdirSync(koren)) if (f.endsWith('.js')) zdroje.push([f, false]);
   for (const f of readdirSync(join(koren, 'app'))) if (f.endsWith('.js')) zdroje.push([`app/${f}`, true]);

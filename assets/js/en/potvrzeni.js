@@ -11,10 +11,12 @@
   if (!d || d.ok !== true || !/^[1-9]\d{9}$/.test(String(d.vs)) || typeof d.spd !== 'string' || d.spd.indexOf('SPD*1.0*') !== 0 || !d.terminy || !d.terminy.length) return;
 
   var EN = document.documentElement.lang === 'en';
+  var SK = document.documentElement.lang === 'sk';
   var DNY = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   function cz(iso) {
     var p = iso.split('-');
     if (EN) return new Date(Date.UTC(+p[0], +p[1] - 1, +p[2])).toLocaleDateString('en-GB', { timeZone: 'UTC', day: 'numeric', month: 'long', year: 'numeric' });
+    if (SK) return new Date(Date.UTC(+p[0], +p[1] - 1, +p[2])).toLocaleDateString('sk-SK', { timeZone: 'UTC', day: 'numeric', month: 'long', year: 'numeric' });
     return Number(p[2]) + '. ' + Number(p[1]) + '. ' + p[0];
   }
   function den(iso) { var p = iso.split('-'); return DNY[new Date(Date.UTC(+p[0], +p[1] - 1, +p[2])).getUTCDay()]; }

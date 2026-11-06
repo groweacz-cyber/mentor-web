@@ -63,22 +63,22 @@ for (const [url, p] of Object.entries(pages)) {
   const name = url;
   const title = p.title ? decode(p.title) : '';
   const desc = p.desc ? decode(p.desc) : '';
-  const en = url === '/en' || url.startsWith('/en/'); // anglické texty jsou o pětinu delší, limity jsou mírnější
-  const maxTitle = en ? 72 : 60;
-  const [minDesc, maxDesc] = en ? [120, 200] : [120, 160];
+  const jaz = url === '/en' || url.startsWith('/en/') ? 'en' : url === '/sk' || url.startsWith('/sk/') ? 'sk' : 'cs'; // anglické a slovenské texty jsou delší, limity jsou mírnější
+  const maxTitle = { cs: 60, en: 72, sk: 68 }[jaz];
+  const [minDesc, maxDesc] = { cs: [120, 160], en: [120, 200], sk: [120, 180] }[jaz];
   if (!title) warn(name, 'chybí <title>');
   else {
     if (title.length > maxTitle) warn(name, `title má ${title.length} znaků (cíl do ${maxTitle}): "${title}"`);
     if (!/ \| ocdmentor\.cz$/.test(title) && url !== '/') warn(name, `title nemá formát „Téma | ocdmentor.cz“: "${title}"`);
-    (titleSeen[title] ||= []).push(name);
+    (titleSeen[jaz + ':' + title] ||= []).push(name);
   }
   if (!desc) warn(name, 'chybí meta description');
   else if (!p.noindex) {
     if (desc.length < minDesc || desc.length > maxDesc) warn(name, `description má ${desc.length} znaků (cíl ${minDesc}–${maxDesc})`);
-    (descSeen[desc] ||= []).push(name);
+    (descSeen[jaz + ':' + desc] ||= []).push(name);
   }
   if (p.h1.length !== 1) warn(name, `počet H1: ${p.h1.length}`);
-  if (p.lang !== (en ? 'en' : 'cs')) warn(name, `chybí lang="${en ? 'en' : 'cs'}"`);
+  if (p.lang !== jaz) warn(name, `chybí lang="${jaz}"`);
   if (!p.noindex) {
     if (!p.canonical) warn(name, 'chybí canonical');
     else if (p.canonical !== SITE + (url === '/' ? '/' : url)) warn(name, `canonical nesedí: ${p.canonical}`);
@@ -91,7 +91,7 @@ for (const [url, p] of Object.entries(pages)) {
     try {
       const j = JSON.parse(m[1]);
       const types = (j['@graph'] || [j]).map((n) => n['@type']);
-      if (!p.noindex && url !== '/' && url !== '/en' && !types.includes('BreadcrumbList')) warn(name, 'JSON-LD bez BreadcrumbList');
+      if (!p.noindex && url !== '/' && url !== '/en' && url !== '/sk' && !types.includes('BreadcrumbList')) warn(name, 'JSON-LD bez BreadcrumbList');
       if (types.some((t) => /Medical|Physician|AggregateRating|Review/.test(String(t)))) warn(name, 'JSON-LD obsahuje zakázaný typ: ' + types.join(','));
     } catch (e) {
       warn(name, 'JSON-LD není validní JSON: ' + e.message);

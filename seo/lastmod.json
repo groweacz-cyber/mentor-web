@@ -374,5 +374,193 @@
   "/en/types-of-ocd/fear-of-going-mad": {
     "hash": "9a97f16dfca0",
     "date": "2026-10-23"
+  },
+  "/sk": {
+    "hash": "45f31990d8cd",
+    "date": "2026-11-05"
+  },
+  "/sk/metoda": {
+    "hash": "2cdb13f8b5ba",
+    "date": "2026-11-05"
+  },
+  "/sk/pre-koho": {
+    "hash": "fae6e3b3ae83",
+    "date": "2026-11-05"
+  },
+  "/sk/dotaznik": {
+    "hash": "8c24a4167500",
+    "date": "2026-11-05"
+  },
+  "/sk/ebook": {
+    "hash": "256a6d6373a9",
+    "date": "2026-11-05"
+  },
+  "/sk/seminare": {
+    "hash": "300aad21847f",
+    "date": "2026-11-05"
+  },
+  "/sk/seminare/cesta-s-ocd": {
+    "hash": "ab01728dd51a",
+    "date": "2026-11-05"
+  },
+  "/sk/seminare/pre-blizkych": {
+    "hash": "06f11f003f06",
+    "date": "2026-11-05"
+  },
+  "/sk/seminare/rezervacia": {
+    "hash": "905fbdd437d3",
+    "date": "2026-11-05"
+  },
+  "/sk/kviz": {
+    "hash": "23393aa54d81",
+    "date": "2026-11-05"
+  },
+  "/sk/ako-to-prebieha": {
+    "hash": "d310bba9c38f",
+    "date": "2026-11-05"
+  },
+  "/sk/o-mne": {
+    "hash": "11646155f0aa",
+    "date": "2026-11-05"
+  },
+  "/sk/clanky": {
+    "hash": "53f99f7dea06",
+    "date": "2026-11-05"
+  },
+  "/sk/clanky/druhy-ocd-9-typov": {
+    "hash": "d6c01b173709",
+    "date": "2026-11-05"
+  },
+  "/sk/clanky/preco-uistovanie-zivi-ocd": {
+    "hash": "e7c675838c71",
+    "date": "2026-11-05"
+  },
+  "/sk/clanky/preco-nutkanie-prichadza-vo-vlnach": {
+    "hash": "650cda6871f2",
+    "date": "2026-11-05"
+  },
+  "/sk/clanky/kompulzie-a-prijatie": {
+    "hash": "9e7b4ccdc8dd",
+    "date": "2026-11-05"
+  },
+  "/sk/kontakt": {
+    "hash": "7f9779c72e10",
+    "date": "2026-11-05"
+  },
+  "/sk/ochrana-osobnych-udajov": {
+    "hash": "86f6b5ad2a44",
+    "date": "2026-11-05"
+  },
+  "/sk/obchodne-podmienky": {
+    "hash": "2294e3f9df69",
+    "date": "2026-11-05"
+  },
+  "/sk/vtierave-myslienky": {
+    "hash": "40adb0151a70",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd": {
+    "hash": "389467d2db04",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/zdravotne-ocd": {
+    "hash": "809d35bd25ef",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/kontrolovanie": {
+    "hash": "792baec601e6",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/vztahove-ocd": {
+    "hash": "3be0ee71c47e",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/kontaminacia": {
+    "hash": "6bb3752a8f90",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/symetria-just-right": {
+    "hash": "7266032022ca",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/agresivne-vtierave-myslienky": {
+    "hash": "37e92ef207ac",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/sexualne-vtierave-myslienky": {
+    "hash": "85e1bf70bbb6",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/skrupuloznost": {
+    "hash": "405f857b96c6",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/pure-o": {
+    "hash": "dbc3c715d6b6",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/senzomotoricke-ocd": {
+    "hash": "550e4ec737db",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/existencialne-ocd": {
+    "hash": "edfa69a72915",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/magicke-myslenie": {
+    "hash": "51722cbb1aef",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/hyperzodpovednost": {
+    "hash": "be13c97e8629",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/real-event-ocd": {
+    "hash": "d5b544c12867",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/emetofobne-ocd": {
+    "hash": "de4c9de73687",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/perfekcionisticke-ocd": {
+    "hash": "3f6705b1887c",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/spovedne-ocd": {
+    "hash": "a51f66176122",
+    "date": "2026-11-05"
+  },
+  "/sk/typy-ocd/strach-zo-sialenstva": {
+    "hash": "16caa03557a4",
+    "date": "2026-11-05"
+  },
+  "/sk/pre-blizkych": {
+    "hash": "c6a95dafdaf2",
+    "date": "2026-11-05"
+  },
+  "/sk/myty-o-ocd": {
+    "hash": "0f93ece00df6",
+    "date": "2026-11-05"
+  },
+  "/sk/slovnicek": {
+    "hash": "79b84f49a7c3",
+    "date": "2026-11-05"
+  },
+  "/sk/pribehy": {
+    "hash": "c1065ea2f6cb",
+    "date": "2026-11-05"
+  },
+  "/sk/pre-terapeutov": {
+    "hash": "789af812c2bf",
+    "date": "2026-11-05"
+  },
+  "/sk/pomoc": {
+    "hash": "aaed528249c9",
+    "date": "2026-11-05"
+  },
+  "/sk/kolko-casu-mi-berie-ocd": {
+    "hash": "76ef5f50f76e",
+    "date": "2026-11-05"
   }
 }

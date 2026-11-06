@@ -89,6 +89,12 @@ TEXTY_PROGRAMU['pro-blizke'].en = {
   emailPopis: 'Seminar – individual programme of three meetings',
 };
 
+// Slovenské verze textů programů a e-mailu (rezervace ze slovenských stránek). Slovo „OCD“ se v e-mailu nesmí objevit.
+TEXTY_PROGRAMU['pro-lidi-s-ocd'].sk = { popis: 'Individuálny program piatich stretnutí', emailPopis: 'Seminár – individuálny program piatich stretnutí' };
+TEXTY_PROGRAMU['pro-blizke'].sk = { popis: 'Individuálny program troch stretnutí', emailPopis: 'Seminár – individuálny program troch stretnutí' };
+export const POVAHA_SEMINARE_EMAIL_SK =
+  'Seminár vychádza z mojej osobnej životnej skúsenosti. Nejde o odbornú ani lekársku radu, psychoterapiu, rodinnú terapiu ani zdravotnú službu a nenahrádza starostlivosť psychológa, psychoterapeuta ani psychiatra. Nie som psychológ, psychoterapeut ani psychiater. Na seminári nediagnostikujem, neliečim a neradím s liekmi.';
+
 export const ZPRAVA_PRO_PRIJEMCE = 'SEMINAR';
 
 export const formatCastka = (kc) => `${String(kc).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} Kč`;

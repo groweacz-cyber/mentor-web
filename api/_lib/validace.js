@@ -56,6 +56,6 @@ export function validujRezervaci(vstup, programy) {
 
   if (Object.keys(chyby).length) return { ok: false, kod: 'neplatny-vstup', chyby };
   // Jazyk stránky, ze které rezervace přišla (e-mail účastníkovi a odpověď se podle něj píšou česky nebo anglicky).
-  const jazyk = vstup.jazyk === 'en' ? 'en' : 'cs';
+  const jazyk = vstup.jazyk === 'en' ? 'en' : vstup.jazyk === 'sk' ? 'sk' : 'cs';
   return { ok: true, hodnoty: { jmeno, prijmeni, email: email.toLowerCase(), telefon: telefonNormalizovany, program, beh, jazyk } };
 }

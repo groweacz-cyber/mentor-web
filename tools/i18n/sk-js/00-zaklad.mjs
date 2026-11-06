@@ -1,0 +1,2 @@
+// Slovník skriptů čeština → slovenčina (část 00).
+export default [];

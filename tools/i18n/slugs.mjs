@@ -76,3 +76,82 @@ const CS_Z_EN = Object.fromEntries(Object.entries(EN_STRANKY).map(([cs, en]) => 
 export const maAnglickouVerzi = (csPath) => Object.prototype.hasOwnProperty.call(EN_STRANKY, csPath);
 export const anglickaAdresa = (csPath) => EN_STRANKY[csPath] || null;
 export const ceskaAdresa = (enPath) => CS_Z_EN[enPath] || null;
+
+// ---------- Slovenčina (/sk/…) ----------
+export const SK_STRANKY = {
+  '/': '/sk',
+  '/metoda': '/sk/metoda',
+  '/pro-koho': '/sk/pre-koho',
+  '/jak-to-probiha': '/sk/ako-to-prebieha',
+  '/dotaznik': '/sk/dotaznik',
+  '/kviz': '/sk/kviz',
+  '/o-mne': '/sk/o-mne',
+  '/kontakt': '/sk/kontakt',
+  '/pomoc': '/sk/pomoc',
+  '/ebook': '/sk/ebook',
+  '/seminare': '/sk/seminare',
+  '/seminare/cesta-s-ocd': '/sk/seminare/cesta-s-ocd',
+  '/seminare/pro-blizke': '/sk/seminare/pre-blizkych',
+  '/seminare/rezervace': '/sk/seminare/rezervacia',
+  '/seminare/rezervace/potvrzeni': '/sk/seminare/rezervacia/potvrdenie',
+  '/clanky': '/sk/clanky',
+  '/clanky/druhy-ocd-9-typu': '/sk/clanky/druhy-ocd-9-typov',
+  '/clanky/proc-ujisteni-krmi-ocd': '/sk/clanky/preco-uistovanie-zivi-ocd',
+  '/clanky/proc-nutkani-prichazi-ve-vlnach': '/sk/clanky/preco-nutkanie-prichadza-vo-vlnach',
+  '/clanky/kompulze-a-prijeti': '/sk/clanky/kompulzie-a-prijatie',
+  '/ochrana-osobnich-udaju': '/sk/ochrana-osobnych-udajov',
+  '/obchodni-podminky': '/sk/obchodne-podmienky',
+  '/vtirave-myslenky': '/sk/vtierave-myslienky',
+  '/typy-ocd': '/sk/typy-ocd',
+  '/typy-ocd/zdravotni-ocd': '/sk/typy-ocd/zdravotne-ocd',
+  '/typy-ocd/kontrolovani': '/sk/typy-ocd/kontrolovanie',
+  '/typy-ocd/vztahove-ocd': '/sk/typy-ocd/vztahove-ocd',
+  '/typy-ocd/kontaminace': '/sk/typy-ocd/kontaminacia',
+  '/typy-ocd/symetrie-just-right': '/sk/typy-ocd/symetria-just-right',
+  '/typy-ocd/agresivni-vtirave-myslenky': '/sk/typy-ocd/agresivne-vtierave-myslienky',
+  '/typy-ocd/sexualni-vtirave-myslenky': '/sk/typy-ocd/sexualne-vtierave-myslienky',
+  '/typy-ocd/skrupulozita': '/sk/typy-ocd/skrupuloznost',
+  '/typy-ocd/pure-o': '/sk/typy-ocd/pure-o',
+  '/typy-ocd/senzomotoricke-ocd': '/sk/typy-ocd/senzomotoricke-ocd',
+  '/typy-ocd/existencialni-ocd': '/sk/typy-ocd/existencialne-ocd',
+  '/typy-ocd/magicke-mysleni': '/sk/typy-ocd/magicke-myslenie',
+  '/typy-ocd/hyperzodpovednost': '/sk/typy-ocd/hyperzodpovednost',
+  '/typy-ocd/real-event-ocd': '/sk/typy-ocd/real-event-ocd',
+  '/typy-ocd/emetofobni-ocd': '/sk/typy-ocd/emetofobne-ocd',
+  '/typy-ocd/perfekcionisticke-ocd': '/sk/typy-ocd/perfekcionisticke-ocd',
+  '/typy-ocd/zpovedni-ocd': '/sk/typy-ocd/spovedne-ocd',
+  '/typy-ocd/strach-ze-zesileni': '/sk/typy-ocd/strach-zo-sialenstva',
+  '/pro-blizke': '/sk/pre-blizkych',
+  '/myty-o-ocd': '/sk/myty-o-ocd',
+  '/slovnicek': '/sk/slovnicek',
+  '/pribehy': '/sk/pribehy',
+  '/pro-terapeuty': '/sk/pre-terapeutov',
+  '/kolik-casu-mi-bere-ocd': '/sk/kolko-casu-mi-berie-ocd',
+  '/kurz': '/sk/kurz',
+  '/offline': '/sk/offline',
+  '/aplikace': '/sk/aplikacia',
+  '/aplikace/start': '/sk/aplikacia/start',
+  '/aplikace/zebricek': '/sk/aplikacia/rebricek',
+  '/aplikace/denik': '/sk/aplikacia/dennik',
+  '/aplikace/text': '/sk/aplikacia/text',
+  '/aplikace/kompulze': '/sk/aplikacia/kompulzie',
+  '/aplikace/principy': '/sk/aplikacia/principy',
+  '/aplikace/nastaveni': '/sk/aplikacia/nastavenia',
+  '/aplikace/vice': '/sk/aplikacia/viac',
+  '/aplikace/kruh': '/sk/aplikacia/kruh',
+  '/aplikace/icbt': '/sk/aplikacia/icbt',
+  '/aplikace/telo': '/sk/aplikacia/telo',
+  '/aplikace/pilire': '/sk/aplikacia/piliere',
+  '/aplikace/vize': '/sk/aplikacia/vizia',
+  '/aplikace/koreny': '/sk/aplikacia/korene',
+  '/aplikace/hudba': '/sk/aplikacia/hudba',
+  '/aplikace/export': '/sk/aplikacia/export',
+};
+
+// Obecné rozhraní pro všechny přeložené jazyky ('en', 'sk').
+export const STRANKY_JAZYKU = { en: EN_STRANKY, sk: SK_STRANKY };
+export const PRELOZENE_JAZYKY = ['en', 'sk'];
+export const maVerzi = (jaz, csPath) => Object.prototype.hasOwnProperty.call(STRANKY_JAZYKU[jaz], csPath);
+export const adresaVerze = (jaz, csPath) => STRANKY_JAZYKU[jaz][csPath] || null;
+const CS_Z_SK = Object.fromEntries(Object.entries(SK_STRANKY).map(([cs, sk]) => [sk, cs]));
+export const ceskaZ = (jaz, adresa) => (jaz === 'sk' ? CS_Z_SK[adresa] : CS_Z_EN[adresa]) || null;

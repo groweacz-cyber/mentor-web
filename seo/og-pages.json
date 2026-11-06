@@ -14,6 +14,13 @@
     "portrait": false
   },
   {
+    "slug": "sk",
+    "text": "Peer mentoring pri OCD",
+    "sub": "Konať aj vtedy, keď sa bojíte.",
+    "art": "/assets/img/uvod-poster.webp",
+    "portrait": false
+  },
+  {
     "slug": "metoda",
     "text": "Metoda: čtyři pilíře a dvě cesty",
     "sub": "",
@@ -23,6 +30,13 @@
   {
     "slug": "en-method",
     "text": "Method: four pillars and two paths",
+    "sub": "",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-metoda",
+    "text": "Metóda: štyri piliere a dve cesty",
     "sub": "",
     "art": "",
     "portrait": false
@@ -42,6 +56,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-pre-koho",
+    "text": "Pre koho je peer mentoring pri OCD",
+    "sub": "",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "dotaznik",
     "text": "Vstupní dotazník",
     "sub": "",
@@ -51,6 +72,13 @@
   {
     "slug": "en-questionnaire",
     "text": "Intake questionnaire",
+    "sub": "",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-dotaznik",
+    "text": "Vstupný dotazník",
     "sub": "",
     "art": "",
     "portrait": false
@@ -70,6 +98,13 @@
     "portrait": true
   },
   {
+    "slug": "sk-ebook",
+    "text": "E-book: Cesta k sebaprijatiu",
+    "sub": "Praktický e-book o sebaprijatí a sebaviere s OCD na stiahnutie zadarmo",
+    "art": "/assets/img/ebook-titulka.webp",
+    "portrait": true
+  },
+  {
     "slug": "seminare",
     "text": "Online semináře",
     "sub": "Dva programy pro lidi s OCD a jejich blízké",
@@ -80,6 +115,13 @@
     "slug": "en-seminars",
     "text": "Online seminars",
     "sub": "Two programmes for people with OCD and their relatives",
+    "art": "/assets/img/ebook-titulka.webp",
+    "portrait": true
+  },
+  {
+    "slug": "sk-seminare",
+    "text": "Online semináre",
+    "sub": "Dva programy pre ľudí s OCD a ich blízkych",
     "art": "/assets/img/ebook-titulka.webp",
     "portrait": true
   },
@@ -98,6 +140,13 @@
     "portrait": true
   },
   {
+    "slug": "sk-seminare-cesta-s-ocd",
+    "text": "Cesta s OCD",
+    "sub": "Individuálny program 5 stretnutí · 3 590 Kč",
+    "art": "/assets/img/ebook-titulka.webp",
+    "portrait": true
+  },
+  {
     "slug": "seminare-pro-blizke",
     "text": "Když OCD žije vedle vás",
     "sub": "Individuální program 3 setkání · 2 190 Kč",
@@ -108,6 +157,13 @@
     "slug": "en-seminars-for-relatives",
     "text": "When OCD Lives Next to You",
     "sub": "Individual programme of 3 meetings · 2,190 CZK",
+    "art": "/assets/img/ebook-titulka.webp",
+    "portrait": true
+  },
+  {
+    "slug": "sk-seminare-pre-blizkych",
+    "text": "Keď OCD žije vedľa vás",
+    "sub": "Individuálny program 3 stretnutí · 2 190 Kč",
     "art": "/assets/img/ebook-titulka.webp",
     "portrait": true
   },
@@ -126,6 +182,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-seminare-rezervacia",
+    "text": "Rezervácia seminára",
+    "sub": "Výber termínu a platba QR kódom",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "kurz",
     "text": "Online kurz o OCD",
     "sub": "",
@@ -135,6 +198,13 @@
   {
     "slug": "en-course",
     "text": "Online course about OCD",
+    "sub": "",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-kurz",
+    "text": "Online kurz o OCD",
     "sub": "",
     "art": "",
     "portrait": false
@@ -154,6 +224,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-kviz",
+    "text": "Metal, alebo Pop?",
+    "sub": "Ktorá cesta vám sedí?",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "jak-to-probiha",
     "text": "Jak probíhá peer mentoring",
     "sub": "Kroky, ceník a časté dotazy",
@@ -168,6 +245,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-ako-to-prebieha",
+    "text": "Ako prebieha peer mentoring",
+    "sub": "Kroky, cenník a časté otázky",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "o-mne",
     "text": "O mně: peer mentor s vlastní zkušeností s OCD",
     "sub": "",
@@ -177,6 +261,13 @@
   {
     "slug": "en-about",
     "text": "About me: a peer mentor with personal experience of OCD",
+    "sub": "",
+    "art": "/assets/img/o-mne-vaclav.webp",
+    "portrait": false
+  },
+  {
+    "slug": "sk-o-mne",
+    "text": "O mne: peer mentor s vlastnou skúsenosťou s OCD",
     "sub": "",
     "art": "/assets/img/o-mne-vaclav.webp",
     "portrait": false
@@ -196,6 +287,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-clanky",
+    "text": "Články o OCD",
+    "sub": "",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "clanky-druhy-ocd-9-typu",
     "text": "Druhy OCD: 9 typů a jejich příznaky",
     "sub": "",
@@ -205,6 +303,13 @@
   {
     "slug": "en-articles-nine-types-of-ocd",
     "text": "Types of OCD: 9 types and their symptoms",
+    "sub": "",
+    "art": "/assets/img/clanky/druhy-ocd.webp",
+    "portrait": false
+  },
+  {
+    "slug": "sk-clanky-druhy-ocd-9-typov",
+    "text": "Druhy OCD: 9 typov a ich príznaky",
     "sub": "",
     "art": "/assets/img/clanky/druhy-ocd.webp",
     "portrait": false
@@ -224,6 +329,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-clanky-preco-uistovanie-zivi-ocd",
+    "text": "Prečo uisťovanie kŕmi OCD",
+    "sub": "",
+    "art": "/assets/img/clanky/proc-ujisteni.webp",
+    "portrait": false
+  },
+  {
     "slug": "clanky-proc-nutkani-prichazi-ve-vlnach",
     "text": "Proč nutkání přichází ve vlnách",
     "sub": "",
@@ -233,6 +345,13 @@
   {
     "slug": "en-articles-why-urges-come-in-waves",
     "text": "Why urges come in waves",
+    "sub": "",
+    "art": "/assets/img/clanky/nutkani-ve-vlnach.webp",
+    "portrait": false
+  },
+  {
+    "slug": "sk-clanky-preco-nutkanie-prichadza-vo-vlnach",
+    "text": "Prečo nutkanie prichádza vo vlnách",
     "sub": "",
     "art": "/assets/img/clanky/nutkani-ve-vlnach.webp",
     "portrait": false
@@ -252,6 +371,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-clanky-kompulzie-a-prijatie",
+    "text": "Kompulzie a prijatie: cesta von z OCD",
+    "sub": "",
+    "art": "/assets/img/clanky/kompulze-a-prijeti.webp",
+    "portrait": false
+  },
+  {
     "slug": "kontakt",
     "text": "Kontakt a rezervace konzultace",
     "sub": "",
@@ -261,6 +387,13 @@
   {
     "slug": "en-contact",
     "text": "Contact and booking a consultation",
+    "sub": "",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-kontakt",
+    "text": "Kontakt a rezervácia konzultácie",
     "sub": "",
     "art": "",
     "portrait": false
@@ -280,6 +413,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-ochrana-osobnych-udajov",
+    "text": "Ochrana osobných údajov",
+    "sub": "",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "obchodni-podminky",
     "text": "Obchodní podmínky",
     "sub": "",
@@ -289,6 +429,13 @@
   {
     "slug": "en-terms",
     "text": "Terms and conditions",
+    "sub": "",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-obchodne-podmienky",
+    "text": "Obchodné podmienky",
     "sub": "",
     "art": "",
     "portrait": false
@@ -308,6 +455,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-vtierave-myslienky",
+    "text": "Vtieravé myšlienky",
+    "sub": "Čo to je a prečo sa pri OCD „lepia“",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "typy-ocd",
     "text": "Typy OCD",
     "sub": "Přehled podob OCD a jak se projevují",
@@ -318,6 +472,13 @@
     "slug": "en-types-of-ocd",
     "text": "Types of OCD",
     "sub": "An overview of the forms of OCD and how they show up",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-typy-ocd",
+    "text": "Typy OCD",
+    "sub": "Prehľad podôb OCD a ako sa prejavujú",
     "art": "",
     "portrait": false
   },
@@ -336,6 +497,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-typy-ocd-zdravotne-ocd",
+    "text": "Zdravotné OCD",
+    "sub": "Strach z choroby, kontrola tela a hľadanie istoty, že som zdravý.",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "typy-ocd-kontrolovani",
     "text": "Kontrolování",
     "sub": "Opakované kontroly zámků, spotřebičů a vlastních činů z obavy, že způsobím škodu.",
@@ -346,6 +514,13 @@
     "slug": "en-types-of-ocd-checking-ocd",
     "text": "Checking",
     "sub": "Repeated checking of locks, appliances and my own actions out of fear that I will cause harm.",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-typy-ocd-kontrolovanie",
+    "text": "Kontrolovanie",
+    "sub": "Opakované kontroly zámkov, spotrebičov a vlastných činov z obavy, že spôsobím škodu.",
     "art": "",
     "portrait": false
   },
@@ -364,6 +539,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-typy-ocd-vztahove-ocd",
+    "text": "Vzťahové OCD",
+    "sub": "Neustále pochybnosti o vzťahu, o partnerovi alebo o vlastných citoch.",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "typy-ocd-kontaminace",
     "text": "Kontaminace",
     "sub": "Strach z nečistoty, nákazy nebo chemikálií a rituály kolem mytí a čištění.",
@@ -374,6 +556,13 @@
     "slug": "en-types-of-ocd-contamination-ocd",
     "text": "Contamination",
     "sub": "Fear of dirt, infection or chemicals and rituals around washing and cleaning.",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-typy-ocd-kontaminacia",
+    "text": "Kontaminácia",
+    "sub": "Strach z nečistoty, nákazy alebo chemikálií a rituály okolo umývania a čistenia.",
     "art": "",
     "portrait": false
   },
@@ -392,6 +581,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-typy-ocd-symetria-just-right",
+    "text": "Symetria a „just right“",
+    "sub": "Potreba, aby veci boli presne „akurát“, súmerné alebo v správnom poradí.",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "typy-ocd-agresivni-vtirave-myslenky",
     "text": "Agresivní vtíravé myšlenky",
     "sub": "Nechtěné myšlenky nebo obrazy, že někomu ublížím, i když to vůbec nechci.",
@@ -402,6 +598,13 @@
     "slug": "en-types-of-ocd-aggressive-intrusive-thoughts",
     "text": "Aggressive intrusive thoughts",
     "sub": "Unwanted thoughts or images of harming someone, even though I do not want that at all.",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-typy-ocd-agresivne-vtierave-myslienky",
+    "text": "Agresívne vtieravé myšlienky",
+    "sub": "Nechcené myšlienky alebo obrazy, že niekomu ublížim, aj keď to vôbec nechcem.",
     "art": "",
     "portrait": false
   },
@@ -420,6 +623,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-typy-ocd-sexualne-vtierave-myslienky",
+    "text": "Sexuálne vtieravé myšlienky",
+    "sub": "Nechcené sexuálne myšlienky alebo obrazy, ktoré vyvolávajú hanbu a strach.",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "typy-ocd-skrupulozita",
     "text": "Skrupulozita",
     "sub": "Přehnané pochybnosti o tom, zda jsem morálně v pořádku nebo zda jsem nezhřešil.",
@@ -430,6 +640,13 @@
     "slug": "en-types-of-ocd-scrupulosity",
     "text": "Scrupulosity",
     "sub": "Excessive doubts about whether I am morally in order or whether I have sinned.",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-typy-ocd-skrupuloznost",
+    "text": "Skrupulozita",
+    "sub": "Prehnané pochybnosti o tom, či som morálne v poriadku alebo či som nezhrešil.",
     "art": "",
     "portrait": false
   },
@@ -448,6 +665,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-typy-ocd-pure-o",
+    "text": "Pure O",
+    "sub": "OCD s obsesiami a rituálmi odohrávajúcimi sa hlavne v hlave, zvonka nevidieť.",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "typy-ocd-senzomotoricke-ocd",
     "text": "Senzomotorické OCD",
     "sub": "Neustálé vnímání dýchání, mrkání, polykání nebo jiných tělesných vjemů.",
@@ -458,6 +682,13 @@
     "slug": "en-types-of-ocd-sensorimotor-ocd",
     "text": "Sensorimotor OCD",
     "sub": "Constant awareness of breathing, blinking, swallowing or other bodily sensations.",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-typy-ocd-senzomotoricke-ocd",
+    "text": "Senzomotorické OCD",
+    "sub": "Neustále vnímanie dýchania, žmurkania, prehĺtania alebo iných telesných vnemov.",
     "art": "",
     "portrait": false
   },
@@ -476,6 +707,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-typy-ocd-existencialne-ocd",
+    "text": "Existenciálne OCD",
+    "sub": "Neodbytné otázky o zmysle, realite, existencii alebo smrti, na ktoré chcem istú odpoveď.",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "typy-ocd-magicke-mysleni",
     "text": "Magické myšlení",
     "sub": "Přesvědčení, že myšlenka, číslo nebo rituál ovlivní, zda se něco stane.",
@@ -486,6 +724,13 @@
     "slug": "en-types-of-ocd-magical-thinking",
     "text": "Magical thinking",
     "sub": "A belief that a thought, number or ritual influences whether something happens.",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-typy-ocd-magicke-myslenie",
+    "text": "Magické myslenie",
+    "sub": "Presvedčenie, že myšlienka, číslo alebo rituál ovplyvní, či sa niečo stane.",
     "art": "",
     "portrait": false
   },
@@ -504,6 +749,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-typy-ocd-hyperzodpovednost",
+    "text": "Hyperzodpovednosť",
+    "sub": "Prehnaný pocit, že som zodpovedný za to, aby sa nikomu nič nestalo.",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "typy-ocd-real-event-ocd",
     "text": "Real-event OCD",
     "sub": "Pochybnosti o skutečných událostech z minulosti: neudělal jsem tehdy něco špatně?",
@@ -514,6 +766,13 @@
     "slug": "en-types-of-ocd-real-event-ocd",
     "text": "Real-event OCD",
     "sub": "Doubts about real events from the past: did I do something wrong back then?",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-typy-ocd-real-event-ocd",
+    "text": "Real-event OCD",
+    "sub": "Pochybnosti o skutočných udalostiach z minulosti: neurobil som vtedy niečo zle?",
     "art": "",
     "portrait": false
   },
@@ -532,6 +791,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-typy-ocd-emetofobne-ocd",
+    "text": "Emetofobické OCD",
+    "sub": "Strach z vracania a rituály, ktoré majú vracaniu predísť.",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "typy-ocd-perfekcionisticke-ocd",
     "text": "Perfekcionistické OCD",
     "sub": "Potřeba, aby něco bylo dokonalé nebo „akorát“, a nekonečné opravování.",
@@ -542,6 +808,13 @@
     "slug": "en-types-of-ocd-perfectionism-ocd",
     "text": "Perfectionist OCD",
     "sub": "A need for something to be perfect or \"just right\", and endless correcting.",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-typy-ocd-perfekcionisticke-ocd",
+    "text": "Perfekcionistické OCD",
+    "sub": "Potreba, aby niečo bolo dokonalé alebo „akurát“, a nekonečné opravovanie.",
     "art": "",
     "portrait": false
   },
@@ -560,6 +833,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-typy-ocd-spovedne-ocd",
+    "text": "Spovedné OCD",
+    "sub": "Nutkanie priznávať sa alebo overovať, či som neurobil niečo zle.",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "typy-ocd-strach-ze-zesileni",
     "text": "Strach ze zešílení",
     "sub": "Obava ze ztráty kontroly nebo zdravého rozumu.",
@@ -570,6 +850,13 @@
     "slug": "en-types-of-ocd-fear-of-going-mad",
     "text": "Fear of going mad",
     "sub": "Worry about losing control or sanity.",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-typy-ocd-strach-zo-sialenstva",
+    "text": "Strach zo šialenstva",
+    "sub": "Obava zo straty kontroly alebo zdravého rozumu.",
     "art": "",
     "portrait": false
   },
@@ -588,6 +875,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-pre-blizkych",
+    "text": "Pre blízkych",
+    "sub": "Ako pomáhať a nekŕmiť OCD",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "myty-o-ocd",
     "text": "Mýty o OCD",
     "sub": "Co je mýtus a co realita",
@@ -598,6 +892,13 @@
     "slug": "en-ocd-myths",
     "text": "Myths about OCD",
     "sub": "What is myth and what is reality",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-myty-o-ocd",
+    "text": "Mýty o OCD",
+    "sub": "Čo je mýtus a čo realita",
     "art": "",
     "portrait": false
   },
@@ -616,6 +917,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-slovnicek",
+    "text": "Slovníček pojmov",
+    "sub": "Obsesia, kompulzia, ERP, I-CBT a ďalšie",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "pribehy",
     "text": "Příběhy",
     "sub": "Zásady sdílení zkušeností s OCD",
@@ -626,6 +934,13 @@
     "slug": "en-stories",
     "text": "Stories",
     "sub": "Principles for sharing experience of OCD",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-pribehy",
+    "text": "Príbehy",
+    "sub": "Zásady zdieľania skúseností s OCD",
     "art": "",
     "portrait": false
   },
@@ -644,6 +959,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-pre-terapeutov",
+    "text": "Pre terapeutov a odborníkov",
+    "sub": "Peer mentoring ako doplnok odbornej starostlivosti",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "pomoc",
     "text": "Pomoc hned",
     "sub": "Krizové kontakty a odborná pomoc",
@@ -658,6 +980,13 @@
     "portrait": false
   },
   {
+    "slug": "sk-pomoc",
+    "text": "Pomoc hneď",
+    "sub": "Krízové kontakty a odborná pomoc",
+    "art": "",
+    "portrait": false
+  },
+  {
     "slug": "kolik-casu-mi-bere-ocd",
     "text": "Kolik času mi bere OCD?",
     "sub": "Kalkulačka: hodiny týdně a dny ročně",
@@ -668,6 +997,13 @@
     "slug": "en-how-much-time-does-ocd-take",
     "text": "How much time does OCD take from me?",
     "sub": "Calculator: hours a week and days a year",
+    "art": "",
+    "portrait": false
+  },
+  {
+    "slug": "sk-kolko-casu-mi-berie-ocd",
+    "text": "Koľko času mi berie OCD?",
+    "sub": "Kalkulačka: hodiny týždenne a dni ročne",
     "art": "",
     "portrait": false
   }

@@ -1,6 +1,6 @@
 // E-maily přes SMTP (výchozí Gmail, knihovna nodemailer). Slovo „OCD“ se v e-mailu účastníka nesmí objevit.
-import { dlouhyCz, formatCz, dlouhyEn, formatEn } from './seminare.js';
-import { POVAHA_SEMINARE_EMAIL, POVAHA_SEMINARE_EMAIL_EN, formatCastka, formatCastkaEn } from './texty.js';
+import { dlouhyCz, formatCz, dlouhyEn, formatEn, dlouhySk } from './seminare.js';
+import { POVAHA_SEMINARE_EMAIL, POVAHA_SEMINARE_EMAIL_EN, POVAHA_SEMINARE_EMAIL_SK, formatCastka, formatCastkaEn } from './texty.js';
 import { ibanPoSkupinach } from './platba.js';
 import qrcode from './qrcode.cjs';
 
@@ -124,9 +124,65 @@ ${spd ? '<p><img src="cid:qr-platba" width="220" height="220" alt="QR code for t
   return { subject, text, html, prilohy: spd ? [qrPriloha(spd)] : [] };
 }
 
-// Podle jazyka stránky, ze které přišla rezervace ('cs' výchozí, 'en').
+
+// Slovenská verze e-mailu účastníkovi (rezervace ze slovenských stránek). Slovo „OCD“ se v něm opět neobjeví.
+function emailUcastnikSk({ rez, konf, odkazPodminky, spd }) {
+  const terminy = rez.terminy.map((iso, i) => `${i + 1}. ${dlouhySk(iso, rez.cas)}`);
+  const radky = [
+    ['Suma', formatCastka(rez.castka)],
+    ['Číslo účtu', rez.ucet],
+    ['IBAN', ibanPoSkupinach(rez.iban)],
+    ['Majiteľ účtu', konf.majitel],
+    ['Variabilný symbol', rez.vs],
+    ['Splatnosť', `do ${formatCz(rez.splatnost)}`],
+  ];
+  const popis = rez.programTexty.sk.emailPopis;
+  const subject = 'Rezervácia seminára – platobné údaje';
+  const text = [
+    'Dobrý deň,',
+    '',
+    'ďakujem za rezerváciu seminára. Miesto je pre vás rezervované do splatnosti.',
+    '',
+    `Program: ${popis}`,
+    '',
+    `Termíny (online, videohovor cez Google Meet alebo WhatsApp, ${rez.delkaMinut} minút):`,
+    ...terminy,
+    '',
+    'Platobné údaje:',
+    ...radky.map(([k, v]) => `${k}: ${v}`),
+    ...(spd ? ['', 'QR kód na platbu nájdete v prílohe tohto e-mailu (qr-platba.gif). Naskenujte ho v bankovej aplikácii, platobné údaje sa predvyplnia.'] : []),
+    '',
+    'Cena je konečná, nie som platiteľ DPH. Platí sa bankovým prevodom. Do správy pre príjemcu nič nepíšte, variabilný symbol stačí. Ak platíte zo slovenského účtu, použite uvedený IBAN a variabilný symbol uveďte ako referenciu platby.',
+    'Po pripísaní platby sa vám ozvem ja e-mailom a dohodneme videohovor. Nemusíte sa mi ozývať sami.',
+    '',
+    `Obchodné podmienky: ${odkazPodminky}`,
+    '',
+    POVAHA_SEMINARE_EMAIL_SK,
+    '',
+    'S pozdravom',
+    konf.majitel,
+    `IČO ${konf.ico}`,
+  ].join('\n');
+  const html = `<!doctype html><html lang="sk"><body style="font-family:Arial,Helvetica,sans-serif;line-height:1.55;color:#1b2a41;max-width:38rem">
+<p>Dobrý deň,</p>
+<p>ďakujem za rezerváciu seminára. Miesto je pre vás rezervované do splatnosti.</p>
+<p><strong>Program:</strong> ${esc(popis)}</p>
+<p><strong>Termíny</strong> (online, videohovor cez Google Meet alebo WhatsApp, ${rez.delkaMinut} minút):</p>
+<ol>${terminy.map((t) => `<li>${esc(t.replace(/^\d+\.\s/, ''))}</li>`).join('')}</ol>
+<p><strong>Platobné údaje</strong></p>
+<table style="border-collapse:collapse">${radky.map(([k, v]) => `<tr><td style="padding:2px 14px 2px 0">${esc(k)}</td><td style="padding:2px 0"><strong>${esc(v)}</strong></td></tr>`).join('')}</table>
+${spd ? '<p><img src="cid:qr-platba" width="220" height="220" alt="QR kód na platbu seminára" style="display:block;border:1px solid #d9d4cc"><br>Naskenujte QR kód v bankovej aplikácii, platobné údaje sa predvyplnia.</p>\n' : ''}<p>Cena je konečná, nie som platiteľ DPH. Platí sa bankovým prevodom. Do správy pre príjemcu nič nepíšte, variabilný symbol stačí. Ak platíte zo slovenského účtu, použite uvedený IBAN a variabilný symbol uveďte ako referenciu platby.</p>
+<p>Po pripísaní platby sa vám ozvem ja e-mailom a dohodneme videohovor. Nemusíte sa mi ozývať sami.</p>
+<p>Obchodné podmienky: <a href="${esc(odkazPodminky)}">${esc(odkazPodminky)}</a></p>
+<p style="font-style:italic;border-left:4px solid #f5923e;padding-left:12px">${esc(POVAHA_SEMINARE_EMAIL_SK)}</p>
+<p>S pozdravom<br>${esc(konf.majitel)}<br>IČO ${esc(konf.ico)}</p>
+</body></html>`;
+  return { subject, text, html, prilohy: spd ? [qrPriloha(spd)] : [] };
+}
+
+// Podle jazyka stránky, ze které přišla rezervace ('cs' výchozí, 'en', 'sk').
 export function emailUcastnik(vstup) {
-  return vstup.jazyk === 'en' ? emailUcastnikEn(vstup) : emailUcastnikCs(vstup);
+  return vstup.jazyk === 'en' ? emailUcastnikEn(vstup) : vstup.jazyk === 'sk' ? emailUcastnikSk(vstup) : emailUcastnikCs(vstup);
 }
 
 export function emailMajitel({ rez, osoba, konf, objednano, ucastnikOdeslan, jazyk }) {
@@ -143,7 +199,7 @@ export function emailMajitel({ rez, osoba, konf, objednano, ucastnikOdeslan, jaz
     ['Částka', formatCastka(rez.castka)],
     ['Splatnost', `do ${formatCz(rez.splatnost)}`],
     ['Čas objednávky', objednano],
-    ['Jazyk stránky', jazyk === 'en' ? 'angličtina (rezervace z anglických stránek, odpovězte prosím anglicky)' : 'čeština'],
+    ['Jazyk stránky', jazyk === 'en' ? 'angličtina (rezervace z anglických stránek, odpovězte prosím anglicky)' : jazyk === 'sk' ? 'slovenština (rezervace ze slovenských stránek, odpovězte prosím slovensky nebo česky)' : 'čeština'],
     ['E-mail s platebními údaji účastníkovi', ucastnikOdeslan ? 'odeslán' : 'neodeslán, platební údaje a QR kód viděl na stránce po odeslání rezervace'],
   ];
   const text = ['Nová rezervace semináře.', '', ...radky.map(([k, v]) => `${k}: ${v}`)].join('\n');

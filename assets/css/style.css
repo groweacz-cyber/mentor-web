@@ -858,7 +858,7 @@ h4 { font-size: 1.05rem; font-weight: 700; line-height: 1.15; letter-spacing: -.
 .lang-switch a:focus-visible { outline: 3px solid var(--focus); outline-offset: -4px; border-radius: 999px; }
 /* Anglické názvy v menu jsou delší: na počítači se zmenší odsazení, aby se menu vešlo do jednoho řádku */
 @media (min-width: 63rem) {
-  html[lang="en"] .site-header nav a, html[lang="en"] .site-header .nav-sub-toggle { padding: .45rem .36rem; font-size: .9rem; }
+  html[lang="en"] .site-header nav a, html[lang="en"] .site-header .nav-sub-toggle, html[lang="sk"] .site-header nav a, html[lang="sk"] .site-header .nav-sub-toggle { padding: .45rem .36rem; font-size: .9rem; }
 }
 /* Na úzkém telefonu se přepínač jazyka a tlačítko menu vejdou vedle značky */
 @media (max-width: 30rem) {

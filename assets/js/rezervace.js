@@ -213,7 +213,7 @@
       souhlasPovaha: zaskrtnuto('souhlasPovaha', program),
       souhlasPodminky: zaskrtnuto('souhlasPodminky', program),
       web: form.elements.web ? form.elements.web.value : '',
-      jazyk: document.documentElement.lang === 'en' ? 'en' : 'cs',
+      jazyk: document.documentElement.lang === 'en' ? 'en' : document.documentElement.lang === 'sk' ? 'sk' : 'cs',
       doba: doba()
     };
     var chyby = zkontroluj(d);

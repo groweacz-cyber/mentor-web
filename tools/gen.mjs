@@ -11,9 +11,11 @@ import { nactiData as nactiDataSeminare, pripravProgramy } from '../api/_lib/sem
 import { POVAHA_SEMINARE, POVAHA_BLIZKE, formatCastka, formatCastkaEn } from '../api/_lib/texty.js';
 import * as SEM from './content/seminare.mjs';
 import { createTranslator, normText } from './i18n/translate.mjs';
-import { maAnglickouVerzi, anglickaAdresa } from './i18n/slugs.mjs';
+import { maAnglickouVerzi, anglickaAdresa, maVerzi, adresaVerze, PRELOZENE_JAZYKY } from './i18n/slugs.mjs';
 import dictPairs from './i18n/dict.mjs';
+import dictPairsSk from './i18n/dict-sk.mjs';
 import jsDictPairs, { ignore as jsIgnore } from './i18n/dict-js.mjs';
+import jsDictPairsSk from './i18n/dict-js-sk.mjs';
 import { sestavAnglickeSkripty, kodujKlic } from './i18n/jsbuild.mjs';
 
 const OUT = process.argv[2] ? resolve(process.argv[2]) : resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -480,50 +482,54 @@ const normalizeLd = (j) => (!j ? [] : (j['@graph'] || [j]).map(({ '@context': _c
 // Stránky se generují česky a anglická verze vzniká překladem podle slovníku (tools/i18n/en/*.mjs). Stránky s daty (semináře) mají
 // anglickou verzi psanou přímo (opts.en). Jednotky bez překladu zůstanou česky a hlásí se v seznamu EN_MISSING (test pak selže).
 const EN_ZAPNUTO = true;
-const mapUrlEn = (u) => {
+const mapUrlJ = (jaz) => (u) => {
   if (!u.startsWith(SITE)) return u;
   const rest = u.slice(SITE.length) || '/';
   const m = rest.match(/^([^?#]*)([?#].*)?$/);
   const p = m[1] === '' ? '/' : m[1].length > 1 ? m[1].replace(/\/$/, '') : m[1];
-  const e = anglickaAdresa(p);
+  const e = adresaVerze(jaz, p);
   return e ? SITE + e + (m[2] || '') : u;
 };
-const mapHrefEn = (href) => {
-  if (href.startsWith(SITE)) return mapUrlEn(href);
+const mapHrefJ = (jaz) => (href) => {
+  if (href.startsWith(SITE)) return mapUrlJ(jaz)(href);
   if (!href.startsWith('/') || href.startsWith('//')) return href;
   const m = href.match(/^([^?#]*)([?#].*)?$/);
   const p = m[1].length > 1 ? m[1].replace(/\/$/, '') : m[1];
   if (p.startsWith('/assets/') || p.startsWith('/api/')) return href;
-  const e = anglickaAdresa(p);
+  const e = adresaVerze(jaz, p);
   return e ? e + (m[2] || '') : href;
 };
-const TR = createTranslator({ dictPairs, mapHref: mapHrefEn });
-const EN_MISSING = {};
-const trTitleEn = (title, miss) => {
+// Přeložené jazyky (en, sk): slovník stránek tools/i18n/<kód>/, slovník skriptů tools/i18n/<kód>-js/, kopie skriptů assets/js/<kód>/
+// (vznikají překladem textových literálů) a seznam chybějících překladů.
+const JAZ = {};
+for (const [kod, htmlSlovnik, jsSlovnik] of [['en', dictPairs, jsDictPairs], ['sk', dictPairsSk, jsDictPairsSk]]) {
+  const js = await sestavAnglickeSkripty({ out: OUT, dictPairs: jsSlovnik, ignore: jsIgnore, htmlPairs: htmlSlovnik, kod });
+  JAZ[kod] = { kod, TR: createTranslator({ dictPairs: htmlSlovnik, mapHref: mapHrefJ(kod), jazyk: kod }), mapUrl: mapUrlJ(kod), missing: {}, js, skripty: js.skripty, zavrit: kod === 'sk' ? 'Zavrieť' : 'Close' };
+}
+const mapUrlEn = JAZ.en.mapUrl;
+const trTitle = (L, title, miss) => {
   const i = title.lastIndexOf(' | ');
   const cast = i < 0 ? title : title.slice(0, i);
   const sufix = i < 0 ? '' : title.slice(i);
-  const en = TR.prostyText(cast);
-  if (en === null) { miss.add(normText(cast)); return title; }
-  return en + sufix;
+  const prelozeno = L.TR.prostyText(cast);
+  if (prelozeno === null) { miss.add(normText(cast)); return title; }
+  return prelozeno + sufix;
 };
-const trPlainEn = (t, miss) => {
+const trPlain = (L, t, miss) => {
   if (!t) return t;
-  const en = TR.prostyText(t);
-  if (en === null) { miss.add(normText(t)); return t; }
-  return en;
+  const prelozeno = L.TR.prostyText(t);
+  if (prelozeno === null) { miss.add(normText(t)); return t; }
+  return prelozeno;
 };
-// Anglické kopie skriptů (assets/js/en/…) vznikají překladem textových literálů podle tools/i18n/en-js/*.mjs; anglické stránky načítají je.
-const EN_JS = await sestavAnglickeSkripty({ out: OUT, dictPairs: jsDictPairs, ignore: jsIgnore, htmlPairs: dictPairs });
-const EN_SKRIPTY = EN_JS.skripty;
 
 function page({ path: pathArg, title, desc, body, jsonld, noindex, robots, script, art, app, module, ogImage, ogTitle, ogSub, ogType, published, modified, crumb, parents, gloss, glossAlways, draft, crumbs, related, floatCta, lang, czPath, native }) {
   const EN = lang === 'en';
+  const L = lang && lang !== 'cs' ? JAZ[lang] : null;
   const path = czPath || pathArg; // česká adresa (menu, aktivní položka); pathArg je adresa skutečné stránky
   const miss = new Set();
-  if (EN && !native) { title = trTitleEn(title, miss); desc = trPlainEn(desc, miss); }
+  if (L && !native) { title = trTitle(L, title, miss); desc = trPlain(L, desc, miss); }
   const url = SITE + (pathArg === '/' ? '/' : pathArg);
-  const jsPro = (src) => (EN && EN_SKRIPTY.has(src) ? src.replace('/assets/js/', '/assets/js/en/') : src);
+  const jsPro = (src) => (L && L.skripty.has(src) ? src.replace('/assets/js/', `/assets/js/${L.kod}/`) : src);
   const isNoindex = !!noindex || /noindex/.test(robots || '');
   const robotsContent = robots || (noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large');
   const navHtml = nav
@@ -555,8 +561,8 @@ function page({ path: pathArg, title, desc, body, jsonld, noindex, robots, scrip
     .replace(/<article class="card">(\s*<h3>Metal cesta)/g, '<article class="card card--metal">$1')
     .replace(/<article class="card">(\s*<h3>Pop cesta)/g, '<article class="card card--pop">$1');
   if (art) b = b.replace('<section class="wrap page-head">', '<section class="wrap page-head">' + miniScene());
-  if (!EN && gloss && (draft || glossAlways || CFG.glossaryOnPublicPages)) b = glossify(b);
-  if (EN && native) b = '<!--EN:NATIVE-->' + b + '<!--/EN:NATIVE-->';
+  if (!L && gloss && (draft || glossAlways || CFG.glossaryOnPublicPages)) b = glossify(b);
+  if (L && native) b = '<!--EN:NATIVE-->' + b + '<!--/EN:NATIVE-->';
 
   // drobečková navigace (viditelná i ve strukturovaných datech)
   let trail = null;
@@ -579,8 +585,8 @@ function page({ path: pathArg, title, desc, body, jsonld, noindex, robots, scrip
   if (path === '/o-mne') nodes.push({ '@type': 'ProfilePage', url, name: title, mainEntity: { '@id': PERSON_ID }, inLanguage: 'cs' });
   const vlastniUzly = normalizeLd(jsonld);
   const drobkyUzel = trail && !isNoindex ? [breadcrumbNode(trail)] : [];
-  const tj = (arr) => arr.map((n) => TR.jsonLd(n, miss, mapUrlEn));
-  const vsechnyUzly = EN ? [...tj(nodes), ...(native ? vlastniUzly : tj(vlastniUzly)), ...tj(drobkyUzel)] : [...nodes, ...vlastniUzly, ...drobkyUzel];
+  const tj = (arr) => arr.map((n) => (L || JAZ.en).TR.jsonLd(n, miss, (L || JAZ.en).mapUrl));
+  const vsechnyUzly = L ? [...tj(nodes), ...(native ? vlastniUzly : tj(vlastniUzly)), ...tj(drobkyUzel)] : [...nodes, ...vlastniUzly, ...drobkyUzel];
   const ld = vsechnyUzly.length ? { '@context': 'https://schema.org', '@graph': vsechnyUzly } : null;
 
   const verify = [
@@ -596,14 +602,22 @@ function page({ path: pathArg, title, desc, body, jsonld, noindex, robots, scrip
     : '';
   const ogUrl = `${SITE}${ogPath(noindex ? '/' : pathArg)}`;
   const csUrl = SITE + (path === '/' ? '/' : path);
-  const enUrl = maAnglickouVerzi(path) ? SITE + anglickaAdresa(path) : null;
-  const alternates = !isNoindex && enUrl ? `<link rel="alternate" hreflang="cs" href="${csUrl}">\n<link rel="alternate" hreflang="en" href="${enUrl}">\n<link rel="alternate" hreflang="x-default" href="${csUrl}">` : '';
-  const prepinacJazyka = EN
-    ? `<!--EN:NATIVE--><div class="lang-switch" role="group" aria-label="Language / Jazyk"><span class="lang-cur" lang="en" aria-current="true">EN</span><a href="${path}" hreflang="cs" lang="cs" title="Česky"><span aria-hidden="true">CZ</span><span class="sr-only">Česky</span></a></div><!--/EN:NATIVE-->`
-    : `<div class="lang-switch" role="group" aria-label="Jazyk / Language"><span class="lang-cur" lang="cs" aria-current="true">CZ</span><a href="${maAnglickouVerzi(path) ? anglickaAdresa(path) : '/en'}" hreflang="en" lang="en" title="English version"><span aria-hidden="true">EN</span><span class="sr-only">English</span></a></div>`;
+  const verze = [['cs', csUrl]];
+  for (const j of PRELOZENE_JAZYKY) if (maVerzi(j, path)) verze.push([j, SITE + adresaVerze(j, path)]);
+  const alternates = !isNoindex && verze.length > 1 ? verze.map(([j, u]) => `<link rel="alternate" hreflang="${j}" href="${u}">`).join('\n') + `\n<link rel="alternate" hreflang="x-default" href="${csUrl}">` : '';
+  const JAZYK_STITEK = { cs: ['CZ', 'Česky'], en: ['EN', 'English'], sk: ['SK', 'Slovensky'] };
+  const jazykCil = (j) => (j === 'cs' ? path : maVerzi(j, path) ? adresaVerze(j, path) : '/' + j);
+  const prepinacPolozky = ['cs', 'en', 'sk'].map((j) => (j === (lang || 'cs')
+    ? `<span class="lang-cur" lang="${j}" aria-current="true">${JAZYK_STITEK[j][0]}</span>`
+    : `<a href="${jazykCil(j)}" hreflang="${j}" lang="${j}" title="${JAZYK_STITEK[j][1]}"><span aria-hidden="true">${JAZYK_STITEK[j][0]}</span><span class="sr-only">${JAZYK_STITEK[j][1]}</span></a>`)).join('');
+  const prepinacJazyka = lang === 'en'
+    ? `<!--EN:NATIVE--><div class="lang-switch" role="group" aria-label="Language / Jazyk">${prepinacPolozky}</div><!--/EN:NATIVE-->`
+    : lang === 'sk'
+      ? `<!--EN:NATIVE--><div class="lang-switch" role="group" aria-label="Jazyk / Language">${prepinacPolozky}</div><!--/EN:NATIVE-->`
+      : `<div class="lang-switch" role="group" aria-label="Jazyk / Language">${prepinacPolozky}</div>`;
   const t = attr(title), d = attr(desc);
   let html = `<!doctype html>
-<html lang="${EN ? 'en' : 'cs'}">
+<html lang="${lang || 'cs'}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -614,7 +628,7 @@ ${isNoindex ? '' : `<link rel="canonical" href="${url}">`}
 ${alternates}
 ${verify}
 <meta property="og:type" content="${ogType || 'website'}">
-<meta property="og:locale" content="${EN ? 'en_US' : 'cs_CZ'}">
+<meta property="og:locale" content="${{ cs: 'cs_CZ', en: 'en_US', sk: 'sk_SK' }[lang || 'cs']}">
 <meta property="og:site_name" content="${BRAND}">
 <meta property="og:title" content="${t}">
 <meta property="og:description" content="${d}">
@@ -698,14 +712,14 @@ ${module ? `<script type="module" src="${jsPro(module)}"></script>` : ''}
 </body>
 </html>
 `;
-  if (EN) {
+  if (L) {
     const i = html.indexOf('<body>');
-    html = html.slice(0, i) + TR.translateFragment(html.slice(i), miss).replace(/<!--\/?EN:NATIVE-->/g, '');
-    html = html.replace("o?'Zavřít':'Menu'", "o?'Close':'Menu'");
-    html = html.replace('<track kind="captions" srclang="cs" label="Česky" src="/assets/video/uvod.cs.vtt" default>', '<track kind="captions" srclang="en" label="English" src="/assets/video/uvod.en.vtt" default>');
-    // skripty vložené přímo do těla stránky (<script src="/assets/js/…">) taky anglické kopie
-    html = html.replace(/(<script\b[^>]*\bsrc=")(\/assets\/js\/)(?!en\/)([^"?#]+)(")/g, (m, a, b, c, d) => (EN_SKRIPTY.has(b + c) ? `${a}${b}en/${c}${d}` : m));
-    EN_MISSING[pathArg] = miss;
+    html = html.slice(0, i) + L.TR.translateFragment(html.slice(i), miss).replace(/<!--\/?EN:NATIVE-->/g, '');
+    html = html.replace("o?'Zavřít':'Menu'", `o?'${L.zavrit}':'Menu'`);
+    html = html.replace('<track kind="captions" srclang="cs" label="Česky" src="/assets/video/uvod.cs.vtt" default>', `<track kind="captions" srclang="${L.kod}" label="${L.kod === 'sk' ? 'Slovensky' : 'English'}" src="/assets/video/uvod.${L.kod}.vtt" default>`);
+    // skripty vložené přímo do těla stránky (<script src="/assets/js/…">) taky přeložené kopie
+    html = html.replace(/(<script\b[^>]*\bsrc=")(\/assets\/js\/)(?!(?:en|sk)\/)([^"?#]+)(")/g, (m, a, b, c, d) => (L.skripty.has(b + c) ? `${a}${b}${L.kod}/${c}${d}` : m));
+    L.missing[pathArg] = miss;
   }
   return versionAssets(html);
 }
@@ -719,28 +733,31 @@ const add = (path, opts) => {
   files[f] = page({ path, art: path !== '/', ...opts });
   const noindex = !!opts.noindex || /noindex/.test(opts.robots || '');
   pagesMeta.push({ path, file: f, noindex, hardNoindex: !!opts.noindex, title: opts.title, ogTitle: opts.ogTitle, ogSub: opts.ogSub, ogArt: opts.ogImage || opts.ogArt, ogArtPortrait: !!opts.ogArtPortrait, modified: opts.modified });
-  if (EN_ZAPNUTO && maAnglickouVerzi(path)) {
-    const enPath = anglickaAdresa(path);
-    const nativni = !!enOpts;
-    const enVse = nativni ? { ...opts, ...enOpts, native: true } : opts;
-    const fEn = enPath === '/en' ? 'en/index.html' : `${enPath.slice(1)}/index.html`;
-    files[fEn] = page({ path: enPath, czPath: path, lang: 'en', art: path !== '/', ...enVse });
+  if (!EN_ZAPNUTO) return;
+  for (const jaz of PRELOZENE_JAZYKY) {
+    if (!maVerzi(jaz, path)) continue;
+    const Lj = JAZ[jaz];
+    const cilPath = adresaVerze(jaz, path);
+    const nativni = jaz === 'en' && !!enOpts; // anglicky jsou psané přímo jen stránky s daty (semináře); slovensky se překládá všechno
+    const vse = nativni ? { ...opts, ...enOpts, native: true } : opts;
+    const fT = cilPath === `/${jaz}` ? `${jaz}/index.html` : `${cilPath.slice(1)}/index.html`;
+    files[fT] = page({ path: cilPath, czPath: path, lang: jaz, art: path !== '/', ...vse });
     const miss = new Set();
-    const titulek = nativni ? enVse.title : trTitleEn(opts.title, miss);
+    const titulek = nativni ? vse.title : trTitle(Lj, opts.title, miss);
     pagesMeta.push({
-      path: enPath,
+      path: cilPath,
       czPath: path,
-      file: fEn,
+      file: fT,
       noindex,
       hardNoindex: !!opts.noindex,
       title: titulek,
-      ogTitle: nativni ? enVse.ogTitle : opts.ogTitle ? trPlainEn(opts.ogTitle, EN_MISSING[enPath] || miss) : undefined,
-      ogSub: nativni ? enVse.ogSub : opts.ogSub ? trPlainEn(opts.ogSub, EN_MISSING[enPath] || miss) : undefined,
+      ogTitle: nativni ? vse.ogTitle : opts.ogTitle ? trPlain(Lj, opts.ogTitle, Lj.missing[cilPath] || miss) : undefined,
+      ogSub: nativni ? vse.ogSub : opts.ogSub ? trPlain(Lj, opts.ogSub, Lj.missing[cilPath] || miss) : undefined,
       ogArt: opts.ogImage || opts.ogArt,
       ogArtPortrait: !!opts.ogArtPortrait,
       modified: opts.modified,
     });
-    if (miss.size) for (const k of miss) EN_MISSING[enPath].add(k);
+    if (miss.size) for (const k of miss) Lj.missing[cilPath].add(k);
   }
 };
 
@@ -2981,9 +2998,9 @@ writeFileSync(
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${indexable
     .map((p) => {
       const csP = p.czPath || p.path;
-      const alt = maAnglickouVerzi(csP)
-        ? `\n    <xhtml:link rel="alternate" hreflang="cs" href="${SITE}${csP === '/' ? '/' : csP}"/>\n    <xhtml:link rel="alternate" hreflang="en" href="${SITE}${anglickaAdresa(csP)}"/>`
-        : '';
+      const verze = [['cs', csP === '/' ? '/' : csP]];
+      for (const j of PRELOZENE_JAZYKY) if (maVerzi(j, csP)) verze.push([j, adresaVerze(j, csP)]);
+      const alt = verze.length > 1 ? verze.map(([j, a]) => `\n    <xhtml:link rel="alternate" hreflang="${j}" href="${SITE}${a}"/>`).join('') : '';
       return `  <url><loc>${SITE}${p.path === '/' ? '/' : p.path}</loc><lastmod>${lastmod[p.path].date}</lastmod>${alt}${alt ? '\n  ' : ''}</url>`;
     })
     .join('\n')}\n</urlset>\n`
@@ -3072,21 +3089,21 @@ const CSP = [
   if (novy !== vercelText) writeFileSync(vercelPath, novy);
 }
 
-{
-  const chybejici = Object.entries(EN_MISSING).filter(([, v]) => v.size);
+for (const L of Object.values(JAZ)) {
+  const chybejici = Object.entries(L.missing).filter(([, v]) => v.size);
+  const soubor = join(OUT, L.kod === 'en' ? 'tools/i18n/chybejici.json' : `tools/i18n/chybejici-${L.kod}.json`);
   if (chybejici.length) {
     const vse = new Set();
     for (const [, v] of chybejici) for (const k of v) vse.add(k);
-    writeFileSync(join(OUT, 'tools/i18n/chybejici.json'), JSON.stringify({ stranek: chybejici.length, jednotek: vse.size, polozky: [...vse] }, null, 1) + '\n');
-    console.warn(`ANGLIČTINA: ${chybejici.length} stránek má nepřeložené jednotky (celkem ${vse.size} jedinečných). Seznam: tools/i18n/chybejici.json`);
-  } else if (existsSync(join(OUT, 'tools/i18n/chybejici.json'))) {
-    writeFileSync(join(OUT, 'tools/i18n/chybejici.json'), JSON.stringify({ stranek: 0, jednotek: 0, polozky: [] }) + '\n');
+    writeFileSync(soubor, JSON.stringify({ stranek: chybejici.length, jednotek: vse.size, polozky: [...vse] }, null, 1) + '\n');
+    console.warn(`PŘEKLAD ${L.kod}: ${chybejici.length} stránek má nepřeložené jednotky (celkem ${vse.size} jedinečných). Seznam: ${soubor.slice(OUT.length + 1)}`);
+  } else {
+    writeFileSync(soubor, JSON.stringify({ stranek: 0, jednotek: 0, polozky: [] }) + '\n');
   }
-}
-{
-  const vse = new Set();
-  for (const [, k] of EN_JS.chybi) for (const x of k) vse.add(x);
-  writeFileSync(join(OUT, 'tools/i18n/chybejici-js.json'), JSON.stringify({ jednotek: vse.size, polozky: [...vse].map(kodujKlic) }, null, 1) + '\n');
-  if (vse.size) console.warn(`ANGLIČTINA (skripty): ${vse.size} nepřeložených textů. Seznam: tools/i18n/chybejici-js.json`);
+  const vseJs = new Set();
+  for (const [, k] of L.js.chybi) for (const x of k) vseJs.add(x);
+  const souborJs = join(OUT, L.kod === 'en' ? 'tools/i18n/chybejici-js.json' : `tools/i18n/chybejici-js-${L.kod}.json`);
+  writeFileSync(souborJs, JSON.stringify({ jednotek: vseJs.size, polozky: [...vseJs].map(kodujKlic) }, null, 1) + '\n');
+  if (vseJs.size) console.warn(`PŘEKLAD skriptů ${L.kod}: ${vseJs.size} nepřeložených textů. Seznam: ${souborJs.slice(OUT.length + 1)}`);
 }
 console.log(Object.keys(files).join('\n'));

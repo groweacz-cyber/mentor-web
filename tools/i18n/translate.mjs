@@ -20,7 +20,7 @@ const TAG_V_TEXTU = /<[a-zA-Z][a-zA-Z0-9-]*(?:[^>"']|"[^"]*"|'[^']*')*>/g;
 
 const TOKEN = /<!--[\s\S]*?-->|<(script|style|svg|textarea)\b[^>]*>[\s\S]*?<\/\1>|<(\/?)([a-zA-Z][a-zA-Z0-9-]*)((?:[^>"']|"[^"]*"|'[^']*')*)>|[^<]+|</g;
 
-export function createTranslator({ dictPairs, mapHref }) {
+export function createTranslator({ dictPairs, mapHref, jazyk = 'en' }) {
   const dict = new Map();
   const plain = new Map();
   const duplicates = [];
@@ -166,7 +166,7 @@ export function createTranslator({ dictPairs, mapHref }) {
     if (node && typeof node === 'object') {
       const o = {};
       for (const [k, v] of Object.entries(node)) {
-        if (k === 'inLanguage') { o[k] = 'en'; continue; }
+        if (k === 'inLanguage') { o[k] = jazyk; continue; }
         if (typeof v === 'string' && ['@id', 'url', 'item', 'serviceUrl', 'mainEntityOfPage', 'sameAs'].includes(k)) { o[k] = mapUrl(v); continue; }
         if (typeof v === 'string' && v.startsWith('http')) { o[k] = v; continue; }
         if (typeof v === 'string' && !BEZ_PREKLADU.has(k)) {

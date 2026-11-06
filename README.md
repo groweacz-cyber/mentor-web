@@ -98,6 +98,15 @@ Každá stránka, která má záznam v `tools/i18n/slugs.mjs`, má anglickou dvo
 - **Obrázky pro sociální sítě:** `npm run og` vyrobí i anglické (`assets/og/en-*.png`). Offline stránku pro angličtinu zajišťuje `sw.js` (`/en/offline`).
 - **Aplikace:** uložená data (`localStorage`) obsahují u některých voleb text v jazyce, ve kterém se vyplňovaly; při přepnutí jazyka uprostřed používání se staré odpovědi u těchto voleb nezobrazí jako zaškrtnuté.
 
+### Slovenská verze (/sk/…)
+
+Slovenština funguje stejně jako angličtina (stejný generátor, přepínač CZ | EN | SK, `hreflang`, sitemapa), s těmito rozdíly:
+
+- **Všechno se překládá z češtiny slovníkem**, včetně seminářů a rezervace (žádné stránky se nepíšou slovensky přímo). Slovník stránek je `tools/i18n/sk/*.mjs`, slovník skriptů `tools/i18n/sk-js/*.mjs`, adresy `SK_STRANKY` v `tools/i18n/slugs.mjs`, kopie skriptů `assets/js/sk/`. Chybějící překlady hlásí `tools/i18n/chybejici-sk.json` a `chybejici-js-sk.json` (musí být prázdné, hlídá to `tools/test/slovencina.test.mjs`).
+- **Čísla a data ve slovníku** se zapisují vzorem `{#}` (např. „štvrtok {#}. {#}. {#} o {#}:{#}“), aby se po změně termínů v `data/seminare.json` nemuselo překládat znovu. Texty s pevnými čísly (např. „3 590 Kč“) se překládají přesně.
+- **Krizová linka** je na slovenských stránkách „Linka dôvery Nezábudka 0800 800 566“ (spolu s 112 a 155), česká linka 116 123 se tam nepoužívá. Ceny zůstávají v Kč, platí se na český účet. Odkazy na české organizace v části „Kam dál“ jsou přeložené a označené jako české. Právní stránky jsou orientační překlad, rozhodující je české znění (platí české právo).
+- **Rezervace:** formulář posílá `jazyk: "sk"`, server píše e-mail účastníkovi a odpověď slovensky; setkání se konají česky nebo slovensky.
+
 ## Koncepty a schvalování
 
 Obsahové stránky (Typy OCD, Vtíravé myšlenky, Pro blízké, Mýty, Slovníček, Příběhy, Pro terapeuty) jsou od 23. 10. 2026 zveřejněné: mají drobečky, JSON-LD (Article a BreadcrumbList), OG obrázek, jsou v sitemapě a v menu „O OCD“. Funkce `contentPage` v `tools/gen.mjs` stránku zveřejní sama; **koncept** je stránka s `draft: true`: má `noindex, nofollow`, štítek „Koncept“, není v navigaci ani v sitemapě a je v přehledu `/koncepty` (jen pro kontrolu autorem). Aktuálně je konceptem jen `/skupiny` (čeká na cenu a podrobnosti skupin). Zveřejní se odstraněním `draft: true` u jejího volání `contentPage`, potom `npm run gen`, `npm run og` a `npm run audit`.

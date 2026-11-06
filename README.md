@@ -1,6 +1,6 @@
 # OCD mentor – ocdmentor.cz
 
-Statický web v češtině: HTML, CSS a minimum JavaScriptu. Bez databáze, bez cookies a bez analytiky. Stránky se generují Node skriptem a výsledek se commituje do repozitáře.
+Statický web v češtině: HTML, CSS a minimum JavaScriptu. Bez databáze a bez vlastní analytiky; měření reklamy (Meta Pixel) se zapíná jen po souhlasu v liště cookies (viz níže). Stránky se generují Node skriptem a výsledek se commituje do repozitáře.
 
 ## Rychlý start
 
@@ -106,6 +106,12 @@ Slovenština funguje stejně jako angličtina (stejný generátor, přepínač C
 - **Čísla a data ve slovníku** se zapisují vzorem `{#}` (např. „štvrtok {#}. {#}. {#} o {#}:{#}“), aby se po změně termínů v `data/seminare.json` nemuselo překládat znovu. Texty s pevnými čísly (např. „3 590 Kč“) se překládají přesně.
 - **Krizová linka** je na slovenských stránkách „Linka dôvery Nezábudka 0800 800 566“ (spolu s 112 a 155), česká linka 116 123 se tam nepoužívá. Ceny zůstávají v Kč, platí se na český účet. Odkazy na české organizace v části „Kam dál“ jsou přeložené a označené jako české. Právní stránky jsou orientační překlad, rozhodující je české znění (platí české právo).
 - **Rezervace:** formulář posílá `jazyk: "sk"`, server píše e-mail účastníkovi a odpověď slovensky; setkání se konají česky nebo slovensky.
+
+## Cookies a Meta Pixel
+
+- Lišta cookies (`assets/js/cookie.js`, HTML lišty a odkaz „Nastavení cookies“ v patičce vkládá `page()` v `tools/gen.mjs`, příznak `cookiesOn`). Volba se ukládá do `localStorage` (`ocdmentor-cookies`) na 12 měsíců.
+- Meta Pixel (ID je v `cookie.js`) se načte **jen po souhlasu**; v HTML stránek není, `<noscript>` varianta se záměrně nepoužívá (běžela by bez souhlasu). Lišta a pixel se nezobrazují v aplikaci, na dotazníku, kvízu, potvrzení rezervace a konceptech.
+- CSP povoluje `connect.facebook.net` (skript) a `www.facebook.com` (obrázky, spojení). Texty lišty a zásad jsou ve slovnících `tools/i18n/{en,sk}/40-cookies.mjs`. Hlídá to `tools/test/cookies.test.mjs`.
 
 ## Koncepty a schvalování
 

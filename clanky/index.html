@@ -31,7 +31,7 @@
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=e212f875">
+<link rel="stylesheet" href="/assets/css/style.css?v=f1d7dcfe">
 
 <script type="application/ld+json">
 {
@@ -211,8 +211,9 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
       <li><a href="/pro-blizke">Pro blízké</a></li>
       <li><a href="/pro-terapeuty">Pro terapeuty</a></li>
       <li><a href="/pomoc">Pomoc hned</a></li>
+      <li><button type="button" class="linklike js-only" id="cookie-settings">Nastavení cookies</button></li>
     </ul>
-    <p class="small">© 2026 OCDmentor.cz Všechna práva vyhrazena. Vlastní cookies ani sledování návštěvnosti nepoužíváme. Rezervační widget Reservanto může při otevření nastavit vlastní cookies – více v <a href="/ochrana-osobnich-udaju">zásadách ochrany osobních údajů</a>.</p>
+    <p class="small">© 2026 OCDmentor.cz Všechna práva vyhrazena. Cookies pro měření reklamy (Meta Pixel) zapínáme jen s vaším souhlasem. Rezervační widget Reservanto může při otevření nastavit vlastní cookies – více v <a href="/ochrana-osobnich-udaju">zásadách ochrany osobních údajů</a>.</p>
     <p class="small">Web vytvořila <a href="https://growea.eu" target="_blank" rel="noopener">GROWEA.eu</a></p>
   </div>
 </footer>
@@ -239,7 +240,18 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
     </div>
   </div>
 </dialog>
+<section class="cookie-banner" id="cookie-banner" aria-labelledby="cookie-h" hidden>
+  <div class="cookie-inner">
+    <h2 id="cookie-h">Cookies a měření reklamy</h2>
+    <p>Web funguje i bez cookies. Se svolením zapneme Meta Pixel (Facebook), který nám pomáhá vyhodnotit, jak se k nám lidé dostanou z naší reklamy. Meta se tím dozví, že jste na webu byli. Svolení můžete kdykoli změnit v patičce přes „Nastavení cookies“. <a href="/ochrana-osobnich-udaju#cookies">Více informací</a></p>
+    <div class="cookie-actions">
+      <button type="button" id="cookie-accept" class="btn btn-ghost">Souhlasím</button>
+      <button type="button" id="cookie-reject" class="btn btn-ghost">Odmítnout</button>
+    </div>
+  </div>
+</section>
 <script defer src="/assets/js/rezervace-souhlas.js?v=0bf556f1"></script>
+<script src="/assets/js/cookie.js?v=8461b30a" defer></script>
 
 <script src="/assets/js/lista.js?v=19b352ec" defer></script>
 

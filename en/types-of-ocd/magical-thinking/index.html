@@ -33,7 +33,7 @@
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=e212f875">
+<link rel="stylesheet" href="/assets/css/style.css?v=f1d7dcfe">
 
 <script type="application/ld+json">
 {
@@ -285,8 +285,9 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
       <li><a href="/en/for-relatives">For relatives</a></li>
       <li><a href="/en/for-professionals">For professionals</a></li>
       <li><a href="/en/help">Help now</a></li>
+      <li><button type="button" class="linklike js-only" id="cookie-settings">Cookie settings</button></li>
     </ul>
-    <p class="small">© 2026 OCDmentor.cz All rights reserved. We do not use our own cookies or analytics. The Reservanto booking widget may set its own cookies when opened – see the <a href="/en/privacy">privacy policy</a>.</p>
+    <p class="small">© 2026 OCDmentor.cz All rights reserved. We only switch on advertising-measurement cookies (Meta Pixel) with your consent. The Reservanto booking widget may set its own cookies when it opens – more in the <a href="/en/privacy">privacy policy</a>.</p>
     <p class="small">Website by <a href="https://growea.eu" target="_blank" rel="noopener">GROWEA.eu</a></p>
   </div>
 </footer>
@@ -312,7 +313,18 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
     </div>
   </div>
 </dialog>
+<section class="cookie-banner" id="cookie-banner" aria-labelledby="cookie-h" hidden>
+  <div class="cookie-inner">
+    <h2 id="cookie-h">Cookies and ad measurement</h2>
+    <p>The site works without cookies. With your consent we will switch on the Meta Pixel (Facebook), which helps us see how people reach us from our advertising. Meta then learns that you visited the site. You can change your choice at any time in the footer under “Cookie settings”. <a href="/en/privacy#cookies">More information</a></p>
+    <div class="cookie-actions">
+      <button type="button" id="cookie-accept" class="btn btn-ghost">I agree</button>
+      <button type="button" id="cookie-reject" class="btn btn-ghost">Decline</button>
+    </div>
+  </div>
+</section>
 <script defer src="/assets/js/rezervace-souhlas.js?v=0bf556f1"></script>
+<script src="/assets/js/cookie.js?v=8461b30a" defer></script>
 
 <script src="/assets/js/lista.js?v=19b352ec" defer></script>
 

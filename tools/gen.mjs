@@ -531,6 +531,8 @@ function page({ path: pathArg, title, desc, body, jsonld, noindex, robots, scrip
   const url = SITE + (pathArg === '/' ? '/' : pathArg);
   const jsPro = (src) => (L && L.skripty.has(src) ? src.replace('/assets/js/', `/assets/js/${L.kod}/`) : src);
   const isNoindex = !!noindex || /noindex/.test(robots || '');
+  // lišta cookies a Meta Pixel: jen na veřejných stránkách; ne v aplikaci, v dotazníku a v kvízu (citlivá témata), ne na konceptech a offline stránce
+  const cookiesOn = !app && !draft && !isNoindex && !['/dotaznik', '/kviz'].includes(path);
   const robotsContent = robots || (noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large');
   const navHtml = nav
     .map(([h, t, sub, typ]) => {
@@ -680,8 +682,9 @@ ${crumbsHtml}${b}
       <li><a href="/pro-blizke">Pro blízké</a></li>
       <li><a href="/pro-terapeuty">Pro terapeuty</a></li>
       <li><a href="/pomoc">Pomoc hned</a></li>
+      ${cookiesOn ? '<li><button type="button" class="linklike js-only" id="cookie-settings">Nastavení cookies</button></li>' : ''}
     </ul>
-    <p class="small">© 2026 OCDmentor.cz Všechna práva vyhrazena. Vlastní cookies ani sledování návštěvnosti nepoužíváme. Rezervační widget Reservanto může při otevření nastavit vlastní cookies – více v <a href="/ochrana-osobnich-udaju">zásadách ochrany osobních údajů</a>.</p>
+    <p class="small">© 2026 OCDmentor.cz Všechna práva vyhrazena. Cookies pro měření reklamy (Meta Pixel) zapínáme jen s vaším souhlasem. Rezervační widget Reservanto může při otevření nastavit vlastní cookies – více v <a href="/ochrana-osobnich-udaju">zásadách ochrany osobních údajů</a>.</p>
     <p class="small">Web vytvořila <a href="https://growea.eu" target="_blank" rel="noopener">GROWEA.eu</a></p>
   </div>
 </footer>
@@ -704,7 +707,18 @@ ${floatHtml}<dialog id="rsv-modal" aria-labelledby="rsv-modal-h" aria-modal="tru
     </div>
   </div>
 </dialog>
+${cookiesOn ? `<section class="cookie-banner" id="cookie-banner" aria-labelledby="cookie-h" hidden>
+  <div class="cookie-inner">
+    <h2 id="cookie-h">Cookies a měření reklamy</h2>
+    <p>Web funguje i bez cookies. Se svolením zapneme Meta Pixel (Facebook), který nám pomáhá vyhodnotit, jak se k nám lidé dostanou z naší reklamy. Meta se tím dozví, že jste na webu byli. Svolení můžete kdykoli změnit v patičce přes „Nastavení cookies“. <a href="/ochrana-osobnich-udaju#cookies">Více informací</a></p>
+    <div class="cookie-actions">
+      <button type="button" id="cookie-accept" class="btn btn-ghost">Souhlasím</button>
+      <button type="button" id="cookie-reject" class="btn btn-ghost">Odmítnout</button>
+    </div>
+  </div>
+</section>` : ''}
 <script defer src="${jsPro('/assets/js/rezervace-souhlas.js')}"></script>
+${cookiesOn ? `<script src="/assets/js/cookie.js" defer></script>` : ''}
 ${b.includes('class="gl-wrap"') ? `<script src="${jsPro('/assets/js/slovnicek.js')}" defer></script>` : ''}
 ${showFloat ? `<script src="${jsPro('/assets/js/lista.js')}" defer></script>` : ''}
 ${[].concat(script || []).map((s) => `<script src="${jsPro(s)}" defer></script>`).join('\n')}
@@ -2286,7 +2300,7 @@ add('/ochrana-osobnich-udaju', {
     <li><strong>Rezervace konzultace:</strong> tlačítko pro rezervaci konzultace (na úvodní stránce a na stránkách Jak to probíhá, Online semináře a Pro blízké) načítá widget společnosti Reservanto s.r.o. (IČ 24298395, Liberec). Už samotným načtením stránky se vaše IP adresa dostane k Reservantu. Pokud si rezervaci dokončíte, zadáváte do Reservanta jméno, telefon a e-mail, které slouží k vyřízení rezervace a ke komunikaci s vámi. Zda Reservanto tyto údaje zpracovává jako samostatný správce, nebo jako náš zpracovatel, se řídí jeho aktuálními podmínkami — podrobnosti najdete ve <a href="https://reservanto.cz/ochrana-osobnich-udaju" target="_blank" rel="noopener noreferrer">vlastních zásadách ochrany osobních údajů Reservanta</a>. Právní základ: jednání před uzavřením spolupráce (čl. 6 odst. 1 písm. b GDPR).</li>
     <li><strong>Telefon a WhatsApp:</strong> po rezervaci vás zpravidla kontaktuji telefonicky nebo přes WhatsApp, abychom domluvili podrobnosti sezení. Vaše telefonní číslo k tomu použiji jen za tímto účelem. Komunikace přes WhatsApp probíhá přes službu provozovanou společností WhatsApp Ireland Limited (Meta), která zprávy přenáší přes svou infrastrukturu; neslibuji, že tyto zprávy zůstávají jen na vašem nebo mém zařízení. Právní základ: jednání před uzavřením spolupráce (čl. 6 odst. 1 písm. b GDPR).</li>
     <li><strong>Rezervace online semináře (/seminare):</strong> zpracovávám jméno, příjmení, e-mail, telefonní číslo (ke spojení, například přes WhatsApp) a informace o rezervaci a platbě (zvolený běh a termíny, variabilní symbol, částka; číslo účtu odesílatele vidím v bance po připsání platby). Samotná účast na semináři o OCD může vypovídat o zdravotním stavu účastníka nebo jeho blízkého, což je zvláštní kategorie údajů. U programu pro blízké prodejce údaje o člověku s OCD neshromažďuje. Pokud je účastník přesto na setkání sdělí, použije je prodejce jen pro účel daného hovoru a nezaznamenává je. Formulář odesílá údaje na serverovou funkci webu hostovanou ve Vercelu (region EU), která z nich jen sestaví a odešle e-maily (účastníkovi s platebními údaji a mně s upozorněním na novou rezervaci) a nic neukládá. Účel a právní základ: rezervace a plnění smlouvy (čl. 6 odst. 1 písm. b GDPR), plnění účetních a daňových povinností (čl. 6 odst. 1 písm. c) a výslovný souhlas se zpracováním informace o zdravotním stavu plynoucí z účasti (čl. 9 odst. 2 písm. a).</li>
-    <li><strong>Technické údaje o připojení</strong> (např. IP adresa) zpracovává automaticky náš hostingový poskytovatel Vercel Inc. jen za účelem doručení stránky a zabezpečení provozu, po krátkou technicky nutnou dobu. Sami vlastní cookies, analytiku ani žádné vlastní sledování nepoužíváme. Widget Reservanto (viz výše) je ale skript třetí strany a může při načtení nebo otevření rezervace nastavit vlastní cookies podle svých podmínek.</li>
+    <li><strong>Technické údaje o připojení</strong> (např. IP adresa) zpracovává automaticky náš hostingový poskytovatel Vercel Inc. jen za účelem doručení stránky a zabezpečení provozu, po krátkou technicky nutnou dobu. Vlastní analytiku nepoužíváme a cookies pro měření reklamy zapínáme jen s vaším souhlasem (viz část Cookies a Meta Pixel níže). Widget Reservanto (viz výše) je ale skript třetí strany a může při načtení nebo otevření rezervace nastavit vlastní cookies podle svých podmínek.</li>
   </ol>
 
   <h2>Kategorie zpracovávaných údajů</h2>
@@ -2298,6 +2312,11 @@ add('/ochrana-osobnich-udaju', {
     <li>Technické údaje o připojení, např. IP adresa (hosting).</li>
   </ul>
 
+  <h2 id="cookies">Cookies a Meta Pixel</h2>
+  <p>Web funguje bez cookies a bez jakéhokoli sledování. Při první návštěvě se vás zeptáme, zda souhlasíte s měřením reklamy. Dokud souhlas neudělíte, nenačítá se žádný skript společnosti Meta a nenastavují se žádné marketingové cookies. Na stránkách vstupního dotazníku a kvízu, v aplikaci a na potvrzení rezervace se lišta ani Meta Pixel nezobrazují vůbec.</p>
+  <p>Pokud souhlas udělíte, načte se Meta Pixel společnosti Meta Platforms Ireland Limited (Facebook). Nastaví cookies (_fbp, případně _fbc) a Metě předá, že jste navštívili konkrétní stránku webu, spolu s technickými údaji prohlížeče a IP adresou. Používáme jej k vyhodnocení, kolik lidí přichází z naší reklamy, a k lepšímu zacílení reklamy. Za zpracování údajů v rámci Meta Pixelu odpovídáme společně s Metou; Meta údaje zpracovává i pro vlastní účely podle svých zásad a údaje mohou být předávány mimo Evropský hospodářský prostor na základě standardních smluvních doložek. Právním základem je váš souhlas (čl. 6 odst. 1 písm. a GDPR).</p>
+  <p>Souhlas je dobrovolný, jeho odmítnutí nemá na používání webu žádný vliv. Můžete jej kdykoli odvolat nebo znovu udělit přes odkaz „Nastavení cookies“ v patičce každé stránky; odvolání nemá vliv na zákonnost zpracování před odvoláním. Platnost vaší volby je 12 měsíců, poté se zeptáme znovu. Volba se ukládá jen ve vašem prohlížeči. Cookies Meta můžete smazat také v nastavení prohlížeče.</p>
+
   <h2>Zdroj osobních údajů</h2>
   <p>Veškeré osobní údaje získáváme přímo od vás: z vaší e-mailové zprávy, z textu dotazníku, který si sami odešlete, z údajů, které zadáte při rezervaci konzultace přes Reservanto, nebo z údajů, které zadáte do rezervačního formuláře semináře.</p>
 
@@ -2305,7 +2324,7 @@ add('/ochrana-osobnich-udaju', {
   <p>U dotazníku ani u aplikace žádná: tato data u nás vůbec nejsou uložena. U e-mailové, telefonické a WhatsApp komunikace jen po dobu nutnou k vyřízení dotazu nebo k domluvené spolupráci. Dobu uchování vašich údajů v systému Reservanto určuje Reservanto podle svých podmínek. U rezervace semináře uchovávám údaje o platbě po dobu stanovenou účetními a daňovými předpisy a e-mailovou komunikaci 1 rok po skončení programu. Zápisy ani nahrávky ze setkání nepořizuji, případné krátké poznámky mažu nejpozději 30 dnů po skončení programu.</p>
 
   <h2>Příjemci údajů a předávání do zahraničí</h2>
-  <p>Hostingový poskytovatel Vercel Inc. jako technický zpracovatel provozu webu a serverové funkce rezervace. Resend, Inc. (odesílání e-mailů při rezervaci semináře). Google (videohovory Google Meet). Rezervační systém Reservanto s.r.o. (viz výše). Pokud s vámi komunikuji přes WhatsApp, zprávy zpracovává WhatsApp Ireland Limited (Meta). Vercel, Resend, Google a Meta mohou údaje zpracovávat i mimo Evropský hospodářský prostor, a to na základě standardních smluvních doložek nebo rozhodnutí o odpovídající ochraně. Jinak údaje nepředáváme žádným dalším třetím stranám.</p>
+  <p>Hostingový poskytovatel Vercel Inc. jako technický zpracovatel provozu webu a serverové funkce rezervace. Resend, Inc. (odesílání e-mailů při rezervaci semináře). Google (videohovory Google Meet). Meta Platforms Ireland Limited (Meta Pixel, jen s vaším souhlasem). Rezervační systém Reservanto s.r.o. (viz výše). Pokud s vámi komunikuji přes WhatsApp, zprávy zpracovává WhatsApp Ireland Limited (Meta). Vercel, Resend, Google a Meta mohou údaje zpracovávat i mimo Evropský hospodářský prostor, a to na základě standardních smluvních doložek nebo rozhodnutí o odpovídající ochraně. Jinak údaje nepředáváme žádným dalším třetím stranám.</p>
 
   <h2>Vaše práva</h2>
   <ul class="rules">
@@ -3065,13 +3084,15 @@ for (const html of Object.values(files)) {
   }
 }
 const RSV = 'https://*.reservanto.cz';
+const META_SCRIPT = 'https://connect.facebook.net';
+const META = 'https://www.facebook.com';
 const CSP = [
   "default-src 'self'",
-  `script-src 'self' ${[...inlineHashe].sort().join(' ')} ${RSV}`,
+  `script-src 'self' ${[...inlineHashe].sort().join(' ')} ${RSV} ${META_SCRIPT}`,
   `style-src 'self' 'unsafe-inline' ${RSV}`,
-  `img-src 'self' data: ${RSV}`,
+  `img-src 'self' data: ${RSV} ${META}`,
   `font-src 'self' ${RSV}`,
-  `connect-src 'self' ${RSV}`,
+  `connect-src 'self' ${RSV} ${META} ${META_SCRIPT}`,
   `frame-src ${RSV}`,
   "media-src 'self'",
   "manifest-src 'self'",

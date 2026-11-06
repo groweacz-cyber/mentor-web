@@ -378,6 +378,22 @@ p { margin: 0 0 1rem; }
 .site-footer .small { color: #c4cfdf; }
 .foot-notice { font-size: 1rem; }
 .foot-links { list-style: none; display: flex; flex-wrap: wrap; gap: 1rem; padding: 0; margin: 1rem 0; }
+.linklike { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: .2em; }
+.site-footer .linklike:hover { color: var(--sun); }
+
+/* ===== Lišta cookies ===== */
+.cookie-banner { position: fixed; z-index: 60; left: 0; right: 0; bottom: 0; background: var(--surface); color: var(--ink); border-top: 3px solid var(--ink); box-shadow: 0 -8px 30px rgba(27, 42, 65, .18); }
+.cookie-banner[hidden] { display: none; }
+.cookie-inner { max-width: 62rem; margin: 0 auto; padding: 1rem 1.25rem; display: grid; gap: .6rem; }
+.cookie-inner h2 { font-size: 1.1rem; margin: 0; }
+.cookie-inner p { margin: 0; font-size: .98rem; }
+.cookie-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+.cookie-actions .btn { flex: 1 1 10rem; justify-content: center; }
+@media (min-width: 52rem) {
+  .cookie-inner { grid-template-columns: 1fr auto; align-items: center; column-gap: 2rem; }
+  .cookie-inner h2 { grid-column: 1 / -1; }
+  .cookie-actions { flex-wrap: nowrap; }
+}
 
 /* ===== Formulář ===== */
 .form fieldset { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.2rem 1.4rem 1.4rem; margin: 0 0 1.25rem; min-width: 0; box-shadow: var(--shadow); }

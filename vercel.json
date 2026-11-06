@@ -43,7 +43,7 @@
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'sha256-MkRWfl3p1g5Vy/AwHRJ4siPZU40wMAhpwtygRQjQyuE=' 'sha256-WdvxGS/Ji/KbCLjJlt5TLMmN6VddBNP3tYt6dHaR3rE=' 'sha256-frYMuQGVB5sz4/D5MEia7CiWTK7n4nTaMrD8QnAr0qA=' https://*.reservanto.cz; style-src 'self' 'unsafe-inline' https://*.reservanto.cz; img-src 'self' data: https://*.reservanto.cz; font-src 'self' https://*.reservanto.cz; connect-src 'self' https://*.reservanto.cz; frame-src https://*.reservanto.cz; media-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'" }
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'sha256-MkRWfl3p1g5Vy/AwHRJ4siPZU40wMAhpwtygRQjQyuE=' 'sha256-WdvxGS/Ji/KbCLjJlt5TLMmN6VddBNP3tYt6dHaR3rE=' 'sha256-frYMuQGVB5sz4/D5MEia7CiWTK7n4nTaMrD8QnAr0qA=' https://*.reservanto.cz https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://*.reservanto.cz; img-src 'self' data: https://*.reservanto.cz https://www.facebook.com; font-src 'self' https://*.reservanto.cz; connect-src 'self' https://*.reservanto.cz https://www.facebook.com https://connect.facebook.net; frame-src https://*.reservanto.cz; media-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'" }
       ]
     },
     {

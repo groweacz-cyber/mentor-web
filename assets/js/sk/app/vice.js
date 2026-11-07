@@ -7,6 +7,7 @@ boot(root);
 const GROUPS = [
   ['Každodenné nástroje', [
     ['/aplikace/denik', 'Expozičný denník', 'Časovač, záznam a graf'],
+    ['/aplikace/obsese', 'Tracker obsesií', 'Denný záznam tém a sily'],
     ['/aplikace/kompulze', 'Tracker kompulzií', 'Odolal/a som, urobil/a som'],
     ['/aplikace/text', 'Expozičný text', 'Napísať a skontrolovať'],
     ['/aplikace/zebricek', 'Rebríček tém', 'Od najslabšieho po najsilnejšie'],

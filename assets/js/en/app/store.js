@@ -9,6 +9,7 @@ const blank = () => ({
   exposures: [],
   texts: [],
   compulsions: [],
+  obsessions: [],
   timer: null,
   weeks: [],
   episodes: [],

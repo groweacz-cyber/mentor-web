@@ -7,6 +7,7 @@ boot(root);
 const GROUPS = [
   ['Everyday tools', [
     ['/aplikace/denik', 'Exposure diary', 'Timer, log and chart'],
+    ['/aplikace/obsese', 'Obsession tracker', 'Daily log of themes and strength'],
     ['/aplikace/kompulze', 'Compulsion tracker', 'I resisted, I did it'],
     ['/aplikace/text', 'Exposure text', 'Write and check'],
     ['/aplikace/zebricek', 'Ladder of themes', 'From the weakest to the strongest'],

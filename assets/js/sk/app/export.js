@@ -1,5 +1,5 @@
 // Export pro terapeuta: přehled pro tisk nebo uložení do PDF (tiskový dialog prohlížeče). Nic se neodesílá.
-import { data, fmtDate, fmtDateLong, latestAssessment } from './store.js';
+import { data, fmtDate, fmtDateLong, latestAssessment, dayKey } from './store.js';
 import { h, boot, gate, lineChart, $ } from './ui.js';
 import { pathLabel, KIND_LABEL } from './data.js';
 
@@ -9,6 +9,7 @@ boot(root);
 const OPTS = [
   ['ass', 'Dotazníky a rebríček', true],
   ['exp', 'Expozičný denník s grafom', true],
+  ['obs', 'Obsesie (denné súčty a sila)', true],
   ['cmp', 'Kompulzie (týždenné súčty)', true],
   ['wk', 'Sebaprijatie a sebadôvera', true],
   ['vis', 'Vízia', false],
@@ -35,6 +36,18 @@ function build(sel) {
     const ex = d.exposures.slice(-20);
     out.push(lineChart([{ name: 'Pred', cls: 's-before', values: ex.map((e) => e.before) }, { name: 'Maximum', cls: 's-peak', values: ex.map((e) => e.peak) }, { name: 'Po 15 min', cls: 's-after', values: ex.map((e) => e.after) }], ex.map((e) => fmtDate(e.at)), 'Vývoj úzkosti v expozíciách'));
     out.push(table(['Dátum', 'Téma', 'Pred', 'Max', 'Po', 'Chuť na kompulziu'], d.exposures.slice(-30).map((e) => [fmtDate(e.at), e.topicName, e.before, e.peak, e.after, e.urge ? 'ano' : 'ne'])));
+  }
+  if (sel.obs && d.obsessions.length) {
+    out.push(h('h3', {}, 'Obsesie podľa dní'));
+    const rows = [];
+    for (let i = 13; i >= 0; i--) {
+      const t = Date.now() - i * 86400000;
+      const k = dayKey(t);
+      const o = d.obsessions.filter((x) => dayKey(x.at) === k);
+      if (!o.length) continue;
+      rows.push([fmtDate(t), o.length, Math.round(o.reduce((s, x) => s + x.intensity, 0) / o.length) + ' / 10', d.compulsions.filter((c) => dayKey(c.at) === k).length]);
+    }
+    out.push(table(['Dátum', 'Obsesie', 'Priemerná sila', 'Kompulzie'], rows));
   }
   if (sel.cmp && d.compulsions.length) {
     out.push(h('h3', {}, 'Kompulzie podľa týždňov'));

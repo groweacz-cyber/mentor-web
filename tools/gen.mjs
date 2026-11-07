@@ -281,7 +281,7 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
 </script>`;
 
 const appItems = [
-  ['/aplikace', 'Přehled'], ['/aplikace/denik', 'Deník'], ['/aplikace/kompulze', 'Kompulze'], ['/aplikace/text', 'Text'],
+  ['/aplikace', 'Přehled'], ['/aplikace/denik', 'Deník'], ['/aplikace/obsese', 'Obsese'], ['/aplikace/kompulze', 'Kompulze'], ['/aplikace/text', 'Text'],
   ['/aplikace/zebricek', 'Žebříček'], ['/aplikace/kruh', 'Kruh'], ['/aplikace/vice', 'Více'],
 ];
 const appNav = (path) => `<nav class="app-nav" aria-label="Aplikace"><ul>${appItems.map(([h, t]) => {
@@ -2963,6 +2963,7 @@ appPage('start', 'Vstupní dotazník', 'Zabere asi 10 minut. Nic se neodesílá 
 appPage('zebricek', 'Žebříček témat', '', 'Žebříček témat z dotazníku.', 'ladder');
 appPage('denik', 'Expoziční deník', '', 'Expoziční deník s časovačem a grafem.', 'diary');
 appPage('text', 'Expoziční text', '', 'Editor expozičního textu s kontrolou.', 'text');
+appPage('obsese', 'Tracker obsesí', 'Obsese jsou vtíravé myšlenky, představy nebo nutkání, na které kompulze navazují. Zapište jen krátce, kdy přišly a jak byly silné.', 'Denní záznam obsesí: téma a síla.', 'obsessions');
 appPage('kompulze', 'Tracker kompulzí', '', 'Rychlý záznam kompulzí.', 'compulsions');
 appPage('principy', 'Karty principů', '', 'Dvanáct principů metody a karta dne.', 'principles');
 appPage('nastaveni', 'Data a připomínky', '', 'Export, import, smazání dat a připomínky v kalendáři.', 'settings');

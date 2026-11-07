@@ -65,6 +65,7 @@ function dashboard() {
   const c = cardOfDay();
   out.push(h('div', { class: 'card app-card principle' }, h('p', { class: 'eyebrow' }, 'Card of the day'), h('h3', {}, c.t), h('p', {}, c.x), h('a', { href: '/aplikace/principy' }, 'All 12 principles')));
   out.push(h('div', { class: 'tiles' },
+    tile('/aplikace/obsese', 'Obsession tracker', 'Daily log of themes and strength'),
     tile('/aplikace/kompulze', 'Compulsion tracker', 'Quick logging with one tap'),
     tile('/aplikace/text', 'Exposure text', 'Write and check a text'),
     tile('/aplikace/denik', 'Exposure diary', 'Timer and progress chart'),

@@ -22,7 +22,7 @@ function makeIcs(monthly, daily, time) {
 function render(note, bad) {
   const d = data();
   const stats = [
-    ['Questionnaires', d.assessments.length], ['Exposure', d.exposures.length], ['Texts', d.texts.length], ['Compulsion entries', d.compulsions.length],
+    ['Questionnaires', d.assessments.length], ['Exposure', d.exposures.length], ['Texts', d.texts.length], ['Obsession records', d.obsessions.length], ['Compulsion entries', d.compulsions.length],
   ];
   const file = h('input', { type: 'file', id: 'imp', accept: 'application/json,.json' });
   file.addEventListener('change', () => {

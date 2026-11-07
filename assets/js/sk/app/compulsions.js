@@ -55,7 +55,8 @@ function render() {
         h('span', { class: 'bar-label' }, x.label)))),
       h('ul', { class: 'legend' }, h('li', {}, h('span', { class: 'sw seg-res' }), 'Odolal/a som (' + res + ')'), h('li', {}, h('span', { class: 'sw seg-did' }), 'Urobil/a som (' + did + ')')),
       h('p', { class: 'small' }, 'Čísla nie sú výkon. Slúžia len na to, aby ste videli, že sa veci hýbu. Žiadna „séria“ sa neprerušuje.'),
-      last ? h('button', { class: 'linklike', type: 'button', onclick: () => { d.compulsions.pop(); save(); msg = null; render(); } }, 'Vymazať posledný záznam') : null),
+      last ? h('button', { class: 'linklike', type: 'button', onclick: () => { d.compulsions.pop(); save(); msg = null; render(); } }, 'Vymazať posledný záznam') : null,
+      h('p', { class: 'small' }, 'Kompulzie nadväzujú na obsesie. ', h('a', { href: '/aplikace/obsese' }, 'Zapísať obsesiu'))),
   ].filter(Boolean));
 }
 

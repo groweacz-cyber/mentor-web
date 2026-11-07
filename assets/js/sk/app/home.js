@@ -65,6 +65,7 @@ function dashboard() {
   const c = cardOfDay();
   out.push(h('div', { class: 'card app-card principle' }, h('p', { class: 'eyebrow' }, 'Karta dňa'), h('h3', {}, c.t), h('p', {}, c.x), h('a', { href: '/aplikace/principy' }, 'Všetkých 12 princípov')));
   out.push(h('div', { class: 'tiles' },
+    tile('/aplikace/obsese', 'Tracker obsesií', 'Denný záznam tém a sily'),
     tile('/aplikace/kompulze', 'Tracker kompulzií', 'Rýchly záznam jedným ťuknutím'),
     tile('/aplikace/text', 'Expozičný text', 'Napísať a skontrolovať text'),
     tile('/aplikace/denik', 'Expozičný denník', 'Časovač a graf vývoja'),

@@ -55,7 +55,8 @@ function render() {
         h('span', { class: 'bar-label' }, x.label)))),
       h('ul', { class: 'legend' }, h('li', {}, h('span', { class: 'sw seg-res' }), 'I resisted (' + res + ')'), h('li', {}, h('span', { class: 'sw seg-did' }), 'I did it (' + did + ')')),
       h('p', { class: 'small' }, 'The numbers are not a performance. They only help you see that things are moving. No "streak" is being broken.'),
-      last ? h('button', { class: 'linklike', type: 'button', onclick: () => { d.compulsions.pop(); save(); msg = null; render(); } }, 'Delete the last entry') : null),
+      last ? h('button', { class: 'linklike', type: 'button', onclick: () => { d.compulsions.pop(); save(); msg = null; render(); } }, 'Delete the last entry') : null,
+      h('p', { class: 'small' }, 'Compulsions follow obsessions. ', h('a', { href: '/aplikace/obsese' }, 'Log an obsession'))),
   ].filter(Boolean));
 }
 

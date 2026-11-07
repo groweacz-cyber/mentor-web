@@ -45,9 +45,9 @@ function build(sel) {
       const k = dayKey(t);
       const o = d.obsessions.filter((x) => dayKey(x.at) === k);
       if (!o.length) continue;
-      rows.push([fmtDate(t), o.length, Math.round(o.reduce((s, x) => s + x.intensity, 0) / o.length) + ' / 10', d.compulsions.filter((c) => dayKey(c.at) === k).length]);
+      rows.push([fmtDate(t), o.length, o.filter((x) => x.repeat === false).length, o.filter((x) => x.repeat === true).length, Math.round(o.reduce((s, x) => s + x.intensity, 0) / o.length) + ' / 10', d.compulsions.filter((c) => dayKey(c.at) === k).length]);
     }
-    out.push(table(['Date', 'Obsessions', 'Average strength', 'Compulsions'], rows));
+    out.push(table(['Date', 'Obsessions', 'Of which new themes', 'Of which recurring', 'Average strength', 'Compulsions'], rows));
   }
   if (sel.cmp && d.compulsions.length) {
     out.push(h('h3', {}, 'Compulsions by week'));

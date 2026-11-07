@@ -45,9 +45,9 @@ function build(sel) {
       const k = dayKey(t);
       const o = d.obsessions.filter((x) => dayKey(x.at) === k);
       if (!o.length) continue;
-      rows.push([fmtDate(t), o.length, Math.round(o.reduce((s, x) => s + x.intensity, 0) / o.length) + ' / 10', d.compulsions.filter((c) => dayKey(c.at) === k).length]);
+      rows.push([fmtDate(t), o.length, o.filter((x) => x.repeat === false).length, o.filter((x) => x.repeat === true).length, Math.round(o.reduce((s, x) => s + x.intensity, 0) / o.length) + ' / 10', d.compulsions.filter((c) => dayKey(c.at) === k).length]);
     }
-    out.push(table(['Dátum', 'Obsesie', 'Priemerná sila', 'Kompulzie'], rows));
+    out.push(table(['Dátum', 'Obsesie', 'Z toho nové témy', 'Z toho opakujúce sa', 'Priemerná sila', 'Kompulzie'], rows));
   }
   if (sel.cmp && d.compulsions.length) {
     out.push(h('h3', {}, 'Kompulzie podľa týždňov'));

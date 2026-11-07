@@ -31,7 +31,8 @@ test('navigace aplikace obsahuje Obsese před Kompulzemi a rozcestník i přehle
 test('úložiště má pole obsessions, modul zapisuje téma, sílu a čas a export obsahuje obsese', () => {
   assert.match(nacti('assets/js/app/store.js'), /obsessions: \[\]/);
   const m = nacti('assets/js/app/obsessions.js');
-  assert.match(m, /d\.obsessions\.push\(\{ id: uid\(\), at: Date\.now\(\), topic, intensity \}\)/);
+  assert.match(m, /d\.obsessions\.push\(\{ id: uid\(\), at: Date\.now\(\), topic, intensity, repeat: /);
+  assert.match(m, /seenBefore/, 'nové / opakující se téma se předvybírá podle dřívějších dnů');
   assert.match(nacti('assets/js/app/export.js'), /sel\.obs && d\.obsessions\.length/);
   assert.match(nacti('assets/js/app/settings.js'), /d\.obsessions\.length/);
 });

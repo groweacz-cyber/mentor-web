@@ -55,7 +55,7 @@
   function zobraz(zaostrit) {
     if (!lista) return;
     lista.hidden = false;
-    if (zaostrit && ano) ano.focus();
+    if (zaostrit && ano) ano.focus({ preventScroll: true });
   }
   function skryj() {
     if (lista) lista.hidden = true;
@@ -65,8 +65,8 @@
   if (volba && volba.marketing) nactiPixel();
   if (!volba) zobraz(false);
 
-  if (ano) ano.addEventListener('click', function () { zapis(true); nactiPixel(); skryj(); if (nastaveni) nastaveni.focus(); });
-  if (ne) ne.addEventListener('click', function () { zapis(false); odvolej(); skryj(); if (nastaveni) nastaveni.focus(); });
+  if (ano) ano.addEventListener('click', function () { zapis(true); nactiPixel(); skryj(); if (nastaveni) nastaveni.focus({ preventScroll: true }); });
+  if (ne) ne.addEventListener('click', function () { zapis(false); odvolej(); skryj(); if (nastaveni) nastaveni.focus({ preventScroll: true }); });
   if (nastaveni) nastaveni.addEventListener('click', function () { zobraz(true); });
   if (lista) lista.addEventListener('keydown', function (e) { if (e.key === 'Escape' && precti()) skryj(); });
 })();

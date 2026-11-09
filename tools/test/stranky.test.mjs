@@ -167,7 +167,7 @@ test('stránky programů: nadpis, podtitul, rámeček o povaze, formát přesně
   for (const d of ['čtvrtek 3. 12. 2026 v 18:00', 'čtvrtek 7. 1. 2027 v 18:00', 'čtvrtek 14. 1. 2027 v 18:00', 'čtvrtek 21. 1. 2027 v 18:00', 'čtvrtek 18. 2. 2027 v 18:00']) assert.ok(ocd.includes(d), d);
   const blizke = text(main(nacti(STRANKY['pro-blizke'])));
   for (const d of ['úterý 1. 12. 2026 v 18:00', 'úterý 8. 12. 2026 v 18:00', 'úterý 15. 12. 2026 v 18:00', 'úterý 12. 1. 2027 v 18:00', 'úterý 19. 1. 2027 v 18:00', 'úterý 26. 1. 2027 v 18:00']) assert.ok(blizke.includes(d), d);
-  assert.ok(blizke.includes('Žijete s člověkem, který má OCD, nebo se o někoho takového staráte? Možná máte pocit, že všechno, co zkusíte, nepomáhá nebo situaci dokonce zhoršuje. Dobře míněná pomoc totiž OCD často nechtěně udržuje. Na tomto programu vám ukážu, jak to vypadá zevnitř, co pomáhá a jak si přitom zachovat vlastní život.'));
+  assert.ok(blizke.includes('Žijete s člověkem, který má OCD, nebo se o někoho takového staráte? Možná máte pocit, že všechno, co zkusíte, nepomáhá nebo situaci dokonce zhoršuje. Dobře míněná pomoc může někdy OCD nechtěně udržovat. Na tomto programu vám ukážu, jak to vypadá zevnitř, co pomáhá a jak si přitom zachovat vlastní život.'));
 });
 
 test('stránky programů: FAQ je ve viditelném HTML a ve strukturovaných datech shodné, bez duplicit, s hodnotami daného programu', () => {
@@ -187,8 +187,8 @@ test('stránky programů: FAQ je ve viditelném HTML a ve strukturovaných datec
   const najdi = (id, q) => [...nacti(STRANKY[id]).matchAll(/<summary>([\s\S]*?)<\/summary>\s*<p>([\s\S]*?)<\/p>/g)].map((m) => [text(m[1]), text(m[2])]).find(([k]) => k === q)[1];
   assert.equal(najdi('pro-lidi-s-ocd', 'Co je v ceně?'), 'Všech pět setkání po 60 minutách. Jiné poplatky nejsou.');
   assert.equal(najdi('pro-blizke', 'Co je v ceně?'), 'Všechna tři setkání po 60 minutách. Jiné poplatky nejsou.');
-  assert.equal(najdi('pro-lidi-s-ocd', 'Mohu setkání přesunout nebo zrušit?'), 'Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši [DOPLNIT: např. 50 % ceny sezení]. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy. Přesun je možný po domluvě e-mailem, nejvýše dvakrát během programu.');
-  assert.equal(najdi('pro-blizke', 'Mohu setkání přesunout nebo zrušit?'), 'Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši [DOPLNIT: např. 50 % ceny sezení]. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy. Přesun je možný po domluvě e-mailem, nejvýše jednou během programu.');
+  assert.equal(najdi('pro-lidi-s-ocd', 'Mohu setkání přesunout nebo zrušit?'), 'Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši 50 % ceny sezení. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy. Přesun je možný po domluvě e-mailem, nejvýše dvakrát během programu.');
+  assert.equal(najdi('pro-blizke', 'Mohu setkání přesunout nebo zrušit?'), 'Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši 50 % ceny sezení. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy. Přesun je možný po domluvě e-mailem, nejvýše jednou během programu.');
   assert.equal(najdi('pro-lidi-s-ocd', 'Čím se liší program od jednotlivých sezení?'), 'Jednotlivá sezení jsou volná podpora podle aktuálního tématu. Program je strukturovaný podle knihy a tvoří ho pět propojených setkání.');
   assert.equal(najdi('pro-blizke', 'Čím se liší program od jednotlivých sezení?'), 'Jednotlivá sezení jsou volná podpora podle aktuálního tématu. Program je strukturovaný a tvoří ho tři propojená setkání.');
   for (const id of ['pro-lidi-s-ocd', 'pro-blizke']) {
@@ -314,7 +314,7 @@ test('patička každé stránky má upozornění, odkazy na právní stránky a 
 
 test('obchodní podmínky: část B pro dva programy, oba texty o povaze, připojení druhého člověka, přesuny; zásady ochrany údajů', () => {
   const t = text(main(nacti('obchodni-podminky/index.html')));
-  assert.ok(t.includes('Část B je účinná od [DOPLNIT: datum účinnosti] a týká se jen programů'));
+  assert.ok(t.includes('Část B je účinná od 23. 11. 2026 a týká se jen programů'));
   assert.ok(t.includes('Část B: Online semináře (individuální programy)'));
   assert.ok(t.includes(POVAHA_SEMINARE));
   assert.ok(t.includes(POVAHA_BLIZKE));
@@ -324,7 +324,7 @@ test('obchodní podmínky: část B pro dva programy, oba texty o povaze, připo
   assert.ok(t.includes('Obě ceny jsou konečné, prodejce není plátcem DPH.'));
   assert.ok(t.includes('U programu tří setkání se na setkání může připojit jeden další člověk z domácnosti účastníka bez příplatku. Jeho osobní údaje prodejce nezpracovává. Účastník zajistí, že se připojí s jeho vědomím. Účastníci nesdílejí identifikující údaje o třetích osobách (jména, diagnózy, podrobnosti).'));
   assert.ok(t.includes('Setkání se nekonají 24. a 31. prosince, program se o tyto týdny posune.'));
-  assert.ok(t.includes('Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši [DOPLNIT: např. 50 % ceny sezení]. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy. Setkání lze přesunout po domluvě e-mailem, u programu pěti setkání nejvýše dvakrát, u programu tří setkání nejvýše jednou.'));
+  assert.ok(t.includes('Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši 50 % ceny sezení. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy. Setkání lze přesunout po domluvě e-mailem, u programu pěti setkání nejvýše dvakrát, u programu tří setkání nejvýše jednou.'));
   for (const veta of [
     'Smlouva vzniká okamžikem potvrzení rezervace v Reservantu. Cena se hradí bankovním převodem s uvedeným variabilním symbolem do 3 dnů od rezervace.',
     'Zbývající část se vrací do 14 dnů stejným způsobem, jakým byla platba přijata.',

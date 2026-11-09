@@ -252,7 +252,7 @@ const appNav = (path) => `<nav class="app-nav" aria-label="Aplikace"><ul>${appIt
   const cur = h === path ? ' aria-current="page"' : (h === '/aplikace/vice' && !known ? ' aria-current="true"' : '');
   return `<li><a href="${h}"${cur}>${t}</a></li>`;
 }).join('')}</ul></nav>
-<p class="app-note">Aplikace je doplněk odborné péče a nenahrazuje ji. Není to terapie ani diagnóza.</p>`;
+<p class="app-note">Aplikace není zdravotnický prostředek, není terapie ani diagnóza a nenahrazuje odbornou péči.</p>`;
 const sosHtml = `<button type="button" class="sos-btn" id="sos-open" aria-haspopup="dialog">SOS</button>
 <dialog id="sos" aria-labelledby="sos-h">
   <h2 id="sos-h">Potřebuji pomoc teď</h2>
@@ -831,6 +831,7 @@ add('/', {
   <div class="cards">
     <article class="card">
       <p>Soukromý deník a pomůcky pro každodenní použití: tracker obsesí a kompulzí a další nástroje. Data zůstávají jen ve vašem telefonu nebo počítači. Nikam se neodesílají a já je nevidím, pokud mi je sami neposlete.</p>
+      <p class="small">Aplikace není zdravotnický prostředek, není terapie ani diagnóza a nenahrazuje odbornou péči.</p>
       <p><a class="btn btn-ghost btn-sm" href="/aplikace">Otevřít aplikaci</a></p>
     </article>
   </div>
@@ -884,6 +885,7 @@ add('/pro-koho', {
 <section class="wrap block">
   <h2>Komu může peer podpora sedět</h2>
   <p>Lidem s OCD, kteří hledají oporu od někoho, kdo to zná z vlastní zkušenosti. Můžete mluvit o tom, co prožíváte, a sdílím, co pomohlo mně.</p>
+  <p>Služba je určena osobám starším 18 let.</p>
   <p>Peer mentoring jde dobře skloubit s odbornou péčí. Odborná pomoc a vlastní aktivita se nevylučují. Léky nikdy neměňte ani nevysazujte bez domluvy s lékařem, který vám je předepsal.</p>
 </section>
 
@@ -1164,6 +1166,7 @@ add('/jak-to-probiha', {
 <section class="wrap block">
   <h2>Jak sezení probíhá</h2>
   <p>Úvodní 20minutová konzultace je zdarma a k ničemu nezavazuje. Seznámíme se a řekneme si, jestli vám tento druh podpory dává smysl. Další setkání trvají 50 minut a probíhají online. Je to rozhovor s člověkem, který OCD zná z vlastní zkušenosti: můžete mluvit o tom, co prožíváte, sdílím, co pomohlo mně, a pomáhám vám zorientovat se, kde hledat odbornou péči. Neposkytuji psychoterapii, nestanovuji diagnózu, neradím s léky a nezadávám úkoly. Tempo i témata určujete vy.</p>
+  <p>Služba je určena osobám starším 18 let.</p>
   <p><strong>Jak se spojíme:</strong> sezení probíhají jako videohovor 1:1 přes Google Meet nebo WhatsApp. Nemusíte se mi ozývat sami, po rezervaci se vám ozvu já a domluvíme spojení. Aplikace si můžete stáhnout předem, odkazy do obchodů a QR kódy najdete u každého semináře, například na stránce <a href="${SEM_ADRESA['pro-lidi-s-ocd']}#spojeni">${SEMINARE_PROGRAMY[0].kratkyNazev}</a>.</p>
 </section>
 
@@ -1942,6 +1945,7 @@ add('/kontakt', {
     <dt>E-mail</dt><dd><a href="mailto:${EMAIL}">${EMAIL}</a></dd>
   </dl>
   <p class="callout-inline"><strong>V akutní krizi nepište, volejte:</strong> 112, 155 nebo Linka první psychické pomoci 116 123.</p>
+  <p>Služba je určena osobám starším 18 let.</p>
   <p>E-mail není šifrovaná zpráva. Zdravotní podrobnosti si nechte na domluvený rozhovor.</p>
   <p class="small">Obchodní podmínky si přečtěte <a href="/obchodni-podminky">zde</a>.</p>
 </section>
@@ -1961,7 +1965,7 @@ add('/ochrana-osobnich-udaju', {
   <p>${AUTHOR}, IČ ${ICO}, se sídlem ${ADDRESS}, e-mail <a href="mailto:${EMAIL}">${EMAIL}</a>. Pověřenec pro ochranu osobních údajů nebyl jmenován.</p>
 
   <h2>Co a jak zpracováváme</h2>
-  <p>Pokud mi v e-mailu, telefonicky nebo přes WhatsApp sami sdělíte podrobnosti o svém zdravotním stavu, zpracovávám je jen v rozsahu nutném k domluvení spolupráce. Právním základem je v tomto případě váš souhlas, který dáváte najevo tím, že mi tyto údaje dobrovolně sdělíte (čl. 9 odst. 2 písm. a GDPR). Písemné poznámky o jednotlivých obtížích, nutkáních nebo kompulzích si nevedu.</p>
+  <p>Pokud mi v e-mailu, telefonicky nebo přes WhatsApp sami sdělíte podrobnosti o svém zdravotním stavu, zpracovávám je jen v rozsahu nutném k domluvení spolupráce. Zdravotní údaje, které mi dobrovolně sdělíte, zpracovávám na základě vašeho výslovného souhlasu (čl. 9 odst. 2 písm. a) GDPR), který udělujete odesláním zprávy po přečtení tohoto upozornění. Souhlas můžete kdykoli odvolat. Písemné poznámky o jednotlivých obtížích, nutkáních nebo kompulzích si nevedu.</p>
   <ol class="rules">
     <li><strong>Aplikace (/aplikace):</strong> vaše odpovědi se ukládají jen ve vašem zařízení, v úložišti prohlížeče (localStorage). Nikdy se neodesílají na žádný server ani nám. Smazat je můžete kdykoli v sekci <a href="/aplikace/nastaveni">Data a připomínky</a>. Právní základ: váš souhlas udělený při prvním spuštění aplikace.</li>
     <li><strong>E-mailová komunikace:</strong> pokud nám napíšete, zpracováváme váš e-mail a obsah zprávy jen za účelem odpovědi a vyřízení dotazu. Právní základ: jednání před uzavřením spolupráce nebo oprávněný zájem odpovědět na dotaz (čl. 6 odst. 1 písm. b, f GDPR). E-mail není šifrovaná zpráva.</li>
@@ -1981,24 +1985,18 @@ add('/ochrana-osobnich-udaju', {
   </ul>
 
   <h2 id="cookies">Cookies a Meta Pixel</h2>
-  <p>Web funguje bez cookies a bez jakéhokoli sledování. Při první návštěvě se vás zeptáme, zda souhlasíte s měřením reklamy. Dokud souhlas neudělíte, nenačítá se žádný skript společnosti Meta a nenastavují se žádné marketingové cookies. V aplikaci a na potvrzení rezervace se lišta ani Meta Pixel nezobrazují vůbec.</p>
+  <p>Web používá cookies jen v nezbytném rozsahu. Cookies pro měření reklamy (Meta Pixel) zapínám jen s vaším souhlasem. Rezervační systém Reservanto může při otevření nastavit vlastní cookies podle svých podmínek. Při první návštěvě se vás zeptáme, zda souhlasíte s měřením reklamy. Dokud souhlas neudělíte, nenačítá se žádný skript společnosti Meta a nenastavují se žádné marketingové cookies. V aplikaci a na potvrzení rezervace se lišta ani Meta Pixel nezobrazují vůbec.</p>
   <p>Pokud souhlas udělíte, načte se Meta Pixel společnosti Meta Platforms Ireland Limited (Facebook). Nastaví cookies (_fbp, případně _fbc) a Metě předá, že jste navštívili konkrétní stránku webu, spolu s technickými údaji prohlížeče a IP adresou. Používáme jej k vyhodnocení, kolik lidí přichází z naší reklamy, a k lepšímu zacílení reklamy. Za zpracování údajů v rámci Meta Pixelu odpovídáme společně s Metou; Meta údaje zpracovává i pro vlastní účely podle svých zásad a údaje mohou být předávány mimo Evropský hospodářský prostor na základě standardních smluvních doložek. Právním základem je váš souhlas (čl. 6 odst. 1 písm. a GDPR).</p>
   <p>Souhlas je dobrovolný, jeho odmítnutí nemá na používání webu žádný vliv. Můžete jej kdykoli odvolat nebo znovu udělit přes odkaz „Nastavení cookies“ v patičce každé stránky; odvolání nemá vliv na zákonnost zpracování před odvoláním. Platnost vaší volby je 12 měsíců, poté se zeptáme znovu. Volba se ukládá jen ve vašem prohlížeči. Cookies Meta můžete smazat také v nastavení prohlížeče.</p>
-
-  <h2 id="zdravotni-udaje">Zdravotní údaje v rezervaci a komunikaci</h2>
-  <p>Informace o zdravotním stavu jsou zvláštní kategorie osobních údajů (čl. 9 GDPR). Zpracováváme je jen tehdy, když nám je sami sdělíte (na sezení, v e-mailu nebo při rezervaci), a to na základě vašeho výslovného souhlasu (čl. 9 odst. 2 písm. a) GDPR). Souhlas můžete kdykoli odvolat e-mailem na <a href="mailto:${EMAIL}">${EMAIL}</a>.</p>
-  <p>Doba uchování: <span class="placeholder">[DOPLNIT: doba uchování údajů o klientech, např. 1 rok po skončení spolupráce]</span>.</p>
-  <p>Příjemci: rezervační systém Reservanto s.r.o., Google (videohovory Google Meet) a WhatsApp Ireland Limited (Meta), pokud spolu komunikujeme přes WhatsApp. Technické zpracování zajišťují Vercel Inc. a Resend, Inc.</p>
-  <p><strong>Upozornění:</strong> WhatsApp ani e-mail nejsou vhodné pro přenos citlivých údajů o zdraví. Uvádějte v nich jen to, co jste ochotni sdílet, a podrobnosti si nechte na sezení.</p>
 
   <h2>Zdroj osobních údajů</h2>
   <p>Veškeré osobní údaje získáváme přímo od vás: z vaší e-mailové zprávy, z údajů, které zadáte při rezervaci konzultace přes Reservanto, nebo z údajů, které zadáte do rezervačního formuláře semináře.</p>
 
   <h2>Doba uchování</h2>
-  <p>U aplikace žádná: tato data u nás vůbec nejsou uložena. U e-mailové, telefonické a WhatsApp komunikace jen po dobu nutnou k vyřízení dotazu nebo k domluvené spolupráci. Dobu uchování vašich údajů v systému Reservanto určuje Reservanto podle svých podmínek. U rezervace semináře uchovávám údaje o platbě po dobu stanovenou účetními a daňovými předpisy a e-mailovou komunikaci 1 rok po skončení programu. Zápisy ani nahrávky ze setkání nepořizuji, případné krátké poznámky mažu nejpozději 30 dnů po skončení programu.</p>
+  <p>U aplikace žádná: tato data u nás vůbec nejsou uložena. U e-mailové, telefonické a WhatsApp komunikace jen po dobu nutnou k vyřízení dotazu nebo k domluvené spolupráci a poté 1 rok po skončení spolupráce. Dobu uchování vašich údajů v systému Reservanto určuje Reservanto podle svých podmínek. U rezervace semináře uchovávám údaje o platbě po dobu stanovenou účetními a daňovými předpisy a e-mailovou komunikaci 1 rok po skončení programu. Zápisy ani nahrávky ze setkání nepořizuji, případné krátké poznámky mažu nejpozději 30 dnů po skončení programu.</p>
 
   <h2>Příjemci údajů a předávání do zahraničí</h2>
-  <p>Hostingový poskytovatel Vercel Inc. jako technický zpracovatel provozu webu a serverové funkce rezervace. Resend, Inc. (odesílání e-mailů při rezervaci semináře). Google (videohovory Google Meet). Meta Platforms Ireland Limited (Meta Pixel, jen s vaším souhlasem). Rezervační systém Reservanto s.r.o. (viz výše). Pokud s vámi komunikuji přes WhatsApp, zprávy zpracovává WhatsApp Ireland Limited (Meta). Vercel, Resend, Google a Meta mohou údaje zpracovávat i mimo Evropský hospodářský prostor, a to na základě standardních smluvních doložek nebo rozhodnutí o odpovídající ochraně. Jinak údaje nepředáváme žádným dalším třetím stranám.</p>
+  <p>Hostingový poskytovatel Vercel Inc. jako technický zpracovatel provozu webu a serverové funkce rezervace. Resend, Inc. (odesílání e-mailů při rezervaci semináře). Google (videohovory Google Meet). Videohovory probíhají přes Google Meet; nahrávání neprovádím. Meta Platforms Ireland Limited (Meta Pixel, jen s vaším souhlasem). Rezervační systém Reservanto s.r.o. (viz výše). Pokud s vámi komunikuji přes WhatsApp, zprávy zpracovává WhatsApp Ireland Limited (Meta). Vercel, Resend, Google a Meta mohou údaje zpracovávat i mimo Evropský hospodářský prostor, a to na základě standardních smluvních doložek nebo rozhodnutí o odpovídající ochraně. Jinak údaje nepředáváme žádným dalším třetím stranám.</p>
 
   <h2>Vaše práva</h2>
   <ul class="rules">
@@ -2028,14 +2026,14 @@ add('/obchodni-podminky', {
   ogTitle: 'Obchodní podmínky',
   body: `
 <section class="wrap page-head"><h1>Obchodní podmínky</h1>
-<p class="lead">Podmínky služeb, které poskytuje ${AUTHOR} pod značkou ${BRAND}. <a href="#cast-a">Část A</a> (individuální mentoring, rezervace přes Reservanto) i <a href="#cast-b">Část B</a> (Online semináře) jsou účinné od <span class="placeholder">[DOPLNIT: datum účinnosti]</span>. Starší znění je <a href="#historie">ke stažení níže</a>.</p></section>
+<p class="lead">Podmínky služeb, které poskytuje ${AUTHOR} pod značkou ${BRAND}. <a href="#cast-a">Část A</a> (individuální mentoring, rezervace přes Reservanto) i <a href="#cast-b">Část B</a> (Online semináře) jsou účinné od 23. 11. 2026. Starší znění je <a href="#historie">ke stažení níže</a>.</p></section>
 <section class="wrap block prose">
   <h2 id="cast-a">Část A: Individuální mentoring a konzultace (rezervace přes Reservanto)</h2>
   <p class="small">Část A se týká úvodní konzultace, individuálního mentoringu a balíčku sezení. Pro Online semináře platí Část B níže.</p>
 
   <h3>1. Úvodní ustanovení a poskytovatel</h3>
   <p>Tyto obchodní podmínky upravují vzájemná práva a povinnosti mezi poskytovatelem a klientem vzniklé v souvislosti se službami peer mentoringu nabízenými na webu ${SITE}, nebo na jeho základě uzavřené.</p>
-  <p><strong>Poskytovatel:</strong> ${AUTHOR}, IČ ${ICO}, se sídlem ${ADDRESS}, e-mail <a href="mailto:${EMAIL}">${EMAIL}</a>, telefon <span class="placeholder">[DOPLNIT: telefon]</span>, web ${SITE} (dále jen „poskytovatel“). Živnostenské oprávnění: <span class="placeholder">[DOPLNIT: předmět podnikání]</span>, vydal <span class="placeholder">[DOPLNIT: živnostenský úřad]</span>, číslo <span class="placeholder">[DOPLNIT: číslo živnostenského oprávnění]</span>.</p>
+  <p><strong>Poskytovatel:</strong> ${AUTHOR}, IČ ${ICO}, se sídlem ${ADDRESS}, e-mail <a href="mailto:${EMAIL}">${EMAIL}</a>, telefon +420 720 385 282, web ${SITE} (dále jen „poskytovatel“).</p>
   <p><strong>Klient:</strong> fyzická osoba, která si u poskytovatele objedná některou ze služeb popsaných níže (dále jen „klient“).</p>
   <p>Právní vztahy mezi poskytovatelem a klientem, které tyto podmínky výslovně neupravují, se řídí zejména zákonem č. 89/2012 Sb., občanský zákoník, a je-li klient spotřebitelem, také zákonem č. 634/1992 Sb., o ochraně spotřebitele.</p>
 
@@ -2070,7 +2068,7 @@ add('/obchodni-podminky', {
 
   <h3>5. Storno podmínky</h3>
   <ul class="rules">
-    <li>Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši <span class="placeholder">[DOPLNIT: např. 50 % ceny sezení]</span>. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy.</li>
+    <li>Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši 50 % ceny sezení. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy.</li>
     <li>Změna termínu závisí na dostupnosti poskytovatele a vzájemné dohodě.</li>
     <li>Zrušení i změnu termínu klient řeší přímo v Reservantu nebo e-mailem na <a href="mailto:${EMAIL}">${EMAIL}</a>.</li>
   </ul>
@@ -2124,20 +2122,20 @@ add('/obchodni-podminky', {
   <p>Je-li klient spotřebitelem, může se v případě sporu obrátit také na Českou obchodní inspekci (coi.cz) jako subjekt mimosoudního řešení spotřebitelských sporů.</p>
 
   <h3>11. Ochrana osobních údajů</h3>
-  <p>Zpracování osobních údajů v souvislosti s těmito službami popisují samostatné <a href="/ochrana-osobnich-udaju">zásady ochrany osobních údajů</a>. Údaje o zdravotním stavu se zpracovávají jen na základě výslovného souhlasu klienta. E-mail ani WhatsApp nejsou vhodné pro přenos citlivých údajů, proto v nich uvádějte jen to, co jste ochotni sdílet.</p>
+  <p>Zpracování osobních údajů v souvislosti s těmito službami popisují samostatné <a href="/ochrana-osobnich-udaju">zásady ochrany osobních údajů</a>.</p>
 
   <h3>12. Závěrečná ustanovení</h3>
   <ul class="rules">
-    <li>Část A těchto obchodních podmínek nabývá účinnosti dne <span class="placeholder">[DOPLNIT: datum účinnosti]</span>.</li>
+    <li>Část A těchto obchodních podmínek nabývá účinnosti dne 23. 11. 2026.</li>
     <li>Poskytovatel může tyto podmínky v přiměřeném rozsahu měnit; aktuální znění je vždy dostupné na této stránce.</li>
     <li>Pokud by se některé ustanovení těchto podmínek ukázalo neplatným nebo neúčinným, nemá to vliv na platnost ostatních ustanovení.</li>
   </ul>
 
   <h2 id="cast-b">Část B: Online semináře (individuální programy)</h2>
-  <p class="small">Část B je účinná od <span class="placeholder">[DOPLNIT: datum účinnosti]</span> a týká se jen programů popsaných na stránce <a href="/seminare">Online semináře</a>.</p>
+  <p class="small">Část B je účinná od 23. 11. 2026 a týká se jen programů popsaných na stránce <a href="/seminare">Online semináře</a>.</p>
 
   <h3>B1. Prodejce</h3>
-  <p>${AUTHOR}, IČ ${ICO}, se sídlem ${ADDRESS}, e-mail <a href="mailto:${EMAIL}">${EMAIL}</a>, telefon <span class="placeholder">[DOPLNIT: telefon]</span>. Prodejce není plátcem DPH. Živnostenské oprávnění: <span class="placeholder">[DOPLNIT: předmět podnikání]</span>, vydal <span class="placeholder">[DOPLNIT: živnostenský úřad]</span>, číslo <span class="placeholder">[DOPLNIT: číslo živnostenského oprávnění]</span>.</p>
+  <p>${AUTHOR}, IČ ${ICO}, se sídlem ${ADDRESS}, e-mail <a href="mailto:${EMAIL}">${EMAIL}</a>, telefon +420 720 385 282. Prodejce není plátcem DPH.</p>
 
   <h3>B2. Předmět</h3>
   <p>Prodejce nabízí dva programy, vždy jen jeden klient:</p>
@@ -2160,7 +2158,7 @@ add('/obchodni-podminky', {
   <p>U programu tří setkání se na setkání může připojit jeden další člověk z domácnosti účastníka bez příplatku. Jeho osobní údaje prodejce nezpracovává. Účastník zajistí, že se připojí s jeho vědomím. Účastníci nesdílejí identifikující údaje o třetích osobách (jména, diagnózy, podrobnosti).</p>
 
   <h3>B6. Přesun</h3>
-  <p>Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši <span class="placeholder">[DOPLNIT: např. 50 % ceny sezení]</span>. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy. Setkání lze přesunout po domluvě e-mailem, u programu pěti setkání nejvýše dvakrát, u programu tří setkání nejvýše jednou.</p>
+  <p>Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši 50 % ceny sezení. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy. Setkání lze přesunout po domluvě e-mailem, u programu pěti setkání nejvýše dvakrát, u programu tří setkání nejvýše jednou.</p>
 
   <h3>B7. Zrušení prodejcem</h3>
   <p>Pokud prodejce setkání nemůže uskutečnit (např. nemoc), nabídne náhradní termín. Pokud ho účastník nepřijme nebo program nelze dokončit, vrátí poměrnou část ceny za neuskutečněná setkání do 14 dnů.</p>

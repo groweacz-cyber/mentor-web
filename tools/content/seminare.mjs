@@ -162,12 +162,12 @@ export const OBSAH = {
   },
   'pro-blizke': {
     odkaz: '<p>Víc o tématu najdete na stránce <a href="/pro-blizke">Když OCD žije vedle vás</a>.</p>',
-    intro: 'Žijete s člověkem, který má OCD, nebo se o někoho takového staráte? Možná máte pocit, že všechno, co zkusíte, nepomáhá nebo situaci dokonce zhoršuje. Dobře míněná pomoc totiž OCD často nechtěně udržuje. Na tomto programu vám ukážu, jak to vypadá zevnitř, co pomáhá a jak si přitom zachovat vlastní život.',
+    intro: 'Žijete s člověkem, který má OCD, nebo se o někoho takového staráte? Možná máte pocit, že všechno, co zkusíte, nepomáhá nebo situaci dokonce zhoršuje. Dobře míněná pomoc může někdy OCD nechtěně udržovat. Na tomto programu vám ukážu, jak to vypadá zevnitř, co pomáhá a jak si přitom zachovat vlastní život.',
     kniha: false,
     kartyNadpis: 'Tři setkání',
     karty: [
       ['OCD zevnitř', 'Jak cyklus OCD funguje, proč se nedá „jen přestat“ a proč rituály dávají člověku s OCD smysl, i když se zvenku jeví nelogicky.'],
-      ['Přizpůsobování a ujišťování', 'Jak OCD nechtěně krmíme dobrou vůlí. Naučíte se odpovídat laskavě a zároveň pevně, například: „Vidím, že se bojíš. Odpověď ti teď dávat nebudu, ale jsem tady s tebou.“ nebo „Chápu, že je to teď těžké. Věřím, že to uneseš.“'],
+      ['Přizpůsobování a ujišťování', 'Jak OCD nechtěně krmíme dobrou vůlí. Mně osobně pomáhalo, když mi blízký místo ujištění dal najevo, že vidí, že se bojím, že je se mnou a že věří, že to unesu. Nejde o návod ani o doporučení pro každého. Pokud je blízký v akutní krizi, volejte 112, 155 nebo 116 123.'],
       ['Péče o sebe a hranice', 'Jak si zachovat vlastní život, jak mluvit o odborné pomoci a co dělat, když se obtíže zhorší.'],
     ],
     jak: [
@@ -208,12 +208,12 @@ export const OBSAH_EN = {
   },
   'pro-blizke': {
     odkaz: '<p>You can read more about the topic on the page <a href="{ODKAZ_BLIZKE}">When OCD Lives Next to You</a>.</p>',
-    intro: 'Do you live with someone who has OCD, or do you look after someone like that? You may feel that everything you try does not help, or even makes things worse. Well-meant help often keeps OCD going without anyone intending it. In this programme I will show you how it looks from the inside, what helps, and how to keep your own life while doing it.',
+    intro: 'Do you live with someone who has OCD, or do you look after someone like that? You may feel that everything you try does not help, or even makes things worse. Well-meant help can sometimes keep OCD going without anyone intending it. In this programme I will show you how it looks from the inside, what helps, and how to keep your own life while doing it.',
     kniha: false,
     kartyNadpis: 'Three meetings',
     karty: [
       ['OCD from the inside', 'How the OCD cycle works, why a person cannot simply "stop", and why rituals make sense to the person with OCD even when they look illogical from outside.'],
-      ['Accommodation and reassurance', 'How we unintentionally feed OCD with goodwill. You will learn to answer kindly and firmly at the same time, for example: "I can see you are afraid. I am not going to give you the answer now, but I am here with you." or "I understand it is hard right now. I believe you can bear it."'],
+      ['Accommodation and reassurance', 'How we unintentionally feed OCD with goodwill. What helped me personally was when someone close to me, instead of reassuring me, showed that they could see I was afraid, that they were with me and that they believed I could bear it. This is not a guide or a recommendation for everyone. If your relative is in an acute crisis, call 112, 155 or 116 123.'],
       ['Looking after yourself and boundaries', 'How to keep your own life, how to talk about professional help, and what to do when difficulties get worse.'],
     ],
     jak: [
@@ -252,7 +252,7 @@ export function spolecneFaq(p, data, jaz = 'cs') {
         a: 'Google Meet or WhatsApp. On a computer Google Meet works in the browser; on a phone or tablet you need the app. You will find store links and QR codes on this page.',
         html: 'Google Meet or WhatsApp. On a computer Google Meet works in the browser; on a phone or tablet you need the app. You will find store links and QR codes <a href="#spojeni">on this page</a>.',
       },
-      { q: 'Can I reschedule or cancel a meeting?', a: `Cancelling or rescheduling at least 24 hours in advance is free of charge. If you cancel later or fail to attend without an apology, the provider is entitled to reasonable compensation for the reserved time in the amount of [DOPLNIT: e.g. 50 % of the session price]. The rest of the price is refunded within 14 days. In case of illness or for serious reasons (including an acute worsening of health), a meeting can be rescheduled free of charge even after the deadline. This does not affect the consumer's right to withdraw from the contract. Rescheduling is possible by arrangement via e-mail, at most ${t.presunuSlovy} during the programme.` },
+      { q: 'Can I reschedule or cancel a meeting?', a: `Cancelling or rescheduling at least 24 hours in advance is free of charge. If you cancel later or fail to attend without an apology, the provider is entitled to reasonable compensation for the reserved time in the amount of 50 % of the session price. The rest of the price is refunded within 14 days. In case of illness or for serious reasons (including an acute worsening of health), a meeting can be rescheduled free of charge even after the deadline. This does not affect the consumer's right to withdraw from the contract. Rescheduling is possible by arrangement via e-mail, at most ${t.presunuSlovy} during the programme.` },
       {
         q: 'What if I get worse?',
         a: 'Please contact your doctor or therapist. You will find links and crisis contacts on the Help page. In an acute crisis call 112 or 116 123 (Czech).',
@@ -274,7 +274,7 @@ export function spolecneFaq(p, data, jaz = 'cs') {
       a: 'Google Meet nebo WhatsApp. Na počítači Google Meet funguje v prohlížeči, na telefonu a tabletu je potřeba aplikace. Odkazy do obchodů a QR kódy najdete na této stránce.',
       html: 'Google Meet nebo WhatsApp. Na počítači Google Meet funguje v prohlížeči, na telefonu a tabletu je potřeba aplikace. Odkazy do obchodů a QR kódy najdete <a href="#spojeni">na této stránce</a>.',
     },
-    { q: 'Mohu setkání přesunout nebo zrušit?', a: `Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši [DOPLNIT: např. 50 % ceny sezení]. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy. Přesun je možný po domluvě e-mailem, nejvýše ${t.presunuSlovy} během programu.` },
+    { q: 'Mohu setkání přesunout nebo zrušit?', a: `Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši 50 % ceny sezení. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy. Přesun je možný po domluvě e-mailem, nejvýše ${t.presunuSlovy} během programu.` },
     {
       q: 'Co když se zhorším?',
       a: 'Obraťte se na svého lékaře nebo terapeuta. Odkazy a krizové kontakty najdete na stránce Pomoc. V akutní krizi volejte 112 nebo 116 123.',
@@ -389,6 +389,7 @@ ${programy.map((p) => kartaProgramu(p, jaz)).join('\n')}
   </div>
   <div class="callout-inline disclaimer sem-box" role="note">
     <p>${esc(L(jaz, POVAHA_PREHLED, POVAHA_PREHLED_EN))}</p>
+    <p>${L(jaz, 'Služba je určena osobám starším 18 let.', 'The service is intended for persons over 18 years of age.')}</p>
   </div>
 </section>
 
@@ -414,6 +415,7 @@ export function programBody({ program: p, programy, data, now = new Date(), jaz 
   <p class="lead">${esc(pp.podtitul)}</p>
   <div class="callout-inline disclaimer sem-box" role="note">
     <p>${esc(t.povaha)}</p>
+    <p>${L(jaz, 'Služba je určena osobám starším 18 let.', 'The service is intended for persons over 18 years of age.')}</p>
   </div>
 </section>
 

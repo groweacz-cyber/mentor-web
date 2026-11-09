@@ -29,7 +29,7 @@ const GROUPS = [
   ]],
 ];
 
-root.replaceChildren(...GROUPS.flatMap(([title, items]) => [
+root.replaceChildren(h('p', { class: 'callout-inline' }, 'Aplikácia nie je zdravotnícka pomôcka, nie je terapia ani diagnóza a nenahrádza odbornú starostlivosť.'), ...GROUPS.flatMap(([title, items]) => [
   h('h2', {}, title),
   h('div', { class: 'tiles' }, items.map(([href, t, x]) => h('a', { class: 'tile', href }, h('strong', {}, t), h('span', {}, x)))),
 ]));

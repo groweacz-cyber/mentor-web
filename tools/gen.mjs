@@ -245,7 +245,7 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
 
 const appItems = [
   ['/aplikace', 'Přehled'], ['/aplikace/denik', 'Deník'], ['/aplikace/obsese', 'Obsese'], ['/aplikace/kompulze', 'Kompulze'], ['/aplikace/text', 'Text'],
-  ['/aplikace/zebricek', 'Žebříček'], ['/aplikace/kruh', 'Kruh'], ['/aplikace/vice', 'Více'],
+  ['/aplikace/kruh', 'Kruh'], ['/aplikace/vice', 'Více'],
 ];
 const appNav = (path) => `<nav class="app-nav" aria-label="Aplikace"><ul>${appItems.map(([h, t]) => {
   const known = appItems.some((x) => x[0] === path);
@@ -607,6 +607,8 @@ ${published ? `<meta property="article:published_time" content="${published}">\n
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/nunito-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
 ${app ? '<link rel="stylesheet" href="/assets/css/app.css">' : ''}
 ${ld ? `<script type="application/ld+json">\n${JSON.stringify(ld, null, 2)}\n</script>` : ''}
@@ -2004,7 +2006,7 @@ add('/ochrana-osobnich-udaju', {
   <p>Souhlas se zpracováním u aplikace můžete kdykoli odvolat tak, že údaje jednoduše nepoužijete nebo je v aplikaci smažete. Protože se u nás vůbec neukládají, k jejich „výmazu na vyžádání“ u nás není co dělat; o jejich smazání ve vašem vlastním zařízení nebo e-mailu se staráte vy sami. Souhlas se zpracováním při rezervaci semináře můžete kdykoli odvolat e-mailem na <a href="mailto:${EMAIL}">${EMAIL}</a>; odvolání nemá vliv na zákonnost zpracování před jeho odvoláním.</p>
 
   <h2>Automatizované rozhodování</h2>
-  <p>Neprovádíme žádné automatizované individuální rozhodování ani profilování ve smyslu čl. 22 GDPR. Nápovědy v aplikaci (doporučená cesta, návrh posunu v žebříčku) jsou jen orientační a vždy je potvrzujete vy sami.</p>
+  <p>Neprovádíme žádné automatizované individuální rozhodování ani profilování ve smyslu čl. 22 GDPR.</p>
 
   <h2>Povinnost poskytnout údaje</h2>
   <p>Používání aplikace není povinné a není podmínkou ničeho. Údaje poskytujete dobrovolně a v rozsahu, který sami zvolíte. U rezervace semináře je poskytnutí jména a e-mailu nezbytné, bez nich ji nelze dokončit.</p>
@@ -2624,8 +2626,6 @@ const appPage = (slug, title, lead, desc, mod) =>
 `,
   });
 appPage('', 'Aplikace', 'Soukromý deník a pomůcky: tracker obsesí a kompulzí, deník a další nástroje. Vše zůstává jen ve vašem zařízení — nikam se neodesílá a nikdo jiný, včetně mě, to nevidí, pokud si to sami neexportujete a nepošlete.', 'Webová aplikace: soukromý deník, tracker obsesí a kompulzí a další pomůcky.', 'home');
-appPage('start', 'Vstupní dotazník', 'Zabere asi 10 minut. Nic se neodesílá a můžete kdykoli přestat. Odpovídejte jen to, co chcete.', 'Vstupní dotazník aplikace.', 'start');
-appPage('zebricek', 'Žebříček témat', '', 'Žebříček témat z dotazníku.', 'ladder');
 appPage('denik', 'Expoziční deník', '', 'Expoziční deník s časovačem a grafem.', 'diary');
 appPage('text', 'Expoziční text', '', 'Editor expozičního textu s kontrolou.', 'text');
 appPage('obsese', 'Tracker obsesí', 'Obsese jsou vtíravé myšlenky, představy nebo nutkání, na které kompulze navazují. Zapište jen krátce, kdy přišly a jak byly silné.', 'Denní záznam obsesí: téma a síla.', 'obsessions');

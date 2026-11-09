@@ -10,7 +10,6 @@ const GROUPS = [
     ['/aplikace/obsese', 'Tracker obsesí', 'Denní záznam témat a síly'],
     ['/aplikace/kompulze', 'Tracker kompulzí', 'Odolal/a jsem, udělal/a jsem'],
     ['/aplikace/text', 'Expoziční text', 'Napsat a zkontrolovat'],
-    ['/aplikace/zebricek', 'Žebříček témat', 'Od nejslabšího po nejsilnější'],
   ]],
   ['Porozumění', [
     ['/aplikace/kruh', 'Kruh OCD', 'Nástroj u každého článku'],
@@ -24,8 +23,7 @@ const GROUPS = [
     ['/aplikace/koreny', 'Kořeny', 'Osa životních milníků'],
     ['/aplikace/hudba', 'Hudba', 'Playlisty a hudba'],
   ]],
-  ['Dotazník a data', [
-    ['/aplikace/start', 'Vstupní dotazník', 'Zopakovat a porovnat'],
+  ['Data', [
     ['/aplikace/export', 'Export pro terapeuta', 'Přehled do PDF'],
     ['/aplikace/nastaveni', 'Data a připomínky', 'Záloha, smazání, kalendář'],
   ]],

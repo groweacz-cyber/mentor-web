@@ -7,6 +7,36 @@
   },
   "redirects": [
     {
+      "source": "/aplikace/start",
+      "destination": "/aplikace",
+      "permanent": true
+    },
+    {
+      "source": "/aplikace/zebricek",
+      "destination": "/aplikace",
+      "permanent": true
+    },
+    {
+      "source": "/en/app/start",
+      "destination": "/en/app",
+      "permanent": true
+    },
+    {
+      "source": "/en/app/ladder",
+      "destination": "/en/app",
+      "permanent": true
+    },
+    {
+      "source": "/sk/aplikacia/start",
+      "destination": "/sk/aplikacia",
+      "permanent": true
+    },
+    {
+      "source": "/sk/aplikacia/rebricek",
+      "destination": "/sk/aplikacia",
+      "permanent": true
+    },
+    {
       "source": "/metoda",
       "destination": "/jak-to-probiha",
       "permanent": true

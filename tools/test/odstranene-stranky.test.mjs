@@ -106,3 +106,19 @@ test('souhlas se zahájením služby před koncem 14denní lhůty zůstává př
   assert.ok(h.includes('před uplynutím 14denní lhůty pro odstoupení od smlouvy'));
   assert.ok(h.includes('id="rsv-confirm"') && /id="rsv-confirm"[^>]*disabled/.test(h), 'tlačítko je neaktivní, dokud souhlas není zaškrtnut');
 });
+
+test('aplikace nemá dotazník ani žebříček: stránky neexistují, mají přesměrování a nikde na webu se nezmiňuje dotazník', () => {
+  for (const u of ['aplikace/start', 'aplikace/zebricek', 'en/app/start', 'en/app/ladder', 'sk/aplikacia/start', 'sk/aplikacia/rebricek']) assert.ok(!existsSync(join(ROOT, u, 'index.html')), u);
+  for (const f of ['start.js', 'ladder.js']) for (const d of ['assets/js/app', 'assets/js/en/app', 'assets/js/sk/app']) assert.ok(!existsSync(join(ROOT, d, f)), `${d}/${f}`);
+  const v = JSON.parse(nacti('vercel.json'));
+  for (const [z, c] of [['/aplikace/start', '/aplikace'], ['/aplikace/zebricek', '/aplikace'], ['/en/app/start', '/en/app'], ['/sk/aplikacia/rebricek', '/sk/aplikacia']]) {
+    const r = v.redirects.find((x) => x.source === z);
+    assert.ok(r && r.destination === c && r.permanent === true, z);
+  }
+  const vzor = /dotazník|dotaznik|žebříč|questionnaire/i;
+  for (const f of htmlSoubory(ROOT)) {
+    const h = readFileSync(f, 'utf8').replace(/<script[\s\S]*?<\/script>/g, '');
+    assert.ok(!vzor.test(h.replace(/<[^>]+>/g, ' ')), `${f.replace(ROOT, '')}: zmínka o dotazníku nebo žebříčku`);
+  }
+  for (const f of ['home.js', 'vice.js', 'settings.js', 'export.js', 'diary.js', 'icbt.js']) assert.ok(!vzor.test(nacti(`assets/js/app/${f}`)), `app/${f}`);
+});

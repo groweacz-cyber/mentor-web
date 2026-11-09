@@ -26,7 +26,7 @@ function render(note) {
     parts.push(h('div', { class: 'card app-card' + (done ? ' suggest' : '') }, h('h2', {}, done ? 'Čas přejít k expozicím' : 'Týden ' + w + ' z ' + ic.weeks),
       h('div', { class: 'progress', role: 'progressbar', 'aria-valuemin': 0, 'aria-valuemax': ic.weeks, 'aria-valuenow': Math.min(w, ic.weeks), 'aria-label': 'Postup I-CBT fáze' }, h('span', { style: 'width:' + Math.min(100, (w / ic.weeks) * 100) + '%' })),
       h('p', {}, done ? 'Plánované týdny uplynuly. Zkuste přejít k postupným expozicím. Je to nápověda, tempo určujete vy.' : 'Až odpočet doběhne, aplikace vás vyzve k přechodu na expozice.'),
-      h('div', { class: 'actions' }, done ? h('a', { class: 'btn', href: '/aplikace/zebricek' }, 'K žebříčku') : null,
+      h('div', { class: 'actions' }, done ? h('a', { class: 'btn', href: '/aplikace/denik' }, 'Do deníku') : null,
         h('button', { class: 'btn btn-ghost', type: 'button', onclick: () => { ic.startedAt = null; save(); render(); } }, 'Zrušit odpočet'))));
   }
 

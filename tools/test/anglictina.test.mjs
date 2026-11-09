@@ -96,7 +96,7 @@ test('anglické stránky načítají anglické kopie skriptů, ty existují a ne
 });
 
 test('anglické skripty se vyrábějí překladem: v kopiích nezbyly české texty a logika zůstala (stejný počet řádků)', () => {
-  for (const f of ['rezervace.js', 'potvrzeni.js', 'app/start.js', 'app/diary.js', 'app/data.js']) {
+  for (const f of ['rezervace.js', 'potvrzeni.js', 'app/diary.js', 'app/data.js']) {
     const en = nacti(`assets/js/en/${f}`);
     const cs = nacti(`assets/js/${f}`);
     const radky = (t) => t.split('\n').length;

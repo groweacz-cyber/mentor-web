@@ -10,7 +10,6 @@ const GROUPS = [
     ['/aplikace/obsese', 'Obsession tracker', 'Daily log of themes and strength'],
     ['/aplikace/kompulze', 'Compulsion tracker', 'I resisted, I did it'],
     ['/aplikace/text', 'Exposure text', 'Write and check'],
-    ['/aplikace/zebricek', 'Ladder of themes', 'From the weakest to the strongest'],
   ]],
   ['Understanding', [
     ['/aplikace/kruh', 'OCD circle', 'A tool for every link'],
@@ -24,8 +23,7 @@ const GROUPS = [
     ['/aplikace/koreny', 'Roots', 'A timeline of life milestones'],
     ['/aplikace/hudba', 'Music', 'Playlists and music'],
   ]],
-  ['Questionnaire and data', [
-    ['/aplikace/start', 'Intake questionnaire', 'Repeat and compare'],
+  ['Data', [
     ['/aplikace/export', 'Export for the therapist', 'Overview as PDF'],
     ['/aplikace/nastaveni', 'Data and reminders', 'Backup, deletion, calendar'],
   ]],

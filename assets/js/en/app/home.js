@@ -1,7 +1,7 @@
-// Přehled aplikace: souhlas, přehled z dotazníku, rychlé akce, karta dne.
-import { data, save, hasConsent, latestAssessment, fmtDateLong } from './store.js';
-import { h, boot, $, crisisBlock } from './ui.js';
-import { cardOfDay, riskLevel, buildLadder, recommendedStart } from './data.js';
+// Přehled aplikace: souhlas, rychlé akce, karta dne.
+import { data, save, hasConsent } from './store.js';
+import { h, boot, $ } from './ui.js';
+import { cardOfDay } from './data.js';
 
 const root = $('#app-root');
 boot(root);
@@ -34,33 +34,7 @@ function tile(href, title, text) {
 }
 
 function dashboard() {
-  const a = latestAssessment();
   const out = [];
-  const risk = a ? riskLevel(a.safety) : 'none';
-  if (risk === 'high') {
-    out.push(crisisBlock());
-    out.push(h('p', {}, 'Based on your answers in the questionnaire, I recommend contacting a professional first. I do not recommend working with the app on your own right now.'));
-  }
-  if (!a) {
-    out.push(h('div', { class: 'card app-card' },
-      h('h2', {}, 'Start with the intake questionnaire'),
-      h('p', {}, 'Answering the questions creates an overview of your topics. It takes about 10 minutes and you can interrupt it at any time.'),
-      h('a', { class: 'btn', href: '/aplikace/start' }, d.draft ? 'Continue the questionnaire' : 'Fill in the questionnaire')));
-  } else {
-    const items = buildLadder(a);
-    const rec = recommendedStart(items, d.progress.done);
-    const active = items.find((i) => i.id === d.progress.active) || rec;
-    out.push(h('div', { class: 'card app-card' },
-      h('h2', {}, 'Your overview'),
-      h('p', { class: 'small' }, 'According to the questionnaire from ' + fmtDateLong(a.at) + '. This is only an indicative overview, not a decision.'),
-      h('p', {}, active ? 'Current theme: ' : 'You have not chosen a topic yet. ', active ? h('strong', {}, active.name + ' (' + active.score + '/10)') : null),
-      h('div', { class: 'actions' },
-        h('a', { class: 'btn', href: '/aplikace/denik' }, 'Open the diary'),
-        h('a', { class: 'btn btn-ghost', href: '/aplikace/zebricek' }, 'Topic overview'))));
-    if (Date.now() - a.at > 30 * 86400000) {
-      out.push(h('p', { class: 'callout-inline' }, 'A month has passed since the last questionnaire. Would you like to repeat it and compare? ', h('a', { href: '/aplikace/start' }, 'Repeat the questionnaire')));
-    }
-  }
   const c = cardOfDay();
   out.push(h('div', { class: 'card app-card principle' }, h('p', { class: 'eyebrow' }, 'Card of the day'), h('h3', {}, c.t), h('p', {}, c.x), h('a', { href: '/aplikace/principy' }, 'All principle cards')));
   out.push(h('div', { class: 'tiles' },

@@ -99,7 +99,7 @@ test('slovenské stránky načítají slovenské kopie skriptů, ty existují a 
   assert.match(nacti('assets/js/sk/seminare.js'), /'Uzavreté'/);
   assert.match(nacti('assets/js/sk/potvrzeni.js'), /'štvrtok'/);
   assert.match(nacti('assets/js/sk/app/data.js'), /prijm/);
-  for (const f of ['rezervace.js', 'potvrzeni.js', 'app/start.js', 'app/diary.js']) {
+  for (const f of ['rezervace.js', 'potvrzeni.js', 'app/diary.js']) {
     const kod = nacti(`assets/js/sk/${f}`).replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
     assert.ok(!CESKE_ZNAKY.test(kod.replace(/Václav|Kodeš/g, '')), `${f}: ve slovenské kopii zbyla čeština`);
   }

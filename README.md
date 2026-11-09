@@ -106,6 +106,10 @@ Slovenština funguje stejně jako angličtina (stejný generátor, přepínač C
 - **Krizová linka** je na slovenských stránkách „Linka dôvery Nezábudka 0800 800 566“ (spolu s 112 a 155), česká linka 116 123 se tam nepoužívá. Ceny zůstávají v Kč, platí se na český účet. Odkazy na české organizace v části „Kam dál“ jsou přeložené a označené jako české. Právní stránky jsou orientační překlad, rozhodující je české znění (platí české právo).
 - **Rezervace:** formulář posílá `jazyk: "sk"`, server píše e-mail účastníkovi a odpověď slovensky; setkání se konají česky nebo slovensky.
 
+## Písma
+
+Vlastní hostovaná písma v `assets/fonts/` (SIL Open Font License, žádné požadavky na cizí servery, CSP `font-src 'self'`): **Nunito Sans** (text) a **Fraunces** (nadpisy h1, h2 a logo). Jen podmnožiny latin a latin-ext (čeština, slovenština, angličtina), `font-display: swap`. Deklarace `@font-face` jsou na začátku `assets/css/style.css`, hlavní podmnožiny latin se předem načítají přes `<link rel="preload">` v `page()`.
+
 ## Cookies a Meta Pixel
 
 - Lišta cookies (`assets/js/cookie.js`, HTML lišty a odkaz „Nastavení cookies“ v patičce vkládá `page()` v `tools/gen.mjs`, příznak `cookiesOn`). Volba se ukládá do `localStorage` (`ocdmentor-cookies`) na 12 měsíců.

@@ -1,7 +1,7 @@
-// Přehled aplikace: souhlas, přehled z dotazníku, rychlé akce, karta dne.
-import { data, save, hasConsent, latestAssessment, fmtDateLong } from './store.js';
-import { h, boot, $, crisisBlock } from './ui.js';
-import { cardOfDay, riskLevel, buildLadder, recommendedStart } from './data.js';
+// Přehled aplikace: souhlas, rychlé akce, karta dne.
+import { data, save, hasConsent } from './store.js';
+import { h, boot, $ } from './ui.js';
+import { cardOfDay } from './data.js';
 
 const root = $('#app-root');
 boot(root);
@@ -34,33 +34,7 @@ function tile(href, title, text) {
 }
 
 function dashboard() {
-  const a = latestAssessment();
   const out = [];
-  const risk = a ? riskLevel(a.safety) : 'none';
-  if (risk === 'high') {
-    out.push(crisisBlock());
-    out.push(h('p', {}, 'Podľa vašich odpovedí v dotazníku odporúčam najprv kontakt s odborníkom. Samostatnú prácu s aplikáciou teraz neodporúčam.'));
-  }
-  if (!a) {
-    out.push(h('div', { class: 'card app-card' },
-      h('h2', {}, 'Začnite vstupným dotazníkom'),
-      h('p', {}, 'Z odpovedí vznikne prehľad vašich tém. Zaberie asi 10 minút a môžete ho kedykoľvek prerušiť.'),
-      h('a', { class: 'btn', href: '/aplikace/start' }, d.draft ? 'Pokračovať v dotazníku' : 'Vyplniť dotazník')));
-  } else {
-    const items = buildLadder(a);
-    const rec = recommendedStart(items, d.progress.done);
-    const active = items.find((i) => i.id === d.progress.active) || rec;
-    out.push(h('div', { class: 'card app-card' },
-      h('h2', {}, 'Váš prehľad'),
-      h('p', { class: 'small' }, 'Podľa dotazníka z ' + fmtDateLong(a.at) + '. Je to len orientačný prehľad, nie rozhodnutie.'),
-      h('p', {}, active ? 'Aktuálna téma: ' : 'Zatiaľ nemáte vybranú tému. ', active ? h('strong', {}, active.name + ' (' + active.score + '/10)') : null),
-      h('div', { class: 'actions' },
-        h('a', { class: 'btn', href: '/aplikace/denik' }, 'Otvoriť denník'),
-        h('a', { class: 'btn btn-ghost', href: '/aplikace/zebricek' }, 'Prehľad tém'))));
-    if (Date.now() - a.at > 30 * 86400000) {
-      out.push(h('p', { class: 'callout-inline' }, 'Uplynul mesiac od posledného dotazníka. Chcete ho zopakovať a porovnať? ', h('a', { href: '/aplikace/start' }, 'Zopakovať dotazník')));
-    }
-  }
   const c = cardOfDay();
   out.push(h('div', { class: 'card app-card principle' }, h('p', { class: 'eyebrow' }, 'Karta dňa'), h('h3', {}, c.t), h('p', {}, c.x), h('a', { href: '/aplikace/principy' }, 'Všetky karty princípov')));
   out.push(h('div', { class: 'tiles' },

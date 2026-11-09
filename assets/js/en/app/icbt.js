@@ -26,7 +26,7 @@ function render(note) {
     parts.push(h('div', { class: 'card app-card' + (done ? ' suggest' : '') }, h('h2', {}, done ? 'Time to move on to exposures' : 'Week ' + w + ' of ' + ic.weeks),
       h('div', { class: 'progress', role: 'progressbar', 'aria-valuemin': 0, 'aria-valuemax': ic.weeks, 'aria-valuenow': Math.min(w, ic.weeks), 'aria-label': 'Progress through the I-CBT phase' }, h('span', { style: 'width:' + Math.min(100, (w / ic.weeks) * 100) + '%' })),
       h('p', {}, done ? 'The planned weeks have passed. Try moving on to gradual exposures. It is a hint; you set the pace.' : 'When the countdown finishes, the app will invite you to move on to exposures.'),
-      h('div', { class: 'actions' }, done ? h('a', { class: 'btn', href: '/aplikace/zebricek' }, 'To the ladder') : null,
+      h('div', { class: 'actions' }, done ? h('a', { class: 'btn', href: '/aplikace/denik' }, 'To the diary') : null,
         h('button', { class: 'btn btn-ghost', type: 'button', onclick: () => { ic.startedAt = null; save(); render(); } }, 'Cancel the countdown'))));
   }
 

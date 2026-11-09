@@ -4,7 +4,6 @@ const blank = () => ({
   v: 1,
   consent: null,
   draft: null,
-  assessments: [],
   progress: { done: [], active: null },
   exposures: [],
   texts: [],
@@ -56,7 +55,7 @@ export const exportJson = () => JSON.stringify(data(), null, 2);
 
 export function importJson(text) {
   const o = JSON.parse(text);
-  if (!o || o.v !== 1 || !Array.isArray(o.assessments) || !Array.isArray(o.exposures)) throw new Error('Invalid file');
+  if (!o || o.v !== 1 || !Array.isArray(o.exposures)) throw new Error('Invalid file');
   mem = Object.assign(blank(), o);
   save();
 }
@@ -87,8 +86,3 @@ export function weekKey(ts) {
 
 export const fmtDate =(ts) => new Date(ts).toLocaleDateString('en-GB', { day: 'numeric', month: 'numeric' });
 export const fmtDateLong = (ts) => new Date(ts).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-
-export function latestAssessment() {
-  const a = data().assessments;
-  return a.length ? a[a.length - 1] : null;
-}

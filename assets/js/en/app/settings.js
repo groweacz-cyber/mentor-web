@@ -6,7 +6,7 @@ const root = $('#app-root');
 boot(root);
 
 // Připomínky přes kalendář (.ics): web bez serveru nemůže posílat notifikace, kalendář je připomene sám.
-function makeIcs(monthly, daily, time) {
+function makeIcs(daily, time) {
   const pad = (n) => String(n).padStart(2, '0');
   const t = new Date(Date.now() + 86400000);
   const ymd = t.getFullYear() + pad(t.getMonth() + 1) + pad(t.getDate());
@@ -14,7 +14,6 @@ function makeIcs(monthly, daily, time) {
   const stamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z';
   const ev = (summary, desc, rule) => ['BEGIN:VEVENT', 'UID:' + uid() + '@ocd-aplikace', 'DTSTAMP:' + stamp, 'DTSTART:' + ymd + 'T' + hh + mm + '00', 'DURATION:PT10M', 'RRULE:' + rule, 'SUMMARY:' + summary, 'DESCRIPTION:' + desc, 'END:VEVENT'].join('\r\n');
   const evs = [];
-  if (monthly) evs.push(ev('A moment for the questionnaire', 'Would you like to repeat the questionnaire and compare how things stand? It takes a few minutes, with no pressure.', 'FREQ=MONTHLY'));
   if (daily) evs.push(ev('A moment for yourself', 'How are you today? If you like, note down a short entry.', 'FREQ=DAILY'));
   return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//OCD aplikace//CS', ...evs, 'END:VCALENDAR'].join('\r\n');
 }
@@ -22,7 +21,7 @@ function makeIcs(monthly, daily, time) {
 function render(note, bad) {
   const d = data();
   const stats = [
-    ['Questionnaires', d.assessments.length], ['Exposure', d.exposures.length], ['Texts', d.texts.length], ['Obsession records', d.obsessions.length], ['Compulsion entries', d.compulsions.length],
+    ['Exposure', d.exposures.length], ['Texts', d.texts.length], ['Obsession records', d.obsessions.length], ['Compulsion entries', d.compulsions.length],
   ];
   const file = h('input', { type: 'file', id: 'imp', accept: 'application/json,.json' });
   file.addEventListener('change', () => {
@@ -54,12 +53,11 @@ function render(note, bad) {
       } }, 'Export data')),
       h('div', { class: 'field' }, h('label', { for: 'imp' }, 'Load data from a file (overwrites the existing)'), file)),
     h('div', { class: 'card app-card' }, h('h2', {}, 'Calendar reminders'),
-      h('p', {}, 'A website without a server cannot send notifications. Download a calendar file that will remind you of the questionnaire or a moment for yourself. The messages are always neutral and encouraging. You switch them off by deleting the event in your calendar.'),
-      h('label', { class: 'check' }, h('input', { type: 'checkbox', id: 'rm', checked: true }), ' Once a month: repeat the questionnaire'),
-      h('label', { class: 'check' }, h('input', { type: 'checkbox', id: 'rd' }), ' Every day: a moment for yourself'),
+      h('p', {}, 'A website without a server cannot send notifications. Download a calendar file that will remind you of a moment for yourself. The messages are always neutral and encouraging. You switch them off by deleting the event in your calendar.'),
+      h('label', { class: 'check' }, h('input', { type: 'checkbox', id: 'rd', checked: true }), ' Every day: a moment for yourself'),
       h('div', { class: 'field' }, h('label', { for: 'rt' }, 'Time'), h('input', { type: 'time', id: 'rt', value: '19:00' })),
       h('div', { class: 'actions' }, h('button', { class: 'btn', type: 'button', onclick: () => {
-        const a = h('a', { href: URL.createObjectURL(new Blob([makeIcs($('#rm').checked, $('#rd').checked, $('#rt').value)], { type: 'text/calendar' })), download: 'pripominky.ics' });
+        const a = h('a', { href: URL.createObjectURL(new Blob([makeIcs($('#rd').checked, $('#rt').value)], { type: 'text/calendar' })), download: 'pripominky.ics' });
         document.body.append(a); a.click(); a.remove();
       } }, 'Download the calendar'))),
     h('div', { class: 'card app-card' }, h('h2', {}, 'Deletion and withdrawal of consent'),

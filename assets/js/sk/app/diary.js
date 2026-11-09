@@ -1,7 +1,7 @@
 // Expoziční deník: výběr expozice, časovač 10–15 minut, záznam, graf a nabídka posunu o stupeň výš.
-import { data, save, uid, latestAssessment, dayKey, fmtDate } from './store.js';
+import { data, save, uid, fmtDate } from './store.js';
 import { h, boot, gate, slider, lineChart, $ } from './ui.js';
-import { buildLadder, recommendedStart } from './data.js';
+import { TOPICS } from './data.js';
 
 const root = $('#app-root');
 boot(root);
@@ -15,20 +15,16 @@ const elapsed = (t, now = Date.now()) => now - t.startedAt - t.paused - (t.pause
 
 function ladder() {
   const d = data();
-  const items = buildLadder(latestAssessment());
+  const items = TOPICS.map(([id, name]) => ({ id, name }));
   return { d, items };
 }
 
 function setup(note) {
   const { d, items } = ladder();
-  if (!items.length) {
-    root.replaceChildren(h('div', { class: 'card app-card' }, h('h2', {}, 'Najprv rebríček'), h('p', {}, 'Denník potrebuje témy z dotazníka.'), h('a', { class: 'btn', href: '/aplikace/start' }, 'Vyplniť dotazník')));
-    return;
-  }
   const want = new URLSearchParams(location.search).get('t');
-  const rec = recommendedStart(items, d.progress.done);
-  const pre = [want, d.progress.active, rec && rec.id].find((id) => id && items.some((i) => i.id === id)) || items[0].id;
-  const sel = h('select', { id: 'tema' }, items.map((i) => h('option', { value: i.id, selected: i.id === pre }, i.name + ' (' + i.score + '/10)')));
+  const last = d.exposures[d.exposures.length - 1];
+  const pre = [want, last && last.topicId].find((id) => id && items.some((i) => i.id === id)) || items[0].id;
+  const sel = h('select', { id: 'tema' }, items.map((i) => h('option', { value: i.id, selected: i.id === pre }, i.name)));
   const desc = h('input', { type: 'text', id: 'popis', maxlength: 140, placeholder: 'Napr. dotknem sa kľučky a nebudem si umývať ruky' });
   const before = slider('pred', 'Úzkosť pred začiatkom', '', 0);
   const dur = h('fieldset', { class: 'chips' }, h('legend', {}, 'Dĺžka'), [10, 15].map((m) => h('label', { class: 'chip' }, h('input', { type: 'radio', name: 'dur', value: m, checked: m === 15 }), h('span', {}, m + ' minút'))));
@@ -39,7 +35,6 @@ function setup(note) {
   };
   root.replaceChildren(...[
     note ? h('p', { class: 'banner banner-ok', role: 'status' }, note) : null,
-    suggestion(),
     h('div', { class: 'card app-card' },
       h('h2', {}, 'Nová expozícia'),
       h('div', { class: 'field' }, h('label', { for: 'tema' }, 'Téma'), sel),
@@ -53,7 +48,7 @@ function setup(note) {
 function timerView() {
   const d = data();
   const t = d.timer;
-  const items = buildLadder(latestAssessment());
+  const { items } = ladder();
   const topic = (items.find((i) => i.id === t.topicId) || { name: 'Téma' }).name;
   const clock = h('div', { class: 'clock', role: 'timer', 'aria-live': 'off' });
   const ring = h('div', { class: 'timer' }, clock);
@@ -96,29 +91,6 @@ function recordView() {
     h('h2', {}, 'Čas vypršal. Zapíšte to krátko.'), peak, after, urge,
     h('div', { class: 'field' }, h('label', { for: 'udelal' }, 'Čo ste robili ', h('span', { class: 'hint' }, 'Max. 140 znakov, stačí heslovito.')), did),
     h('div', { class: 'actions' }, h('button', { class: 'btn', type: 'button', onclick: save1 }, 'Uložiť'), h('button', { class: 'btn btn-ghost', type: 'button', onclick: () => { d.timer = null; save(); setup(); } }, 'Zahodiť'))));
-}
-
-// Návrh posunu: poslední 3 expozice u tématu mají maximum ≤ 3 a spadají do ≥ 3 různých dnů.
-function suggestion() {
-  const { d, items } = ladder();
-  d.progress.dismissed = d.progress.dismissed || {};
-  const last = d.exposures[d.exposures.length - 1];
-  if (!last) return null;
-  const same = d.exposures.filter((e) => e.topicId === last.topicId).slice(-3);
-  const ok = same.length === 3 && same.every((e) => e.peak <= 3) && new Set(same.map((e) => dayKey(e.at))).size >= 3;
-  if (!ok || d.progress.dismissed[last.topicId] === last.at || d.progress.done.includes(last.topicId)) return null;
-  const move = () => {
-    d.progress.done.push(last.topicId);
-    const idx = items.findIndex((i) => i.id === last.topicId);
-    const next = items.slice(idx + 1).find((i) => !d.progress.done.includes(i.id));
-    d.progress.active = next ? next.id : null;
-    save();
-    setup(next ? 'Posunuté. Ďalšia téma: ' + next.name + '.' : 'Splnili ste celý rebríček. Zvážte nový dotazník.');
-  };
-  return h('div', { class: 'card app-card suggest' },
-    h('h3', {}, 'Ponuka: o stupeň vyššie?'),
-    h('p', {}, 'Maximum úzkosti bolo niekoľko dní po sebe nízke. Môžete skúsiť ďalší stupeň. Je to len nápoveda, rozhodujete vy.'),
-    h('div', { class: 'actions' }, h('button', { class: 'btn', type: 'button', onclick: move }, 'Posunúť o stupeň'), h('button', { class: 'btn btn-ghost', type: 'button', onclick: () => { d.progress.dismissed[last.topicId] = last.at; save(); setup(); } }, 'Zostať pri tejto téme')));
 }
 
 function history() {

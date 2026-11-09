@@ -1,13 +1,12 @@
 // Export pro terapeuta: přehled pro tisk nebo uložení do PDF (tiskový dialog prohlížeče). Nic se neodesílá.
-import { data, fmtDate, fmtDateLong, latestAssessment, dayKey } from './store.js';
+import { data, fmtDate, fmtDateLong, dayKey } from './store.js';
 import { h, boot, gate, lineChart, $ } from './ui.js';
-import { pathLabel, KIND_LABEL } from './data.js';
+import { KIND_LABEL } from './data.js';
 
 const root = $('#app-root');
 boot(root);
 
 const OPTS = [
-  ['ass', 'Dotazníky a žebříček', true],
   ['exp', 'Expoziční deník s grafem', true],
   ['obs', 'Obsese (denní součty a síla)', true],
   ['cmp', 'Kompulze (týdenní součty)', true],
@@ -24,13 +23,6 @@ function table(head, rows) {
 function build(sel) {
   const d = data();
   const out = [h('h2', {}, 'Přehled z aplikace'), h('p', { class: 'small' }, 'Vytvořeno ' + fmtDateLong(Date.now()) + '. Přehled sestavil uživatel sám, není to zdravotnická dokumentace ani diagnóza.')];
-  if (sel.ass && d.assessments.length) {
-    out.push(h('h3', {}, 'Dotazníky'));
-    out.push(table(['Datum', 'Cesta', 'Sebepřijetí', 'Sebedůvěra', 'Čas denně'], d.assessments.map((a) => [fmtDate(a.at), pathLabel(a.reco.path), a.pillars.accept, a.pillars.trust, a.impact.time || '–'])));
-    const a = latestAssessment();
-    out.push(h('h3', {}, 'Témata z posledního dotazníku'));
-    out.push(table(['Téma', 'Úzkost 0–10'], a.topics.filter((t) => t.score > 0).sort((x, y) => x.score - y.score).map((t) => [t.name, t.score])));
-  }
   if (sel.exp && d.exposures.length) {
     out.push(h('h3', {}, 'Expoziční deník'));
     const ex = d.exposures.slice(-20);

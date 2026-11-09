@@ -68,7 +68,7 @@ test('/jak-to-probiha obsahuje předepsaný popis sezení a zachovává cenu, up
   const h = nacti('jak-to-probiha/index.html');
   assert.ok(h.includes('Úvodní 20minutová konzultace je zdarma a k ničemu nezavazuje.'));
   assert.ok(h.includes('Neposkytuji psychoterapii, nestanovuji diagnózu, neradím s léky a nezadávám úkoly. Tempo i témata určujete vy.'));
-  assert.ok(h.includes('490 Kč'));
+  assert.ok(h.includes('890 Kč'));
   assert.ok(/112/.test(h) && /155/.test(h) && /116 123/.test(h));
   assert.ok(!/Zmapujeme|Z toho postavíme|žebřík|dotazník/i.test(h));
 });

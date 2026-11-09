@@ -1146,7 +1146,7 @@ add('/kurz', {
 const faqVisible = JAK.faq.filter((f) => !hasPlaceholder(f.a));
 add('/jak-to-probiha', {
   title: "Jak probíhá peer mentoring: setkání a ceník | ocdmentor.cz",
-  desc: "Jak probíhá peer mentoring při OCD: úvodní konzultace zdarma, další online setkání po 50 minutách za 490 Kč. Ceník a časté dotazy. Rezervujte online.",
+  desc: "Jak probíhá peer mentoring při OCD: úvodní konzultace zdarma, další online setkání po 50 minutách za 890 Kč. Ceník a časté dotazy. Rezervujte online.",
   gloss: true,
   related: ['/pro-koho'],
   ogTitle: 'Jak probíhá peer mentoring',
@@ -2051,8 +2051,8 @@ add('/obchodni-podminky', {
   <h3>3. Nabízené služby a ceny</h3>
   <ul class="rules">
     <li><strong>Úvodní online konzultace</strong> — 20 minut, zdarma. Konzultace klienta k ničemu nezavazuje a sama o sobě není podmínkou objednání dalších služeb.</li>
-    <li><strong>Individuální online mentoring</strong> — 50 minut, 490 Kč.</li>
-    <li><strong>Balíček dvou mentoringových sezení</strong> — 2× 50 minut, 880 Kč.</li>
+    <li><strong>Individuální online mentoring</strong> — 50 minut, 890 Kč.</li>
+    <li><strong>Balíček dvou mentoringových sezení</strong> — 2× 50 minut, 1 600 Kč.</li>
   </ul>
   <p>Aktuální nabídka a ceny jsou vždy k dispozici i přímo v rezervačním systému Reservanto při objednávání. V případě rozporu mezi touto stránkou a rezervačním systémem se použije znění platné v okamžiku objednávky v Reservantu.</p>
   <p>Poskytovatel není plátcem DPH. Uvedené ceny jsou tedy konečné a nejsou navyšovány o DPH.</p>

@@ -1946,7 +1946,7 @@ add('/kontakt', {
   </dl>
   <p class="callout-inline"><strong>V akutní krizi nepište, volejte:</strong> 112, 155 nebo Linka první psychické pomoci 116 123.</p>
   <p>Služba je určena osobám starším 18 let.</p>
-  <p>E-mail není šifrovaná zpráva. Zdravotní podrobnosti si nechte na domluvený rozhovor.</p>
+  <p class="callout-inline"><strong>E-mail ani WhatsApp nejsou vhodné pro citlivé údaje.</strong> E-mail není šifrovaná zpráva. Zdravotní podrobnosti si nechte na domluvený rozhovor.</p>
   <p class="small">Obchodní podmínky si přečtěte <a href="/obchodni-podminky">zde</a>.</p>
 </section>
 `,
@@ -1966,6 +1966,7 @@ add('/ochrana-osobnich-udaju', {
 
   <h2>Co a jak zpracováváme</h2>
   <p>Pokud mi v e-mailu, telefonicky nebo přes WhatsApp sami sdělíte podrobnosti o svém zdravotním stavu, zpracovávám je jen v rozsahu nutném k domluvení spolupráce. Zdravotní údaje, které mi dobrovolně sdělíte, zpracovávám na základě vašeho výslovného souhlasu (čl. 9 odst. 2 písm. a) GDPR), který uděluji odesláním zprávy po přečtení tohoto upozornění. Souhlas můžete kdykoli odvolat. Písemné poznámky o jednotlivých obtížích, nutkáních nebo kompulzích si nevedu.</p>
+  <p class="callout-inline"><strong>Upozornění:</strong> e-mail ani WhatsApp nejsou vhodné pro přenos citlivých údajů o zdraví. Uvádějte v nich jen to, co jste ochotni sdílet, a podrobnosti si nechte na sezení.</p>
   <ol class="rules">
     <li><strong>Aplikace (/aplikace):</strong> vaše odpovědi se ukládají jen ve vašem zařízení, v úložišti prohlížeče (localStorage). Nikdy se neodesílají na žádný server ani nám. Smazat je můžete kdykoli v sekci <a href="/aplikace/nastaveni">Data a připomínky</a>. Právní základ: váš souhlas udělený při prvním spuštění aplikace.</li>
     <li><strong>E-mailová komunikace:</strong> pokud nám napíšete, zpracováváme váš e-mail a obsah zprávy jen za účelem odpovědi a vyřízení dotazu. Právní základ: jednání před uzavřením spolupráce nebo oprávněný zájem odpovědět na dotaz (čl. 6 odst. 1 písm. b, f GDPR). E-mail není šifrovaná zpráva.</li>
@@ -2151,7 +2152,7 @@ add('/obchodni-podminky', {
   <p>Služba je určena osobám starším 18 let. Na semináře se obdobně vztahují ustanovení bodů 2 (hranice služby), 8 (mlčenlivost) a 9 (krize během sezení) Části A.</p>
 
   <h3>B4. Objednávka a platba</h3>
-  <p>Smlouva vzniká okamžikem potvrzení rezervace v Reservantu. Cena se hradí bankovním převodem s uvedeným variabilním symbolem do 3 dnů od rezervace. Po marném uplynutí lhůty rezervace zaniká. Po připsání platby zašle prodejce odkaz na videohovor, nejpozději 24 hodin před prvním setkáním.</p>
+  <p>Smlouva vzniká okamžikem potvrzení rezervace poskytovatelem. Cena se hradí bankovním převodem s uvedeným variabilním symbolem do 3 dnů od rezervace. Po marném uplynutí lhůty rezervace zaniká. Po připsání platby zašle prodejce odkaz na videohovor, nejpozději 24 hodin před prvním setkáním.</p>
 
   <h3>B5. Průběh</h3>
   <p>Videohovor přes Google Meet nebo WhatsApp, setkání se nenahrávají. Po připsání platby se poskytovatel účastníkovi ozve e-mailem a domluví spojení. Účastník zajistí klidné prostředí a funkční připojení. Setkání se nekonají 24. a 31. prosince, program se o tyto týdny posune.</p>
@@ -2164,7 +2165,7 @@ add('/obchodni-podminky', {
   <p>Pokud prodejce setkání nemůže uskutečnit (např. nemoc), nabídne náhradní termín. Pokud ho účastník nepřijme nebo program nelze dokončit, vrátí poměrnou část ceny za neuskutečněná setkání do 14 dnů.</p>
 
   <h3 id="odstoupeni-seminar">B8. Odstoupení spotřebitele</h3>
-  <p>Spotřebitel může od smlouvy odstoupit do 14 dnů od jejího uzavření bez udání důvodu e-mailem na <a href="mailto:${EMAIL}">${EMAIL}</a>. Pokud výslovně požádal o zahájení poskytování služby před uplynutím této lhůty a odstoupí po zahájení, uhradí poměrnou část ceny za již poskytnutá setkání. Zbývající část se vrací do 14 dnů stejným způsobem, jakým byla platba přijata.</p>
+  <p>Spotřebitel může od smlouvy odstoupit do 14 dnů od jejího uzavření bez udání důvodu e-mailem na <a href="mailto:${EMAIL}">${EMAIL}</a>. Pokud výslovně požádal o zahájení poskytování služby před uplynutím této lhůty a odstoupí po zahájení, uhradí poměrnou část ceny za již poskytnutá setkání. Zbývající část se vrací do 14 dnů stejným způsobem, jakým byla platba přijata. Pro odstoupení lze použít vzorový formulář z <a href="#odstoupeni">bodu 6 Části A</a>; jeho použití je dobrovolné.</p>
 
   <h3>B9. Reklamace</h3>
   <p>Výhrady k poskytnuté službě lze uplatnit e-mailem, prodejce odpoví do 30 dnů.</p>

@@ -46,6 +46,10 @@ function emailUcastnikCs({ rez, konf, odkazPodminky, spd }) {
     '',
     `Obchodní podmínky: ${odkazPodminky}`,
     '',
+    'Odstoupení od smlouvy: jako spotřebitel můžete od smlouvy odstoupit do 14 dnů od jejího uzavření bez udání důvodu, a to e-mailem poskytovateli (adresa je v obchodních podmínkách). Pokud jste výslovně požádal/a o zahájení služby před uplynutím této lhůty, uhradíte při odstoupení poměrnou část ceny za již poskytnuté plnění. Podrobnosti a vzorový formulář jsou v obchodních podmínkách (bod B8).',
+    '',
+    'Potvrzení souhlasů: při rezervaci jste potvrdil/a, že jste se seznámil/a s obchodními podmínkami a zásadami ochrany osobních údajů, souhlasil/a se zpracováním údajů a výslovně požádal/a, aby služba mohla být zahájena před uplynutím lhůty pro odstoupení od smlouvy.',
+    '',
     POVAHA_SEMINARE_EMAIL,
     '',
     'S pozdravem',
@@ -63,6 +67,8 @@ function emailUcastnikCs({ rez, konf, odkazPodminky, spd }) {
 ${spd ? '<p><img src="cid:qr-platba" width="220" height="220" alt="QR kód pro platbu semináře" style="display:block;border:1px solid #d9d4cc"><br>Naskenujte QR kód v bankovní aplikaci, platební údaje se předvyplní.</p>\n' : ''}<p>Cena je konečná, nejsem plátce DPH. Platí se bankovním převodem. Do zprávy pro příjemce nic nepište, variabilní symbol stačí.</p>
 <p>Po připsání platby se vám ozvu já e-mailem a domluvíme videohovor. Nemusíte se mi ozývat sami.</p>
 <p>Obchodní podmínky: <a href="${esc(odkazPodminky)}">${esc(odkazPodminky)}</a></p>
+<p>Odstoupení od smlouvy: jako spotřebitel můžete od smlouvy odstoupit do 14 dnů od jejího uzavření bez udání důvodu, a to e-mailem poskytovateli (adresa je v obchodních podmínkách). Pokud jste výslovně požádal/a o zahájení služby před uplynutím této lhůty, uhradíte při odstoupení poměrnou část ceny za již poskytnuté plnění. Podrobnosti a vzorový formulář jsou v obchodních podmínkách (bod B8).</p>
+<p>Potvrzení souhlasů: při rezervaci jste potvrdil/a, že jste se seznámil/a s obchodními podmínkami a zásadami ochrany osobních údajů, souhlasil/a se zpracováním údajů a výslovně požádal/a, aby služba mohla být zahájena před uplynutím lhůty pro odstoupení od smlouvy.</p>
 <p style="font-style:italic;border-left:4px solid #f5923e;padding-left:12px">${esc(POVAHA_SEMINARE_EMAIL)}</p>
 <p>S pozdravem<br>${esc(konf.majitel)}<br>IČ ${esc(konf.ico)}</p>
 </body></html>`;
@@ -101,6 +107,10 @@ function emailUcastnikEn({ rez, konf, odkazPodminky, spd }) {
     '',
     `Terms and conditions: ${odkazPodminky}`,
     '',
+    'Withdrawal from the contract: as a consumer you can withdraw from the contract within 14 days of concluding it, without giving a reason, by e-mail to the provider (the address is in the terms and conditions). If you expressly requested that the service start before this period expires, you will pay a proportionate part of the price for the performance already provided if you withdraw. Details and a model form are in the terms and conditions (point B8).',
+    '',
+    'Confirmation of consents: when booking you confirmed that you have read the terms and conditions and the privacy policy, consented to the processing of your data and expressly requested that the service may start before the withdrawal period expires.',
+    '',
     POVAHA_SEMINARE_EMAIL_EN,
     '',
     'Kind regards,',
@@ -118,6 +128,8 @@ function emailUcastnikEn({ rez, konf, odkazPodminky, spd }) {
 ${spd ? '<p><img src="cid:qr-platba" width="220" height="220" alt="QR code for the seminar payment" style="display:block;border:1px solid #d9d4cc"><br>Scan the QR code in your banking app and the payment details will be filled in.</p>\n' : ''}<p>The price is final; I am not a VAT payer. Payment is by bank transfer. Please do not write anything in the message to the recipient; the variable symbol is enough. If you pay from a bank outside the Czech Republic, use the IBAN above and enter the variable symbol as the payment reference.</p>
 <p>Once your payment arrives I will get in touch by e-mail and we will arrange the video call. You do not need to contact me yourself.</p>
 <p>Terms and conditions: <a href="${esc(odkazPodminky)}">${esc(odkazPodminky)}</a></p>
+<p>Withdrawal from the contract: as a consumer you can withdraw from the contract within 14 days of concluding it, without giving a reason, by e-mail to the provider (the address is in the terms and conditions). If you expressly requested that the service start before this period expires, you will pay a proportionate part of the price for the performance already provided if you withdraw. Details and a model form are in the terms and conditions (point B8).</p>
+<p>Confirmation of consents: when booking you confirmed that you have read the terms and conditions and the privacy policy, consented to the processing of your data and expressly requested that the service may start before the withdrawal period expires.</p>
 <p style="font-style:italic;border-left:4px solid #f5923e;padding-left:12px">${esc(POVAHA_SEMINARE_EMAIL_EN)}</p>
 <p>Kind regards<br>${esc(konf.majitel)}<br>Company ID (IČ) ${esc(konf.ico)}</p>
 </body></html>`;
@@ -157,6 +169,10 @@ function emailUcastnikSk({ rez, konf, odkazPodminky, spd }) {
     '',
     `Obchodné podmienky: ${odkazPodminky}`,
     '',
+    'Odstúpenie od zmluvy: ako spotrebiteľ môžete od zmluvy odstúpiť do 14 dní od jej uzavretia bez udania dôvodu, a to e-mailom poskytovateľovi (adresa je v obchodných podmienkach). Ak ste výslovne požiadali o začatie služby pred uplynutím tejto lehoty, pri odstúpení uhradíte pomernú časť ceny za už poskytnuté plnenie. Podrobnosti a vzorový formulár sú v obchodných podmienkach (bod B8).',
+    '',
+    'Potvrdenie súhlasov: pri rezervácii ste potvrdili, že ste sa oboznámili s obchodnými podmienkami a zásadami ochrany osobných údajov, súhlasili so spracúvaním údajov a výslovne požiadali, aby sa služba mohla začať pred uplynutím lehoty na odstúpenie od zmluvy.',
+    '',
     POVAHA_SEMINARE_EMAIL_SK,
     '',
     'S pozdravom',
@@ -174,6 +190,8 @@ function emailUcastnikSk({ rez, konf, odkazPodminky, spd }) {
 ${spd ? '<p><img src="cid:qr-platba" width="220" height="220" alt="QR kód na platbu seminára" style="display:block;border:1px solid #d9d4cc"><br>Naskenujte QR kód v bankovej aplikácii, platobné údaje sa predvyplnia.</p>\n' : ''}<p>Cena je konečná, nie som platiteľ DPH. Platí sa bankovým prevodom. Do správy pre príjemcu nič nepíšte, variabilný symbol stačí. Ak platíte zo slovenského účtu, použite uvedený IBAN a variabilný symbol uveďte ako referenciu platby.</p>
 <p>Po pripísaní platby sa vám ozvem ja e-mailom a dohodneme videohovor. Nemusíte sa mi ozývať sami.</p>
 <p>Obchodné podmienky: <a href="${esc(odkazPodminky)}">${esc(odkazPodminky)}</a></p>
+<p>Odstúpenie od zmluvy: ako spotrebiteľ môžete od zmluvy odstúpiť do 14 dní od jej uzavretia bez udania dôvodu, a to e-mailom poskytovateľovi (adresa je v obchodných podmienkach). Ak ste výslovne požiadali o začatie služby pred uplynutím tejto lehoty, pri odstúpení uhradíte pomernú časť ceny za už poskytnuté plnenie. Podrobnosti a vzorový formulár sú v obchodných podmienkach (bod B8).</p>
+<p>Potvrdenie súhlasov: pri rezervácii ste potvrdili, že ste sa oboznámili s obchodnými podmienkami a zásadami ochrany osobných údajov, súhlasili so spracúvaním údajov a výslovne požiadali, aby sa služba mohla začať pred uplynutím lehoty na odstúpenie od zmluvy.</p>
 <p style="font-style:italic;border-left:4px solid #f5923e;padding-left:12px">${esc(POVAHA_SEMINARE_EMAIL_SK)}</p>
 <p>S pozdravom<br>${esc(konf.majitel)}<br>IČO ${esc(konf.ico)}</p>
 </body></html>`;
@@ -199,6 +217,7 @@ export function emailMajitel({ rez, osoba, konf, objednano, ucastnikOdeslan, jaz
     ['Částka', formatCastka(rez.castka)],
     ['Splatnost', `do ${formatCz(rez.splatnost)}`],
     ['Čas objednávky', objednano],
+    ['Potvrzené souhlasy', 'zpracování údajů (včetně informace o zdraví), povaha semináře, seznámení s obchodními podmínkami a zásadami ochrany údajů, výslovná žádost o zahájení služby před uplynutím lhůty pro odstoupení: vše potvrzeno při odeslání rezervace (čas viz výše)'],
     ['Jazyk stránky', jazyk === 'en' ? 'angličtina (rezervace z anglických stránek, odpovězte prosím anglicky)' : jazyk === 'sk' ? 'slovenština (rezervace ze slovenských stránek, odpovězte prosím slovensky nebo česky)' : 'čeština'],
     ['E-mail s platebními údaji účastníkovi', ucastnikOdeslan ? 'odeslán' : 'neodeslán, platební údaje a QR kód viděl na stránce po odeslání rezervace'],
   ];

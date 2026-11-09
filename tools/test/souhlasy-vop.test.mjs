@@ -41,7 +41,7 @@ test('storno: jednotné znění v FAQ, semináři a v obchodních podmínkách A
 
 test('obchodní podmínky: mlčenlivost, krize, 18+, IČO, telefon, účinnost 23. 11. 2026, historie; bez zástupných textů', () => {
   const t = plain('obchodni-podminky/index.html');
-  for (const x of ['Poskytovatel zachovává mlčenlivost o všem, co se klient během spolupráce svěří.', 'Pokud klient během sezení uvede akutní krizi nebo myšlenky na sebepoškození', 'Služba je určena osobám starším 18 let.', 'IČ 87690772', 'telefon +420 720 385 282', 'Smlouva vzniká okamžikem potvrzení rezervace v Reservantu.', 'Historie verzí', 'v mezích uvedených v bodě 2 těchto podmínek']) assert.ok(t.includes(x), x);
+  for (const x of ['Poskytovatel zachovává mlčenlivost o všem, co se klient během spolupráce svěří.', 'Pokud klient během sezení uvede akutní krizi nebo myšlenky na sebepoškození', 'Služba je určena osobám starším 18 let.', 'IČ 87690772', 'telefon +420 720 385 282', 'Smlouva vzniká okamžikem potvrzení rezervace poskytovatelem.', 'Historie verzí', 'v mezích uvedených v bodě 2 těchto podmínek']) assert.ok(t.includes(x), x);
   assert.ok(!t.includes('v mezích popsaných na stránce'));
   assert.ok(nacti('obchodni-podminky/index.html').includes('/assets/vop/obchodni-podminky-2026-11-09.html'));
   assert.ok(existsSync(join(ROOT, 'assets/vop/obchodni-podminky-2026-11-09.html')));
@@ -96,4 +96,16 @@ test('upozornění u aplikace je viditelné v aplikaci, rozcestníku „Více“
   for (const p of ['sk/aplikacia/index.html', 'sk/index.html']) assert.ok(plain(p).includes('Aplikácia nie je zdravotnícka pomôcka, nie je terapia ani diagnóza a nenahrádza odbornú starostlivosť.'), p);
   assert.match(nacti('assets/js/app/vice.js'), /Aplikace není zdravotnický prostředek/);
   assert.match(nacti('assets/js/en/app/vice.js'), /not a medical device/);
+});
+
+test('e-mail účastníkovi nese poučení o odstoupení a potvrzení souhlasů (CS, EN, SK), e-mail majiteli důkaz souhlasů; B8 odkazuje na vzorový formulář', () => {
+  const m = nacti('api/_lib/mail.js');
+  for (const x of ['Odstoupení od smlouvy: jako spotřebitel', 'Potvrzení souhlasů: při rezervaci', 'Withdrawal from the contract: as a consumer', 'Confirmation of consents:', 'Odstúpenie od zmluvy: ako spotrebiteľ', 'Potvrdenie súhlasov:', "['Potvrzené souhlasy'"]) assert.ok(m.includes(x), x);
+  assert.ok(!/\bOCD\b/.test(m.match(/Odstoupení od smlouvy: jako[^\n]*/)[0]), 'e-mail účastníkovi bez slova OCD');
+  assert.ok(plain('obchodni-podminky/index.html').includes('Pro odstoupení lze použít vzorový formulář z bodu 6 Části A ; jeho použití je dobrovolné.'));
+});
+
+test('upozornění, že e-mail a WhatsApp nejsou vhodné pro citlivé údaje, je zvýrazněné na kontaktu i v zásadách ochrany údajů', () => {
+  assert.match(nacti('kontakt/index.html'), /class="callout-inline"><strong>E-mail ani WhatsApp nejsou vhodné pro citlivé údaje\.<\/strong>/);
+  assert.match(nacti('ochrana-osobnich-udaju/index.html'), /class="callout-inline"><strong>Upozornění:<\/strong> e-mail ani WhatsApp nejsou vhodné/);
 });

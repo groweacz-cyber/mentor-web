@@ -326,7 +326,7 @@ test('obchodní podmínky: část B pro dva programy, oba texty o povaze, připo
   assert.ok(t.includes('Setkání se nekonají 24. a 31. prosince, program se o tyto týdny posune.'));
   assert.ok(t.includes('Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši 50 % ceny sezení. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy. Setkání lze přesunout po domluvě e-mailem, u programu pěti setkání nejvýše dvakrát, u programu tří setkání nejvýše jednou.'));
   for (const veta of [
-    'Smlouva vzniká okamžikem potvrzení rezervace v Reservantu. Cena se hradí bankovním převodem s uvedeným variabilním symbolem do 3 dnů od rezervace.',
+    'Smlouva vzniká okamžikem potvrzení rezervace poskytovatelem. Cena se hradí bankovním převodem s uvedeným variabilním symbolem do 3 dnů od rezervace.',
     'Zbývající část se vrací do 14 dnů stejným způsobem, jakým byla platba přijata.',
     'Výhrady k poskytnuté službě lze uplatnit e-mailem, prodejce odpoví do 30 dnů.',
     'Vztahy se řídí právem České republiky.',

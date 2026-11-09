@@ -66,7 +66,7 @@ test('navigace neobsahuje Metodu, Dotazník ani Kvíz a úvodní stránka nemá 
 
 test('/jak-to-probiha obsahuje předepsaný popis sezení a zachovává cenu, upozornění a krizová čísla', () => {
   const h = nacti('jak-to-probiha/index.html');
-  assert.ok(h.includes('Úvodní 20minutová konzultace je zdarma a k ničemu nezavazuje.'));
+  assert.ok(h.includes('Úvodní 15minutová konzultace je zdarma a k ničemu nezavazuje.'));
   assert.ok(h.includes('Neposkytuji psychoterapii, nestanovuji diagnózu, neradím s léky a nezadávám úkoly. Tempo i témata určujete vy.'));
   assert.ok(h.includes('890 Kč'));
   assert.ok(/112/.test(h) && /155/.test(h) && /116 123/.test(h));

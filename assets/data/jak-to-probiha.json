@@ -2,7 +2,7 @@
   "kroky": [
     {
       "nazev": "Úvodní konzultace zdarma",
-      "meta": "20 min, online",
+      "meta": "15 min, online",
       "text": "Seznámíme se a řekneme si, jestli vám tento druh podpory dává smysl. K ničemu nezavazuje."
     },
     {
@@ -14,7 +14,7 @@
   "cenik": [
     {
       "nazev": "Úvodní konzultace",
-      "delka": "20 min",
+      "delka": "15 min",
       "cena": "zdarma",
       "poznamka": ""
     },
@@ -46,7 +46,7 @@
     },
     {
       "q": "Kolik to stojí a jak se platí?",
-      "a": "Úvodní konzultace (20 min) je zdarma. Sezení (50 min) stojí 890 Kč, balíček dvou sezení 1 600 Kč. Platí se online při rezervaci."
+      "a": "Úvodní konzultace (15 min) je zdarma. Sezení (50 min) stojí 890 Kč, balíček dvou sezení 1 600 Kč. Platí se online při rezervaci."
     },
     {
       "q": "Můžu termín zrušit nebo přesunout?",

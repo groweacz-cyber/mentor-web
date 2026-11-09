@@ -75,7 +75,7 @@ test('/seminare: přehled má úvod, dvě karty, rámeček o povaze semináře, 
   }
   assert.ok(m.indexOf('class="prog-cards"') < m.indexOf('class="callout-inline disclaimer sem-box"'), 'rámeček je pod kartami');
   assert.ok(t.includes(POVAHA_PREHLED));
-  assert.ok(t.includes('Chcete si nejdřív promluvit? Rezervujte si úvodní konzultaci zdarma (20 minut).'));
+  assert.ok(t.includes('Chcete si nejdřív promluvit? Rezervujte si úvodní konzultaci zdarma (15 minut).'));
   assert.ok(/reservanto-widget/.test(m), 'existující tlačítko Reservanto');
   assert.ok(/112/.test(t) && /116 123/.test(t), 'krizové kontakty');
 });

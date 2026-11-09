@@ -394,7 +394,7 @@ ${programy.map((p) => kartaProgramu(p, jaz)).join('\n')}
 </section>
 
 <section class="wrap block" id="konzultace">
-  <p><strong>${L(jaz, 'Chcete si nejdřív promluvit?', 'Would you like to talk first?')}</strong> ${L(jaz, 'Rezervujte si úvodní konzultaci zdarma (20 minut).', 'Book a free introductory consultation (20 minutes).')}</p>
+  <p><strong>${L(jaz, 'Chcete si nejdřív promluvit?', 'Would you like to talk first?')}</strong> ${L(jaz, 'Rezervujte si úvodní konzultaci zdarma (15 minut).', 'Book a free introductory consultation (15 minutes).')}</p>
   ${konzultaceHtml}
   <p class="small">${esc(krize(jaz))}</p>
 </section>

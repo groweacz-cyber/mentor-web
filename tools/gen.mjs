@@ -1165,7 +1165,7 @@ add('/jak-to-probiha', {
 
 <section class="wrap block">
   <h2>Jak sezení probíhá</h2>
-  <p>Úvodní 20minutová konzultace je zdarma a k ničemu nezavazuje. Seznámíme se a řekneme si, jestli vám tento druh podpory dává smysl. Další setkání trvají 50 minut a probíhají online. Je to rozhovor s člověkem, který OCD zná z vlastní zkušenosti: můžete mluvit o tom, co prožíváte, sdílím, co pomohlo mně, a pomáhám vám zorientovat se, kde hledat odbornou péči. Neposkytuji psychoterapii, nestanovuji diagnózu, neradím s léky a nezadávám úkoly. Tempo i témata určujete vy.</p>
+  <p>Úvodní 15minutová konzultace je zdarma a k ničemu nezavazuje. Seznámíme se a řekneme si, jestli vám tento druh podpory dává smysl. Další setkání trvají 50 minut a probíhají online. Je to rozhovor s člověkem, který OCD zná z vlastní zkušenosti: můžete mluvit o tom, co prožíváte, sdílím, co pomohlo mně, a pomáhám vám zorientovat se, kde hledat odbornou péči. Neposkytuji psychoterapii, nestanovuji diagnózu, neradím s léky a nezadávám úkoly. Tempo i témata určujete vy.</p>
   <p>Služba je určena osobám starším 18 let.</p>
   <p><strong>Jak se spojíme:</strong> sezení probíhají jako videohovor 1:1 přes Google Meet nebo WhatsApp. Nemusíte se mi ozývat sami, po rezervaci se vám ozvu já a domluvíme spojení. Aplikace si můžete stáhnout předem, odkazy do obchodů a QR kódy najdete u každého semináře, například na stránce <a href="${SEM_ADRESA['pro-lidi-s-ocd']}#spojeni">${SEMINARE_PROGRAMY[0].kratkyNazev}</a>.</p>
 </section>
@@ -1925,7 +1925,7 @@ add('/clanky', {
 add('/kontakt', {
   art: false,
   title: "Kontakt a rezervace konzultace zdarma | ocdmentor.cz",
-  desc: "Kontakt na peer mentora při OCD: napište e-mail nebo si rezervujte úvodní konzultaci zdarma (20 min online). Peer podpora doplňuje odbornou péči.",
+  desc: "Kontakt na peer mentora při OCD: napište e-mail nebo si rezervujte úvodní konzultaci zdarma (15 min online). Peer podpora doplňuje odbornou péči.",
   ogTitle: 'Kontakt a rezervace konzultace',
   body: `
 <section class="wrap page-head">
@@ -2050,7 +2050,7 @@ add('/obchodni-podminky', {
 
   <h3>3. Nabízené služby a ceny</h3>
   <ul class="rules">
-    <li><strong>Úvodní online konzultace</strong> — 20 minut, zdarma. Konzultace klienta k ničemu nezavazuje a sama o sobě není podmínkou objednání dalších služeb.</li>
+    <li><strong>Úvodní online konzultace</strong> — 15 minut, zdarma. Konzultace klienta k ničemu nezavazuje a sama o sobě není podmínkou objednání dalších služeb.</li>
     <li><strong>Individuální online mentoring</strong> — 50 minut, 890 Kč.</li>
     <li><strong>Balíček dvou mentoringových sezení</strong> — 2× 50 minut, 1 600 Kč.</li>
   </ul>

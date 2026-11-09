@@ -65,8 +65,8 @@ function zkontrolujPodleStandardu(spd) {
 }
 
 test('řetězec QR Platby odpovídá standardu a zadání', () => {
-  const spd = spdRetezec({ iban: 'CZ6508000000192000145399', castka: 3590, vs: '2611054321', prijemce: 'Bc. Václav Kodeš', zprava: 'SEMINAR' });
-  assert.equal(spd, 'SPD*1.0*ACC:CZ6508000000192000145399*AM:3590.00*CC:CZK*X-VS:2611054321*RN:BC. VACLAV KODES*MSG:SEMINAR');
+  const spd = spdRetezec({ iban: 'CZ6508000000192000145399', castka: 3900, vs: '2611054321', prijemce: 'Bc. Václav Kodeš', zprava: 'SEMINAR' });
+  assert.equal(spd, 'SPD*1.0*ACC:CZ6508000000192000145399*AM:3900.00*CC:CZK*X-VS:2611054321*RN:BC. VACLAV KODES*MSG:SEMINAR');
   const m = zkontrolujPodleStandardu(spd);
   assert.equal(m.MSG, 'SEMINAR');
   assert.ok(!/OCD/.test(spd), 'zpráva pro příjemce nikdy neobsahuje OCD');

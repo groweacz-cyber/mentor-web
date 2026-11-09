@@ -20,8 +20,8 @@ const text = (h) => dekoduj(bezZnacek(h)).replace(/\s+/g, ' ').trim();
 const main = (h) => h.slice(h.indexOf('<main'), h.indexOf('</main>'));
 const ld = (h) => [...h.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].flatMap((m) => JSON.parse(m[1])['@graph'] || []);
 
-const FORMAT_OCD = '5 setkání po 60 minutách, 1× týdně ve čtvrtek v 18:00, online 1:1. Cena 3 590 Kč za celý program. Cena je konečná, nejsem plátce DPH.';
-const FORMAT_BLIZKE = '3 setkání po 60 minutách, 1× týdně v úterý v 18:00, online 1:1. Na setkání se může připojit i druhý blízký z vaší domácnosti bez příplatku. Cena 2 190 Kč za celý program. Cena je konečná, nejsem plátce DPH.';
+const FORMAT_OCD = '5 setkání po 60 minutách, 1× týdně ve čtvrtek v 18:00, online 1:1. Cena 3 900 Kč za celý program. Cena je konečná, nejsem plátce DPH.';
+const FORMAT_BLIZKE = '3 setkání po 60 minutách, 1× týdně v úterý v 18:00, online 1:1. Na setkání se může připojit i druhý blízký z vaší domácnosti bez příplatku. Cena 2 500 Kč za celý program. Cena je konečná, nejsem plátce DPH.';
 const STRANKY = { 'pro-lidi-s-ocd': 'seminare/cesta-s-ocd/index.html', 'pro-blizke': 'seminare/pro-blizke/index.html' };
 const meta = (h, nazev) => (h.match(new RegExp(`<meta (?:name|property)="${nazev}" content="([^"]*)"`)) || [])[1];
 const html = (h) => h.replace(/&amp;/g, '&');
@@ -70,7 +70,7 @@ test('/seminare: přehled má úvod, dvě karty, rámeček o povaze semináře, 
     const k = text(karty[i]);
     assert.ok(k.includes(p.nazev) && k.includes(p.anotace) && k.includes(p.komu), p.id);
     assert.ok(k.includes(`${p.pocetSetkani} setkání po ${p.delkaMinut} minutách`), `${p.id}: formát`);
-    assert.ok(k.includes(p.cena === 3590 ? '3 590 Kč' : '2 190 Kč'), `${p.id}: cena`);
+    assert.ok(k.includes(p.cena === 3900 ? '3 900 Kč' : '2 500 Kč'), `${p.id}: cena`);
     assert.ok(karty[i].includes(`href="/seminare/${p.stranka}"`) && k.includes('Zobrazit program'), `${p.id}: tlačítko`);
   }
   assert.ok(m.indexOf('class="prog-cards"') < m.indexOf('class="callout-inline disclaimer sem-box"'), 'rámeček je pod kartami');
@@ -251,8 +251,8 @@ test('/seminare/rezervace: volba programu, pole, nepředvyplněné souhlasy obou
   const programy = [...m.matchAll(/<input type="radio" id="program-[^"]*" name="program" value="([^"]+)"/g)].map((x) => x[1]);
   assert.deepEqual(programy, ['pro-lidi-s-ocd', 'pro-blizke'], 'volba mezi oběma programy');
   const t = text(m);
-  assert.ok(t.includes('Cesta s OCD: sebepřijetí a sebevíra. Pět setkání nad knihou Individuální program 5 setkání · 3 590 Kč'));
-  assert.ok(t.includes('Když OCD žije vedle vás: průvodce pro blízké Individuální program 3 setkání · 2 190 Kč'));
+  assert.ok(t.includes('Cesta s OCD: sebepřijetí a sebevíra. Pět setkání nad knihou Individuální program 5 setkání · 3 900 Kč'));
+  assert.ok(t.includes('Když OCD žije vedle vás: průvodce pro blízké Individuální program 3 setkání · 2 500 Kč'));
   const checkboxy = [...m.matchAll(/<input type="checkbox"[^>]*>/g)].map((x) => x[0]);
   assert.equal(checkboxy.length, 8, 'čtyři souhlasy pro každý program');
   for (const c of checkboxy) assert.ok(!/\schecked\b/.test(c), 'souhlas není předvyplněný');
@@ -319,8 +319,8 @@ test('obchodní podmínky: část B pro dva programy, oba texty o povaze, připo
   assert.ok(t.includes(POVAHA_SEMINARE));
   assert.ok(t.includes(POVAHA_BLIZKE));
   assert.ok(t.includes('Program (a), pro lidi s OCD:') && t.includes('Program (b), pro blízké:'));
-  assert.ok(t.includes('(a) individuální program pěti online setkání po 60 minutách, 1× týdně ve čtvrtek v 18:00, cena 3 590 Kč;'));
-  assert.ok(t.includes('(b) individuální program tří online setkání po 60 minutách, 1× týdně v úterý v 18:00, cena 2 190 Kč, určený blízkým lidí s OCD.'));
+  assert.ok(t.includes('(a) individuální program pěti online setkání po 60 minutách, 1× týdně ve čtvrtek v 18:00, cena 3 900 Kč;'));
+  assert.ok(t.includes('(b) individuální program tří online setkání po 60 minutách, 1× týdně v úterý v 18:00, cena 2 500 Kč, určený blízkým lidí s OCD.'));
   assert.ok(t.includes('Obě ceny jsou konečné, prodejce není plátcem DPH.'));
   assert.ok(t.includes('U programu tří setkání se na setkání může připojit jeden další člověk z domácnosti účastníka bez příplatku. Jeho osobní údaje prodejce nezpracovává. Účastník zajistí, že se připojí s jeho vědomím. Účastníci nesdílejí identifikující údaje o třetích osobách (jména, diagnózy, podrobnosti).'));
   assert.ok(t.includes('Setkání se nekonají 24. a 31. prosince, program se o tyto týdny posune.'));

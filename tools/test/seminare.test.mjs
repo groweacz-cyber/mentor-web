@@ -10,15 +10,15 @@ const pripraveny = (id) => pripravProgramy(data()).find((p) => p.id === id);
 test('program pro lidi s OCD: termíny prvního programu zůstaly beze změny (24. a 31. 12. se přeskočí)', () => {
   const p = pripraveny('pro-lidi-s-ocd');
   assert.equal(p.pocetSetkani, 5);
-  assert.equal(p.cena, 3590);
+  assert.equal(p.cena, 3900);
   assert.deepEqual(p.behy[0].terminy, ['2026-12-03', '2026-12-10', '2026-12-17', '2027-01-07', '2027-01-14']);
   assert.deepEqual(p.behy[1].terminy, ['2027-01-21', '2027-01-28', '2027-02-04', '2027-02-11', '2027-02-18']);
 });
 
-test('program pro blízké: tři úterní termíny v obou bězích, cena 2 190 Kč', () => {
+test('program pro blízké: tři úterní termíny v obou bězích, cena 2 500 Kč', () => {
   const p = pripraveny('pro-blizke');
   assert.equal(p.pocetSetkani, 3);
-  assert.equal(p.cena, 2190);
+  assert.equal(p.cena, 2500);
   assert.equal(p.delkaMinut, 60);
   assert.deepEqual(p.behy[0].terminy, ['2026-12-01', '2026-12-08', '2026-12-15']);
   assert.deepEqual(p.behy[1].terminy, ['2027-01-12', '2027-01-19', '2027-01-26']);

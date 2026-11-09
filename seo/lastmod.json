@@ -44,7 +44,7 @@
     "date": "2026-11-09"
   },
   "/obchodni-podminky": {
-    "hash": "2267059ca93f",
+    "hash": "6feda33befb1",
     "date": "2026-11-09"
   },
   "/pomoc": {
@@ -160,19 +160,19 @@
     "date": "2026-11-09"
   },
   "/seminare": {
-    "hash": "1d65d65876ab",
+    "hash": "73dacb4e3cff",
     "date": "2026-11-09"
   },
   "/seminare/rezervace": {
-    "hash": "a36b8e0cc5bf",
+    "hash": "2a429c562b03",
     "date": "2026-11-09"
   },
   "/seminare/cesta-s-ocd": {
-    "hash": "738043d88b5e",
+    "hash": "7a3750e9ea39",
     "date": "2026-11-09"
   },
   "/seminare/pro-blizke": {
-    "hash": "49d48fdcfdc9",
+    "hash": "8a068c65422c",
     "date": "2026-11-09"
   },
   "/en": {
@@ -188,19 +188,19 @@
     "date": "2026-11-09"
   },
   "/en/seminars": {
-    "hash": "d862b1477f38",
+    "hash": "038b25e1f24c",
     "date": "2026-11-09"
   },
   "/en/seminars/the-path-with-ocd": {
-    "hash": "d6c33135d87e",
+    "hash": "e70212a0ec16",
     "date": "2026-11-09"
   },
   "/en/seminars/for-relatives": {
-    "hash": "b26c33ab9822",
+    "hash": "4146f111dc72",
     "date": "2026-11-09"
   },
   "/en/seminars/booking": {
-    "hash": "e13a51905d00",
+    "hash": "083f35ae395f",
     "date": "2026-11-09"
   },
   "/en/how-it-works": {
@@ -240,7 +240,7 @@
     "date": "2026-11-09"
   },
   "/en/terms": {
-    "hash": "5191e5785ca6",
+    "hash": "6c306b06d4eb",
     "date": "2026-11-09"
   },
   "/en/intrusive-thoughts": {
@@ -364,19 +364,19 @@
     "date": "2026-11-09"
   },
   "/sk/seminare": {
-    "hash": "f7ce2a7fcedc",
+    "hash": "3e5a8698feb1",
     "date": "2026-11-09"
   },
   "/sk/seminare/cesta-s-ocd": {
-    "hash": "4bd8fed3f387",
+    "hash": "775aa2938f5d",
     "date": "2026-11-09"
   },
   "/sk/seminare/pre-blizkych": {
-    "hash": "3c1b1e22c08b",
+    "hash": "4a487dcea571",
     "date": "2026-11-09"
   },
   "/sk/seminare/rezervacia": {
-    "hash": "94c7bee0748d",
+    "hash": "a8e51770ce1e",
     "date": "2026-11-09"
   },
   "/sk/ako-to-prebieha": {
@@ -416,7 +416,7 @@
     "date": "2026-11-09"
   },
   "/sk/obchodne-podmienky": {
-    "hash": "1302b9e5ed16",
+    "hash": "8b86ce3f89be",
     "date": "2026-11-09"
   },
   "/sk/vtierave-myslienky": {

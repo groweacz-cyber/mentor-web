@@ -153,7 +153,7 @@ test('rezervace s jazyk=sk: odpověď a e-mail účastníkovi slovensky, bez slo
   assert.equal(r.odpoved.beh.nazev, 'Beh 1');
   const [ucastnik, majitel] = r.odeslane;
   assert.equal(ucastnik.zprava.subject, 'Rezervácia seminára – platobné údaje');
-  for (const co of ['3 590 Kč', 'štvrtok 3. 12. 2026 o 18:00', 'do 8. 11. 2026', 'https://ocdmentor.cz/sk/obchodne-podmienky', 'S pozdravom', 'Variabilný symbol: ' + r.odpoved.vs]) {
+  for (const co of ['3 900 Kč', 'štvrtok 3. 12. 2026 o 18:00', 'do 8. 11. 2026', 'https://ocdmentor.cz/sk/obchodne-podmienky', 'S pozdravom', 'Variabilný symbol: ' + r.odpoved.vs]) {
     assert.ok(ucastnik.zprava.text.includes(co), `e-mail obsahuje „${co}“`);
   }
   for (const celek of [ucastnik.zprava.subject, ucastnik.zprava.text, ucastnik.zprava.html]) {

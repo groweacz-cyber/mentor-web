@@ -2222,7 +2222,7 @@ function contentPage({ path, title, ogTitle, ogSub, desc, h1, lead, sections, se
   ${draft ? draftBadge(statusLabel) : ''}
   <h1>${h1}</h1>
   <p class="lead">${lead}</p>
-  ${authorBox(updated)}
+  ${/^\/(vtirave-myslenky|typy-ocd|myty-o-ocd|slovnicek|pro-blizke|pribehy)(\/|$)/.test(path) ? '' : authorBox(updated)}
 </section>
 
 ${sectionsHtml || proseSections(sections)}

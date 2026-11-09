@@ -14,15 +14,15 @@ const GROUPS = [
   ]],
   ['Understanding', [
     ['/aplikace/kruh', 'OCD circle', 'A tool for every link'],
-    ['/aplikace/icbt', 'Understanding doubt', 'Pop path, 4–8 weeks'],
+    ['/aplikace/icbt', 'Understanding doubt', 'Short lessons on doubt'],
     ['/aplikace/telo', 'Body in fear', 'Psychoeducation'],
-    ['/aplikace/principy', 'Principle cards', 'Twelve rules of the method'],
+    ['/aplikace/principy', 'Principle cards', 'Twelve rules for every day'],
   ]],
   ['Me and my life', [
     ['/aplikace/pilire', 'Pillars', 'Weekly self-acceptance and self-trust'],
     ['/aplikace/vize', 'Vision', 'The life I want to live'],
     ['/aplikace/koreny', 'Roots', 'A timeline of life milestones'],
-    ['/aplikace/hudba', 'Music', 'Playlists for before and after exposure'],
+    ['/aplikace/hudba', 'Music', 'Playlists and music'],
   ]],
   ['Questionnaire and data', [
     ['/aplikace/start', 'Intake questionnaire', 'Repeat and compare'],

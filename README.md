@@ -32,8 +32,7 @@ Soubory ze složek `tools` a `seo` se na web nenasazují (`.vercelignore`).
 ## Kde upravit obsah
 
 - **Texty stránek, menu, titulky a popisky:** `tools/gen.mjs`.
-- **Ceník, tři kroky a FAQ stránky Jak to probíhá:** `assets/data/jak-to-probiha.json`. FAQ se do strukturovaných dat (FAQPage) dostane samo; odpověď obsahující nedoplněný `[placeholder]` se do nich zatím nedává.
-- **Smyčka OCD, kvíz a principy:** `assets/js/smycka-faze.js`, `assets/js/kviz-data.js`, `assets/js/principy.js`. Generátor z nich vytvoří statické HTML, aby byl obsah ve zdrojovém kódu stránky; JavaScript ho pak nahradí interaktivní verzí.
+- **Ceník, kroky a FAQ stránky Jak to probíhá:** `assets/data/jak-to-probiha.json`. FAQ se do strukturovaných dat (FAQPage) dostane samo; odpověď obsahující nedoplněný `[placeholder]` se do nich zatím nedává.
 - **E-book:** stránka `/ebook` je v `tools/gen.mjs` (indexovatelná, v sitemapě, strukturovaná data Book), soubor `assets/ebook/Cesta_k_sebeprijeti.pdf` (19 stran, A5) je volně ke stažení bez e-mailu a service worker ho nekešuje. Náhled titulní strany je `assets/img/ebook-titulka.webp` (vyříznutý z PDF). Při výměně PDF aktualizujte počet stran a velikost (5,3 MB) v textu stránky.
 - **Nový článek:** přidat záznam do pole `ARTICLES` v `tools/gen.mjs` (`slug`, `seoTitle`, `title`, `excerpt`, `date`, obrázky) a podle existujících článků napsat blok stránky. Sitemap, drobečky, JSON-LD a OG obrázek se doplní samy.
 - **Obsahové stránky (Typy OCD, Vtíravé myšlenky, Pro blízké, Mýty, Slovníček, Příběhy, Pro terapeuty):** texty v `tools/content/faze2.mjs` a `tools/content/typy2.mjs`, typy OCD v `assets/data/typy-ocd.json`, pojmy ve `assets/data/slovnicek.json`, mýty v `assets/data/myty.json`.
@@ -110,7 +109,7 @@ Slovenština funguje stejně jako angličtina (stejný generátor, přepínač C
 ## Cookies a Meta Pixel
 
 - Lišta cookies (`assets/js/cookie.js`, HTML lišty a odkaz „Nastavení cookies“ v patičce vkládá `page()` v `tools/gen.mjs`, příznak `cookiesOn`). Volba se ukládá do `localStorage` (`ocdmentor-cookies`) na 12 měsíců.
-- Meta Pixel (ID je v `cookie.js`) se načte **jen po souhlasu**; v HTML stránek není, `<noscript>` varianta se záměrně nepoužívá (běžela by bez souhlasu). Lišta a pixel se nezobrazují v aplikaci, na dotazníku, kvízu, potvrzení rezervace a konceptech.
+- Meta Pixel (ID je v `cookie.js`) se načte **jen po souhlasu**; v HTML stránek není, `<noscript>` varianta se záměrně nepoužívá (běžela by bez souhlasu). Lišta a pixel se nezobrazují v aplikaci, na potvrzení rezervace a konceptech.
 - CSP povoluje `connect.facebook.net` (skript) a `www.facebook.com` (obrázky, spojení). Texty lišty a zásad jsou ve slovnících `tools/i18n/{en,sk}/40-cookies.mjs`. Hlídá to `tools/test/cookies.test.mjs`.
 
 ## Koncepty a schvalování
@@ -169,4 +168,4 @@ Dokud byla v `vercel.json` globální hlavička `X-Robots-Tag: noindex, nofollow
 
 ## Zásady
 
-V repozitáři nesmí být osobní data, odpovědi z dotazníků ani testovací údaje klientů. Hesla, tokeny a klíče se do kódu neukládají (klíč IndexNow je veřejný z principu).
+V repozitáři nesmí být osobní data, odpovědi z dotazníků v aplikaci ani testovací údaje klientů. Hesla, tokeny a klíče se do kódu neukládají (klíč IndexNow je veřejný z principu).

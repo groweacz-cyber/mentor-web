@@ -21,27 +21,6 @@
     "portrait": false
   },
   {
-    "slug": "metoda",
-    "text": "Metoda: čtyři pilíře a dvě cesty",
-    "sub": "",
-    "art": "",
-    "portrait": false
-  },
-  {
-    "slug": "en-method",
-    "text": "Method: four pillars and two paths",
-    "sub": "",
-    "art": "",
-    "portrait": false
-  },
-  {
-    "slug": "sk-metoda",
-    "text": "Metóda: štyri piliere a dve cesty",
-    "sub": "",
-    "art": "",
-    "portrait": false
-  },
-  {
     "slug": "pro-koho",
     "text": "Pro koho je peer mentoring při OCD",
     "sub": "",
@@ -58,27 +37,6 @@
   {
     "slug": "sk-pre-koho",
     "text": "Pre koho je peer mentoring pri OCD",
-    "sub": "",
-    "art": "",
-    "portrait": false
-  },
-  {
-    "slug": "dotaznik",
-    "text": "Vstupní dotazník",
-    "sub": "",
-    "art": "",
-    "portrait": false
-  },
-  {
-    "slug": "en-questionnaire",
-    "text": "Intake questionnaire",
-    "sub": "",
-    "art": "",
-    "portrait": false
-  },
-  {
-    "slug": "sk-dotaznik",
-    "text": "Vstupný dotazník",
     "sub": "",
     "art": "",
     "portrait": false
@@ -210,44 +168,23 @@
     "portrait": false
   },
   {
-    "slug": "kviz",
-    "text": "Metal, nebo Pop?",
-    "sub": "Která cesta vám sedí?",
-    "art": "",
-    "portrait": false
-  },
-  {
-    "slug": "en-quiz",
-    "text": "Metal or Pop?",
-    "sub": "Which path suits you?",
-    "art": "",
-    "portrait": false
-  },
-  {
-    "slug": "sk-kviz",
-    "text": "Metal, alebo Pop?",
-    "sub": "Ktorá cesta vám sedí?",
-    "art": "",
-    "portrait": false
-  },
-  {
     "slug": "jak-to-probiha",
     "text": "Jak probíhá peer mentoring",
-    "sub": "Kroky, ceník a časté dotazy",
+    "sub": "Setkání, ceník a časté dotazy",
     "art": "",
     "portrait": false
   },
   {
     "slug": "en-how-it-works",
     "text": "How peer mentoring works",
-    "sub": "Steps, prices and frequently asked questions",
+    "sub": "Meetings, prices and frequently asked questions",
     "art": "",
     "portrait": false
   },
   {
     "slug": "sk-ako-to-prebieha",
     "text": "Ako prebieha peer mentoring",
-    "sub": "Kroky, cenník a časté otázky",
+    "sub": "Stretnutia, cenník a časté otázky",
     "art": "",
     "portrait": false
   },
@@ -905,21 +842,21 @@
   {
     "slug": "slovnicek",
     "text": "Slovníček pojmů",
-    "sub": "Obsese, kompulze, ERP, I-CBT a další",
+    "sub": "Obsese, kompulze, ujišťování a další",
     "art": "",
     "portrait": false
   },
   {
     "slug": "en-glossary",
     "text": "Glossary",
-    "sub": "Obsession, compulsion, ERP, I-CBT and more",
+    "sub": "Obsessions, compulsions, reassurance seeking and more",
     "art": "",
     "portrait": false
   },
   {
     "slug": "sk-slovnicek",
     "text": "Slovníček pojmov",
-    "sub": "Obsesia, kompulzia, ERP, I-CBT a ďalšie",
+    "sub": "Obsesie, kompulzie, uisťovanie a ďalšie",
     "art": "",
     "portrait": false
   },

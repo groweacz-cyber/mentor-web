@@ -14,15 +14,15 @@ const GROUPS = [
   ]],
   ['Porozumění', [
     ['/aplikace/kruh', 'Kruh OCD', 'Nástroj u každého článku'],
-    ['/aplikace/icbt', 'Porozumění pochybnosti', 'Pop cesta, 4–8 týdnů'],
+    ['/aplikace/icbt', 'Porozumění pochybnosti', 'Krátké lekce o pochybnosti'],
     ['/aplikace/telo', 'Tělo ve strachu', 'Psychoedukace'],
-    ['/aplikace/principy', 'Karty principů', 'Dvanáct pravidel metody'],
+    ['/aplikace/principy', 'Karty principů', 'Dvanáct pravidel na každý den'],
   ]],
   ['Já a můj život', [
     ['/aplikace/pilire', 'Pilíře', 'Týdenní sebepřijetí a sebedůvěra'],
     ['/aplikace/vize', 'Vize', 'Život, který chci žít'],
     ['/aplikace/koreny', 'Kořeny', 'Osa životních milníků'],
-    ['/aplikace/hudba', 'Hudba', 'Playlisty před a po expozici'],
+    ['/aplikace/hudba', 'Hudba', 'Playlisty a hudba'],
   ]],
   ['Dotazník a data', [
     ['/aplikace/start', 'Vstupní dotazník', 'Zopakovat a porovnat'],

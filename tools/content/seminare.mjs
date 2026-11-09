@@ -118,14 +118,14 @@ const KARTY_OCD = [
   ['Proč nás některé myšlenky zasahují', 'Význam, který strachu dáváme, a proč myšlenka není předpověď.'],
   ['Zvědomění vzorců a sebepřijetí', 'Naučená pravidla a druhotný boj se sebekritikou.'],
   ['Sebedůvěra, nejistota a síla středu', 'Důvěra bez záruk, rovnováha místo extrémů.'],
-  ['Kompulze, každodenní svoboda a když se obtíže vracejí', 'Oheň jako metafora a kdy vyhledat odborníka.'],
+  ['Každodennost a když se obtíže vracejí', 'Oheň jako metafora a kdy vyhledat odborníka.'],
 ];
 const KARTY_OCD_EN = [
   ['You are not your OCD', 'How the OCD cycle works and why self-acceptance is not resignation.'],
   ['Why some thoughts affect us so much', 'The meaning we give to fear, and why a thought is not a prediction.'],
   ['Becoming aware of patterns and self-acceptance', 'Learned rules and the secondary struggle with self-criticism.'],
   ['Self-trust, uncertainty and the strength of the middle', 'Trust without guarantees, balance instead of extremes.'],
-  ['Compulsions, everyday freedom and when difficulties return', 'Fire as a metaphor, and when to look for a professional.'],
+  ['Everyday life and when difficulties return', 'Fire as a metaphor, and when to look for a professional.'],
 ];
 
 const JAK_SPOLECNE = [
@@ -174,7 +174,7 @@ export const OBSAH = {
       ...JAK_SPOLECNE,
       'Vycházím z vlastní zkušenosti s OCD, nejsem odborník na rodinné vztahy.',
       'Neposuzuji konkrétního člověka, neřeším rodinné konflikty a nerozhoduji za vás, zda blízkého k léčbě přesvědčovat.',
-      'Nenaučím vás, jak OCD léčit nebo vést expozice doma, to patří odborníkům.',
+      'Nenaučím vás, jak OCD léčit, to patří odborníkům.',
       'Neslibuji, že když budete postupovat správně, OCD zmizí.',
       'Prosím, nesdílejte o svém blízkém identifikující údaje (jména, diagnózy, podrobnosti). Stačí obecné situace.',
     ],
@@ -220,7 +220,7 @@ export const OBSAH_EN = {
       ...JAK_SPOLECNE_EN,
       'I draw on my own experience with OCD; I am not an expert on family relationships.',
       'I do not judge any specific person, I do not resolve family conflicts, and I do not decide for you whether to persuade your relative to seek treatment.',
-      'I will not teach you how to treat OCD or conduct exposure exercises at home, that belongs to professionals.',
+      'I will not teach you how to treat OCD, that belongs to professionals.',
       'I do not promise that OCD will disappear if you do everything right.',
       'Please do not share identifying details about your relative (names, diagnoses, specifics). General situations are enough.',
     ],

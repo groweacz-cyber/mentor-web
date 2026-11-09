@@ -2,24 +2,6 @@
   "poznamka": "Slovníček pojmů. Pole auto je regulární výraz (bez lomítek), podle kterého generátor propojí první výskyt pojmu na stránce s vysvětlivkou. Bez auto se pojem jen vypíše ve slovníčku. Definice jsou obecné vysvětlení pojmů, ne diagnostika.",
   "pojmy": [
     {
-      "id": "expozice",
-      "pojem": "Expozice",
-      "auto": "\\bexpozic\\w*",
-      "def": "Záměrné setkání s tím, čeho se člověk bojí (situace, myšlenka, tělesný pocit), bez útěku a bez rituálu. V odborné péči se plánuje po malých krocích. Tento web není návodem, jak expozice vést samostatně."
-    },
-    {
-      "id": "erp",
-      "pojem": "ERP",
-      "auto": "\\bERP\\b",
-      "def": "Zkratka pro expozici s prevencí reakce. Odborný postup, při kterém se člověk postupně a podle plánu vystavuje tomu, čeho se bojí, a nevykoná kompulzi. Vede ho odborník."
-    },
-    {
-      "id": "i-cbt",
-      "pojem": "I-CBT",
-      "auto": "\\bI-CBT\\b",
-      "def": "Inferenční kognitivně-behaviorální přístup. Odborný postup, který se zaměřuje na to, že obsedantní pochybnost vzniká z představivosti a úvah, ne z toho, co se doopravdy děje."
-    },
-    {
       "id": "kompulze",
       "pojem": "Kompulze",
       "auto": "\\bkompulz\\w*",
@@ -30,11 +12,6 @@
       "pojem": "Mentální kompulze",
       "auto": "\\bmentální\\w*\\s+kompulz\\w*",
       "def": "Kompulze, která probíhá jen v hlavě: opakování slov nebo vět, přemítání, procházení vzpomínek, počítání, vnitřní „vyrušení“ myšlenky. Zvenku není vidět."
-    },
-    {
-      "id": "metal-a-pop",
-      "pojem": "Metal a Pop",
-      "def": "Dvě cesty, kterými se může peer podpora ubírat. Metal jde rovnou do strachu (expozice s prevencí reakce). Pop začíná stabilizací a porozuměním tomu, jak OCD vyrábí pochybnosti, a teprve potom přechází k postupné expozici. Cesty lze kombinovat."
     },
     {
       "id": "neutralizace",
@@ -81,13 +58,13 @@
       "id": "sebeprijeti",
       "pojem": "Sebepřijetí",
       "auto": "\\bsebepřijet\\w*",
-      "def": "První pilíř metody: přijímám sebe celého, včetně OCD, myšlenek, úzkosti i nejistoty. Nemusím je mít rád, ale přestávám s nimi bojovat jako s nepřítelem."
+      "def": "Přijímám sebe celého, včetně OCD, myšlenek, úzkosti i nejistoty. Nemusím je mít rád, ale přestávám s nimi bojovat jako s nepřítelem."
     },
     {
       "id": "sebevira",
       "pojem": "Sebedůvěra",
       "auto": "\\bsebedůvěr\\w*|\\bsebevír\\w*",
-      "def": "Třetí pilíř metody: důvěra, že když přijde obtíž, budu hledat způsob, jak ji řešit, a mohu požádat o pomoc. Nejde o záruku, že zvládnu cokoli. Buduje se zvládnutými situacemi, ne afirmacemi."
+      "def": "Důvěra, že když přijde obtíž, budu hledat způsob, jak ji řešit, a mohu požádat o pomoc. Nejde o záruku, že zvládnu cokoli. Buduje se zvládnutými situacemi, ne afirmacemi."
     },
     {
       "id": "smycka",

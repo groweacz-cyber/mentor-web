@@ -162,7 +162,7 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
       <div class="lang-switch" role="group" aria-label="Jazyk / Language"><span class="lang-cur" lang="cs" aria-current="true">CZ</span><a href="/en/privacy" hreflang="en" lang="en" title="English"><span aria-hidden="true">EN</span><span class="sr-only">English</span></a><a href="/sk/ochrana-osobnych-udajov" hreflang="sk" lang="sk" title="Slovensky"><span aria-hidden="true">SK</span><span class="sr-only">Slovensky</span></a></div>
       <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="hlavni-nav"><span class="nav-toggle-icon" aria-hidden="true"></span><span class="nav-toggle-text">Menu</span></button>
     </div>
-    <nav id="hlavni-nav" aria-label="Hlavní navigace"><ul><li><a href="/metoda">Metoda</a></li><li><a href="/pro-koho">Pro koho</a></li><li><a href="/jak-to-probiha">Jak to probíhá</a></li><li><a href="/dotaznik">Dotazník</a></li><li><a href="/aplikace">Aplikace</a></li><li class="has-sub has-split">
+    <nav id="hlavni-nav" aria-label="Hlavní navigace"><ul><li><a href="/pro-koho">Pro koho</a></li><li><a href="/jak-to-probiha">Jak to probíhá</a></li><li><a href="/aplikace">Aplikace</a></li><li class="has-sub has-split">
           <a href="/seminare">Online semináře</a>
           <button type="button" class="nav-sub-toggle nav-sub-arrow" aria-expanded="false" aria-controls="sub-online-seminare" aria-label="Podmenu: Online semináře"></button>
           <ul class="sub-nav" id="sub-online-seminare"><li><a href="/seminare/cesta-s-ocd"><span class="sub-title">Cesta s OCD</span><span class="sub-meta">Pro lidi s OCD · 5 setkání</span></a></li><li><a href="/seminare/pro-blizke"><span class="sub-title">Když OCD žije vedle vás</span><span class="sub-meta">Pro blízké · 3 setkání</span></a></li></ul>
@@ -189,7 +189,6 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
   <h2>Co a jak zpracováváme</h2>
   <p>Pokud mi v e-mailu, telefonicky nebo přes WhatsApp sami sdělíte podrobnosti o svém zdravotním stavu, zpracovávám je jen v rozsahu nutném k domluvení spolupráce. Právním základem je v tomto případě váš souhlas, který dáváte najevo tím, že mi tyto údaje dobrovolně sdělíte (čl. 9 odst. 2 písm. a GDPR). Písemné poznámky o jednotlivých obtížích, nutkáních nebo kompulzích si nevedu.</p>
   <ol class="rules">
-    <li><strong>Vstupní dotazník (/dotaznik):</strong> nic se neukládá na server. Text se sestaví přímo ve vašem prohlížeči a vy si ho sami odešlete e-mailem nebo zkopírujete. Právní základ: váš výslovný souhlas se zpracováním zvláštní kategorie údajů o zdravotním stavu (čl. 9 odst. 2 písm. a GDPR).</li>
     <li><strong>Aplikace (/aplikace):</strong> vaše odpovědi se ukládají jen ve vašem zařízení, v úložišti prohlížeče (localStorage). Nikdy se neodesílají na žádný server ani nám. Smazat je můžete kdykoli v sekci <a href="/aplikace/nastaveni">Data a připomínky</a>. Právní základ: váš souhlas udělený při prvním spuštění aplikace.</li>
     <li><strong>E-mailová komunikace:</strong> pokud nám napíšete, zpracováváme váš e-mail a obsah zprávy jen za účelem odpovědi a vyřízení dotazu. Právní základ: jednání před uzavřením spolupráce nebo oprávněný zájem odpovědět na dotaz (čl. 6 odst. 1 písm. b, f GDPR). E-mail není šifrovaná zpráva.</li>
     <li><strong>Rezervace konzultace:</strong> tlačítko pro rezervaci konzultace (na úvodní stránce a na stránkách Jak to probíhá, Online semináře a Pro blízké) načítá widget společnosti Reservanto s.r.o. (IČ 24298395, Liberec). Už samotným načtením stránky se vaše IP adresa dostane k Reservantu. Pokud si rezervaci dokončíte, zadáváte do Reservanta jméno, telefon a e-mail, které slouží k vyřízení rezervace a ke komunikaci s vámi. Zda Reservanto tyto údaje zpracovává jako samostatný správce, nebo jako náš zpracovatel, se řídí jeho aktuálními podmínkami — podrobnosti najdete ve <a href="https://reservanto.cz/ochrana-osobnich-udaju" target="_blank" rel="noopener noreferrer">vlastních zásadách ochrany osobních údajů Reservanta</a>. Právní základ: jednání před uzavřením spolupráce (čl. 6 odst. 1 písm. b GDPR).</li>
@@ -201,22 +200,22 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
   <h2>Kategorie zpracovávaných údajů</h2>
   <ul class="rules">
     <li>Jméno, e-mailová adresa a telefonní číslo (komunikace, rezervace).</li>
-    <li>Obsah zprávy, telefonátu nebo odpovědí v dotazníku, včetně údajů o zdravotním stavu, pokud se rozhodnete je sdílet.</li>
+    <li>Obsah zprávy nebo telefonátu, včetně údajů o zdravotním stavu, pokud se rozhodnete je sdílet.</li>
     <li>Zvolený termín a typ služby při rezervaci konzultace.</li>
     <li>Při rezervaci semináře: zvolený běh a termíny, variabilní symbol a částka; samotná účast na semináři může vypovídat o zdravotním stavu.</li>
     <li>Technické údaje o připojení, např. IP adresa (hosting).</li>
   </ul>
 
   <h2 id="cookies">Cookies a Meta Pixel</h2>
-  <p>Web funguje bez cookies a bez jakéhokoli sledování. Při první návštěvě se vás zeptáme, zda souhlasíte s měřením reklamy. Dokud souhlas neudělíte, nenačítá se žádný skript společnosti Meta a nenastavují se žádné marketingové cookies. Na stránkách vstupního dotazníku a kvízu, v aplikaci a na potvrzení rezervace se lišta ani Meta Pixel nezobrazují vůbec.</p>
+  <p>Web funguje bez cookies a bez jakéhokoli sledování. Při první návštěvě se vás zeptáme, zda souhlasíte s měřením reklamy. Dokud souhlas neudělíte, nenačítá se žádný skript společnosti Meta a nenastavují se žádné marketingové cookies. V aplikaci a na potvrzení rezervace se lišta ani Meta Pixel nezobrazují vůbec.</p>
   <p>Pokud souhlas udělíte, načte se Meta Pixel společnosti Meta Platforms Ireland Limited (Facebook). Nastaví cookies (_fbp, případně _fbc) a Metě předá, že jste navštívili konkrétní stránku webu, spolu s technickými údaji prohlížeče a IP adresou. Používáme jej k vyhodnocení, kolik lidí přichází z naší reklamy, a k lepšímu zacílení reklamy. Za zpracování údajů v rámci Meta Pixelu odpovídáme společně s Metou; Meta údaje zpracovává i pro vlastní účely podle svých zásad a údaje mohou být předávány mimo Evropský hospodářský prostor na základě standardních smluvních doložek. Právním základem je váš souhlas (čl. 6 odst. 1 písm. a GDPR).</p>
   <p>Souhlas je dobrovolný, jeho odmítnutí nemá na používání webu žádný vliv. Můžete jej kdykoli odvolat nebo znovu udělit přes odkaz „Nastavení cookies“ v patičce každé stránky; odvolání nemá vliv na zákonnost zpracování před odvoláním. Platnost vaší volby je 12 měsíců, poté se zeptáme znovu. Volba se ukládá jen ve vašem prohlížeči. Cookies Meta můžete smazat také v nastavení prohlížeče.</p>
 
   <h2>Zdroj osobních údajů</h2>
-  <p>Veškeré osobní údaje získáváme přímo od vás: z vaší e-mailové zprávy, z textu dotazníku, který si sami odešlete, z údajů, které zadáte při rezervaci konzultace přes Reservanto, nebo z údajů, které zadáte do rezervačního formuláře semináře.</p>
+  <p>Veškeré osobní údaje získáváme přímo od vás: z vaší e-mailové zprávy, z údajů, které zadáte při rezervaci konzultace přes Reservanto, nebo z údajů, které zadáte do rezervačního formuláře semináře.</p>
 
   <h2>Doba uchování</h2>
-  <p>U dotazníku ani u aplikace žádná: tato data u nás vůbec nejsou uložena. U e-mailové, telefonické a WhatsApp komunikace jen po dobu nutnou k vyřízení dotazu nebo k domluvené spolupráci. Dobu uchování vašich údajů v systému Reservanto určuje Reservanto podle svých podmínek. U rezervace semináře uchovávám údaje o platbě po dobu stanovenou účetními a daňovými předpisy a e-mailovou komunikaci 1 rok po skončení programu. Zápisy ani nahrávky ze setkání nepořizuji, případné krátké poznámky mažu nejpozději 30 dnů po skončení programu.</p>
+  <p>U aplikace žádná: tato data u nás vůbec nejsou uložena. U e-mailové, telefonické a WhatsApp komunikace jen po dobu nutnou k vyřízení dotazu nebo k domluvené spolupráci. Dobu uchování vašich údajů v systému Reservanto určuje Reservanto podle svých podmínek. U rezervace semináře uchovávám údaje o platbě po dobu stanovenou účetními a daňovými předpisy a e-mailovou komunikaci 1 rok po skončení programu. Zápisy ani nahrávky ze setkání nepořizuji, případné krátké poznámky mažu nejpozději 30 dnů po skončení programu.</p>
 
   <h2>Příjemci údajů a předávání do zahraničí</h2>
   <p>Hostingový poskytovatel Vercel Inc. jako technický zpracovatel provozu webu a serverové funkce rezervace. Resend, Inc. (odesílání e-mailů při rezervaci semináře). Google (videohovory Google Meet). Meta Platforms Ireland Limited (Meta Pixel, jen s vaším souhlasem). Rezervační systém Reservanto s.r.o. (viz výše). Pokud s vámi komunikuji přes WhatsApp, zprávy zpracovává WhatsApp Ireland Limited (Meta). Vercel, Resend, Google a Meta mohou údaje zpracovávat i mimo Evropský hospodářský prostor, a to na základě standardních smluvních doložek nebo rozhodnutí o odpovídající ochraně. Jinak údaje nepředáváme žádným dalším třetím stranám.</p>
@@ -231,13 +230,13 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
     <li>Námitka proti zpracování (čl. 21).</li>
     <li>Podat stížnost u <a href="https://www.uoou.cz/" target="_blank" rel="noopener noreferrer">Úřadu pro ochranu osobních údajů</a>.</li>
   </ul>
-  <p>Souhlas se zpracováním u dotazníku nebo aplikace můžete kdykoli odvolat tak, že údaje jednoduše nepoužijete nebo je v aplikaci smažete. Protože se u nás vůbec neukládají, k jejich „výmazu na vyžádání“ u nás není co dělat; o jejich smazání ve vašem vlastním zařízení nebo e-mailu se staráte vy sami. Souhlas se zpracováním při rezervaci semináře můžete kdykoli odvolat e-mailem na <a href="mailto:ocdmentor@gmail.com">ocdmentor@gmail.com</a>; odvolání nemá vliv na zákonnost zpracování před jeho odvoláním.</p>
+  <p>Souhlas se zpracováním u aplikace můžete kdykoli odvolat tak, že údaje jednoduše nepoužijete nebo je v aplikaci smažete. Protože se u nás vůbec neukládají, k jejich „výmazu na vyžádání“ u nás není co dělat; o jejich smazání ve vašem vlastním zařízení nebo e-mailu se staráte vy sami. Souhlas se zpracováním při rezervaci semináře můžete kdykoli odvolat e-mailem na <a href="mailto:ocdmentor@gmail.com">ocdmentor@gmail.com</a>; odvolání nemá vliv na zákonnost zpracování před jeho odvoláním.</p>
 
   <h2>Automatizované rozhodování</h2>
   <p>Neprovádíme žádné automatizované individuální rozhodování ani profilování ve smyslu čl. 22 GDPR. Nápovědy v aplikaci (doporučená cesta, návrh posunu v žebříčku) jsou jen orientační a vždy je potvrzujete vy sami.</p>
 
   <h2>Povinnost poskytnout údaje</h2>
-  <p>Vyplnění dotazníku ani používání aplikace není povinné a není podmínkou ničeho. Údaje poskytujete dobrovolně a v rozsahu, který sami zvolíte. U rezervace semináře je poskytnutí jména a e-mailu nezbytné, bez nich ji nelze dokončit.</p>
+  <p>Používání aplikace není povinné a není podmínkou ničeho. Údaje poskytujete dobrovolně a v rozsahu, který sami zvolíte. U rezervace semináře je poskytnutí jména a e-mailu nezbytné, bez nich ji nelze dokončit.</p>
 </section>
 
 </main>

@@ -251,7 +251,7 @@ test('/seminare/rezervace: volba programu, pole, nepředvyplněné souhlasy obou
   const programy = [...m.matchAll(/<input type="radio" id="program-[^"]*" name="program" value="([^"]+)"/g)].map((x) => x[1]);
   assert.deepEqual(programy, ['pro-lidi-s-ocd', 'pro-blizke'], 'volba mezi oběma programy');
   const t = text(m);
-  assert.ok(t.includes('Cesta s OCD: sebepřijetí, sebevíra a svobodnější život Individuální program 5 setkání · 3 590 Kč'));
+  assert.ok(t.includes('Cesta s OCD: sebepřijetí a sebevíra. Pět setkání nad knihou Individuální program 5 setkání · 3 590 Kč'));
   assert.ok(t.includes('Když OCD žije vedle vás: průvodce pro blízké Individuální program 3 setkání · 2 190 Kč'));
   const checkboxy = [...m.matchAll(/<input type="checkbox"[^>]*>/g)].map((x) => x[0]);
   assert.equal(checkboxy.length, 6, 'tři souhlasy pro každý program');

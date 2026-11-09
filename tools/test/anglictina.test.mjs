@@ -67,8 +67,8 @@ test('anglické stránky: titulek, popis a nadpis h1 bez české diakritiky (kro
 
 test('sitemap: anglické adresy mají alternativy cs/en, koncept /skupiny je mimo, aplikace a děkovací stránky nejsou v sitemapě', () => {
   const s = nacti('sitemap.xml');
-  assert.ok(s.includes(`<loc>${SITE}/en/method</loc>`));
-  assert.ok(s.includes(`<xhtml:link rel="alternate" hreflang="en" href="${SITE}/en/method"/>`));
+  assert.ok(s.includes(`<loc>${SITE}/en/how-it-works</loc>`));
+  assert.ok(s.includes(`<xhtml:link rel="alternate" hreflang="en" href="${SITE}/en/how-it-works"/>`));
   assert.ok(!s.includes('/en/support-group'));
   assert.ok(!s.includes('/en/app'));
   assert.ok(!s.includes('/en/seminars/booking/confirmation'));
@@ -96,7 +96,7 @@ test('anglické stránky načítají anglické kopie skriptů, ty existují a ne
 });
 
 test('anglické skripty se vyrábějí překladem: v kopiích nezbyly české texty a logika zůstala (stejný počet řádků)', () => {
-  for (const f of ['kviz.js', 'rezervace.js', 'potvrzeni.js', 'app/start.js', 'app/diary.js', 'app/data.js', 'dotaznik.js']) {
+  for (const f of ['rezervace.js', 'potvrzeni.js', 'app/start.js', 'app/diary.js', 'app/data.js']) {
     const en = nacti(`assets/js/en/${f}`);
     const cs = nacti(`assets/js/${f}`);
     const radky = (t) => t.split('\n').length;
@@ -115,7 +115,7 @@ test('service worker má anglickou offline stránku a podle adresy vybírá jazy
 });
 
 test('anglické OG obrázky existují pro všechny indexovatelné anglické stránky', () => {
-  for (const en of ['/en', '/en/method', '/en/seminars']) {
+  for (const en of ['/en', '/en/how-it-works', '/en/seminars']) {
     const h = nacti(soubor(en));
     const m = h.match(/<meta property="og:image" content="https:\/\/ocdmentor\.cz(\/assets\/og\/[^"]+)"/);
     assert.ok(m, `${en}: og:image`);

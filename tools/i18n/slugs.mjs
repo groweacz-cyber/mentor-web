@@ -3,11 +3,8 @@
 
 export const EN_STRANKY = {
   '/': '/en',
-  '/metoda': '/en/method',
   '/pro-koho': '/en/who-its-for',
   '/jak-to-probiha': '/en/how-it-works',
-  '/dotaznik': '/en/questionnaire',
-  '/kviz': '/en/quiz',
   '/o-mne': '/en/about',
   '/kontakt': '/en/contact',
   '/pomoc': '/en/help',
@@ -81,11 +78,8 @@ export const ceskaAdresa = (enPath) => CS_Z_EN[enPath] || null;
 // ---------- Slovenčina (/sk/…) ----------
 export const SK_STRANKY = {
   '/': '/sk',
-  '/metoda': '/sk/metoda',
   '/pro-koho': '/sk/pre-koho',
   '/jak-to-probiha': '/sk/ako-to-prebieha',
-  '/dotaznik': '/sk/dotaznik',
-  '/kviz': '/sk/kviz',
   '/o-mne': '/sk/o-mne',
   '/kontakt': '/sk/kontakt',
   '/pomoc': '/sk/pomoc',

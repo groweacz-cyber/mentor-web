@@ -7,6 +7,51 @@
   },
   "redirects": [
     {
+      "source": "/metoda",
+      "destination": "/jak-to-probiha",
+      "permanent": true
+    },
+    {
+      "source": "/dotaznik",
+      "destination": "/kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/kviz",
+      "destination": "/pro-koho",
+      "permanent": true
+    },
+    {
+      "source": "/en/method",
+      "destination": "/en/how-it-works",
+      "permanent": true
+    },
+    {
+      "source": "/en/questionnaire",
+      "destination": "/en/contact",
+      "permanent": true
+    },
+    {
+      "source": "/en/quiz",
+      "destination": "/en/who-its-for",
+      "permanent": true
+    },
+    {
+      "source": "/sk/metoda",
+      "destination": "/sk/ako-to-prebieha",
+      "permanent": true
+    },
+    {
+      "source": "/sk/dotaznik",
+      "destination": "/sk/kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/sk/kviz",
+      "destination": "/sk/pre-koho",
+      "permanent": true
+    },
+    {
       "source": "/zasady-ochrany-osobnich-udaju",
       "destination": "/ochrana-osobnich-udaju",
       "permanent": true

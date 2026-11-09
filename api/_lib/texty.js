@@ -62,10 +62,10 @@ export const POVAHA_SEMINARE_EMAIL_EN =
 
 TEXTY_PROGRAMU['pro-lidi-s-ocd'].en = {
   povaha: POVAHA_SEMINARE_EN,
-  nazev: 'The Path with OCD: self-acceptance, self-belief and a freer life',
+  nazev: 'The Path with OCD: self-acceptance and self-belief. Five meetings over a book',
   kratkyNazev: 'The Path with OCD',
   komu: 'For people with OCD',
-  anotace: 'Meetings based on my book about self-acceptance and the way to greater freedom, for people who live with OCD.',
+  anotace: 'Meetings over my book about self-acceptance and self-belief, for people who live with OCD.',
   podtitul: 'An individual programme of five 1:1 meetings based on the book. How I did it and what you can take from it.',
   vsechnaSetkani: 'All five meetings',
   propojenaSetkani: 'five connected meetings',

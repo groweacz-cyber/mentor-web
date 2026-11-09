@@ -1,7 +1,7 @@
-// Přehled aplikace: souhlas, doporučení cesty, rychlé akce, karta dne.
+// Přehled aplikace: souhlas, přehled z dotazníku, rychlé akce, karta dne.
 import { data, save, hasConsent, latestAssessment, fmtDateLong } from './store.js';
 import { h, boot, $, crisisBlock } from './ui.js';
-import { cardOfDay, pathLabel, riskLevel, buildLadder, recommendedStart } from './data.js';
+import { cardOfDay, riskLevel, buildLadder, recommendedStart } from './data.js';
 
 const root = $('#app-root');
 boot(root);
@@ -19,7 +19,7 @@ function consentCard() {
   return h('div', { class: 'card app-card' },
     h('h2', {}, 'Before you begin'),
     h('ul', { class: 'rules' },
-      h('li', {}, 'The app accompanies professional care and does not replace it. It is not therapy or a diagnosis.'),
+      h('li', {}, 'The app is a complement to professional care and does not replace it. It is not therapy or a diagnosis.'),
       h('li', {}, 'Health data is sensitive. It stays only on your device, in the browser storage. Nothing is sent anywhere.'),
       h('li', {}, 'You can export and fully delete your data at any time in the Data section.'),
       h('li', {}, 'If you clear your browser data or change device, you will lose it unless you export it.')),
@@ -44,32 +44,31 @@ function dashboard() {
   if (!a) {
     out.push(h('div', { class: 'card app-card' },
       h('h2', {}, 'Start with the intake questionnaire'),
-      h('p', {}, 'Your ladder of themes and a recommended path will come from the answers. It takes about 10 minutes and you can interrupt it at any time.'),
+      h('p', {}, 'Answering the questions creates an overview of your topics. It takes about 10 minutes and you can interrupt it at any time.'),
       h('a', { class: 'btn', href: '/aplikace/start' }, d.draft ? 'Continue the questionnaire' : 'Fill in the questionnaire')));
   } else {
     const items = buildLadder(a);
     const rec = recommendedStart(items, d.progress.done);
     const active = items.find((i) => i.id === d.progress.active) || rec;
     out.push(h('div', { class: 'card app-card' },
-      h('h2', {}, 'Recommended path: ' + pathLabel(a.reco.path)),
-      h('p', { class: 'small' }, 'According to the questionnaire from ' + fmtDateLong(a.at) + '. It is a hint, not a decision. The paths can be combined.'),
-      h('ul', { class: 'rules' }, a.reco.reasons.map((r) => h('li', {}, r))),
-      h('p', {}, active ? 'Current theme: ' : 'The ladder is still empty. ', active ? h('strong', {}, active.name + ' (' + active.score + '/10)') : null),
+      h('h2', {}, 'Your overview'),
+      h('p', { class: 'small' }, 'According to the questionnaire from ' + fmtDateLong(a.at) + '. This is only an indicative overview, not a decision.'),
+      h('p', {}, active ? 'Current theme: ' : 'You have not chosen a topic yet. ', active ? h('strong', {}, active.name + ' (' + active.score + '/10)') : null),
       h('div', { class: 'actions' },
-        h('a', { class: 'btn', href: '/aplikace/denik' }, 'Start an exposure'),
-        h('a', { class: 'btn btn-ghost', href: '/aplikace/zebricek' }, 'Ladder'))));
+        h('a', { class: 'btn', href: '/aplikace/denik' }, 'Open the diary'),
+        h('a', { class: 'btn btn-ghost', href: '/aplikace/zebricek' }, 'Topic overview'))));
     if (Date.now() - a.at > 30 * 86400000) {
       out.push(h('p', { class: 'callout-inline' }, 'A month has passed since the last questionnaire. Would you like to repeat it and compare? ', h('a', { href: '/aplikace/start' }, 'Repeat the questionnaire')));
     }
   }
   const c = cardOfDay();
-  out.push(h('div', { class: 'card app-card principle' }, h('p', { class: 'eyebrow' }, 'Card of the day'), h('h3', {}, c.t), h('p', {}, c.x), h('a', { href: '/aplikace/principy' }, 'All 12 principles')));
+  out.push(h('div', { class: 'card app-card principle' }, h('p', { class: 'eyebrow' }, 'Card of the day'), h('h3', {}, c.t), h('p', {}, c.x), h('a', { href: '/aplikace/principy' }, 'All principle cards')));
   out.push(h('div', { class: 'tiles' },
     tile('/aplikace/obsese', 'Obsession tracker', 'Daily log of themes and strength'),
     tile('/aplikace/kompulze', 'Compulsion tracker', 'Quick logging with one tap'),
     tile('/aplikace/text', 'Exposure text', 'Write and check a text'),
     tile('/aplikace/denik', 'Exposure diary', 'Timer and progress chart'),
-    tile('/aplikace/vice', 'More tools', 'OCD circle, I-CBT, vision, export')));
+    tile('/aplikace/vice', 'More tools', 'OCD circle, vision, export')));
   return out;
 }
 

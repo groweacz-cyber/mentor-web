@@ -74,9 +74,9 @@ test('slovenské stránky: krizová linka je slovenská, česká linka 116 123 s
 
 test('sitemap: slovenské adresy mají alternativy cs/en/sk', () => {
   const s = nacti('sitemap.xml');
-  assert.ok(s.includes(`<loc>${SITE}/sk/metoda</loc>`));
-  assert.ok(s.includes(`<xhtml:link rel="alternate" hreflang="sk" href="${SITE}/sk/metoda"/>`));
-  assert.ok(s.includes(`<xhtml:link rel="alternate" hreflang="en" href="${SITE}/en/method"/>`));
+  assert.ok(s.includes(`<loc>${SITE}/sk/ako-to-prebieha</loc>`));
+  assert.ok(s.includes(`<xhtml:link rel="alternate" hreflang="sk" href="${SITE}/sk/ako-to-prebieha"/>`));
+  assert.ok(s.includes(`<xhtml:link rel="alternate" hreflang="en" href="${SITE}/en/how-it-works"/>`));
   assert.ok(!s.includes('/sk/aplikacia'));
   assert.ok(!s.includes('/sk/seminare/rezervacia/potvrdenie'));
 });
@@ -99,7 +99,7 @@ test('slovenské stránky načítají slovenské kopie skriptů, ty existují a 
   assert.match(nacti('assets/js/sk/seminare.js'), /'Uzavreté'/);
   assert.match(nacti('assets/js/sk/potvrzeni.js'), /'štvrtok'/);
   assert.match(nacti('assets/js/sk/app/data.js'), /prijm/);
-  for (const f of ['kviz.js', 'rezervace.js', 'potvrzeni.js', 'app/start.js', 'app/diary.js', 'dotaznik.js']) {
+  for (const f of ['rezervace.js', 'potvrzeni.js', 'app/start.js', 'app/diary.js']) {
     const kod = nacti(`assets/js/sk/${f}`).replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
     assert.ok(!CESKE_ZNAKY.test(kod.replace(/Václav|Kodeš/g, '')), `${f}: ve slovenské kopii zbyla čeština`);
   }
@@ -113,7 +113,7 @@ test('service worker má slovenskou offline stránku', () => {
 });
 
 test('slovenské OG obrázky existují', () => {
-  for (const sk of ['/sk', '/sk/metoda', '/sk/seminare']) {
+  for (const sk of ['/sk', '/sk/ako-to-prebieha', '/sk/seminare']) {
     const h = nacti(soubor(sk));
     const m = h.match(/<meta property="og:image" content="https:\/\/ocdmentor\.cz(\/assets\/og\/[^"]+)"/);
     assert.ok(m, `${sk}: og:image`);

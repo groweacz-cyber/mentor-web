@@ -1,4 +1,4 @@
-// Úvodní stránka: self-check posuvník a karta „Princip dne“.
+// Úvodní stránka: self-check posuvník a tlačítka rezervace.
 // Nic se neukládá (žádný localStorage) ani neodesílá (žádné požadavky na server, žádná analytika).
 (function () {
   'use strict';
@@ -17,7 +17,7 @@
     var TEXTS = {
       low: 'Dobrý deň. Aj tie sa počítajú. Sebadôvera rastie zo zvládnutých chvíľ.',
       mid: 'Nutkanie tu je, a vy napriek tomu čítate ďalej. To je presne ten krok, z ktorého rastie sebadôvera.',
-      high: 'Viem, aké to je. Nie ste v tom sami a dá sa z toho von krok za krokom.'
+      high: 'Viem, aké to je. Nie ste v tom sami.'
     };
 
     var sync = function () {
@@ -52,53 +52,6 @@
         e.preventDefault();
         widgetBtn.click();
       }
-    });
-  }
-
-  /* ===== Princip dne ===== */
-  var text = document.getElementById('pd-text');
-  var principles = window.OCD_PRINCIPY;
-  if (text && principles && principles.length) {
-    var num = document.getElementById('pd-num');
-    var next = document.getElementById('pd-next');
-    var n = principles.length;
-
-    // Index podle data v Praze: každý den jiný, ve stejný den stejný pro všechny návštěvníky.
-    var dayIndex = function () {
-      var y, m, d;
-      try {
-        var p = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Prague', year: 'numeric', month: '2-digit', day: '2-digit' })
-          .format(new Date()).split('-');
-        y = +p[0]; m = +p[1]; d = +p[2];
-      } catch (err) {
-        var t = new Date();
-        y = t.getFullYear(); m = t.getMonth() + 1; d = t.getDate();
-      }
-      var doy = Math.round((Date.UTC(y, m - 1, d) - Date.UTC(y, 0, 0)) / 86400000);
-      return (doy - 1) % n;
-    };
-
-    var idx = dayIndex();
-    var render = function () {
-      text.textContent = principles[idx];
-      num.textContent = 'Princíp ' + (idx + 1) + ' z ' + n;
-    };
-    render();
-    text.setAttribute('aria-live', 'polite');
-
-    var busy = false;
-    next.addEventListener('click', function () {
-      if (busy) return;
-      idx = (idx + 1) % n;
-      if (noMotion()) { render(); return; }
-      busy = true;
-      var card = text.parentNode;
-      card.classList.add('is-fading');
-      window.setTimeout(function () {
-        render();
-        card.classList.remove('is-fading');
-        busy = false;
-      }, 280);
     });
   }
 }());

@@ -11,7 +11,7 @@ const nacti = (p) => readFileSync(join(ROOT, p), 'utf8');
 const PIXEL = '1121273126977507';
 
 test('lišta cookies je na veřejných stránkách ve všech jazycích, s rovnocennými tlačítky a odkazem v patičce', () => {
-  for (const p of ['index.html', 'metoda/index.html', 'ochrana-osobnich-udaju/index.html', 'en/index.html', 'sk/index.html', 'seminare/index.html']) {
+  for (const p of ['index.html', 'jak-to-probiha/index.html', 'ochrana-osobnich-udaju/index.html', 'en/index.html', 'sk/index.html', 'seminare/index.html']) {
     const h = nacti(p);
     assert.ok(h.includes('id="cookie-banner"') && h.includes('id="cookie-accept"') && h.includes('id="cookie-reject"'), `${p}: lišta`);
     assert.ok(h.includes('id="cookie-settings"'), `${p}: odkaz v patičce`);
@@ -23,7 +23,7 @@ test('lišta cookies je na veřejných stránkách ve všech jazycích, s rovnoc
 });
 
 test('lišta ani pixel nejsou na dotazníku, kvízu, v aplikaci ani na potvrzení rezervace a konceptech', () => {
-  for (const p of ['dotaznik/index.html', 'kviz/index.html', 'aplikace/index.html', 'seminare/rezervace/potvrzeni/index.html', 'offline/index.html', 'en/questionnaire/index.html', 'sk/dotaznik/index.html']) {
+  for (const p of ['aplikace/index.html', 'seminare/rezervace/potvrzeni/index.html', 'offline/index.html']) {
     if (!existsSync(join(ROOT, p))) continue;
     const h = nacti(p);
     assert.ok(!h.includes('cookie-banner') && !h.includes('cookie.js'), `${p}: nesmí mít lištu ani skript cookies`);

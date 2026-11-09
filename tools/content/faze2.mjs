@@ -54,8 +54,8 @@ export const PILIR_VTIRAVE = {
     },
     {
       h: 'Jak se k tomu obecně přistupuje',
-      html: `<p>Základní směr je odlišný od boje: zůstat s myšlenkou a s napětím a nepředat se kompulzi. V <a href="/metoda">metodě</a>, kterou používám, k tomu patří sebepřijetí a sebedůvěra bez záruk („nevím přesně, co se stane, ale když přijde obtíž, budu hledat způsob, jak ji řešit“). V odborné péči se k podobnému směru používá například expozice s prevencí reakce (ERP) nebo inferenční kognitivně-behaviorální přístup (I-CBT). Odborník nastavuje tempo a plán.</p>
-<p>Konkrétní kroky tady nenajdete záměrně. Postup expozic patří do rukou odborníka, ne do návodu na internetu.</p>`,
+      html: `<p>Základní směr je odlišný od boje: zůstat s myšlenkou a s napětím a nepředat se kompulzi. Mně pomáhalo sebepřijetí a sebedůvěra bez záruk („nevím přesně, co se stane, ale když přijde obtíž, budu hledat způsob, jak ji řešit“). Jak postupovat v odborné péči, určuje odborník, který nastavuje tempo a plán.</p>
+<p>Konkrétní postupy tady nenajdete záměrně. Patří do rukou odborníka, ne do návodu na internetu.</p>`,
     },
     {
       h: 'Kam dál',
@@ -64,7 +64,7 @@ export const PILIR_VTIRAVE = {
   <li><a href="/pro-blizke">Pro blízké</a>: jak pomáhat a nekrmit OCD.</li>
   <li><a href="/myty-o-ocd">Mýty o OCD</a> a <a href="/slovnicek">slovníček pojmů</a>.</li>
   <li>Články: <a href="/clanky/proc-nutkani-prichazi-ve-vlnach">nutkání přichází ve vlnách</a> a <a href="/clanky/kompulze-a-prijeti">kompulze a přijetí</a>.</li>
-  <li><a href="/kviz">Kvíz Metal, nebo Pop?</a> a <a href="/jak-to-probiha">jak probíhá peer mentoring</a>.</li>
+  <li><a href="/jak-to-probiha">Jak probíhá peer mentoring</a>.</li>
 </ul>`,
     },
   ],
@@ -76,7 +76,7 @@ export const ODBORNIK = `<p>Odborníci (psychiatr, klinický psycholog, psychote
 <p>Jak odbornou pomoc najít, shrnuje stránka <a href="/pomoc">Pomoc hned</a> a část <a href="/pro-koho#odborna-pece">Kam dál: odborná péče</a>.</p>`;
 
 export const peer = (zkusenost) => `<p>${zkusenost}</p>
-<p>Mohu vás doprovázet vedle odborné péče: sdílím, co mně pomáhalo zůstat u svého života, pomáhám s motivací a s kroky mezi sezeními. Nediagnostikuji, neslibuji vyléčení, neradím s léky a nenahrazuji odborníka. Nevíte, kde začít? Zkuste <a href="/kviz">kvíz Metal, nebo Pop?</a> nebo se podívejte, <a href="/jak-to-probiha">jak peer mentoring probíhá</a>. Úvodní konzultace je zdarma.</p>`;
+<p>Mohu být oporou vedle odborné péče: sdílím, co mně pomáhalo zůstat u svého života. Nediagnostikuji, neslibuji vyléčení, neradím s léky a nenahrazuji odborníka. Nevíte, kde začít? Podívejte se, <a href="/jak-to-probiha">jak peer mentoring probíhá</a>. Úvodní konzultace je zdarma.</p>`;
 
 export const TYPY_PLNY = {
   'zdravotni-ocd': {
@@ -202,7 +202,7 @@ export const PRO_BLIZKE = {
     },
     {
       h: 'Co tahle stránka není',
-      html: `<p>Není to návod na vedení expozic doma. Expozice vede odborník, ne partner, rodič nebo kamarád. Role blízkého je podporovat, ne vést odbornou péči.</p>`,
+      html: `<p>Není to návod, jak OCD řešit doma. Odbornou péči vede odborník, ne partner, rodič nebo kamarád. Role blízkého je podporovat, ne vést odbornou péči.</p>`,
     },
     {
       h: 'I vy si zasloužíte podporu',
@@ -251,20 +251,14 @@ export const PRO_TERAPEUTY = {
   lead: 'Peer mentoring je doplněk odborné péče, ne její náhrada. Tady najdete, co dělám, co ne a jak spolu můžeme spolupracovat.',
   sections: [
     {
-      h: 'Co dělám',
-      html: `<ul class="rules">
-  <li>Doprovázím klienty vedle odborné péče, ne místo ní.</li>
-  <li>Sdílím vlastní zkušenost s OCD a to, co mně pomáhalo zůstat u svého života.</li>
-  <li>Pomáhám s motivací a s kroky mezi sezeními, které si klient domluví s odborníkem.</li>
-  <li>Podporuji klienta v tom, aby chodil na odbornou péči a držel se jejího plánu.</li>
-</ul>`,
+      h: 'Jak spolupráce vypadá',
+      html: `<p>Peer podpora je doplněk k odborné péči. Pokud je klient v péči odborníka, jsem mu oporou v běžném životě. Nezasahuji do odborné péče, nehodnotím ji a neposkytuji klientovi odborné rady. Bez jeho souhlasu odborníkovi nic nesděluji.</p>`,
     },
     {
       h: 'Co nedělám',
       html: `<ul class="rules">
   <li>Nejsem terapeut ani psycholog, nestanovuji diagnózu a nevedu psychoterapii.</li>
   <li>Nepředepisuji ani neřeším léky a nikdy klienta nevedu k jejich vysazení nebo k ukončení péče.</li>
-  <li>ERP a I-CBT jsou odborné metody. Klienta při nich doprovázím, nevedu je.</li>
   <li>Neposkytuji ujištění, že se obava nesplní.</li>
   <li>V akutní krizi nebo při zhoršení odkážu na odbornou pomoc.</li>
 </ul>`,
@@ -274,19 +268,11 @@ export const PRO_TERAPEUTY = {
       html: `<p>Pracuji s lidmi, kteří jsou v péči odborníka, nebo se do ní aktivně chystají. Na úvodní konzultaci diagnóza ani terapeut potřeba nejsou, pro pravidelnou spolupráci je ale důležité, aby klient odbornou péči měl nebo ji vyhledával.</p>`,
     },
     {
-      h: 'Jak může spolupráce vypadat',
-      html: `<ul class="rules">
-  <li>Klient rozhodne, zda a jaké informace mezi námi sdílíme. Bez jeho souhlasu odborníkovi nic nesděluji.</li>
-  <li>Klient si v aplikaci může připravit přehled pro vaši konzultaci (tisk nebo PDF).</li>
-  <li>Pokud se role překrývají nebo si nejste jistí, domluvme se, kdo za co odpovídá.</li>
-</ul>`,
-    },
-    {
       h: 'Kontakt pro spolupráci',
       html: `<p>Napište na <a href="mailto:ocdmentor@gmail.com">ocdmentor@gmail.com</a>. V akutní situaci prosím použijte krizové kontakty, ne e-mail.</p>`,
     },
   ],
-  related: ['/o-mne', '/metoda', '/jak-to-probiha', '/pro-koho', '/pribehy'],
+  related: ['/o-mne', '/jak-to-probiha', '/pro-koho', '/pribehy'],
 };
 
 // ---------- /pomoc (zveřejněno hned, není koncept) ----------
@@ -308,7 +294,7 @@ export const POMOC = {
       html: `<ul class="rules">
   <li><strong>Praktický lékař:</strong> dobrý první kontakt. Posoudí tělesné potíže a může poradit další krok.</li>
   <li><strong>Psychiatr:</strong> lékař, který posuzuje duševní obtíže a může předepsat léky.</li>
-  <li><strong>Klinický psycholog a psychoterapeut:</strong> pracují s obtížemi pomocí rozhovoru a konkrétních postupů. U OCD se obvykle používá expozice s prevencí reakce (ERP) nebo inferenční kognitivně-behaviorální přístup (I-CBT).</li>
+  <li><strong>Klinický psycholog a psychoterapeut:</strong> pracují s obtížemi pomocí rozhovoru a konkrétních postupů. Hledejte odborníka se zkušeností s OCD.</li>
   <li><strong>Centra duševního zdraví:</strong> poskytují péči v komunitě, blíž k domovu. Podmínky přijetí si ověřte u konkrétního centra.</li>
 </ul>
 <p>Ověřené organizace a adresáře najdete v části <a href="/pro-koho#odborna-pece">Kam dál: odborná péče</a>.</p>`,

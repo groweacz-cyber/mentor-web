@@ -42,44 +42,9 @@ const calcCard = () => `<article class="card kviz-teaser">
     <p>Spočítejte si to za minutu. Nic se neukládá.</p>
     <p><a class="btn btn-ghost btn-sm" href="/kolik-casu-mi-bere-ocd">Otevřít kalkulačku</a></p>
   </article>`;
-const quizCard = () => `<article class="card kviz-teaser">
-    <h3>Metal, nebo Pop?</h3>
-    <p>Zjistěte za minutu, která cesta vám sedí.</p>
-    <p><a class="btn btn-ghost btn-sm" href="/kviz">Spustit kvíz</a></p>
-  </article>`;
-
-// Datové soubory (texty smyčky, kvízu a principů) zůstávají v assets/js; generátor z nich vyrábí statické HTML.
-const loadData = (file, key) => {
-  const ctx = { window: {} };
-  vm.runInNewContext(readFileSync(join(OUT, file), 'utf8'), ctx);
-  return ctx.window[key];
-};
-const SMYCKA = loadData('assets/js/smycka-faze.js', 'OCD_SMYCKA');
-const KVIZ = loadData('assets/js/kviz-data.js', 'OCD_KVIZ');
-const PRINCIPY = loadData('assets/js/principy.js', 'OCD_PRINCIPY');
 const GLOS = JSON.parse(readFileSync(join(OUT, 'assets/data/slovnicek.json'), 'utf8')).pojmy;
 const TYPY_DATA = JSON.parse(readFileSync(join(OUT, 'assets/data/typy-ocd.json'), 'utf8'));
 const MYTY = JSON.parse(readFileSync(join(OUT, 'assets/data/myty.json'), 'utf8'));
-const loopStatic = () => `<ol class="lp-static">
-${SMYCKA.faze.map((f, i) => `  <li><h3>${i + 1}. ${esc(f.nazev)}</h3><p><strong>Co se děje:</strong> ${esc(f.co)}</p><p><strong>Co s tím dělá metoda:</strong> ${esc(f.metoda)}</p></li>`).join('\n')}
-</ol>
-<p class="lp-static-end">${esc(SMYCKA.stred)} ${esc(SMYCKA.znovu)}</p>`;
-const kvizStatic = () => `<div class="kviz-static">
-<h2>Pět otázek</h2>
-<ol>
-${KVIZ.otazky.map((q) => `  <li><h3>${esc(q.q)}</h3><ul>${q.a.map((a) => `<li>${esc(a.t)}</li>`).join('')}</ul></li>`).join('\n')}
-</ol>
-<h2>Možné výsledky</h2>
-${Object.values(KVIZ.vysledky).map((r) => `<h3>${esc(r.nazev)}</h3><p>${esc(r.text)}</p>`).join('\n')}
-<p>${esc(KVIZ.spolecne.cesta)}</p>
-<p class="small disclaimer">${esc(KVIZ.spolecne.upozorneni)}</p>
-</div>`;
-const pragueDayOfYear = () => {
-  const p = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Prague', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()).split('-').map(Number);
-  return Math.round((Date.UTC(p[0], p[1] - 1, p[2]) - Date.UTC(p[0], 0, 0)) / 86400000);
-};
-const PRINCIP_IDX = (pragueDayOfYear() - 1) % PRINCIPY.length;
-const principyAll = () => `<details class="pd-all"><summary>Všech ${PRINCIPY.length} principů metody</summary><ol>${PRINCIPY.map((p) => `<li>${esc(p)}</li>`).join('')}</ol></details>`;
 
 // Krizové kontakty: všude stejně
 const CRISIS = 'volejte 112, 155 nebo Linku první psychické pomoci 116 123';
@@ -99,10 +64,8 @@ const SEM_ADRESA = Object.fromEntries(SEMINARE_PROGRAMY.map((p) => [p.id, SEM.ad
 const SEM_STRANKY_PROGRAMU = new Set(Object.values(SEM_ADRESA));
 
 const nav = [
-  ['/metoda', 'Metoda'],
   ['/pro-koho', 'Pro koho'],
   ['/jak-to-probiha', 'Jak to probíhá'],
-  ['/dotaznik', 'Dotazník'],
   ['/aplikace', 'Aplikace'],
   ['/seminare', 'Online semináře', SEMINARE_PROGRAMY.map((p) => [SEM.adresaProgramu(p), p.kratkyNazev, SEM.podtitulMenu(p)]), 'split'],
   ['/ebook', 'E-book'],
@@ -289,7 +252,7 @@ const appNav = (path) => `<nav class="app-nav" aria-label="Aplikace"><ul>${appIt
   const cur = h === path ? ' aria-current="page"' : (h === '/aplikace/vice' && !known ? ' aria-current="true"' : '');
   return `<li><a href="${h}"${cur}>${t}</a></li>`;
 }).join('')}</ul></nav>
-<p class="app-note">Aplikace doprovází odbornou péči a nenahrazuje ji. Není to terapie ani diagnóza.</p>`;
+<p class="app-note">Aplikace je doplněk odborné péče a nenahrazuje ji. Není to terapie ani diagnóza.</p>`;
 const sosHtml = `<button type="button" class="sos-btn" id="sos-open" aria-haspopup="dialog">SOS</button>
 <dialog id="sos" aria-labelledby="sos-h">
   <h2 id="sos-h">Potřebuji pomoc teď</h2>
@@ -431,11 +394,8 @@ function glossify(html) {
 // ---------- Související stránky ----------
 const LABELS = {
   '/': 'Úvod',
-  '/metoda': 'Metoda: čtyři pilíře a dvě cesty',
   '/pro-koho': 'Pro koho je peer mentoring',
   '/jak-to-probiha': 'Jak probíhá peer mentoring',
-  '/kviz': 'Kvíz Metal, nebo Pop?',
-  '/dotaznik': 'Vstupní dotazník',
   '/o-mne': 'O mně',
   '/kontakt': 'Kontakt',
   '/clanky': 'Články o OCD',
@@ -531,8 +491,8 @@ function page({ path: pathArg, title, desc, body, jsonld, noindex, robots, scrip
   const url = SITE + (pathArg === '/' ? '/' : pathArg);
   const jsPro = (src) => (L && L.skripty.has(src) ? src.replace('/assets/js/', `/assets/js/${L.kod}/`) : src);
   const isNoindex = !!noindex || /noindex/.test(robots || '');
-  // lišta cookies a Meta Pixel: jen na veřejných stránkách; ne v aplikaci, v dotazníku a v kvízu (citlivá témata), ne na konceptech a offline stránce
-  const cookiesOn = !app && !draft && !isNoindex && !['/dotaznik', '/kviz'].includes(path);
+  // lišta cookies a Meta Pixel: jen na veřejných stránkách; ne v aplikaci (citlivá data), ne na konceptech a offline stránce
+  const cookiesOn = !app && !draft && !isNoindex;
   const robotsContent = robots || (noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large');
   const navHtml = nav
     .map(([h, t, sub, typ]) => {
@@ -560,8 +520,7 @@ function page({ path: pathArg, title, desc, body, jsonld, noindex, robots, scrip
     .join('');
   let b = (related ? body + '\n' + relatedBlock(related) : body)
     .replace(/<section class="wrap block/g, '<section class="wrap block reveal')
-    .replace(/<article class="card">(\s*<h3>Metal cesta)/g, '<article class="card card--metal">$1')
-    .replace(/<article class="card">(\s*<h3>Pop cesta)/g, '<article class="card card--pop">$1');
+;
   if (art) b = b.replace('<section class="wrap page-head">', '<section class="wrap page-head">' + miniScene());
   if (!L && gloss && (draft || glossAlways || CFG.glossaryOnPublicPages)) b = glossify(b);
   if (L && native) b = '<!--EN:NATIVE-->' + b + '<!--/EN:NATIVE-->';
@@ -597,7 +556,7 @@ function page({ path: pathArg, title, desc, body, jsonld, noindex, robots, scrip
     CFG.verification?.bing ? `<meta name="msvalidate.01" content="${attr(CFG.verification.bing)}">` : '',
   ].filter(Boolean).join('\n');
 
-  const FLOAT_OFF = new Set(['/pomoc', '/kviz', '/kontakt', '/jak-to-probiha', '/dotaznik', '/obchodni-podminky', '/ochrana-osobnich-udaju', '/koncepty', '/offline', '/404', '/seminare', ...SEM_STRANKY_PROGRAMU, '/seminare/rezervace', '/seminare/rezervace/potvrzeni']);
+  const FLOAT_OFF = new Set(['/pomoc', '/kontakt', '/jak-to-probiha', '/obchodni-podminky', '/ochrana-osobnich-udaju', '/koncepty', '/offline', '/404', '/seminare', ...SEM_STRANKY_PROGRAMU, '/seminare/rezervace', '/seminare/rezervace/potvrzeni']);
   const showFloat = floatCta ?? (!isNoindex && !app && !draft && !FLOAT_OFF.has(path));
   const floatHtml = showFloat
     ? `<aside class="float-cta js-only" id="float-cta" aria-label="Konzultace zdarma" hidden>\n  <a class="btn btn-cta btn-sm float-book" href="/kontakt">Konzultace zdarma</a>\n  <button type="button" class="float-close" aria-label="Zavřít lištu">×</button>\n</aside>\n`
@@ -796,10 +755,10 @@ add('/', {
     <div class="hero-text">
       <p class="eyebrow rise" style="--d:.1s">Peer mentoring · OCD</p>
       <h1 class="rise" style="--d:.2s">Jednat i ve chvíli, kdy se <span class="hl">bojíte</span>.</h1>
-      <p class="lead rise" style="--d:.35s">Provázím lidi s OCD. Pracujeme podle mého přístupu: přijmout sebe i strach a přesto dělat to, na čem vám záleží. Nic neslibuji. Jdu vedle vás.</p>
+      <p class="lead rise" style="--d:.35s">Pomáhám lidem s OCD jako peer mentor: sdílím, co pomohlo mně. Nic neslibuji, jdu vedle vás.</p>
       <div class="cta cta-split rise" style="--d:.5s">
         ${bookBtn()}
-        <a class="btn btn-ghost" href="/dotaznik">Vyplnit vstupní dotazník</a>
+        <a class="btn btn-ghost" href="/jak-to-probiha">Jak to probíhá</a>
       </div>
       <p class="small note rise" style="--d:.6s">Peer podpora, ne terapie ani krizová pomoc. V akutní krizi ${CRISIS}. <a href="/o-mne#hranice">Moje hranice</a></p>
     </div>
@@ -820,14 +779,11 @@ add('/', {
   <div class="wrap">${loopSvg}</div>
 </section>
 
-<section class="wrap block loopsec" aria-labelledby="lp-h">
-  <h2 id="lp-h">Poznáváte se v tom?</h2>
-  <p class="lp-intro">OCD se točí pořád ve stejné smyčce. Klikněte na kteroukoli fázi a uvidíte, co se v ní děje a jak ji metoda přerušuje.</p>
-  <div id="lp-root">${loopStatic()}</div>
-  <p class="small disclaimer lp-note">Nejde o diagnózu. Pokud se v tom poznáváte, probírejte to s odborníkem. Já vám rád dám podporu vedle něj.</p>
+<section class="wrap block" aria-labelledby="lp-h">
+  <h2 id="lp-h">Peer podpora vedle odborné péče</h2>
+  <p>Peer podpora od člověka, který OCD zná z vlastní zkušenosti. Doplňuje odbornou péči a nenahrazuje ji.</p>
+  <p class="small disclaimer lp-note">Nejde o diagnózu. Pokud se v OCD poznáváte, probírejte to s odborníkem. Já vám rád dám podporu vedle něj.</p>
   <p><a class="btn btn-cta" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a></p>
-  <script defer src="/assets/js/smycka-faze.js"></script>
-  <script defer src="/assets/js/smycka-kruh.js"></script>
 </section>
 
 <section class="wrap block selfcheck js-only" aria-labelledby="sc-h">
@@ -842,7 +798,6 @@ add('/', {
     </div>
     <p class="sc-msg" id="sc-msg" aria-live="polite"></p>
     <div class="cta sc-cta" id="sc-cta" hidden>
-      <a class="btn btn-ghost" href="/dotaznik">Vyplnit vstupní dotazník</a>
       <a class="btn btn-cta" id="sc-book" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a>
     </div>
     <p class="small sc-note">Nejde o test ani diagnózu. Pokud jste v akutní krizi, ${CRISIS}.</p>
@@ -857,44 +812,20 @@ add('/', {
 
 <section class="wrap block">
   <div class="cards">
-    ${quizCard()}
     ${calcCard()}
   </div>
 </section>
 
-<section class="wrap block principle" aria-labelledby="pd-h">
-  <article class="card pd-card">
-    <p class="eyebrow" id="pd-h">Princip dne</p>
-    <div class="pd-body">
-      <p class="pd-num" id="pd-num">Princip ${PRINCIP_IDX + 1} z ${PRINCIPY.length}</p>
-      <p class="pd-text" id="pd-text">${esc(PRINCIPY[PRINCIP_IDX])}</p>
-    </div>
-    <div class="pd-actions">
-      <button type="button" class="btn btn-ghost btn-sm js-only" id="pd-next">Další princip</button>
-      <a href="/metoda">Více o metodě</a>
-    </div>
-  </article>
-  ${principyAll()}
-  <script defer src="/assets/js/principy.js"></script>
+<section class="wrap block">
+  <h2>O čem můžeme mluvit</h2>
+  <p>O OCD: o obsesích a kompulzích, které berou čas a energii, a o tom, jak se s nimi žije. Můžete mluvit o tom, co prožíváte, a sdílím, co pomohlo mně. Podívejte se, <a href="/pro-koho">pro koho je peer podpora vhodná</a>.</p>
 </section>
 
 <section class="wrap block">
-  <h2>S čím můžeme pracovat</h2>
-  <p>S OCD: s obsesemi a kompulzemi, které berou čas a energii. Postupně se učíte nechat strach být a nereagovat na něj rituálem. <a href="/metoda">Jak metoda funguje</a> a <a href="/pro-koho">pro koho je</a>.</p>
-</section>
-
-<section class="wrap block">
-  <h2>Dva nástroje, dva účely</h2>
-  <p>Na webu najdete dvě různé věci. Ať nejsou matoucí, krátce k oběma:</p>
+  <h2>Aplikace</h2>
   <div class="cards">
     <article class="card">
-      <h3>Vstupní dotazník</h3>
-      <p>Vyplníte ho a sám/sama si ho pošlete e-mailem. Slouží k tomu, abychom se poznali a domluvili první kroky. Vidím ho, jen když mi ho doopravdy pošlete.</p>
-      <p><a class="btn btn-ghost btn-sm" href="/dotaznik">Vyplnit dotazník</a></p>
-    </article>
-    <article class="card">
-      <h3>Aplikace</h3>
-      <p>Soukromý deník a nástroje pro vaši každodenní práci se strachem: žebříček témat, časovač na expozice, tracker kompulzí a karty principů. Data zůstávají jen ve vašem telefonu nebo počítači. Nikam se neodesílají a já je nevidím, pokud mi je sami neposlete.</p>
+      <p>Soukromý deník a pomůcky pro každodenní použití: tracker obsesí a kompulzí a další nástroje. Data zůstávají jen ve vašem telefonu nebo počítači. Nikam se neodesílají a já je nevidím, pokud mi je sami neposlete.</p>
       <p><a class="btn btn-ghost btn-sm" href="/aplikace">Otevřít aplikaci</a></p>
     </article>
   </div>
@@ -902,7 +833,7 @@ add('/', {
 
 <section class="wrap block story">
   <h2>Proč to dělám</h2>
-  <p>Od dětství jsem procházel úzkostmi, sociální fobií i OCD v mnoha podobách. Vím, jaké to je, když vás vlastní mysl drží v šachu. Proto jsem vytvořil tuto metodu a aplikaci — jako průvodce, který vám rozumí zevnitř, ne z učebnice.</p>
+  <p>Od dětství jsem procházel úzkostmi, sociální fobií i OCD v mnoha podobách. Vím, jaké to je, když vás vlastní mysl drží v šachu. Rozhodl jsem se předávat dál, co mi pomohlo.</p>
   <ul class="exp-tags" aria-label="Oblasti vlastní zkušenosti">
     <li class="exp-tag exp-tag-main">OCD</li>
     <li class="exp-tag">Psychosomatika</li>
@@ -921,7 +852,7 @@ add('/', {
     <ul class="approach-list">
       <li>Sám jsem roky žil s OCD, úzkostmi a sociální fobií, ne z učebnice.</li>
       <li>Neslibuji rychlé řešení. Vím, jak dlouhá ta cesta je.</li>
-      <li>Metodu jsem postavil na tom, co mi samotnému pomohlo zůstat u svého života.</li>
+      <li>Předávám dál to, co mi samotnému pomohlo zůstat u svého života.</li>
       <li>Nejsem terapeut. Jsem někdo, kdo tou smyčkou prošel a jde vedle vás.</li>
     </ul>
     <p class="approach-line">Nejsem odborník shora. Jsem někdo, kdo tudy prošel.</p>
@@ -929,117 +860,15 @@ add('/', {
   <p><a href="/o-mne">Více o mně</a></p>
 </section>
 
-<section class="wrap block">
-  <h2>Smyčka, kterou OCD používá</h2>
-  <p>Napětí vede k akci, akce přinese úlevu a úleva smyčku posílí. Moje práce je pomoci vám v ní zůstat jinak: s napětím, bez akce.</p>
-  ${loopChips}
-  <p><a class="btn btn-ghost" href="/metoda">Přečíst si metodu</a></p>
-</section>
-`,
-});
-
-// ---------- Metoda ----------
-add('/metoda', {
-  title: "Metoda: sebepřijetí a práce s nutkáním | ocdmentor.cz",
-  desc: "Čtyři pilíře metody při OCD: sebepřijetí, porozumění sobě, sebedůvěra bez záruk a práce s nutkáním. Zjistěte, jak funguje, a zkuste kvíz Metal, nebo Pop.",
-  gloss: true,
-  related: ['/pro-koho', '/jak-to-probiha', '/kviz', '/pomoc'],
-  ogTitle: 'Metoda: čtyři pilíře a dvě cesty',
-  script: '/assets/js/smycka.js',
-  body: `
-<section class="wrap page-head">
-  <h1>Metoda</h1>
-  <p class="lead">Čtyři pilíře, dvě cesty a několik pravidel. Metoda není terapie. Je to doprovázení někoho, kdo OCD zná z vlastní zkušenosti. Odbornou péči nenahrazuje, ale může ji doplnit.</p>
-</section>
-
-<section class="wrap block">
-  <h2>Čtyři pilíře</h2>
-  <div class="pillars-layout">
-    <div class="loop-rail" id="smycka" aria-hidden="true">
-      <svg viewBox="0 0 140 640" preserveAspectRatio="xMidYMid meet" focusable="false">
-        <path class="lp-seg" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <path class="lp-seg" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <path class="lp-seg" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <path class="lp-seg" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle class="lp-dot" r="5" cx="0" cy="0" fill="#f5923e" opacity="0"/>
-      </svg>
-    </div>
-  <ol class="pillars">
-    <li><h3>Bezpodmínečné sebepřijetí</h3><p>Přijímám sebe celého: včetně OCD, myšlenek, úzkosti i nejistoty. Nemusím je mít rád. Nemusím si přijetí zasloužit tím, že se OCD zbavím. K sobě se můžu chovat laskavěji už teď.</p></li>
-    <li><h3>Porozumění sobě</h3><p>Ptám se, proč mě právě toto téma tolik zasahuje a co pro mě znamená. Souvislosti s minulostí mohou být užitečné, nejsou ale povinnou odpovědí pro každého. Nejde o rozebírání každé myšlenky, protože i to se může stát duševní kompulzí.</p></li>
-    <li><h3>Sebedůvěra bez záruky</h3><p>Nikdo nemá záruku, že zvládne každou situaci. Realističtější než „zvládnu všechno“ je: „Nevím přesně, co se stane. Když přijde obtíž, budu hledat způsob, jak ji řešit, a mohu požádat o pomoc.“</p></li>
-    <li><h3>Reagovat jinak na nutkání</h3><p>Strach může být přítomen a já přesto jednám. Kompulzi, tedy reakci, která má strach rychle zmírnit, neprovedu. Změnu reakcí je vhodné plánovat s odborníkem, aby se z cvičení nestal nový rituál. A na život nemusím čekat, až úzkost zmizí.</p></li>
-  </ol>
-  </div>
-</section>
-
-<section class="wrap block">
-  <h2>Smyčka a kompulze</h2>
-  ${loopChips}
-  <p>Kompulze často říká, že tento pocit nebo tuto nejistotu snést nemohu. Úleva z ní je krátkodobá a pokaždé kompulzi posílí. Kompulzí může být i duševní činnost: přehrávání situace, porovnávání, počítání, hledání správného pocitu nebo opakované ujišťování sebe sama. Odpovědí na kompulzi není trest ani sebekritika. Odpovědí je návrat k sebepřijetí a další pokus.</p>
-</section>
-
-<section class="wrap block">
-  <h2>Dvě cesty, jeden cíl</h2>
-  <div class="cards">
-    <article class="card">
-      <h3>Metal cesta</h3>
-      <p>Rovnou <abbr title="expozice s prevencí reakce">ERP</abbr>. ERP znamená postavit se tomu, čeho se bojíte, a nevykonat kompulzi. Pro lidi, kteří jsou na takový start připraveni.</p>
-    </article>
-    <article class="card">
-      <h3>Pop cesta</h3>
-      <p>Stabilizace, pak <abbr title="inferenční kognitivně-behaviorální přístup">I-CBT</abbr> (inferenční KBT, přístup zaměřený na úvahy, ze kterých se obava skládá) a nakonec postupná expozice. Pro lidi, kterým intenzivní start nesedí.</p>
-    </article>
-  </div>
-  <p><strong>ERP i I-CBT jsou odborné metody.</strong> ERP má silnou odbornou podporu, existují ale i jiné přístupy. Volba postupu patří do spolupráce s kvalifikovaným odborníkem. Jako peer mentor vás doprovázím a podporuji. Nevedu je jako terapeut.</p>
-  <p>Cestu nevybíráme podle toho, která je příjemnější. Rozhoduje <strong>víra v obavy</strong>, <strong>aktuální fungování</strong> a <strong>dřívější zkušenost s ERP</strong>. Cesty lze kombinovat. Orientaci najdete na stránce <a href="/pro-koho">Pro koho</a>.</p>
-</section>
-
-<section class="wrap block">
-  ${quizCard()}
-</section>
-
-<section class="wrap block">
-  <h2>Pravidla metody</h2>
-  <ul class="rules">
-    <li>Nic nesmí fungovat jako ochrana před strachem.</li>
-    <li>Expozice se neukončuje ujištěním.</li>
-    <li>Hudba a podobné nástroje regulují úzkost mezi expozicemi, ne během nich.</li>
-    <li>Cílová vize se nepoužívá jako odpověď na strach.</li>
-    <li>Cvičení nemá vytvářet další rituál. Pokud se k němu vracíte kvůli jistotě, udělejte krok zpět.</li>
-  </ul>
-  <p>Principy najdete i jako karty v <a href="/aplikace/principy">aplikaci</a>.</p>
-</section>
-
-<section class="wrap block">
-  <h2>Rovnováha místo extrémů</h2>
-  <p>Nemusíte hrát vítěze, který už všechno překonal, ani zůstávat v roli člověka, který se všeho bojí. Když se daří, můžete to přijmout s vděčností a bez přehnané euforie. Když přijde náročnější období, nemusíte panikařit ani se obviňovat. Neznamená to, že jste ztratili, co jste se naučili. Hodnota člověka nezávisí na tom, jak se dnes cítí.</p>
-</section>
-
-<section class="wrap block callout">
-  <h2>Co metoda není</h2>
-  <ul>
-    <li>Není terapie.</li>
-    <li>Není diagnóza.</li>
-    <li>Není předepisování léků.</li>
-    <li>Není slib vyléčení.</li>
-  </ul>
-  <p class="disclaimer">${NOTICE}</p>
-  <p><a href="/o-mne#hranice">Moje hranice jako mentora</a></p>
-</section>
-
-<section class="wrap block">
-  <p class="small">Obsah naposledy zkontrolován: 1. 12. 2026</p>
-</section>
 `,
 });
 
 // ---------- Pro koho ----------
 add('/pro-koho', {
   title: "Pro koho je peer mentoring při OCD | ocdmentor.cz",
-  desc: "Pro koho je peer mentoring při OCD vhodný, kdy sedí cesta Metal nebo Pop a kdy se obrátit na odborníka. Přečtěte si to a domluvte si konzultaci.",
+  desc: "Pro koho je peer mentoring při OCD vhodný a kdy se obrátit na odborníka. Přečtěte si to a domluvte si konzultaci zdarma.",
   gloss: true,
-  related: ['/metoda', '/kviz', '/jak-to-probiha', '/pomoc'],
+  related: ['/jak-to-probiha', '/pomoc'],
   ogTitle: 'Pro koho je peer mentoring při OCD',
   body: `
 <section class="wrap page-head">
@@ -1048,34 +877,13 @@ add('/pro-koho', {
 </section>
 
 <section class="wrap block">
-  <h2>Která cesta může sedět</h2>
-  <p>Jde o orientaci, ne o diagnózu. Cestu společně upřesníme po vstupním dotazníku.</p>
-  <div class="cards">
-    <article class="card">
-      <h3>Metal cesta</h3>
-      <ul>
-        <li>Cítíte se na aktivní práci s nutkáním připraveni.</li>
-        <li>Dokážete být ve strachu a nechat ho být.</li>
-        <li>Máte dobrou zkušenost s expozicí nebo ji chcete zkusit.</li>
-        <li>Na obavy jako na příběh se už umíte dívat zpovzdálí.</li>
-      </ul>
-    </article>
-    <article class="card">
-      <h3>Pop cesta</h3>
-      <ul>
-        <li>Obavám věříte velmi silně a intenzivní start je příliš.</li>
-        <li>Fungování je hodně omezené a potřebujete nejdřív stabilitu.</li>
-        <li>Dřívější expozice se nepovedla nebo vás zahltila.</li>
-        <li>Potřebujete nejdřív pochopit, jak se obava v hlavě skládá.</li>
-      </ul>
-    </article>
-  </div>
-  <p>Cesty lze kombinovat. Nerozhoduje, co je příjemnější, ale co vám v dané fázi opravdu sedí. Vaše cesta nemusí vypadat jako moje: někdo najde největší úlevu v porozumění sobě, jiný potřebuje hlavně pracovat s reakcemi na obsese.</p>
+  <h2>Komu může peer podpora sedět</h2>
+  <p>Lidem s OCD, kteří hledají oporu od někoho, kdo to zná z vlastní zkušenosti. Můžete mluvit o tom, co prožíváte, a sdílím, co pomohlo mně.</p>
   <p>Peer mentoring jde dobře skloubit s odbornou péčí. Odborná pomoc a vlastní aktivita se nevylučují. Léky nikdy neměňte ani nevysazujte bez domluvy s lékařem, který vám je předepsal.</p>
 </section>
 
 <section class="wrap block callout">
-  <h2>Kdy metodu nepoužívat</h2>
+  <h2>Kdy peer podporu nevyužívat</h2>
   <p>V těchto situacích je správným krokem odborník (psychiatr, klinický psycholog, psychoterapeut), ne peer mentoring:</p>
   <ul>
     <li>aktivní psychóza,</li>
@@ -1099,127 +907,9 @@ add('/pro-koho', {
 </section>
 
 <section class="wrap block">
-  <p><a class="btn" href="/dotaznik">Vyplnit vstupní dotazník</a></p>
+  <p><a class="btn" href="/kontakt">Kontakt a rezervace</a></p>
   <p class="small">Obsah naposledy zkontrolován: 1. 12. 2026</p>
 </section>
-`,
-});
-
-// ---------- Dotazník ----------
-const topics = [
-  ['Kontaminace', 'strach z nečistoty, bakterií, chemikálií nebo nákazy'],
-  ['Senzomotorické', 'neustálé vnímání dýchání, mrkání, polykání nebo jiných tělesných vjemů'],
-  ['Existenciální', 'zasahující otázky o smyslu, realitě, existenci nebo smrti'],
-  ['Zdravotní', 'strach z nemoci, kontrola těla, vyhledávání příznaků'],
-  ['Pure O', 'nechtěné myšlenky nebo představy, rituály probíhají hlavně v hlavě'],
-  ['Zpovědní', 'nutkání se přiznávat nebo ověřovat, zda jste něco neudělali špatně'],
-  ['Emetofobní', 'strach ze zvracení'],
-  ['Perfekcionistické', 'potřeba, aby něco bylo „akorát“, přesně nebo dokonale'],
-  ['ROCD', 'pochybnosti o vztahu, partnerovi nebo vlastních citech'],
-  ['Strach ze zešílení', 'obava ze ztráty kontroly nebo zdravého rozumu'],
-];
-const range = (name, label, hint) => `
-<div class="field">
-  <label for="${name}">${label}${hint ? ` <span class="hint">${hint}</span>` : ''}</label>
-  <div class="range"><input type="range" id="${name}" name="${name}" min="0" max="10" step="1" value="0" data-label="${label}"><output for="${name}">0</output><span class="of">/ 10</span></div>
-</div>`;
-const checks = (group, items) =>
-  `<div class="checks">${items
-    .map((t, i) => `<label class="check"><input type="checkbox" name="${group}" value="${t}"> ${t}</label>`)
-    .join('')}</div>`;
-
-add('/dotaznik', {
-  title: "Vstupní dotazník pro peer mentoring při OCD | ocdmentor.cz",
-  desc: "Vstupní dotazník pro peer mentoring při OCD: mapa témat, kompulze a dopad na život. Vyplňte ho a pošlete e-mailem, nic se neukládá na server.",
-  related: ['/jak-to-probiha', '/kviz', '/pro-koho', '/pomoc'],
-  ogTitle: 'Vstupní dotazník',
-  script: '/assets/js/dotaznik.js',
-  body: `
-<section class="wrap page-head">
-  <h1>Vstupní dotazník</h1>
-  <p class="lead">Slouží k tomu, abychom se dobře seznámili a mohli společně sestavit žebřík expozic. Není to diagnostický test. Vyplňte jen to, co chcete sdílet. Na nic nemusíte odpovídat.</p>
-  <p class="callout-inline"><strong>Nic se neukládá.</strong> Web nemá databázi ani server. Po vyplnění si otevřete e-mail s předvyplněným textem, nebo si text zkopírujete a pošlete, jak chcete.</p>
-</section>
-
-<form id="dotaznik" class="wrap form" novalidate>
-
-<fieldset data-section="O vás a cíli">
-  <legend>0. O vás</legend>
-  <div class="field"><label for="jmeno">Jak vás mám oslovovat <span class="hint">(nepovinné, stačí křestní jméno nebo přezdívka)</span></label><input type="text" id="jmeno" name="jmeno" data-label="Oslovení" autocomplete="off"></div>
-  <div class="field"><label for="cil">Jak by vypadal váš život, který chcete žít? <span class="hint">(popište život, ne jen absenci obtíží)</span></label><textarea id="cil" name="cil" rows="4" data-label="Cílová vize"></textarea></div>
-</fieldset>
-
-<fieldset data-section="1. Mapa témat">
-  <legend>1. Mapa témat</legend>
-  <p class="hint">Ke každému tématu nastavte, jak silnou úzkost vám dnes způsobuje. 0 = žádnou, 10 = největší možnou. Co se vás netýká, nechte na 0. Z toho vznikne váš žebřík.</p>
-  ${topics.map(([n, d], i) => range('tema' + i, n, `– ${d}`)).join('')}
-  <div class="field"><label for="tema-jine">Jiné téma <span class="hint">(nepovinné)</span></label><input type="text" id="tema-jine" name="tema-jine" data-label="Jiné téma"></div>
-</fieldset>
-
-<fieldset data-section="2. Kompulze">
-  <legend>2. Kompulze</legend>
-  <p class="hint">Co děláte (navenek nebo v hlavě), aby strach nebo napětí rychle opadlo? Zaškrtněte, co platí.</p>
-  <h3>Viditelné</h3>
-  ${checks('kompulze-viditelne', ['Mytí, čištění, dezinfekce', 'Kontrolování (spotřebiče, dveře, tělo)', 'Opakování úkonů', 'Uspořádávání, symetrie', 'Dotýkání, odklepávání', 'Rituály kolem jídla'])}
-  <h3>Mentální</h3>
-  ${checks('kompulze-mentalni', ['Opakování slov nebo vět v hlavě', 'Analyzování a promýšlení dokola', '„Rušení“ myšlenky jinou myšlenkou', 'Procházení vzpomínek', 'Počítání', 'Modlitby nebo formule'])}
-  <h3>Ujišťování</h3>
-  ${checks('kompulze-ujistovani', ['Ptám se blízkých', 'Ptám se lékaře', 'Vyhledávám na internetu', 'Ptám se AI', 'Čtu fóra a zkušenosti jiných', 'Testuji se nebo měřím'])}
-  <div class="field"><label for="kompulze-jine">Jiné kompulze nebo upřesnění</label><textarea id="kompulze-jine" name="kompulze-jine" rows="3" data-label="Jiné kompulze"></textarea></div>
-</fieldset>
-
-<fieldset data-section="3. Vyhýbání">
-  <legend>3. Vyhýbání</legend>
-  <div class="field"><label for="vyhybani">Čemu se vyhýbáte? <span class="hint">(místa, lidé, předměty, situace, myšlenky, témata)</span></label><textarea id="vyhybani" name="vyhybani" rows="4" data-label="Čemu se vyhýbám"></textarea></div>
-</fieldset>
-
-<fieldset data-section="4. Dopad">
-  <legend>4. Dopad</legend>
-  <div class="field"><label for="cas">Kolik času denně vám OCD zabírá?</label>
-    <select id="cas" name="cas" data-label="Čas denně">
-      <option value="">– vyberte –</option><option>Méně než 1 hodinu</option><option>1–3 hodiny</option><option>3–6 hodin</option><option>Více než 6 hodin</option>
-    </select></div>
-  <p class="hint">Co vám OCD omezuje?</p>
-  ${checks('dopad', ['Práce nebo škola', 'Vztahy a rodina', 'Spánek', 'Jídlo', 'Volný čas a koníčky', 'Péče o domácnost', 'Cestování, pohyb mimo domov'])}
-  <div class="field"><label for="dopad-jine">Upřesnění <span class="hint">(nepovinné)</span></label><textarea id="dopad-jine" name="dopad-jine" rows="3" data-label="Upřesnění dopadu"></textarea></div>
-</fieldset>
-
-<fieldset data-section="5. Pilíře a výběr cesty">
-  <legend>5. Pilíře a výběr cesty</legend>
-  <p class="hint">Odhad dnešního stavu. Slouží k tomu, abychom později viděli pokrok.</p>
-  ${range('prijeti', 'Sebepřijetí', '– 0 = nepřijímám se vůbec, 10 = přijímám se celý/celá')}
-  ${range('sebevira', 'Sebedůvěra', '– 0 = nevěřím, že bych si s obtížemi poradil/a, 10 = věřím, že když přijde obtíž, najdu způsob, jak ji řešit')}
-  ${range('vira', 'Víra v obavy', '– 0 = vím, že jde o OCD, 10 = jsem si jistý/á, že se obava splní')}
-  <div class="field"><label for="erp">Dřívější zkušenost s ERP (expozice s prevencí reakce)</label>
-    <select id="erp" name="erp" data-label="Zkušenost s ERP">
-      <option value="">– vyberte –</option><option>Žádná</option><option>Zkoušel/a jsem sám/sama</option><option>Měl/a jsem vedení odborníka, pomohlo to</option><option>Měl/a jsem vedení odborníka, nepomohlo nebo zahltilo</option>
-    </select></div>
-</fieldset>
-
-<fieldset data-section="6. Milníky">
-  <legend>6. Milníky <span class="hint">(nepovinné)</span></legend>
-  <div class="field"><label for="milniky">Kdy se strach poprvé objevil nebo zesílil? <span class="hint">(stačí rok nebo životní období, bez podrobností, které sdílet nechcete)</span></label><textarea id="milniky" name="milniky" rows="4" data-label="Milníky"></textarea></div>
-</fieldset>
-
-<fieldset class="consent" data-section="">
-  <legend>Souhlas se zpracováním</legend>
-  <label class="check"><input type="checkbox" id="souhlas" name="souhlas" required> Souhlasím se zpracováním údajů o svém zdravotním stavu, které v dotazníku uvedu, za účelem vedení peer mentoringu. Souhlas mohu kdykoli odvolat. Více v <a href="/ochrana-osobnich-udaju">zásadách ochrany osobních údajů</a>.</label>
-  <p class="hint">Údaje o zdraví jsou zvláštní kategorie osobních údajů. Souhlas je dobrovolný. E-mail není šifrovaná zpráva, proto uvádějte jen to, co jste ochotni sdílet.</p>
-</fieldset>
-
-<div class="actions">
-  <button type="button" class="btn" id="btn-mail">Otevřít e-mail s odpověďmi</button>
-  <button type="button" class="btn btn-ghost" id="btn-text">Vytvořit text ke zkopírování</button>
-</div>
-<p id="msg" class="msg" role="status" aria-live="polite"></p>
-<div id="vystup" class="vystup" hidden>
-  <label for="vystup-text">Text k odeslání na ${EMAIL}</label>
-  <textarea id="vystup-text" rows="14" readonly></textarea>
-  <button type="button" class="btn btn-ghost" id="btn-copy">Zkopírovat text</button>
-</div>
-
-<p class="crisis"><strong>Pokud máte myšlenky na sebepoškození nebo jste v akutní krizi, ${CRISIS}.</strong></p>
-</form>
 `,
 });
 
@@ -1267,7 +957,7 @@ add('/ebook', {
     <li><strong>Nejsi své OCD</strong> – rozdíl mezi vtíravou myšlenkou a tím, kdo jste; sebepřijetí jako opak rezignace.</li>
     <li><strong>Cyklus OCD</strong> – spouštěč, pochybnost, úzkost, kompulze a krátkodobá úleva.</li>
     <li><strong>Sebepřijetí a sebedůvěra</strong> – důvěra bez záruk a pohled do vlastního příběhu.</li>
-    <li><strong>Kompulze a každodenní svoboda</strong> – jak rozpoznat, zda hledám jistotu; stručně o ERP a I-CBT, které patří odborníkovi.</li>
+    <li><strong>Kompulze a každodenní svoboda</strong> – jak rozpoznat, zda hledám jistotu.</li>
     <li><strong>Čtyři praktické pracovní listy</strong> a rady, když se obtíže vracejí a kdy vyhledat odbornou pomoc.</li>
   </ul>
   <p class="callout-inline disclaimer"><strong>Důležité:</strong> Nejsem psycholog, psychoterapeut ani psychiatr. Peer mentoring nenahrazuje odbornou diagnostiku ani léčbu.</p>
@@ -1416,7 +1106,7 @@ add('/kurz', {
   body: `
 <section class="wrap page-head">
   <h1>Online kurz</h1>
-  <p class="callout-inline disclaimer"><strong>Tento kurz je psychoedukační</strong> a slouží k pochopení OCD a principů metody. Nejde o terapii, neobsahuje individuální léčebný plán a nenahrazuje práci s odborníkem. Je vhodný i jako doplněk pro lidi, kteří jsou v péči terapeuta nebo se do ní chystají.</p>
+  <p class="callout-inline disclaimer"><strong>Tento kurz je psychoedukační</strong> a slouží k pochopení OCD. Nejde o terapii, neobsahuje individuální léčebný plán a nenahrazuje práci s odborníkem. Je vhodný i jako doplněk pro lidi, kteří jsou v péči terapeuta nebo se do ní chystají.</p>
   <p class="lead">Krátký psychoedukační mini-kurz: 3–4 krátké lekce, které vysvětlují, co OCD je a není, proč ujišťování nepomáhá a jak probíhá peer mentoring.</p>
 </section>
 
@@ -1441,30 +1131,7 @@ add('/kurz', {
 </section>
 
 <section class="wrap block">
-  <p>Chcete probrat svou situaci individuálně? <a href="/dotaznik">Vyplňte vstupní dotazník</a> nebo <a href="/kontakt">mě kontaktujte</a>.</p>
-</section>
-`,
-});
-
-// ---------- Kvíz Metal, nebo Pop? ----------
-add('/kviz', {
-  title: "Kvíz Metal, nebo Pop? Která cesta vám sedí | ocdmentor.cz",
-  desc: "Pět krátkých otázek vám orientačně ukáže, jestli vám při OCD sedí cesta Metal, Pop, nebo něco mezi. Zkuste kvíz za minutu, nic se neukládá.",
-  related: ['/metoda', '/pro-koho', '/jak-to-probiha', '/dotaznik'],
-  ogTitle: 'Metal, nebo Pop?',
-  ogSub: 'Která cesta vám sedí?',
-  script: '/assets/js/kviz.js',
-  body: `
-<section class="wrap page-head">
-  <h1>Metal, nebo Pop?</h1>
-  <p class="lead">Lidé s OCD potřebují k cíli různé tempo. Pět krátkých otázek vám ukáže, která cesta vám nejspíš sedne. Výsledek je orientační, finální cestu vybereme spolu.</p>
-</section>
-
-<section class="wrap block">
-  <div id="kviz-root" data-url="${SITE}/kviz">${kvizStatic()}</div>
-  <noscript><p class="callout-inline">Kvíz potřebuje zapnutý JavaScript. Cestu spolu můžeme vybrat na <a href="/kontakt">úvodní konzultaci</a>.</p></noscript>
-  <p class="small disclaimer kviz-crisis">Pokud jste v akutní krizi, ${CRISIS}.</p>
-  <script defer src="/assets/js/kviz-data.js"></script>
+  <p>Chcete probrat svou situaci individuálně? <a href="/kontakt">Kontaktujte mě</a>.</p>
 </section>
 `,
 });
@@ -1472,12 +1139,12 @@ add('/kviz', {
 // ---------- Jak to probíhá ----------
 const faqVisible = JAK.faq.filter((f) => !hasPlaceholder(f.a));
 add('/jak-to-probiha', {
-  title: "Jak probíhá peer mentoring: kroky a ceník | ocdmentor.cz",
-  desc: "Jak probíhá peer mentoring při OCD: úvodní konzultace zdarma, vstupní dotazník a online sezení za 490 Kč. Ceník a časté dotazy. Rezervujte online.",
+  title: "Jak probíhá peer mentoring: setkání a ceník | ocdmentor.cz",
+  desc: "Jak probíhá peer mentoring při OCD: úvodní konzultace zdarma, další online setkání po 50 minutách za 490 Kč. Ceník a časté dotazy. Rezervujte online.",
   gloss: true,
-  related: ['/pro-koho', '/metoda', '/kviz', '/dotaznik'],
+  related: ['/pro-koho'],
   ogTitle: 'Jak probíhá peer mentoring',
-  ogSub: 'Kroky, ceník a časté dotazy',
+  ogSub: 'Setkání, ceník a časté dotazy',
   // Do FAQPage se zatím nedávají odpovědi s nedoplněným [placeholderem]; až budou texty hotové, přibudou samy.
   jsonld: {
     '@graph': [
@@ -1491,10 +1158,9 @@ add('/jak-to-probiha', {
 </section>
 
 <section class="wrap block">
-  <h2>Tři kroky</h2>
-  ${routeHtml('')}
+  <h2>Jak sezení probíhá</h2>
+  <p>Úvodní 20minutová konzultace je zdarma a k ničemu nezavazuje. Seznámíme se a řekneme si, jestli vám tento druh podpory dává smysl. Další setkání trvají 50 minut a probíhají online. Je to rozhovor s člověkem, který OCD zná z vlastní zkušenosti: můžete mluvit o tom, co prožíváte, sdílím, co pomohlo mně, a pomáhám vám zorientovat se, kde hledat odbornou péči. Neposkytuji psychoterapii, nestanovuji diagnózu, neradím s léky a nezadávám úkoly. Tempo i témata určujete vy.</p>
   <p><strong>Jak se spojíme:</strong> sezení probíhají jako videohovor 1:1 přes Google Meet nebo WhatsApp. Nemusíte se mi ozývat sami, po rezervaci se vám ozvu já a domluvíme spojení. Aplikace si můžete stáhnout předem, odkazy do obchodů a QR kódy najdete u každého semináře, například na stránce <a href="${SEM_ADRESA['pro-lidi-s-ocd']}#spojeni">${SEMINARE_PROGRAMY[0].kratkyNazev}</a>.</p>
-  <p><a class="btn btn-ghost btn-sm" href="/dotaznik">Vyplnit vstupní dotazník</a></p>
 </section>
 
 <section class="wrap block">
@@ -1527,7 +1193,7 @@ add('/o-mne', {
   title: "O mně: peer mentor s vlastní zkušeností s OCD | ocdmentor.cz",
   desc: "O mně: peer mentor s vlastní zkušeností s OCD. Co dělám a co ne, jaké mám kurzy a jaké hranice platí vždy. Domluvte si konzultaci zdarma.",
   gloss: true,
-  related: ['/metoda', '/jak-to-probiha', '/kviz', '/pomoc'],
+  related: ['/jak-to-probiha', '/pomoc'],
   ogTitle: 'O mně: peer mentor s vlastní zkušeností s OCD',
   ogArt: '/assets/img/o-mne-vaclav.webp',
   body: `
@@ -1542,8 +1208,8 @@ add('/o-mne', {
 </section>
 <section class="wrap block prose">
   <p>Mám vlastní zkušenost s OCD. Zkušenost není kvalifikace, ale umím rozumět tomu, jak se ve smyčce člověk cítí a co mu na cestě ven pomáhá.</p>
-  <p>Od dětství jsem prošel úzkostmi, panickými atakami, sociální fobií, depersonalizací a derealizací i zažívacími potížemi, které úzkost vyvolávala. Hlavně jsem ale prošel OCD v mnoha podobách: magickým, zdravotním, kontaminačním, kontrolovacím i Pure O. Vím, jaké to je, když vás vlastní mysl drží v šachu. A vím, že se z toho dá vyjít. Proto jsem vytvořil tuto metodu a aplikaci, aby lidé jako já měli průvodce, který jim rozumí zevnitř.</p>
-  <h2>Absolvované vzdělání</h2>
+  <p>Od dětství jsem prošel úzkostmi, panickými atakami, sociální fobií, depersonalizací a derealizací i zažívacími potížemi, které úzkost vyvolávala. Hlavně jsem ale prošel OCD v mnoha podobách: magickým, zdravotním, kontaminačním, kontrolovacím i Pure O. Vím, jaké to je, když vás vlastní mysl drží v šachu. Rozhodl jsem se předávat dál, co mi pomohlo.</p>
+  <h2>Absolvované kurzy</h2>
   <p class="disclaimer">Jde o absolvované kurzy, ne o oprávnění poskytovat zdravotní péči.</p>
   <a class="cert-thumb" href="/assets/img/certifikat-ocd-alison.webp" target="_blank" rel="noopener">
     <img src="/assets/img/certifikat-ocd-alison.webp" width="535" height="370" alt="Certifikát Alison.com – Understanding Obsessive-Compulsive Disorder (OCD), Bc. Václav Kodeš, 21. října 2026" loading="lazy">
@@ -1562,8 +1228,8 @@ add('/o-mne', {
     <li>Neslibuji vyléčení ani konkrétní výsledek.</li>
     <li>Nejsem terapeut, nestanovuji diagnózu a nevedu psychoterapii.</li>
     <li>Nepředepisuji ani neřeším léky. Nikdy vás nepovedu k jejich vysazení ani k ukončení péče u lékaře nebo terapeuta.</li>
-    <li>ERP a I-CBT jsou odborné metody. Doprovázím vás při nich, nevedu je jako terapeut.</li>
-    <li>Tempo určujete vy. Do žádné expozice vás nenutím.</li>
+    <li>Nevedu psychoterapii, neposkytuji zdravotní služby, nestanovuji diagnózu a neradím s léky ani s ukončením odborné péče.</li>
+    <li>Tempo určujete vy.</li>
     <li>Neposkytuji ujištění, že se vaše obava nesplní. Patří ke smyčce, kterou chceme přerušit.</li>
     <li>Nic z naší spolupráce nezveřejňuji a nežádám recenze ani doporučení výměnou za schůzky.</li>
     <li>Cena a rozsah spolupráce jsou předem jasné.</li>
@@ -1617,7 +1283,7 @@ const ARTICLES = [
 add('/clanky', {
   title: "Články o OCD: nutkání, ujišťování, přijetí | ocdmentor.cz",
   desc: "Články o OCD psané srozumitelně: druhy OCD, ujišťování, vlny nutkání a přijetí. Přečtěte si, co udržuje smyčku a jak z ní jít krok za krokem ven.",
-  related: ['/metoda', '/kviz', '/pomoc'],
+  related: ['/pomoc'],
   ogTitle: 'Články o OCD',
   body: `
 <section class="wrap page-head">
@@ -1706,7 +1372,7 @@ add('/clanky', {
     crumb: a.seoTitle,
     ogType: 'article',
     gloss: true,
-    related: ARTICLES.filter((x) => x.slug !== a.slug).map((x) => '/clanky/' + x.slug).concat(['/metoda', '/kviz', '/vtirave-myslenky', '/typy-ocd']),
+    related: ARTICLES.filter((x) => x.slug !== a.slug).map((x) => '/clanky/' + x.slug).concat(['/vtirave-myslenky', '/typy-ocd']),
     published: a.date,
     modified: a.modified || a.date,
     desc: 'Jaké druhy OCD existují? Přehled 9 tematických podob OCD, jejich typické příznaky a možnosti odborné léčby včetně ERP a I-CBT.',
@@ -1782,7 +1448,7 @@ add('/clanky', {
   <p>Mezi hlavní možnosti léčby OCD patří psychoterapie a v některých případech také farmakoterapie.</p>
   <h3>Kognitivně-behaviorální terapie a ERP</h3>
   <p>Kognitivně-behaviorální terapie (KBT) patří mezi zavedené psychoterapeutické přístupy při léčbě OCD.</p>
-  <p>Její důležitou součástí může být expozice a prevence reakce (<abbr title="expozice a prevence reakce">ERP</abbr>). Při této metodě se člověk postupně učí čelit situacím vyvolávajícím úzkost a omezovat nutkavé reakce, které jeho obtíže udržují. Víc o tomto přístupu najdete na stránce <a href="/metoda">Metoda</a>.</p>
+  <p>Její důležitou součástí může být expozice a prevence reakce (<abbr title="expozice a prevence reakce">ERP</abbr>). Při této metodě se člověk postupně učí čelit situacím vyvolávajícím úzkost a omezovat nutkavé reakce, které jeho obtíže udržují.</p>
   <p>Cílem není získat stoprocentní jistotu, že se nic špatného nestane. Cílem je naučit se zvládat nejistotu bez nutnosti neustále kontrolovat, analyzovat nebo hledat ujištění.</p>
   <h3>I-CBT: Terapie zaměřená na obsesivní pochybnosti</h3>
   <p><abbr title="Inference-Based Cognitive Behavioral Therapy">I-CBT</abbr> (Inference-Based Cognitive Behavioral Therapy) je terapeutický přístup, který se zaměřuje na proces vzniku obsesivních pochybností.</p>
@@ -1802,7 +1468,7 @@ add('/clanky', {
   <p>Obsedantně-kompulzivní porucha se nemusí projevovat pouze mytím rukou nebo kontrolováním předmětů. Může zahrnovat také vtíravé myšlenky, opakované pochybnosti, strach z nemoci nebo nutkavou potřebu získávat ujištění.</p>
   <p>Jednotlivé tematické podoby OCD se mohou překrývat a jejich zaměření se může v průběhu života měnit. Pro pochopení obtíží je proto důležité všímat si nejen obsahu myšlenek, ale také toho, jak na ně člověk reaguje.</p>
   <p>OCD není otázkou slabé vůle. Pokud člověka nutkavé myšlenky a rituály omezují v běžném životě, má smysl vyhledat odbornou pomoc.</p>
-  <p>Užitečným prvním krokem je pochopit vlastní vzorce prožívání a zjistit, jaké možnosti odborné pomoci jsou k dispozici. Pokud chcete zmapovat svá vlastní témata, můžete začít <a href="/dotaznik">vstupním dotazníkem</a>.</p>
+  <p>Užitečným prvním krokem je pochopit vlastní vzorce prožívání a zjistit, jaké možnosti odborné pomoci jsou k dispozici.</p>
   <p class="callout-inline">Upozornění: Tento článek má informativní charakter a nenahrazuje odborné vyšetření ani individuální doporučení zdravotnického pracovníka.</p>
 </article>
 `,
@@ -1828,7 +1494,7 @@ add('/clanky', {
     crumb: a.seoTitle,
     ogType: 'article',
     gloss: true,
-    related: ARTICLES.filter((x) => x.slug !== a.slug).map((x) => '/clanky/' + x.slug).concat(['/metoda', '/kviz', '/vtirave-myslenky', '/typy-ocd']),
+    related: ARTICLES.filter((x) => x.slug !== a.slug).map((x) => '/clanky/' + x.slug).concat(['/vtirave-myslenky', '/typy-ocd']),
     published: a.date,
     modified: a.modified || a.date,
     desc: 'Proč ujišťování přináší jen krátkodobou úlevu a dlouhodobě OCD udržuje. Jak kompulzivní ujišťování poznat u blízkých, na internetu i u AI a co dělat místo něj.',
@@ -1944,7 +1610,7 @@ add('/clanky', {
   <p>Cílem není mít jistotu, že se nikdy nic špatného nestane. Cílem je, aby potřeba jistoty přestala řídit tvůj život.</p>
   <p>A pokud se ti to zatím nedaří, neznamená to, že jsi selhal. Znamená to, že se učíš reagovat jinak na něco, co tě možná dlouho drželo v začarovaném kruhu.</p>
   <p>Každý okamžik, kdy si všimneš nutkání a zkusíš na něj nereagovat automaticky, může být příležitostí k nové zkušenosti.</p>
-  <p>Nemusíš to zvládnout dokonale. Stačí začít. Pokud chcete se svým nutkáním pracovat podporovaně, můžete začít <a href="/dotaznik">vstupním dotazníkem</a> nebo se podívat na <a href="/metoda">metodu</a>.</p>
+  <p>Nemusíš to zvládnout dokonale. Stačí začít.</p>
 
   <p class="callout-inline">Článek má informativní charakter a nenahrazuje odbornou péči. Pokud OCD výrazně zasahuje do tvého každodenního života, obrať se na odborníka se zkušenostmi s léčbou OCD.</p>
 </article>
@@ -1971,7 +1637,7 @@ add('/clanky', {
     crumb: a.seoTitle,
     ogType: 'article',
     gloss: true,
-    related: ARTICLES.filter((x) => x.slug !== a.slug).map((x) => '/clanky/' + x.slug).concat(['/metoda', '/kviz', '/vtirave-myslenky', '/typy-ocd']),
+    related: ARTICLES.filter((x) => x.slug !== a.slug).map((x) => '/clanky/' + x.slug).concat(['/vtirave-myslenky', '/typy-ocd']),
     published: a.date,
     modified: a.modified || a.date,
     desc: 'Úzkost a nutkání při OCD přichází ve vlnách, které rostou, vrcholí a opadají. Jak vlnu poznat, co ji zesiluje a jak ji nechat projít bez kompulze.',
@@ -2043,7 +1709,7 @@ add('/clanky', {
   <p>Úzkost může zpočátku zůstat stejná, zesílit nebo kolísat. Můžeš mít pocit, že se nic nemění a že tvé úsilí nemá smysl.</p>
   <p>Přesto můžeš získávat novou zkušenost: nepříjemný pocit nemusíš automaticky řešit rituálem.</p>
   <p>Postupně můžeš zjistit, že dokážeš pokračovat v běžných činnostech, i když nemáš úplnou jistotu a úzkost ještě neodezněla.</p>
-  <p>Právě na tomto principu stojí mimo jiné expozice s prevencí rituálů (<abbr title="expozice a prevence reakce">ERP</abbr>), která se používá v léčbě OCD. Víc o tomto přístupu najdete na stránce <a href="/metoda">Metoda</a>.</p>
+  <p>Právě na tomto principu stojí mimo jiné expozice s prevencí rituálů (<abbr title="expozice a prevence reakce">ERP</abbr>), která se používá v léčbě OCD.</p>
   <p>Nejde o to přemáhat se za každou cenu nebo se vystavovat skutečnému nebezpečí. Jde o promyšlené a postupné učení se jiným reakcím na situace, které vyvolávají obsedantní úzkost.</p>
   <p>Pokud tě OCD výrazně omezuje, může být vhodné pracovat na tom s terapeutem, který má zkušenosti s touto metodou.</p>
 
@@ -2076,7 +1742,7 @@ add('/clanky', {
   <p>Nemusíš čekat, až budeš úplně klidný, abys mohl jít ven, věnovat se rodině nebo udělat něco, co je pro tebe důležité.</p>
   <p>Můžeš žít i v přítomnosti nejistoty.</p>
   <p>Nutkání může přijít jako vlna. Nemusíš ji zastavit, vyřešit ani okamžitě odstranit. Můžeš se postupně učit nechat ji projít, aniž by za tebe rozhodovala o tom, co uděláš dál.</p>
-  <p>A pokud se ti to dnes nepodaří, neznamená to, že jsi selhal. Každý krok k jinému způsobu reagování se počítá. Pokud chceš začít, můžeš si zmapovat svá témata ve <a href="/dotaznik">vstupním dotazníku</a>.</p>
+  <p>A pokud se ti to dnes nepodaří, neznamená to, že jsi selhal. Každý krok k jinému způsobu reagování se počítá.</p>
 
   <p class="callout-inline">Článek má informativní charakter a nenahrazuje odbornou péči. Pokud OCD výrazně zasahuje do tvého každodenního života, může pomoci psychoterapeut se zkušenostmi s OCD a metodou ERP.</p>
 </article>
@@ -2096,7 +1762,7 @@ add('/clanky', {
     crumb: a.seoTitle,
     ogType: 'article',
     gloss: true,
-    related: ARTICLES.filter((x) => x.slug !== a.slug).map((x) => '/clanky/' + x.slug).concat(['/metoda', '/kviz', '/vtirave-myslenky', '/typy-ocd']),
+    related: ARTICLES.filter((x) => x.slug !== a.slug).map((x) => '/clanky/' + x.slug).concat(['/vtirave-myslenky', '/typy-ocd']),
     published: a.date,
     modified: a.modified || a.date,
     desc: 'Přijetí neznamená souhlas s myšlenkou. Znamená připustit ji, aniž bys musel jednat kompulzí. Jak to funguje a kdy se přijetí stane dalším rituálem.',
@@ -2215,7 +1881,7 @@ add('/clanky', {
   <p>Někdy budeš schopen nechat myšlenku být. Jindy se do analyzování znovu zapleteš. To je součást procesu učení, nikoli důkaz, že přijetí nefunguje.</p>
 
   <h2>7. Přijetí a prevence rituálů: Jak spolu souvisejí?</h2>
-  <p>Přijetí není jedinou metodou práce s OCD, ale dobře souvisí s principy kognitivně-behaviorální terapie a zejména expozice s prevencí rituálů (<abbr title="expozice a prevence reakce">ERP</abbr>). Víc o tomto přístupu najdete na stránce <a href="/metoda">Metoda</a>.</p>
+  <p>Přijetí není jedinou metodou práce s OCD, ale dobře souvisí s principy kognitivně-behaviorální terapie a zejména expozice s prevencí rituálů (<abbr title="expozice a prevence reakce">ERP</abbr>).</p>
   <p>Při ERP se člověk postupně a plánovaně setkává se situacemi, které vyvolávají obsedantní úzkost, a učí se neprovádět obvyklé kompulze.</p>
   <p>Například někdo, kdo opakovaně kontroluje zamčené dveře, se může v rámci vhodně nastavené léčby učit odejít po běžné kontrole, aniž by se vracel kvůli dalším pochybnostem.</p>
   <p>Smyslem není dokazovat si, že se nic špatného nestane. Je jím změna vztahu k nejistotě a nutkání kontrolovat.</p>
@@ -2241,7 +1907,7 @@ add('/clanky', {
   <p>Můžeš připustit, že úzkost je právě teď přítomná, aniž bys musel okamžitě něco kontrolovat nebo napravovat.</p>
   <p>A můžeš pokračovat v životě, i když v něm zůstává určitá míra nejistoty.</p>
   <p>Svoboda od OCD nemusí začínat okamžikem, kdy přestanou přicházet nepříjemné myšlenky. Může začít okamžikem, kdy se učíš, že na každou z nich nemusíš reagovat.</p>
-  <p>A to je něco, co se můžeš postupně učit. Bez dokonalosti, bez spěchu a bez požadavku, abys všechno zvládl hned. Pokud chceš začít, můžeš si zmapovat svá témata ve <a href="/dotaznik">vstupním dotazníku</a>.</p>
+  <p>A to je něco, co se můžeš postupně učit. Bez dokonalosti, bez spěchu a bez požadavku, abys všechno zvládl hned.</p>
 
   <p class="callout-inline">Článek má informativní charakter a nenahrazuje odbornou péči. Pokud OCD významně ovlivňuje tvůj každodenní život, může pomoci psychoterapeut se zkušenostmi s léčbou OCD, zejména s kognitivně-behaviorální terapií a metodou ERP.</p>
 </article>
@@ -2260,7 +1926,7 @@ add('/kontakt', {
   <div class="contact-grid">
     <div>
       <h1>Kontakt</h1>
-      <p class="lead">Nejjednodušší je vyplnit <a href="/dotaznik">vstupní dotazník</a>, domluvit si konzultaci, nebo mi napsat.</p>
+      <p class="lead">Nejjednodušší je domluvit si konzultaci, nebo mi napsat.</p>
       <div class="cta">
         ${bookBtn()}
       </div>
@@ -2273,7 +1939,7 @@ add('/kontakt', {
     <dt>E-mail</dt><dd><a href="mailto:${EMAIL}">${EMAIL}</a></dd>
   </dl>
   <p class="callout-inline"><strong>V akutní krizi nepište, volejte:</strong> 112, 155 nebo Linka první psychické pomoci 116 123.</p>
-  <p>E-mail není šifrovaná zpráva. Zdravotní podrobnosti si nechte na dotazník a domluvený rozhovor.</p>
+  <p>E-mail není šifrovaná zpráva. Zdravotní podrobnosti si nechte na domluvený rozhovor.</p>
   <p class="small">Obchodní podmínky si přečtěte <a href="/obchodni-podminky">zde</a>.</p>
 </section>
 `,
@@ -2294,7 +1960,6 @@ add('/ochrana-osobnich-udaju', {
   <h2>Co a jak zpracováváme</h2>
   <p>Pokud mi v e-mailu, telefonicky nebo přes WhatsApp sami sdělíte podrobnosti o svém zdravotním stavu, zpracovávám je jen v rozsahu nutném k domluvení spolupráce. Právním základem je v tomto případě váš souhlas, který dáváte najevo tím, že mi tyto údaje dobrovolně sdělíte (čl. 9 odst. 2 písm. a GDPR). Písemné poznámky o jednotlivých obtížích, nutkáních nebo kompulzích si nevedu.</p>
   <ol class="rules">
-    <li><strong>Vstupní dotazník (/dotaznik):</strong> nic se neukládá na server. Text se sestaví přímo ve vašem prohlížeči a vy si ho sami odešlete e-mailem nebo zkopírujete. Právní základ: váš výslovný souhlas se zpracováním zvláštní kategorie údajů o zdravotním stavu (čl. 9 odst. 2 písm. a GDPR).</li>
     <li><strong>Aplikace (/aplikace):</strong> vaše odpovědi se ukládají jen ve vašem zařízení, v úložišti prohlížeče (localStorage). Nikdy se neodesílají na žádný server ani nám. Smazat je můžete kdykoli v sekci <a href="/aplikace/nastaveni">Data a připomínky</a>. Právní základ: váš souhlas udělený při prvním spuštění aplikace.</li>
     <li><strong>E-mailová komunikace:</strong> pokud nám napíšete, zpracováváme váš e-mail a obsah zprávy jen za účelem odpovědi a vyřízení dotazu. Právní základ: jednání před uzavřením spolupráce nebo oprávněný zájem odpovědět na dotaz (čl. 6 odst. 1 písm. b, f GDPR). E-mail není šifrovaná zpráva.</li>
     <li><strong>Rezervace konzultace:</strong> tlačítko pro rezervaci konzultace (na úvodní stránce a na stránkách Jak to probíhá, Online semináře a Pro blízké) načítá widget společnosti Reservanto s.r.o. (IČ 24298395, Liberec). Už samotným načtením stránky se vaše IP adresa dostane k Reservantu. Pokud si rezervaci dokončíte, zadáváte do Reservanta jméno, telefon a e-mail, které slouží k vyřízení rezervace a ke komunikaci s vámi. Zda Reservanto tyto údaje zpracovává jako samostatný správce, nebo jako náš zpracovatel, se řídí jeho aktuálními podmínkami — podrobnosti najdete ve <a href="https://reservanto.cz/ochrana-osobnich-udaju" target="_blank" rel="noopener noreferrer">vlastních zásadách ochrany osobních údajů Reservanta</a>. Právní základ: jednání před uzavřením spolupráce (čl. 6 odst. 1 písm. b GDPR).</li>
@@ -2306,22 +1971,22 @@ add('/ochrana-osobnich-udaju', {
   <h2>Kategorie zpracovávaných údajů</h2>
   <ul class="rules">
     <li>Jméno, e-mailová adresa a telefonní číslo (komunikace, rezervace).</li>
-    <li>Obsah zprávy, telefonátu nebo odpovědí v dotazníku, včetně údajů o zdravotním stavu, pokud se rozhodnete je sdílet.</li>
+    <li>Obsah zprávy nebo telefonátu, včetně údajů o zdravotním stavu, pokud se rozhodnete je sdílet.</li>
     <li>Zvolený termín a typ služby při rezervaci konzultace.</li>
     <li>Při rezervaci semináře: zvolený běh a termíny, variabilní symbol a částka; samotná účast na semináři může vypovídat o zdravotním stavu.</li>
     <li>Technické údaje o připojení, např. IP adresa (hosting).</li>
   </ul>
 
   <h2 id="cookies">Cookies a Meta Pixel</h2>
-  <p>Web funguje bez cookies a bez jakéhokoli sledování. Při první návštěvě se vás zeptáme, zda souhlasíte s měřením reklamy. Dokud souhlas neudělíte, nenačítá se žádný skript společnosti Meta a nenastavují se žádné marketingové cookies. Na stránkách vstupního dotazníku a kvízu, v aplikaci a na potvrzení rezervace se lišta ani Meta Pixel nezobrazují vůbec.</p>
+  <p>Web funguje bez cookies a bez jakéhokoli sledování. Při první návštěvě se vás zeptáme, zda souhlasíte s měřením reklamy. Dokud souhlas neudělíte, nenačítá se žádný skript společnosti Meta a nenastavují se žádné marketingové cookies. V aplikaci a na potvrzení rezervace se lišta ani Meta Pixel nezobrazují vůbec.</p>
   <p>Pokud souhlas udělíte, načte se Meta Pixel společnosti Meta Platforms Ireland Limited (Facebook). Nastaví cookies (_fbp, případně _fbc) a Metě předá, že jste navštívili konkrétní stránku webu, spolu s technickými údaji prohlížeče a IP adresou. Používáme jej k vyhodnocení, kolik lidí přichází z naší reklamy, a k lepšímu zacílení reklamy. Za zpracování údajů v rámci Meta Pixelu odpovídáme společně s Metou; Meta údaje zpracovává i pro vlastní účely podle svých zásad a údaje mohou být předávány mimo Evropský hospodářský prostor na základě standardních smluvních doložek. Právním základem je váš souhlas (čl. 6 odst. 1 písm. a GDPR).</p>
   <p>Souhlas je dobrovolný, jeho odmítnutí nemá na používání webu žádný vliv. Můžete jej kdykoli odvolat nebo znovu udělit přes odkaz „Nastavení cookies“ v patičce každé stránky; odvolání nemá vliv na zákonnost zpracování před odvoláním. Platnost vaší volby je 12 měsíců, poté se zeptáme znovu. Volba se ukládá jen ve vašem prohlížeči. Cookies Meta můžete smazat také v nastavení prohlížeče.</p>
 
   <h2>Zdroj osobních údajů</h2>
-  <p>Veškeré osobní údaje získáváme přímo od vás: z vaší e-mailové zprávy, z textu dotazníku, který si sami odešlete, z údajů, které zadáte při rezervaci konzultace přes Reservanto, nebo z údajů, které zadáte do rezervačního formuláře semináře.</p>
+  <p>Veškeré osobní údaje získáváme přímo od vás: z vaší e-mailové zprávy, z údajů, které zadáte při rezervaci konzultace přes Reservanto, nebo z údajů, které zadáte do rezervačního formuláře semináře.</p>
 
   <h2>Doba uchování</h2>
-  <p>U dotazníku ani u aplikace žádná: tato data u nás vůbec nejsou uložena. U e-mailové, telefonické a WhatsApp komunikace jen po dobu nutnou k vyřízení dotazu nebo k domluvené spolupráci. Dobu uchování vašich údajů v systému Reservanto určuje Reservanto podle svých podmínek. U rezervace semináře uchovávám údaje o platbě po dobu stanovenou účetními a daňovými předpisy a e-mailovou komunikaci 1 rok po skončení programu. Zápisy ani nahrávky ze setkání nepořizuji, případné krátké poznámky mažu nejpozději 30 dnů po skončení programu.</p>
+  <p>U aplikace žádná: tato data u nás vůbec nejsou uložena. U e-mailové, telefonické a WhatsApp komunikace jen po dobu nutnou k vyřízení dotazu nebo k domluvené spolupráci. Dobu uchování vašich údajů v systému Reservanto určuje Reservanto podle svých podmínek. U rezervace semináře uchovávám údaje o platbě po dobu stanovenou účetními a daňovými předpisy a e-mailovou komunikaci 1 rok po skončení programu. Zápisy ani nahrávky ze setkání nepořizuji, případné krátké poznámky mažu nejpozději 30 dnů po skončení programu.</p>
 
   <h2>Příjemci údajů a předávání do zahraničí</h2>
   <p>Hostingový poskytovatel Vercel Inc. jako technický zpracovatel provozu webu a serverové funkce rezervace. Resend, Inc. (odesílání e-mailů při rezervaci semináře). Google (videohovory Google Meet). Meta Platforms Ireland Limited (Meta Pixel, jen s vaším souhlasem). Rezervační systém Reservanto s.r.o. (viz výše). Pokud s vámi komunikuji přes WhatsApp, zprávy zpracovává WhatsApp Ireland Limited (Meta). Vercel, Resend, Google a Meta mohou údaje zpracovávat i mimo Evropský hospodářský prostor, a to na základě standardních smluvních doložek nebo rozhodnutí o odpovídající ochraně. Jinak údaje nepředáváme žádným dalším třetím stranám.</p>
@@ -2336,13 +2001,13 @@ add('/ochrana-osobnich-udaju', {
     <li>Námitka proti zpracování (čl. 21).</li>
     <li>Podat stížnost u <a href="https://www.uoou.cz/" target="_blank" rel="noopener noreferrer">Úřadu pro ochranu osobních údajů</a>.</li>
   </ul>
-  <p>Souhlas se zpracováním u dotazníku nebo aplikace můžete kdykoli odvolat tak, že údaje jednoduše nepoužijete nebo je v aplikaci smažete. Protože se u nás vůbec neukládají, k jejich „výmazu na vyžádání“ u nás není co dělat; o jejich smazání ve vašem vlastním zařízení nebo e-mailu se staráte vy sami. Souhlas se zpracováním při rezervaci semináře můžete kdykoli odvolat e-mailem na <a href="mailto:${EMAIL}">${EMAIL}</a>; odvolání nemá vliv na zákonnost zpracování před jeho odvoláním.</p>
+  <p>Souhlas se zpracováním u aplikace můžete kdykoli odvolat tak, že údaje jednoduše nepoužijete nebo je v aplikaci smažete. Protože se u nás vůbec neukládají, k jejich „výmazu na vyžádání“ u nás není co dělat; o jejich smazání ve vašem vlastním zařízení nebo e-mailu se staráte vy sami. Souhlas se zpracováním při rezervaci semináře můžete kdykoli odvolat e-mailem na <a href="mailto:${EMAIL}">${EMAIL}</a>; odvolání nemá vliv na zákonnost zpracování před jeho odvoláním.</p>
 
   <h2>Automatizované rozhodování</h2>
   <p>Neprovádíme žádné automatizované individuální rozhodování ani profilování ve smyslu čl. 22 GDPR. Nápovědy v aplikaci (doporučená cesta, návrh posunu v žebříčku) jsou jen orientační a vždy je potvrzujete vy sami.</p>
 
   <h2>Povinnost poskytnout údaje</h2>
-  <p>Vyplnění dotazníku ani používání aplikace není povinné a není podmínkou ničeho. Údaje poskytujete dobrovolně a v rozsahu, který sami zvolíte. U rezervace semináře je poskytnutí jména a e-mailu nezbytné, bez nich ji nelze dokončit.</p>
+  <p>Používání aplikace není povinné a není podmínkou ničeho. Údaje poskytujete dobrovolně a v rozsahu, který sami zvolíte. U rezervace semináře je poskytnutí jména a e-mailu nezbytné, bez nich ji nelze dokončit.</p>
 </section>
 `,
 });
@@ -2590,7 +2255,7 @@ contentPage({
   lead: 'OCD nemá jen jednu tvář. Najděte téma, které vám připadá povědomé, a přečtěte si, jak se obvykle projevuje. Nejde o diagnostiku, tu stanoví odborník.',
   gloss: false,
   script: '/assets/js/typy-filtr.js',
-  related: ['/vtirave-myslenky', '/pro-blizke', '/myty-o-ocd', '/kviz'],
+  related: ['/vtirave-myslenky', '/pro-blizke', '/myty-o-ocd'],
   ogTitle: 'Typy OCD',
   ogSub: 'Přehled podob OCD a jak se projevují',
   sectionsHtml: `<section class="wrap block">
@@ -2623,7 +2288,7 @@ const relatedTypes = (slugs) => `<ul class="rules">${slugs
   .filter((s) => TYP_BY_SLUG[s])
   .map((s) => `<li><a href="/typy-ocd/${s}">${esc(TYP_BY_SLUG[s].nazev)}</a>: ${esc(TYP_BY_SLUG[s].kratce)}</li>`)
   .join('')}</ul>`;
-const ctaQuiz = `<p class="cta"><a class="btn btn-ghost" href="/kviz">Kvíz Metal, nebo Pop?</a><a class="btn btn-ghost" href="/kolik-casu-mi-bere-ocd">Kolik času mi bere OCD?</a><a class="btn btn-cta" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a></p>`;
+const ctaQuiz = `<p class="cta"><a class="btn btn-ghost" href="/kolik-casu-mi-bere-ocd">Kolik času mi bere OCD?</a><a class="btn btn-cta" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a></p>`;
 for (const t of TYPY_DATA.typy) {
   const full = F2.TYPY_PLNY[t.slug] || TYPY_DALSI[t.slug];
   if (!full) throw new Error(`Chybí text typu ${t.slug}`);
@@ -2638,7 +2303,7 @@ for (const t of TYPY_DATA.typy) {
     { h: 'Jak se obecně řeší u odborníka', html: full.odbornik },
     { h: 'Jak může pomoct peer podpora', html: full.peer },
     { h: 'Související typy', html: relatedTypes([...new Set([...full.souvisejici, ...mates])]) },
-    { h: 'Kvíz a konzultace', html: `<p>Nevíte, jaké tempo vám sedí? Zkuste krátký kvíz, nebo se ozvěte na úvodní konzultaci zdarma.</p>${ctaQuiz}` },
+    { h: 'Konzultace', html: `<p>Chcete si o tom promluvit s někým, kdo OCD zná z vlastní zkušenosti? Ozvěte se na úvodní konzultaci zdarma.</p>${ctaQuiz}` },
   ]);
   const longTitle = `${t.nazev}: obsese a kompulze | ${DOMAIN}`;
   const desc = `${t.nazev} u OCD: ${t.kratce} Příklady obsesí a kompulzí, časté mýty a kdy vyhledat odborníka.`;
@@ -2726,13 +2391,13 @@ const glosSorted = [...GLOS].sort((a, b) => a.pojem.localeCompare(b.pojem, 'cs')
 contentPage({
   path: '/slovnicek',
   title: 'Slovníček pojmů kolem OCD | ocdmentor.cz',
-  desc: 'Slovníček pojmů kolem OCD: obsese, kompulze, ujišťování, ERP, I-CBT, expozice, neutralizace, peer mentor a další, jednoduše vysvětlené.',
+  desc: 'Slovníček pojmů kolem OCD: obsese, kompulze, ujišťování, neutralizace, peer mentor a další pojmy, jednoduše a srozumitelně vysvětlené.',
   h1: 'Slovníček pojmů',
   lead: 'Krátké vysvětlení pojmů, které se na webu opakují. Jsou to obecná vysvětlení, ne diagnostika ani návod k léčbě.',
   gloss: false,
-  related: ['/vtirave-myslenky', '/myty-o-ocd', '/typy-ocd', '/metoda'],
+  related: ['/vtirave-myslenky', '/myty-o-ocd', '/typy-ocd'],
   ogTitle: 'Slovníček pojmů',
-  ogSub: 'Obsese, kompulze, ERP, I-CBT a další',
+  ogSub: 'Obsese, kompulze, ujišťování a další',
   sectionsHtml: `<section class="wrap block">
   <dl class="glossary" data-no-gl>
 ${glosSorted.map((g) => `    <dt id="${g.id}">${esc(g.pojem)}</dt>\n    <dd>${esc(g.def)}</dd>`).join('\n')}
@@ -2771,7 +2436,7 @@ add('/pomoc', {
   ogTitle: 'Pomoc hned',
   ogSub: 'Krizové kontakty a odborná pomoc',
   art: false,
-  related: ['/pro-koho', '/jak-to-probiha', '/metoda', '/o-mne'],
+  related: ['/pro-koho', '/jak-to-probiha', '/o-mne'],
   body: `
 <section class="wrap page-head">
   <h1>Pomoc hned</h1>
@@ -2814,7 +2479,7 @@ add('/kolik-casu-mi-bere-ocd', {
   ogTitle: 'Kolik času mi bere OCD?',
   ogSub: 'Kalkulačka: hodiny týdně a dny ročně',
   script: '/assets/js/kalkulacka.js',
-  related: ['/metoda', '/dotaznik', '/kviz', '/pomoc'],
+  related: ['/pomoc'],
   art: false,
   body: `
 <section class="wrap page-head">
@@ -2832,7 +2497,7 @@ ${calcSlider('c-hlava', 'Rozebírání v hlavě', 'přemítání, analyzování,
     <noscript><p>Kalkulačka potřebuje zapnutý JavaScript. Postup výpočtu najdete níže.</p></noscript>
   </div>
   <p class="calc-msg">Ať vyjde jakékoli číslo, nic to neříká o vaší hodnotě. Je to čas, který si můžete postupně brát zpátky.</p>
-  <p class="cta"><a class="btn btn-cta" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a><a class="btn btn-ghost" href="/dotaznik">Vyplnit vstupní dotazník</a></p>
+  <p class="cta"><a class="btn btn-cta" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a></p>
   <p class="small disclaimer">Jde o vaše vlastní odhady, ne o měření ani diagnózu. Pokud jste v akutní krizi, ${CRISIS}.</p>
 </section>
 
@@ -2852,7 +2517,7 @@ contentPage({
   h1: 'Online skupina podpory',
   lead: 'Koncept online skupinových setkání: peer podpora v malé skupině lidí s OCD, vedle odborné péče.',
   draft: true,
-  related: ['/jak-to-probiha', '/pro-blizke', '/pribehy', '/kviz'],
+  related: ['/jak-to-probiha', '/pro-blizke', '/pribehy'],
   sections: [
     {
       h: 'Jak by skupina fungovala',
@@ -2910,7 +2575,7 @@ files['404.html'] = page({
       <p class="lead">A to je v pořádku.</p>
       <p>Stránku, kterou hledáte, se nepodařilo najít. Pokračovat můžete tady:</p>
       <ul class="related-list">
-        <li><a href="/">Úvod</a></li><li><a href="/metoda">Metoda</a></li><li><a href="/jak-to-probiha">Jak to probíhá</a></li><li><a href="/kviz">Kvíz Metal, nebo Pop?</a></li><li><a href="/clanky">Články</a></li><li><a href="/kontakt">Kontakt</a></li><li><a href="/pomoc">Pomoc hned</a></li>
+        <li><a href="/">Úvod</a></li><li><a href="/jak-to-probiha">Jak to probíhá</a></li><li><a href="/pro-koho">Pro koho</a></li><li><a href="/clanky">Články</a></li><li><a href="/kontakt">Kontakt</a></li><li><a href="/pomoc">Pomoc hned</a></li>
       </ul>
     </div>
     <img class="nf-art" src="${CFG.notFoundImage || '/assets/img/kontakt-ilustrace.webp'}" width="640" height="585" alt="" loading="eager">
@@ -2958,23 +2623,23 @@ const appPage = (slug, title, lead, desc, mod) =>
 </section>
 `,
   });
-appPage('', 'Aplikace', 'Tichý pomocník na cestě: dotazník, žebříček, deník expozic, tracker a karty principů. Vše zůstává jen ve vašem zařízení — nikam se neodesílá a nikdo jiný, včetně mě, to nevidí, pokud si to sami neexportujete a nepošlete.', 'Webová aplikace jako doprovod: dotazník, žebříček témat, expoziční deník, tracker kompulzí.', 'home');
+appPage('', 'Aplikace', 'Soukromý deník a pomůcky: tracker obsesí a kompulzí, deník a další nástroje. Vše zůstává jen ve vašem zařízení — nikam se neodesílá a nikdo jiný, včetně mě, to nevidí, pokud si to sami neexportujete a nepošlete.', 'Webová aplikace: soukromý deník, tracker obsesí a kompulzí a další pomůcky.', 'home');
 appPage('start', 'Vstupní dotazník', 'Zabere asi 10 minut. Nic se neodesílá a můžete kdykoli přestat. Odpovídejte jen to, co chcete.', 'Vstupní dotazník aplikace.', 'start');
 appPage('zebricek', 'Žebříček témat', '', 'Žebříček témat z dotazníku.', 'ladder');
 appPage('denik', 'Expoziční deník', '', 'Expoziční deník s časovačem a grafem.', 'diary');
 appPage('text', 'Expoziční text', '', 'Editor expozičního textu s kontrolou.', 'text');
 appPage('obsese', 'Tracker obsesí', 'Obsese jsou vtíravé myšlenky, představy nebo nutkání, na které kompulze navazují. Zapište jen krátce, kdy přišly a jak byly silné.', 'Denní záznam obsesí: téma a síla.', 'obsessions');
 appPage('kompulze', 'Tracker kompulzí', '', 'Rychlý záznam kompulzí.', 'compulsions');
-appPage('principy', 'Karty principů', '', 'Dvanáct principů metody a karta dne.', 'principles');
+appPage('principy', 'Karty principů', '', 'Karty principů a karta dne.', 'principles');
 appPage('nastaveni', 'Data a připomínky', '', 'Export, import, smazání dat a připomínky v kalendáři.', 'settings');
 appPage('vice', 'Další nástroje', '', 'Rozcestník nástrojů aplikace.', 'vice');
 appPage('kruh', 'Kruh OCD', '', 'Interaktivní kruh OCD a rozbor epizody.', 'kruh');
-appPage('icbt', 'Porozumění pochybnosti', 'Krátké lekce a cvičení pro pop cestu. Orientačně 4–8 týdnů, pak přechod k expozicím.', 'Modul I-CBT.', 'icbt');
+appPage('icbt', 'Porozumění pochybnosti', 'Krátké lekce a cvičení o tom, jak se pochybnost skládá.', 'Lekce o obsesivní pochybnosti.', 'icbt');
 appPage('telo', 'Tělo ve strachu', '', 'Psychoedukace o těle a úzkosti.', 'telo');
 appPage('pilire', 'Pilíře', 'Týdenní hodnocení sebepřijetí a sebedůvěry.', 'Týdenní hodnocení pilířů.', 'pilire');
 appPage('vize', 'Vize', '', 'Editor cílové vize.', 'vize');
 appPage('koreny', 'Kořeny', '', 'Osa životních milníků.', 'koreny');
-appPage('hudba', 'Hudba', '', 'Odkazy na playlisty před a po expozici.', 'hudba');
+appPage('hudba', 'Hudba', '', 'Odkazy na playlisty.', 'hudba');
 appPage('export', 'Export pro terapeuta', '', 'Přehled pro tisk nebo PDF.', 'export');
 
 for (const [f, c] of Object.entries(files)) {

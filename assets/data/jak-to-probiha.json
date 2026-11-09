@@ -3,17 +3,12 @@
     {
       "nazev": "Úvodní konzultace zdarma",
       "meta": "20 min, online",
-      "text": "Seznámíme se, řeknete mi, s čím přicházíte, a zjistíme, jestli vám tahle forma podpory sedí."
+      "text": "Seznámíme se a řekneme si, jestli vám tento druh podpory dává smysl. K ničemu nezavazuje."
     },
     {
-      "nazev": "Vstupní dotazník",
-      "meta": "",
-      "text": "Zmapujeme témata, kompulze a dopad na život. Z toho postavíme žebřík od nejslabšího tématu a vybereme cestu: Metal, Pop, nebo něco mezi."
-    },
-    {
-      "nazev": "Pravidelná sezení",
+      "nazev": "Další setkání",
       "meta": "50 min, online",
-      "text": "Videohovor přes Google Meet nebo WhatsApp. Kroky mezi sezeními, podpora a sledování pokroku. Vedle péče odborníka, ne místo ní."
+      "text": "Videohovor přes Google Meet nebo WhatsApp. Rozhovor s člověkem, který OCD zná z vlastní zkušenosti. Tempo i témata určujete vy."
     }
   ],
   "cenik": [
@@ -39,7 +34,7 @@
   "faq": [
     {
       "q": "Jaký je rozdíl mezi peer mentorem a terapeutem?",
-      "a": "Psycholog nebo psychoterapeut diagnostikuje a léčí. Peer mentor má s OCD vlastní zkušenost a provází vás vedle odborné péče: pomáhá s motivací, s kroky mezi sezeními a sdílí, co funguje. Nediagnostikuji, neléčím a neradím s léky."
+      "a": "Psycholog nebo psychoterapeut je odborník, který může poskytovat zdravotní péči. Peer mentor má s OCD vlastní zkušenost a je vám oporou vedle odborné péče: sdílí, co pomohlo jemu, a pomáhá vám zorientovat se, kde hledat odbornou péči. Neposkytuji psychoterapii, nestanovuji diagnózu a neradím s léky."
     },
     {
       "q": "Potřebuji diagnózu nebo terapeuta?",

@@ -46,7 +46,8 @@ test('obchodní podmínky: mlčenlivost, krize, 18+, IČO, telefon, účinnost 2
   assert.ok(nacti('obchodni-podminky/index.html').includes('/assets/vop/obchodni-podminky-2026-11-09.html'));
   assert.ok(existsSync(join(ROOT, 'assets/vop/obchodni-podminky-2026-11-09.html')));
   assert.ok(t.includes('jsou účinné od 23. 11. 2026') && t.includes('nabývá účinnosti dne 23. 11. 2026') && t.includes('Část B je účinná od 23. 11. 2026'));
-  assert.ok(!/DOPLNIT|Živnostenské oprávnění/.test(nacti('obchodni-podminky/index.html') + nacti('ochrana-osobnich-udaju/index.html') + nacti('jak-to-probiha/index.html')), 'žádné zástupné texty ani údaje o živnosti');
+  assert.ok(!/DOPLNIT/.test(nacti('obchodni-podminky/index.html') + nacti('ochrana-osobnich-udaju/index.html') + nacti('jak-to-probiha/index.html')), 'žádné zástupné texty');
+  assert.ok(plain('obchodni-podminky/index.html').split('Magistrát města České Budějovice').length - 1 === 2, 'živnostenský úřad v části A i B');
   assert.ok(!/účinná od 1\. 12\. 2026|naposledy upraveno 3\. 11\. 2026/.test(t), 'dvě různá data účinnosti');
 });
 
@@ -65,7 +66,7 @@ test('o mně: kotva #hranice v CS, EN i SK; datum „naposledy zkontrolován“ 
 
 test('zásady ochrany údajů: výslovný souhlas, cookies, doba uchování, Google Meet', () => {
   const p = plain('ochrana-osobnich-udaju/index.html');
-  assert.ok(p.includes('zpracovávám na základě vašeho výslovného souhlasu (čl. 9 odst. 2 písm. a) GDPR), který udělujete odesláním zprávy po přečtení tohoto upozornění. Souhlas můžete kdykoli odvolat.'));
+  assert.ok(p.includes('zpracovávám na základě vašeho výslovného souhlasu (čl. 9 odst. 2 písm. a) GDPR), který uděluji odesláním zprávy po přečtení tohoto upozornění. Souhlas můžete kdykoli odvolat.'));
   assert.ok(!p.includes('který dáváte najevo tím'));
   assert.ok(p.includes('Web používá cookies jen v nezbytném rozsahu. Cookies pro měření reklamy (Meta Pixel) zapínám jen s vaším souhlasem. Rezervační systém Reservanto může při otevření nastavit vlastní cookies podle svých podmínek.'));
   assert.ok(!p.includes('Web funguje bez cookies a bez jakéhokoli sledování'));

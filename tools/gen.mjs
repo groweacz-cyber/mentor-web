@@ -1965,7 +1965,7 @@ add('/ochrana-osobnich-udaju', {
   <p>${AUTHOR}, IČ ${ICO}, se sídlem ${ADDRESS}, e-mail <a href="mailto:${EMAIL}">${EMAIL}</a>. Pověřenec pro ochranu osobních údajů nebyl jmenován.</p>
 
   <h2>Co a jak zpracováváme</h2>
-  <p>Pokud mi v e-mailu, telefonicky nebo přes WhatsApp sami sdělíte podrobnosti o svém zdravotním stavu, zpracovávám je jen v rozsahu nutném k domluvení spolupráce. Zdravotní údaje, které mi dobrovolně sdělíte, zpracovávám na základě vašeho výslovného souhlasu (čl. 9 odst. 2 písm. a) GDPR), který udělujete odesláním zprávy po přečtení tohoto upozornění. Souhlas můžete kdykoli odvolat. Písemné poznámky o jednotlivých obtížích, nutkáních nebo kompulzích si nevedu.</p>
+  <p>Pokud mi v e-mailu, telefonicky nebo přes WhatsApp sami sdělíte podrobnosti o svém zdravotním stavu, zpracovávám je jen v rozsahu nutném k domluvení spolupráce. Zdravotní údaje, které mi dobrovolně sdělíte, zpracovávám na základě vašeho výslovného souhlasu (čl. 9 odst. 2 písm. a) GDPR), který uděluji odesláním zprávy po přečtení tohoto upozornění. Souhlas můžete kdykoli odvolat. Písemné poznámky o jednotlivých obtížích, nutkáních nebo kompulzích si nevedu.</p>
   <ol class="rules">
     <li><strong>Aplikace (/aplikace):</strong> vaše odpovědi se ukládají jen ve vašem zařízení, v úložišti prohlížeče (localStorage). Nikdy se neodesílají na žádný server ani nám. Smazat je můžete kdykoli v sekci <a href="/aplikace/nastaveni">Data a připomínky</a>. Právní základ: váš souhlas udělený při prvním spuštění aplikace.</li>
     <li><strong>E-mailová komunikace:</strong> pokud nám napíšete, zpracováváme váš e-mail a obsah zprávy jen za účelem odpovědi a vyřízení dotazu. Právní základ: jednání před uzavřením spolupráce nebo oprávněný zájem odpovědět na dotaz (čl. 6 odst. 1 písm. b, f GDPR). E-mail není šifrovaná zpráva.</li>
@@ -2033,7 +2033,7 @@ add('/obchodni-podminky', {
 
   <h3>1. Úvodní ustanovení a poskytovatel</h3>
   <p>Tyto obchodní podmínky upravují vzájemná práva a povinnosti mezi poskytovatelem a klientem vzniklé v souvislosti se službami peer mentoringu nabízenými na webu ${SITE}, nebo na jeho základě uzavřené.</p>
-  <p><strong>Poskytovatel:</strong> ${AUTHOR}, IČ ${ICO}, se sídlem ${ADDRESS}, e-mail <a href="mailto:${EMAIL}">${EMAIL}</a>, telefon +420 720 385 282, web ${SITE} (dále jen „poskytovatel“).</p>
+  <p><strong>Poskytovatel:</strong> ${AUTHOR}, IČ ${ICO}, se sídlem ${ADDRESS}, e-mail <a href="mailto:${EMAIL}">${EMAIL}</a>, telefon +420 720 385 282, web ${SITE} (dále jen „poskytovatel“). Živnostenské oprávnění: úřad příslušný podle § 71 odst. 2 živnostenského zákona je Magistrát města České Budějovice; obor činnosti mj. mimoškolní výchova a vzdělávání, pořádání kurzů, školení, včetně lektorské činnosti.</p>
   <p><strong>Klient:</strong> fyzická osoba, která si u poskytovatele objedná některou ze služeb popsaných níže (dále jen „klient“).</p>
   <p>Právní vztahy mezi poskytovatelem a klientem, které tyto podmínky výslovně neupravují, se řídí zejména zákonem č. 89/2012 Sb., občanský zákoník, a je-li klient spotřebitelem, také zákonem č. 634/1992 Sb., o ochraně spotřebitele.</p>
 
@@ -2135,7 +2135,7 @@ add('/obchodni-podminky', {
   <p class="small">Část B je účinná od 23. 11. 2026 a týká se jen programů popsaných na stránce <a href="/seminare">Online semináře</a>.</p>
 
   <h3>B1. Prodejce</h3>
-  <p>${AUTHOR}, IČ ${ICO}, se sídlem ${ADDRESS}, e-mail <a href="mailto:${EMAIL}">${EMAIL}</a>, telefon +420 720 385 282. Prodejce není plátcem DPH.</p>
+  <p>${AUTHOR}, IČ ${ICO}, se sídlem ${ADDRESS}, e-mail <a href="mailto:${EMAIL}">${EMAIL}</a>, telefon +420 720 385 282. Prodejce není plátcem DPH. Živnostenské oprávnění: úřad příslušný podle § 71 odst. 2 živnostenského zákona je Magistrát města České Budějovice; obor činnosti mj. mimoškolní výchova a vzdělávání, pořádání kurzů, školení, včetně lektorské činnosti.</p>
 
   <h3>B2. Předmět</h3>
   <p>Prodejce nabízí dva programy, vždy jen jeden klient:</p>

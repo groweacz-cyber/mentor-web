@@ -134,7 +134,7 @@ const ENV = {
 const TED = new Date('2026-11-05T10:15:00Z');
 const zadost = (nahrada = {}) => ({
   program: 'pro-lidi-s-ocd', jmeno: 'Jana', prijmeni: 'Testová', email: 'jana@example.test', email2: 'jana@example.test', telefon: '+421 900 123 456',
-  beh: 'beh-1', souhlasZpracovani: true, souhlasPovaha: true, souhlasPodminky: true, web: '', doba: 15000, ...nahrada,
+  beh: 'beh-1', souhlasZpracovani: true, souhlasPovaha: true, souhlasPodminky: true, souhlasZahajeni: true, web: '', doba: 15000, ...nahrada,
 });
 function zavolej(telo) {
   const odeslane = [];

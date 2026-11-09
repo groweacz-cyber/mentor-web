@@ -652,18 +652,21 @@ ${crumbsHtml}${b}
 ${app ? sosHtml : ''}
 ${floatHtml}<dialog id="rsv-modal" aria-labelledby="rsv-modal-h" aria-modal="true">
   <div class="rsv-inner">
-    <h2 id="rsv-modal-h">Zahájení služby a právo na odstoupení od smlouvy</h2>
+    <h2 id="rsv-modal-h">Než budete pokračovat k rezervaci</h2>
     <div class="rsv-text">
-      <p>Jako spotřebitel máte za zákonem stanovených podmínek právo odstoupit od smlouvy uzavřené na dálku ve lhůtě 14 dnů od jejího uzavření.</p>
-      <p>Pokud požadujete poskytnutí služby před uplynutím této lhůty, je nutné udělit výslovný požadavek na její zahájení. Pokud následně od smlouvy odstoupíte poté, co bylo poskytování služby na vaši žádost zahájeno, můžete být povinni uhradit poměrnou část ceny za plnění poskytnuté do okamžiku odstoupení, jsou-li splněny zákonné podmínky.</p>
-      <p>Pokud bude služba v plném rozsahu poskytnuta před uplynutím lhůty pro odstoupení, můžete za zákonem stanovených podmínek ztratit právo na odstoupení od smlouvy. K tomu je zapotřebí váš předchozí výslovný souhlas s úplným poskytnutím služby a potvrzení, že berete na vědomí zánik práva na odstoupení.</p>
+      <p>Jako spotřebitel můžete do 14 dnů od uzavření smlouvy od ní odstoupit bez udání důvodu. Pokud chcete, aby sezení proběhlo dříve, musíte o to výslovně požádat. Plné znění najdete v <a href="/obchodni-podminky#odstoupeni" target="_blank" rel="noopener">obchodních podmínkách</a>.</p>
     </div>
     <label class="rsv-check">
-      <input type="checkbox" id="rsv-consent">
-      <span>Výslovně žádám, aby poskytovatel zahájil poskytování mnou rezervované služby před uplynutím 14denní lhůty pro odstoupení od smlouvy, pokud se rezervovaný termín uskuteční v této lhůtě. Souhlasím s tím, aby byla služba na mou žádost v takovém případě poskytnuta v plném rozsahu před uplynutím této lhůty, a beru na vědomí, že po jejím úplném poskytnutí mohu za zákonem stanovených podmínek ztratit právo na odstoupení od smlouvy. Dále beru na vědomí, že při odstoupení od smlouvy po zahájení poskytování služby mohu být povinen/povinna uhradit poměrnou část ceny za již poskytnuté plnění, pokud jsou splněny zákonné podmínky.</span>
+      <input type="checkbox" id="rsv-consent-vop">
+      <span>Seznámil/a jsem se s <a href="/obchodni-podminky" target="_blank" rel="noopener">obchodními podmínkami</a> a <a href="/ochrana-osobnich-udaju" target="_blank" rel="noopener">zásadami ochrany osobních údajů</a>.</span>
     </label>
+    <label class="rsv-check">
+      <input type="checkbox" id="rsv-consent-start">
+      <span>Výslovně žádám, aby poskytovatel zahájil poskytování mnou rezervované služby před uplynutím 14denní lhůty pro odstoupení od smlouvy. Beru na vědomí, že pokud od smlouvy odstoupím, uhradím poměrnou část ceny za již poskytnuté plnění, a že po úplném poskytnutí služby právo na odstoupení zaniká.</span>
+    </label>
+    <p class="rsv-hint" id="rsv-hint">Obě políčka jsou samostatná a nejsou předzaškrtnutá. Tlačítko se zpřístupní, až zaškrtnete obě.</p>
     <div class="rsv-actions">
-      <button type="button" id="rsv-confirm" class="btn btn-cta" disabled>Souhlasím a pokračovat k rezervaci</button>
+      <button type="button" id="rsv-confirm" class="btn btn-cta" aria-describedby="rsv-hint" disabled>Pokračovat k rezervaci</button>
       <button type="button" id="rsv-cancel" class="btn btn-ghost">Zpět</button>
     </div>
   </div>
@@ -910,7 +913,6 @@ add('/pro-koho', {
 
 <section class="wrap block">
   <p><a class="btn" href="/kontakt">Kontakt a rezervace</a></p>
-  <p class="small">Obsah naposledy zkontrolován: 1. 12. 2026</p>
 </section>
 `,
 });
@@ -1228,11 +1230,10 @@ add('/o-mne', {
   <p>Co dělám a co ne. Tyto hranice platí vždy.</p>
   <ul class="rules">
     <li>Neslibuji vyléčení ani konkrétní výsledek.</li>
-    <li>Nejsem terapeut, nestanovuji diagnózu a nevedu psychoterapii.</li>
+    <li>Nejsem terapeut, nestanovuji diagnózu, nevedu psychoterapii a neposkytuji zdravotní služby.</li>
     <li>Nepředepisuji ani neřeším léky. Nikdy vás nepovedu k jejich vysazení ani k ukončení péče u lékaře nebo terapeuta.</li>
-    <li>Nevedu psychoterapii, neposkytuji zdravotní služby, nestanovuji diagnózu a neradím s léky ani s ukončením odborné péče.</li>
     <li>Tempo určujete vy.</li>
-    <li>Neposkytuji ujištění, že se vaše obava nesplní. Patří ke smyčce, kterou chceme přerušit.</li>
+    <li>Neposkytuji ujištění, že se vaše obava nesplní.</li>
     <li>Nic z naší spolupráce nezveřejňuji a nežádám recenze ani doporučení výměnou za schůzky.</li>
     <li>Cena a rozsah spolupráce jsou předem jasné.</li>
     <li>V akutní krizi nebo při zhoršení vás odkážu na odbornou pomoc.</li>
@@ -1984,6 +1985,12 @@ add('/ochrana-osobnich-udaju', {
   <p>Pokud souhlas udělíte, načte se Meta Pixel společnosti Meta Platforms Ireland Limited (Facebook). Nastaví cookies (_fbp, případně _fbc) a Metě předá, že jste navštívili konkrétní stránku webu, spolu s technickými údaji prohlížeče a IP adresou. Používáme jej k vyhodnocení, kolik lidí přichází z naší reklamy, a k lepšímu zacílení reklamy. Za zpracování údajů v rámci Meta Pixelu odpovídáme společně s Metou; Meta údaje zpracovává i pro vlastní účely podle svých zásad a údaje mohou být předávány mimo Evropský hospodářský prostor na základě standardních smluvních doložek. Právním základem je váš souhlas (čl. 6 odst. 1 písm. a GDPR).</p>
   <p>Souhlas je dobrovolný, jeho odmítnutí nemá na používání webu žádný vliv. Můžete jej kdykoli odvolat nebo znovu udělit přes odkaz „Nastavení cookies“ v patičce každé stránky; odvolání nemá vliv na zákonnost zpracování před odvoláním. Platnost vaší volby je 12 měsíců, poté se zeptáme znovu. Volba se ukládá jen ve vašem prohlížeči. Cookies Meta můžete smazat také v nastavení prohlížeče.</p>
 
+  <h2 id="zdravotni-udaje">Zdravotní údaje v rezervaci a komunikaci</h2>
+  <p>Informace o zdravotním stavu jsou zvláštní kategorie osobních údajů (čl. 9 GDPR). Zpracováváme je jen tehdy, když nám je sami sdělíte (na sezení, v e-mailu nebo při rezervaci), a to na základě vašeho výslovného souhlasu (čl. 9 odst. 2 písm. a) GDPR). Souhlas můžete kdykoli odvolat e-mailem na <a href="mailto:${EMAIL}">${EMAIL}</a>.</p>
+  <p>Doba uchování: <span class="placeholder">[DOPLNIT: doba uchování údajů o klientech, např. 1 rok po skončení spolupráce]</span>.</p>
+  <p>Příjemci: rezervační systém Reservanto s.r.o., Google (videohovory Google Meet) a WhatsApp Ireland Limited (Meta), pokud spolu komunikujeme přes WhatsApp. Technické zpracování zajišťují Vercel Inc. a Resend, Inc.</p>
+  <p><strong>Upozornění:</strong> WhatsApp ani e-mail nejsou vhodné pro přenos citlivých údajů o zdraví. Uvádějte v nich jen to, co jste ochotni sdílet, a podrobnosti si nechte na sezení.</p>
+
   <h2>Zdroj osobních údajů</h2>
   <p>Veškeré osobní údaje získáváme přímo od vás: z vaší e-mailové zprávy, z údajů, které zadáte při rezervaci konzultace přes Reservanto, nebo z údajů, které zadáte do rezervačního formuláře semináře.</p>
 
@@ -2021,14 +2028,14 @@ add('/obchodni-podminky', {
   ogTitle: 'Obchodní podmínky',
   body: `
 <section class="wrap page-head"><h1>Obchodní podmínky</h1>
-<p class="lead">Podmínky služeb, které poskytuje ${AUTHOR} pod značkou ${BRAND}. <a href="#cast-a">Část A</a> (individuální mentoring, rezervace přes Reservanto) je účinná od 1. 12. 2026, <a href="#cast-b">Část B</a> (Online semináře) od 1. 11. 2026.</p></section>
+<p class="lead">Podmínky služeb, které poskytuje ${AUTHOR} pod značkou ${BRAND}. <a href="#cast-a">Část A</a> (individuální mentoring, rezervace přes Reservanto) i <a href="#cast-b">Část B</a> (Online semináře) jsou účinné od <span class="placeholder">[DOPLNIT: datum účinnosti]</span>. Starší znění je <a href="#historie">ke stažení níže</a>.</p></section>
 <section class="wrap block prose">
   <h2 id="cast-a">Část A: Individuální mentoring a konzultace (rezervace přes Reservanto)</h2>
   <p class="small">Část A se týká úvodní konzultace, individuálního mentoringu a balíčku sezení. Pro Online semináře platí Část B níže.</p>
 
   <h3>1. Úvodní ustanovení a poskytovatel</h3>
   <p>Tyto obchodní podmínky upravují vzájemná práva a povinnosti mezi poskytovatelem a klientem vzniklé v souvislosti se službami peer mentoringu nabízenými na webu ${SITE}, nebo na jeho základě uzavřené.</p>
-  <p><strong>Poskytovatel:</strong> ${AUTHOR}, IČ ${ICO}, se sídlem ${ADDRESS}, e-mail <a href="mailto:${EMAIL}">${EMAIL}</a>, web ${SITE} (dále jen „poskytovatel“).</p>
+  <p><strong>Poskytovatel:</strong> ${AUTHOR}, IČ ${ICO}, se sídlem ${ADDRESS}, e-mail <a href="mailto:${EMAIL}">${EMAIL}</a>, telefon <span class="placeholder">[DOPLNIT: telefon]</span>, web ${SITE} (dále jen „poskytovatel“). Živnostenské oprávnění: <span class="placeholder">[DOPLNIT: předmět podnikání]</span>, vydal <span class="placeholder">[DOPLNIT: živnostenský úřad]</span>, číslo <span class="placeholder">[DOPLNIT: číslo živnostenského oprávnění]</span>.</p>
   <p><strong>Klient:</strong> fyzická osoba, která si u poskytovatele objedná některou ze služeb popsaných níže (dále jen „klient“).</p>
   <p>Právní vztahy mezi poskytovatelem a klientem, které tyto podmínky výslovně neupravují, se řídí zejména zákonem č. 89/2012 Sb., občanský zákoník, a je-li klient spotřebitelem, také zákonem č. 634/1992 Sb., o ochraně spotřebitele.</p>
 
@@ -2038,6 +2045,8 @@ add('/obchodni-podminky', {
     <li>Peer mentoring není psychoterapie ani zdravotní služba.</li>
     <li>Nenahrazuje odbornou diagnostiku, léčbu ani krizovou intervenci.</li>
     <li>Poskytovatel neslibuje a nezaručuje vyléčení OCD ani konkrétní výsledek spolupráce.</li>
+    <li>Poskytovatel neposkytuje psychoterapii ani zdravotní služby, nestanovuje diagnózu a neradí s léky ani s ukončením odborné péče.</li>
+    <li>Služba je určena osobám starším 18 let.</li>
     <li>Pokud klient prožívá akutní krizi nebo má myšlenky na sebepoškození, má se obrátit na tísňovou linku 112, zdravotnickou záchrannou službu 155 nebo Linku první psychické pomoci 116 123, ne na poskytovatele.</li>
   </ul>
 
@@ -2061,9 +2070,8 @@ add('/obchodni-podminky', {
 
   <h3>5. Storno podmínky</h3>
   <ul class="rules">
-    <li>Zrušení termínu alespoň 24 hodin před jeho začátkem je bezplatné.</li>
+    <li>Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši <span class="placeholder">[DOPLNIT: např. 50 % ceny sezení]</span>. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy.</li>
     <li>Změna termínu závisí na dostupnosti poskytovatele a vzájemné dohodě.</li>
-    <li>Pokud klient zruší placené sezení méně než 24 hodin před jeho začátkem, nebo se k němu bez omluvy nedostaví, může si poskytovatel ponechat uhrazenou cenu jako kompenzaci za rezervovaný čas. Tím není dotčeno právo klienta na odstoupení od smlouvy podle bodu 6, pokud se na danou situaci vztahuje.</li>
     <li>Zrušení i změnu termínu klient řeší přímo v Reservantu nebo e-mailem na <a href="mailto:${EMAIL}">${EMAIL}</a>.</li>
   </ul>
 
@@ -2094,36 +2102,42 @@ add('/obchodni-podminky', {
   </div>
   <!-- Interní poznámka (nezobrazuje se na webu): výslovná žádost o zahájení služby před
        uplynutím lhůty pro odstoupení (§1834 obč. zák.) a poučení o zániku práva na odstoupení po
-       plném poskytnutí služby (§1837 písm. a) obč. zák.) řeší modál souhlasu (#rsv-modal), který
-       se musí odkliknout před každým otevřením rezervace v Reservantu. Nespoléhá se tedy na to,
+       plném poskytnutí služby (§1837 písm. a) obč. zák.) řeší modál souhlasu (#rsv-modal) se dvěma samostatnými nepředzaškrtnutými políčky, který
+       se musí potvrdit před každým otevřením rezervace v Reservantu. Nespoléhá se tedy na to,
        zda totéž zajišťuje i samotný Reservanto. -->
 
   <h3>7. Práva a povinnosti stran</h3>
   <ul class="rules">
-    <li>Poskytovatel se zavazuje poskytnout objednanou službu s odbornou péčí odpovídající roli peer mentora, v mezích popsaných na stránce <a href="/o-mne#hranice">Moje hranice</a>.</li>
+    <li>Poskytovatel se zavazuje poskytnout objednanou službu s odbornou péčí odpovídající roli peer mentora, v mezích uvedených v bodě 2 těchto podmínek.</li>
     <li>Klient se zavazuje uvádět při rezervaci pravdivé a aktuální kontaktní údaje a dostavit se na sjednané sezení.</li>
     <li>Pokud klientovy obtíže přesahují rámec peer mentoringu (viz <a href="/pro-koho">Pro koho</a>), poskytovatel ho odkáže na odbornou pomoc.</li>
   </ul>
 
-  <h3>8. Reklamace a stížnosti</h3>
+  <h3>8. Mlčenlivost</h3>
+  <p>Poskytovatel zachovává mlčenlivost o všem, co se klient během spolupráce svěří. Výjimkou jsou případy, kdy mu zákon ukládá oznámení nebo kdy hrozí bezprostřední nebezpečí pro život nebo zdraví klienta či jiné osoby. V takovém případě je poskytovatel oprávněn kontaktovat tísňové služby.</p>
+
+  <h3>9. Krize během sezení</h3>
+  <p>Pokud klient během sezení uvede akutní krizi nebo myšlenky na sebepoškození, může poskytovatel sezení přerušit nebo ukončit a odkázat klienta na tísňovou linku 112, záchrannou službu 155 nebo Linku první psychické pomoci 116 123. Poskytovatel není krizovou službou ani nemůže zaručit okamžitou reakci.</p>
+
+  <h3>10. Reklamace a stížnosti</h3>
   <p>Pokud nejste se službou spokojeni, napište na <a href="mailto:${EMAIL}">${EMAIL}</a>. Stížnost vyřídíme bez zbytečného odkladu.</p>
   <p>Je-li klient spotřebitelem, může se v případě sporu obrátit také na Českou obchodní inspekci (coi.cz) jako subjekt mimosoudního řešení spotřebitelských sporů.</p>
 
-  <h3>9. Ochrana osobních údajů</h3>
-  <p>Zpracování osobních údajů v souvislosti s těmito službami popisují samostatné <a href="/ochrana-osobnich-udaju">zásady ochrany osobních údajů</a>.</p>
+  <h3>11. Ochrana osobních údajů</h3>
+  <p>Zpracování osobních údajů v souvislosti s těmito službami popisují samostatné <a href="/ochrana-osobnich-udaju">zásady ochrany osobních údajů</a>. Údaje o zdravotním stavu se zpracovávají jen na základě výslovného souhlasu klienta. E-mail ani WhatsApp nejsou vhodné pro přenos citlivých údajů, proto v nich uvádějte jen to, co jste ochotni sdílet.</p>
 
-  <h3>10. Závěrečná ustanovení</h3>
+  <h3>12. Závěrečná ustanovení</h3>
   <ul class="rules">
-    <li>Část A těchto obchodních podmínek nabývá účinnosti 1. 12. 2026.</li>
+    <li>Část A těchto obchodních podmínek nabývá účinnosti dne <span class="placeholder">[DOPLNIT: datum účinnosti]</span>.</li>
     <li>Poskytovatel může tyto podmínky v přiměřeném rozsahu měnit; aktuální znění je vždy dostupné na této stránce.</li>
     <li>Pokud by se některé ustanovení těchto podmínek ukázalo neplatným nebo neúčinným, nemá to vliv na platnost ostatních ustanovení.</li>
   </ul>
 
   <h2 id="cast-b">Část B: Online semináře (individuální programy)</h2>
-  <p class="small">Část B je platná od 1. 11. 2026, naposledy upraveno 3. 11. 2026, a týká se jen programů popsaných na stránce <a href="/seminare">Online semináře</a>.</p>
+  <p class="small">Část B je účinná od <span class="placeholder">[DOPLNIT: datum účinnosti]</span> a týká se jen programů popsaných na stránce <a href="/seminare">Online semináře</a>.</p>
 
   <h3>B1. Prodejce</h3>
-  <p>${AUTHOR}, IČ ${ICO}, se sídlem ${ADDRESS}, e-mail <a href="mailto:${EMAIL}">${EMAIL}</a>. Prodejce není plátcem DPH.</p>
+  <p>${AUTHOR}, IČ ${ICO}, se sídlem ${ADDRESS}, e-mail <a href="mailto:${EMAIL}">${EMAIL}</a>, telefon <span class="placeholder">[DOPLNIT: telefon]</span>. Prodejce není plátcem DPH. Živnostenské oprávnění: <span class="placeholder">[DOPLNIT: předmět podnikání]</span>, vydal <span class="placeholder">[DOPLNIT: živnostenský úřad]</span>, číslo <span class="placeholder">[DOPLNIT: číslo živnostenského oprávnění]</span>.</p>
 
   <h3>B2. Předmět</h3>
   <p>Prodejce nabízí dva programy, vždy jen jeden klient:</p>
@@ -2136,16 +2150,17 @@ add('/obchodni-podminky', {
   <h3>B3. Povaha služby</h3>
   <p><strong>Program (a), pro lidi s OCD:</strong> ${POVAHA_SEMINARE}</p>
   <p><strong>Program (b), pro blízké:</strong> ${POVAHA_BLIZKE}</p>
+  <p>Služba je určena osobám starším 18 let. Na semináře se obdobně vztahují ustanovení bodů 2 (hranice služby), 8 (mlčenlivost) a 9 (krize během sezení) Části A.</p>
 
   <h3>B4. Objednávka a platba</h3>
-  <p>Smlouva vzniká odesláním rezervace. Cena se hradí bankovním převodem s uvedeným variabilním symbolem do 3 dnů od rezervace. Po marném uplynutí lhůty rezervace zaniká. Po připsání platby zašle prodejce odkaz na videohovor, nejpozději 24 hodin před prvním setkáním.</p>
+  <p>Smlouva vzniká okamžikem potvrzení rezervace v Reservantu. Cena se hradí bankovním převodem s uvedeným variabilním symbolem do 3 dnů od rezervace. Po marném uplynutí lhůty rezervace zaniká. Po připsání platby zašle prodejce odkaz na videohovor, nejpozději 24 hodin před prvním setkáním.</p>
 
   <h3>B5. Průběh</h3>
   <p>Videohovor přes Google Meet nebo WhatsApp, setkání se nenahrávají. Po připsání platby se poskytovatel účastníkovi ozve e-mailem a domluví spojení. Účastník zajistí klidné prostředí a funkční připojení. Setkání se nekonají 24. a 31. prosince, program se o tyto týdny posune.</p>
   <p>U programu tří setkání se na setkání může připojit jeden další člověk z domácnosti účastníka bez příplatku. Jeho osobní údaje prodejce nezpracovává. Účastník zajistí, že se připojí s jeho vědomím. Účastníci nesdílejí identifikující údaje o třetích osobách (jména, diagnózy, podrobnosti).</p>
 
   <h3>B6. Přesun</h3>
-  <p>Setkání lze přesunout zdarma nejpozději 24 hodin předem po domluvě e-mailem, u programu pěti setkání nejvýše dvakrát, u programu tří setkání nejvýše jednou. Neomluvená neúčast nebo přesun později než 24 hodin předem se počítá jako uskutečněné setkání.</p>
+  <p>Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši <span class="placeholder">[DOPLNIT: např. 50 % ceny sezení]</span>. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy. Setkání lze přesunout po domluvě e-mailem, u programu pěti setkání nejvýše dvakrát, u programu tří setkání nejvýše jednou.</p>
 
   <h3>B7. Zrušení prodejcem</h3>
   <p>Pokud prodejce setkání nemůže uskutečnit (např. nemoc), nabídne náhradní termín. Pokud ho účastník nepřijme nebo program nelze dokončit, vrátí poměrnou část ceny za neuskutečněná setkání do 14 dnů.</p>
@@ -2164,6 +2179,12 @@ add('/obchodni-podminky', {
 
   <h3>B12. Závěrečná ustanovení</h3>
   <p>Vztahy se řídí právem České republiky.</p>
+
+  <h2 id="historie">Historie verzí</h2>
+  <p>Starší znění obchodních podmínek je k dispozici ke stažení:</p>
+  <ul class="rules">
+    <li><a href="/assets/vop/obchodni-podminky-2026-11-09.html" download>Znění zveřejněné do 9. 11. 2026</a> (Část A s účinností od 1. 12. 2026, Část B od 1. 11. 2026).</li>
+  </ul>
 
   <p class="callout-inline disclaimer">${NOTICE}</p>
 </section>

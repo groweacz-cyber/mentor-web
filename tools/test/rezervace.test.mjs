@@ -27,7 +27,7 @@ const dobraZadost = (nahrada = {}) => ({
   beh: 'beh-1',
   souhlasZpracovani: true,
   souhlasPovaha: true,
-  souhlasPodminky: true,
+  souhlasPodminky: true, souhlasZahajeni: true,
   web: '',
   doba: 15000,
   ...nahrada,

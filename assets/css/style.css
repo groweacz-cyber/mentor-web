@@ -479,7 +479,8 @@ html.motion-off .reveal { opacity: 1 !important; transform: none !important; }
 #rsv-modal::backdrop { background: rgba(27, 42, 65, .55); backdrop-filter: blur(3px); }
 .rsv-inner { padding: 2rem 2rem 1.75rem; }
 #rsv-modal h2 { margin: 0 0 1.25rem; font-size: 1.15rem; line-height: 1.3; }
-.rsv-text { font-style: italic; color: var(--ink-soft); margin-bottom: 1.4rem; }
+.rsv-text { color: var(--ink-soft); margin-bottom: 1.1rem; }
+.rsv-hint { font-size: .85rem; color: var(--ink-soft); margin: .2rem 0 1rem; }
 .rsv-text p { margin: 0 0 .85rem; }
 .rsv-text p:last-child { margin-bottom: 0; }
 .rsv-check {

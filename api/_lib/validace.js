@@ -50,7 +50,7 @@ export function validujRezervaci(vstup, programy) {
   if (!chyby.program && !zvolenyProgram) chyby.program = 'neznamy-program';
   if (!chyby.beh && zvolenyProgram && !zvolenyProgram.behy.includes(beh)) chyby.beh = 'neznamy-beh';
 
-  for (const pole of ['souhlasZpracovani', 'souhlasPovaha', 'souhlasPodminky']) {
+  for (const pole of ['souhlasZpracovani', 'souhlasPovaha', 'souhlasPodminky', 'souhlasZahajeni']) {
     if (vstup[pole] !== true) chyby[pole] = 'povinne';
   }
 

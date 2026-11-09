@@ -33,7 +33,7 @@
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/nunito-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/style.css?v=30a93447">
+<link rel="stylesheet" href="/assets/css/style.css?v=3dae6fb7">
 
 <script type="application/ld+json">
 {
@@ -258,17 +258,19 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
 
 <dialog id="rsv-modal" aria-labelledby="rsv-modal-h" aria-modal="true">
   <div class="rsv-inner">
-    <h2 id="rsv-modal-h">Začatie služby a právo na odstúpenie od zmluvy</h2>
+    <h2 id="rsv-modal-h">Skôr než budete pokračovať k rezervácii</h2>
     <div class="rsv-text">
-      <p>Ako spotrebiteľ máte za zákonom ustanovených podmienok právo odstúpiť od zmluvy uzavretej na diaľku v lehote 14 dní od jej uzavretia.</p>
-      <p>Ak požadujete poskytnutie služby pred uplynutím tejto lehoty, je nutné udeliť výslovnú požiadavku na jej začatie. Ak následne od zmluvy odstúpite potom, čo bolo poskytovanie služby na vašu žiadosť začaté, môžete byť povinní uhradiť pomernú časť ceny za plnenie poskytnuté do okamihu odstúpenia, ak sú splnené zákonné podmienky.</p>
-      <p>Ak bude služba v plnom rozsahu poskytnutá pred uplynutím lehoty na odstúpenie, môžete za zákonom ustanovených podmienok stratiť právo na odstúpenie od zmluvy. Na to je potrebný váš predchádzajúci výslovný súhlas s úplným poskytnutím služby a potvrdenie, že beriete na vedomie zánik práva na odstúpenie.</p>
+      <p>Ako spotrebiteľ môžete do 14 dní od uzavretia zmluvy od nej odstúpiť bez udania dôvodu. Ak chcete, aby stretnutie prebehlo skôr, musíte o to výslovne požiadať. Úplné znenie nájdete v <a href="/sk/obchodne-podmienky#odstoupeni" target="_blank" rel="noopener">obchodných podmienkach</a>.</p>
     </div>
     <label class="rsv-check">
-      <input type="checkbox" id="rsv-consent"> <span>Výslovne žiadam, aby poskytovateľ začal poskytovať mnou rezervovanú službu pred uplynutím 14-dňovej lehoty na odstúpenie od zmluvy, ak sa rezervovaný termín uskutoční v tejto lehote. Súhlasím s tým, aby bola služba na moju žiadosť v takom prípade poskytnutá v plnom rozsahu pred uplynutím tejto lehoty, a beriem na vedomie, že po jej úplnom poskytnutí môžem za zákonom ustanovených podmienok stratiť právo na odstúpenie od zmluvy. Ďalej beriem na vedomie, že pri odstúpení od zmluvy po začatí poskytovania služby môžem byť povinný/povinná uhradiť pomernú časť ceny za už poskytnuté plnenie, ak sú splnené zákonné podmienky.</span>
+      <input type="checkbox" id="rsv-consent-vop"> <span>Oboznámil/a som sa s <a href="/sk/obchodne-podmienky" target="_blank" rel="noopener">obchodnými podmienkami</a> a <a href="/sk/ochrana-osobnych-udajov" target="_blank" rel="noopener">zásadami ochrany osobných údajov</a>.</span>
     </label>
+    <label class="rsv-check">
+      <input type="checkbox" id="rsv-consent-start"> <span>Výslovne žiadam, aby poskytovateľ začal poskytovať mnou rezervovanú službu pred uplynutím 14-dňovej lehoty na odstúpenie od zmluvy. Beriem na vedomie, že ak od zmluvy odstúpim, uhradím pomernú časť ceny za už poskytnuté plnenie, a že po úplnom poskytnutí služby právo na odstúpenie zaniká.</span>
+    </label>
+    <p class="rsv-hint" id="rsv-hint">Obe políčka sú samostatné a nie sú predzaškrtnuté. Tlačidlo sa sprístupní, až keď zaškrtnete obe.</p>
     <div class="rsv-actions">
-      <button type="button" id="rsv-confirm" class="btn btn-cta" disabled>Súhlasím a pokračovať k rezervácii</button>
+      <button type="button" id="rsv-confirm" class="btn btn-cta" aria-describedby="rsv-hint" disabled>Pokračovať k rezervácii</button>
       <button type="button" id="rsv-cancel" class="btn btn-ghost">Späť</button>
     </div>
   </div>
@@ -283,7 +285,7 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
     </div>
   </div>
 </section>
-<script defer src="/assets/js/rezervace-souhlas.js?v=0bf556f1"></script>
+<script defer src="/assets/js/rezervace-souhlas.js?v=0a8e3c38"></script>
 <script src="/assets/js/cookie.js?v=2a7bdbe0" defer></script>
 
 

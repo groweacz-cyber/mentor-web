@@ -4,23 +4,27 @@
   var modal   = document.getElementById('rsv-modal');
   if (!modal) return;
 
-  var consent = document.getElementById('rsv-consent');
+  var consentVop = document.getElementById('rsv-consent-vop');
+  var consentStart = document.getElementById('rsv-consent-start');
   var confirm = document.getElementById('rsv-confirm');
   var cancel  = document.getElementById('rsv-cancel');
   var pending = null;
 
   function resetModal() {
-    consent.checked  = false;
+    consentVop.checked   = false;
+    consentStart.checked = false;
     confirm.disabled = true;
     pending = null;
   }
 
-  consent.addEventListener('change', function () {
-    confirm.disabled = !consent.checked;
-  });
+  function refresh() {
+    confirm.disabled = !(consentVop.checked && consentStart.checked);
+  }
+  consentVop.addEventListener('change', refresh);
+  consentStart.addEventListener('change', refresh);
 
   confirm.addEventListener('click', function () {
-    if (!consent.checked) return;
+    if (!(consentVop.checked && consentStart.checked)) return;
     var btn = pending;
     resetModal();
     modal.close();
@@ -45,7 +49,7 @@
     if (!btn) return;
     e.stopImmediatePropagation();
     e.preventDefault();
-    resetModal();   // reset state first (clears pending, unchecks, disables)
+    resetModal();   // reset state first (clears pending, unchecks both boxes, disables)
     pending = btn;  // then store reference — after reset so it isn't cleared
     modal.showModal();
   }, true);

@@ -18,15 +18,16 @@
     email2: { povinne: 'Zadejte e-mail ještě jednou.', 'neshoduji-se': 'E-maily se neshodují.', 'neplatne-znaky': 'E-mail obsahuje nepovolené znaky.' },
     souhlasZpracovani: { povinne: 'Bez souhlasu se zpracováním jména, e-mailu a telefonu rezervaci nelze odeslat.' },
     souhlasPovaha: { povinne: 'Potvrďte, že rozumíte povaze semináře.' },
-    souhlasPodminky: { povinne: 'Pro rezervaci je nutný souhlas s obchodními podmínkami.' }
+    souhlasPodminky: { povinne: 'Pro rezervaci potvrďte, že jste se seznámil/a s obchodními podmínkami a zásadami ochrany osobních údajů.' },
+    souhlasZahajeni: { povinne: 'Bez výslovné žádosti o zahájení služby před uplynutím lhůty pro odstoupení rezervaci nelze odeslat.' }
   };
   // Pole, jejichž prvky mají v každém programu vlastní id (přípona = id programu).
-  var PO_PROGRAMECH = { beh: 1, souhlasZpracovani: 1, souhlasPovaha: 1, souhlasPodminky: 1 };
+  var PO_PROGRAMECH = { beh: 1, souhlasZpracovani: 1, souhlasPovaha: 1, souhlasPodminky: 1, souhlasZahajeni: 1 };
   var POLE_ID = {
     program: 'program-', jmeno: 'rez-jmeno', prijmeni: 'rez-prijmeni', email: 'rez-email', email2: 'rez-email2', telefon: 'rez-telefon',
-    souhlasZpracovani: 'rez-souhlas-zpracovani-', souhlasPovaha: 'rez-souhlas-povaha-', souhlasPodminky: 'rez-souhlas-podminky-'
+    souhlasZpracovani: 'rez-souhlas-zpracovani-', souhlasPovaha: 'rez-souhlas-povaha-', souhlasPodminky: 'rez-souhlas-podminky-', souhlasZahajeni: 'rez-souhlas-zahajeni-'
   };
-  var PORADI = ['program', 'beh', 'jmeno', 'prijmeni', 'email', 'email2', 'telefon', 'souhlasZpracovani', 'souhlasPovaha', 'souhlasPodminky'];
+  var PORADI = ['program', 'beh', 'jmeno', 'prijmeni', 'email', 'email2', 'telefon', 'souhlasZpracovani', 'souhlasPovaha', 'souhlasPodminky', 'souhlasZahajeni'];
   var EMAIL_RE = /^[A-Za-z0-9.!#$%&'*+\/=?^_`{|}~-]{1,64}@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*\.[A-Za-z]{2,}$/;
   var TELEFON_ZNAKY = /^[0-9 +()\-.\/]{1,30}$/;
   function telefonPlatny(v) {
@@ -139,6 +140,7 @@
       if (!d.souhlasZpracovani) c.souhlasZpracovani = 'povinne';
       if (!d.souhlasPovaha) c.souhlasPovaha = 'povinne';
       if (!d.souhlasPodminky) c.souhlasPodminky = 'povinne';
+      if (!d.souhlasZahajeni) c.souhlasZahajeni = 'povinne';
     }
     return c;
   }
@@ -212,6 +214,7 @@
       souhlasZpracovani: zaskrtnuto('souhlasZpracovani', program),
       souhlasPovaha: zaskrtnuto('souhlasPovaha', program),
       souhlasPodminky: zaskrtnuto('souhlasPodminky', program),
+      souhlasZahajeni: zaskrtnuto('souhlasZahajeni', program),
       web: form.elements.web ? form.elements.web.value : '',
       jazyk: document.documentElement.lang === 'en' ? 'en' : document.documentElement.lang === 'sk' ? 'sk' : 'cs',
       doba: doba()

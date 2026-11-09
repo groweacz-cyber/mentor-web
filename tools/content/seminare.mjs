@@ -252,7 +252,7 @@ export function spolecneFaq(p, data, jaz = 'cs') {
         a: 'Google Meet or WhatsApp. On a computer Google Meet works in the browser; on a phone or tablet you need the app. You will find store links and QR codes on this page.',
         html: 'Google Meet or WhatsApp. On a computer Google Meet works in the browser; on a phone or tablet you need the app. You will find store links and QR codes <a href="#spojeni">on this page</a>.',
       },
-      { q: 'Can I reschedule a meeting?', a: `Yes, at least 24 hours in advance by arrangement via e-mail, at most ${t.presunuSlovy} during the programme. A meeting you miss without notice counts as held.` },
+      { q: 'Can I reschedule or cancel a meeting?', a: `Cancelling or rescheduling at least 24 hours in advance is free of charge. If you cancel later or fail to attend without an apology, the provider is entitled to reasonable compensation for the reserved time in the amount of [DOPLNIT: e.g. 50 % of the session price]. The rest of the price is refunded within 14 days. In case of illness or for serious reasons (including an acute worsening of health), a meeting can be rescheduled free of charge even after the deadline. This does not affect the consumer's right to withdraw from the contract. Rescheduling is possible by arrangement via e-mail, at most ${t.presunuSlovy} during the programme.` },
       {
         q: 'What if I get worse?',
         a: 'Please contact your doctor or therapist. You will find links and crisis contacts on the Help page. In an acute crisis call 112 or 116 123 (Czech).',
@@ -274,7 +274,7 @@ export function spolecneFaq(p, data, jaz = 'cs') {
       a: 'Google Meet nebo WhatsApp. Na počítači Google Meet funguje v prohlížeči, na telefonu a tabletu je potřeba aplikace. Odkazy do obchodů a QR kódy najdete na této stránce.',
       html: 'Google Meet nebo WhatsApp. Na počítači Google Meet funguje v prohlížeči, na telefonu a tabletu je potřeba aplikace. Odkazy do obchodů a QR kódy najdete <a href="#spojeni">na této stránce</a>.',
     },
-    { q: 'Mohu setkání přesunout?', a: `Ano, nejpozději 24 hodin předem po domluvě e-mailem, nejvýše ${t.presunuSlovy} během programu. Neomluvená neúčast se počítá jako uskutečněné setkání.` },
+    { q: 'Mohu setkání přesunout nebo zrušit?', a: `Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši [DOPLNIT: např. 50 % ceny sezení]. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy. Přesun je možný po domluvě e-mailem, nejvýše ${t.presunuSlovy} během programu.` },
     {
       q: 'Co když se zhorším?',
       a: 'Obraťte se na svého lékaře nebo terapeuta. Odkazy a krizové kontakty najdete na stránce Pomoc. V akutní krizi volejte 112 nebo 116 123.',
@@ -482,8 +482,10 @@ const SOUHLASY_EN = {
     povaha: 'I understand that the seminar is based on the author\'s personal experience and is not professional or medical advice, therapy, family therapy or a health service, and that I will not share identifying details about my relative at the seminar (names, diagnoses, specifics).',
   },
 };
-const PODMINKY_SOUHLAS = 'Souhlasím s <a href="/obchodni-podminky">obchodními podmínkami</a>.';
-const PODMINKY_SOUHLAS_EN = 'I agree to the <a href="{TERMS}">terms and conditions</a>.';
+const PODMINKY_SOUHLAS = 'Seznámil/a jsem se s <a href="/obchodni-podminky">obchodními podmínkami</a> a <a href="/ochrana-osobnich-udaju">zásadami ochrany osobních údajů</a>.';
+const ZAHAJENI_SOUHLAS = 'Výslovně žádám, aby poskytovatel zahájil poskytování mnou rezervované služby před uplynutím 14denní lhůty pro odstoupení od smlouvy. Beru na vědomí, že pokud od smlouvy odstoupím, uhradím poměrnou část ceny za již poskytnuté plnění, a že po úplném poskytnutí služby právo na odstoupení zaniká.';
+const ZAHAJENI_SOUHLAS_EN = 'I expressly request that the provider start providing the service I have booked before the 14-day period for withdrawing from the contract has expired. I acknowledge that if I withdraw from the contract, I will pay a proportionate part of the price for the performance already provided, and that once the service has been fully provided, the right of withdrawal expires.';
+const PODMINKY_SOUHLAS_EN = 'I have read the <a href="{TERMS}">terms and conditions</a> and the <a href="{PRIVACY}">privacy policy</a>.';
 
 const blokProgramu = (p, data, now, jaz) => {
   const t = jaz === 'en' ? textyProgramu(p.id).en : textyProgramu(p.id);
@@ -518,12 +520,14 @@ const souhlasyProgramu = (p, jaz) => {
         ${chyba(`${kod}-${id}`)}
       </div>`;
   const zprac = jaz === 'en' ? s.zpracovani.replace('{PRIVACY}', lnk('/ochrana-osobnich-udaju', jaz)) : s.zpracovani;
-  const podm = jaz === 'en' ? PODMINKY_SOUHLAS_EN.replace('{TERMS}', lnk('/obchodni-podminky', jaz)) : PODMINKY_SOUHLAS;
+  const podm = jaz === 'en' ? PODMINKY_SOUHLAS_EN.replace('{TERMS}', lnk('/obchodni-podminky', jaz)).replace('{PRIVACY}', lnk('/ochrana-osobnich-udaju', jaz)) : PODMINKY_SOUHLAS;
+  const zahaj = jaz === 'en' ? ZAHAJENI_SOUHLAS_EN : ZAHAJENI_SOUHLAS;
   return `    <fieldset class="program-souhlasy" id="souhlasy-${id}" data-program="${id}" hidden>
       <legend>${L(jaz, 'Souhlasy', 'Consents')}</legend>
 ${pole('souhlasZpracovani', 'rez-souhlas-zpracovani', zprac)}
 ${pole('souhlasPovaha', 'rez-souhlas-povaha', s.povaha)}
 ${pole('souhlasPodminky', 'rez-souhlas-podminky', podm)}
+${pole('souhlasZahajeni', 'rez-souhlas-zahajeni', zahaj)}
     </fieldset>`;
 };
 

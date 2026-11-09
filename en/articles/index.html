@@ -33,7 +33,7 @@
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/nunito-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/style.css?v=30a93447">
+<link rel="stylesheet" href="/assets/css/style.css?v=3dae6fb7">
 
 <script type="application/ld+json">
 {
@@ -226,17 +226,19 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
 </aside>
 <dialog id="rsv-modal" aria-labelledby="rsv-modal-h" aria-modal="true">
   <div class="rsv-inner">
-    <h2 id="rsv-modal-h">Start of service and right of withdrawal</h2>
+    <h2 id="rsv-modal-h">Before you continue to booking</h2>
     <div class="rsv-text">
-      <p>As a consumer you have, under the conditions set by law, the right to withdraw from a contract concluded at a distance within 14 days of its conclusion.</p>
-      <p>If you request that the service be provided before this period expires, you must give an express request for it to start. If you then withdraw from the contract after the service has started at your request, you may be obliged to pay a proportionate part of the price for the performance provided up to the moment of withdrawal, if the statutory conditions are met.</p>
-      <p>If the service is provided in full before the withdrawal period expires, you may, under the conditions set by law, lose the right to withdraw from the contract. This requires your prior express consent to the complete provision of the service and your acknowledgement that you lose the right of withdrawal.</p>
+      <p>As a consumer you can withdraw from the contract within 14 days of concluding it, without giving a reason. If you want the session to take place earlier, you must expressly request it. The full wording is in the <a href="/en/terms#odstoupeni" target="_blank" rel="noopener">terms and conditions</a>.</p>
     </div>
     <label class="rsv-check">
-      <input type="checkbox" id="rsv-consent"> <span>I expressly request that the provider start providing the service I have booked before the 14-day withdrawal period expires, if the booked date falls within this period. I agree that in that case the service will be provided in full at my request before this period expires, and I acknowledge that once it has been fully provided I may, under the conditions set by law, lose the right to withdraw from the contract. I also acknowledge that if I withdraw from the contract after the service has started, I may be obliged to pay a proportionate part of the price for the performance already provided, if the statutory conditions are met.</span>
+      <input type="checkbox" id="rsv-consent-vop"> <span>I have read the <a href="/en/terms" target="_blank" rel="noopener">terms and conditions</a> and the <a href="/en/privacy" target="_blank" rel="noopener">privacy policy</a>.</span>
     </label>
+    <label class="rsv-check">
+      <input type="checkbox" id="rsv-consent-start"> <span>I expressly request that the provider start providing the service I have booked before the 14-day period for withdrawing from the contract has expired. I acknowledge that if I withdraw from the contract, I will pay a proportionate part of the price for the performance already provided, and that once the service has been fully provided, the right of withdrawal expires.</span>
+    </label>
+    <p class="rsv-hint" id="rsv-hint">Both boxes are separate and are not pre-ticked. The button becomes available once you tick both.</p>
     <div class="rsv-actions">
-      <button type="button" id="rsv-confirm" class="btn btn-cta" disabled>I agree and continue to booking</button>
+      <button type="button" id="rsv-confirm" class="btn btn-cta" aria-describedby="rsv-hint" disabled>Continue to booking</button>
       <button type="button" id="rsv-cancel" class="btn btn-ghost">Back</button>
     </div>
   </div>
@@ -251,7 +253,7 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
     </div>
   </div>
 </section>
-<script defer src="/assets/js/rezervace-souhlas.js?v=0bf556f1"></script>
+<script defer src="/assets/js/rezervace-souhlas.js?v=0a8e3c38"></script>
 <script src="/assets/js/cookie.js?v=2a7bdbe0" defer></script>
 
 <script src="/assets/js/lista.js?v=19b352ec" defer></script>

@@ -30,7 +30,7 @@
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/nunito-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/style.css?v=30a93447">
+<link rel="stylesheet" href="/assets/css/style.css?v=3dae6fb7">
 
 
 <script>
@@ -187,24 +187,27 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
 
 <dialog id="rsv-modal" aria-labelledby="rsv-modal-h" aria-modal="true">
   <div class="rsv-inner">
-    <h2 id="rsv-modal-h">Zahájení služby a právo na odstoupení od smlouvy</h2>
+    <h2 id="rsv-modal-h">Než budete pokračovat k rezervaci</h2>
     <div class="rsv-text">
-      <p>Jako spotřebitel máte za zákonem stanovených podmínek právo odstoupit od smlouvy uzavřené na dálku ve lhůtě 14 dnů od jejího uzavření.</p>
-      <p>Pokud požadujete poskytnutí služby před uplynutím této lhůty, je nutné udělit výslovný požadavek na její zahájení. Pokud následně od smlouvy odstoupíte poté, co bylo poskytování služby na vaši žádost zahájeno, můžete být povinni uhradit poměrnou část ceny za plnění poskytnuté do okamžiku odstoupení, jsou-li splněny zákonné podmínky.</p>
-      <p>Pokud bude služba v plném rozsahu poskytnuta před uplynutím lhůty pro odstoupení, můžete za zákonem stanovených podmínek ztratit právo na odstoupení od smlouvy. K tomu je zapotřebí váš předchozí výslovný souhlas s úplným poskytnutím služby a potvrzení, že berete na vědomí zánik práva na odstoupení.</p>
+      <p>Jako spotřebitel můžete do 14 dnů od uzavření smlouvy od ní odstoupit bez udání důvodu. Pokud chcete, aby sezení proběhlo dříve, musíte o to výslovně požádat. Plné znění najdete v <a href="/obchodni-podminky#odstoupeni" target="_blank" rel="noopener">obchodních podmínkách</a>.</p>
     </div>
     <label class="rsv-check">
-      <input type="checkbox" id="rsv-consent">
-      <span>Výslovně žádám, aby poskytovatel zahájil poskytování mnou rezervované služby před uplynutím 14denní lhůty pro odstoupení od smlouvy, pokud se rezervovaný termín uskuteční v této lhůtě. Souhlasím s tím, aby byla služba na mou žádost v takovém případě poskytnuta v plném rozsahu před uplynutím této lhůty, a beru na vědomí, že po jejím úplném poskytnutí mohu za zákonem stanovených podmínek ztratit právo na odstoupení od smlouvy. Dále beru na vědomí, že při odstoupení od smlouvy po zahájení poskytování služby mohu být povinen/povinna uhradit poměrnou část ceny za již poskytnuté plnění, pokud jsou splněny zákonné podmínky.</span>
+      <input type="checkbox" id="rsv-consent-vop">
+      <span>Seznámil/a jsem se s <a href="/obchodni-podminky" target="_blank" rel="noopener">obchodními podmínkami</a> a <a href="/ochrana-osobnich-udaju" target="_blank" rel="noopener">zásadami ochrany osobních údajů</a>.</span>
     </label>
+    <label class="rsv-check">
+      <input type="checkbox" id="rsv-consent-start">
+      <span>Výslovně žádám, aby poskytovatel zahájil poskytování mnou rezervované služby před uplynutím 14denní lhůty pro odstoupení od smlouvy. Beru na vědomí, že pokud od smlouvy odstoupím, uhradím poměrnou část ceny za již poskytnuté plnění, a že po úplném poskytnutí služby právo na odstoupení zaniká.</span>
+    </label>
+    <p class="rsv-hint" id="rsv-hint">Obě políčka jsou samostatná a nejsou předzaškrtnutá. Tlačítko se zpřístupní, až zaškrtnete obě.</p>
     <div class="rsv-actions">
-      <button type="button" id="rsv-confirm" class="btn btn-cta" disabled>Souhlasím a pokračovat k rezervaci</button>
+      <button type="button" id="rsv-confirm" class="btn btn-cta" aria-describedby="rsv-hint" disabled>Pokračovat k rezervaci</button>
       <button type="button" id="rsv-cancel" class="btn btn-ghost">Zpět</button>
     </div>
   </div>
 </dialog>
 
-<script defer src="/assets/js/rezervace-souhlas.js?v=0bf556f1"></script>
+<script defer src="/assets/js/rezervace-souhlas.js?v=0a8e3c38"></script>
 
 
 

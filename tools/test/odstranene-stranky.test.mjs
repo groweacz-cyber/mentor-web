@@ -76,14 +76,16 @@ test('/jak-to-probiha obsahuje předepsaný popis sezení a zachovává cenu, up
 test('/o-mne: Absolvované kurzy, nové hranice, bez ERP/I-CBT a bez slibu „dá se z toho vyjít“; /pro-koho má kritéria a krizová čísla', () => {
   const h = nacti('o-mne/index.html');
   assert.ok(h.includes('<h2>Absolvované kurzy</h2>') && !h.includes('Absolvované vzdělání'));
-  assert.ok(h.includes('Nevedu psychoterapii, neposkytuji zdravotní služby, nestanovuji diagnózu a neradím s léky ani s ukončením odborné péče.'));
+  assert.ok(h.includes('Nejsem terapeut, nestanovuji diagnózu, nevedu psychoterapii a neposkytuji zdravotní služby.'));
+  assert.ok(h.includes('Neposkytuji ujištění, že se vaše obava nesplní.') && !h.includes('Patří ke smyčce'));
+  assert.ok(h.includes('id="hranice"'));
   assert.ok(h.includes('Rozhodl jsem se předávat dál, co mi pomohlo.'));
   assert.ok(!/ERP|I-CBT|dá se z toho vyjít|tuto metodu|Doprovázím/.test(h));
   const k = nacti('pro-koho/index.html');
   for (const x of ['aktivní psychóza', 'sebevražedné myšlenky', 'závažná deprese', 'akutní krize']) assert.ok(k.includes(x), x);
   assert.ok(/112/.test(k) && /155/.test(k) && /116 123/.test(k));
   assert.ok(!/Metal|Pop cesta|ERP|I-CBT/.test(k));
-  assert.ok(k.includes('Obsah naposledy zkontrolován: 1. 12. 2026'));
+  assert.ok(!/naposledy zkontrolován/i.test(k), 'datum „naposledy zkontrolován“ je pryč');
 });
 
 test('/pro-terapeuty a semináře: předepsané znění, bez ERP, I-CBT a Metal/Pop', () => {
@@ -96,15 +98,6 @@ test('/pro-terapeuty a semináře: předepsané znění, bez ERP, I-CBT a Metal/
     assert.ok(/nediagnostikuji, neléčím a neradím s léky/i.test(h) || p === 'seminare/index.html', `${p}: upozornění`);
   }
   assert.ok(nacti('seminare/cesta-s-ocd/index.html').includes('Cesta s OCD: sebepřijetí a sebevíra. Pět setkání nad knihou'));
-});
-
-test('souhlas se zahájením služby před koncem 14denní lhůty zůstává před rezervací: samostatné nepředzaškrtnuté políčko', () => {
-  const h = nacti('index.html');
-  const m = h.match(/<input type="checkbox" id="rsv-consent"[^>]*>/);
-  assert.ok(m, 'políčko rsv-consent');
-  assert.ok(!/\schecked\b/.test(m[0]) && !/\srequired\b/.test(m[0]) || /\srequired\b/.test(m[0]));
-  assert.ok(h.includes('před uplynutím 14denní lhůty pro odstoupení od smlouvy'));
-  assert.ok(h.includes('id="rsv-confirm"') && /id="rsv-confirm"[^>]*disabled/.test(h), 'tlačítko je neaktivní, dokud souhlas není zaškrtnut');
 });
 
 test('aplikace nemá dotazník ani žebříček: stránky neexistují, mají přesměrování a nikde na webu se nezmiňuje dotazník', () => {

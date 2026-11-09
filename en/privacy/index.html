@@ -33,7 +33,7 @@
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/nunito-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/style.css?v=30a93447">
+<link rel="stylesheet" href="/assets/css/style.css?v=3dae6fb7">
 
 <script type="application/ld+json">
 {
@@ -213,6 +213,12 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
   <p>If you consent, the Meta Pixel of Meta Platforms Ireland Limited (Facebook) is loaded. It sets cookies (_fbp, and possibly _fbc) and tells Meta that you visited a particular page of the site, together with technical browser data and your IP address. We use it to evaluate how many people come from our advertising and to target the advertising better. We are jointly responsible with Meta for the processing of data within the Meta Pixel; Meta also processes the data for its own purposes under its own policies, and the data may be transferred outside the European Economic Area on the basis of standard contractual clauses. The legal basis is your consent (Art. 6(1)(a) GDPR).</p>
   <p>Consent is voluntary, and declining it has no effect on how you can use the site. You can withdraw or give it again at any time through the “Cookie settings” link in the footer of every page; withdrawal does not affect the lawfulness of processing before it. Your choice is valid for 12 months, after which we ask again. The choice is stored only in your browser. You can also delete Meta’s cookies in your browser settings.</p>
 
+  <h2 id="zdravotni-udaje">Health data in booking and communication</h2>
+  <p>Information about your health is a special category of personal data (Art. 9 GDPR). We process it only when you tell it to us yourself (in a session, by e-mail or when booking), and only on the basis of your explicit consent (Art. 9(2)(a) GDPR). You can withdraw your consent at any time by e-mail to <a href="mailto:ocdmentor@gmail.com">ocdmentor@gmail.com</a>.</p>
+  <p>Retention period: <span class="placeholder">[DOPLNIT: retention period of client data, e.g. 1 year after the end of cooperation]</span>.</p>
+  <p>Recipients: the Reservanto s.r.o. booking system, Google (Google Meet video calls) and WhatsApp Ireland Limited (Meta) if we communicate via WhatsApp. Technical processing is provided by Vercel Inc. and Resend, Inc.</p>
+  <p><strong>Please note:</strong> WhatsApp and e-mail are not suitable for transmitting sensitive health data. Include only what you are willing to share, and leave the details for the session.</p>
+
   <h2>Source of personal data</h2>
   <p>We obtain all personal data directly from you: from your e-mail, from the data you enter when booking a consultation through Reservanto, or from the data you enter in the seminar booking form.</p>
 
@@ -263,17 +269,19 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
 
 <dialog id="rsv-modal" aria-labelledby="rsv-modal-h" aria-modal="true">
   <div class="rsv-inner">
-    <h2 id="rsv-modal-h">Start of service and right of withdrawal</h2>
+    <h2 id="rsv-modal-h">Before you continue to booking</h2>
     <div class="rsv-text">
-      <p>As a consumer you have, under the conditions set by law, the right to withdraw from a contract concluded at a distance within 14 days of its conclusion.</p>
-      <p>If you request that the service be provided before this period expires, you must give an express request for it to start. If you then withdraw from the contract after the service has started at your request, you may be obliged to pay a proportionate part of the price for the performance provided up to the moment of withdrawal, if the statutory conditions are met.</p>
-      <p>If the service is provided in full before the withdrawal period expires, you may, under the conditions set by law, lose the right to withdraw from the contract. This requires your prior express consent to the complete provision of the service and your acknowledgement that you lose the right of withdrawal.</p>
+      <p>As a consumer you can withdraw from the contract within 14 days of concluding it, without giving a reason. If you want the session to take place earlier, you must expressly request it. The full wording is in the <a href="/en/terms#odstoupeni" target="_blank" rel="noopener">terms and conditions</a>.</p>
     </div>
     <label class="rsv-check">
-      <input type="checkbox" id="rsv-consent"> <span>I expressly request that the provider start providing the service I have booked before the 14-day withdrawal period expires, if the booked date falls within this period. I agree that in that case the service will be provided in full at my request before this period expires, and I acknowledge that once it has been fully provided I may, under the conditions set by law, lose the right to withdraw from the contract. I also acknowledge that if I withdraw from the contract after the service has started, I may be obliged to pay a proportionate part of the price for the performance already provided, if the statutory conditions are met.</span>
+      <input type="checkbox" id="rsv-consent-vop"> <span>I have read the <a href="/en/terms" target="_blank" rel="noopener">terms and conditions</a> and the <a href="/en/privacy" target="_blank" rel="noopener">privacy policy</a>.</span>
     </label>
+    <label class="rsv-check">
+      <input type="checkbox" id="rsv-consent-start"> <span>I expressly request that the provider start providing the service I have booked before the 14-day period for withdrawing from the contract has expired. I acknowledge that if I withdraw from the contract, I will pay a proportionate part of the price for the performance already provided, and that once the service has been fully provided, the right of withdrawal expires.</span>
+    </label>
+    <p class="rsv-hint" id="rsv-hint">Both boxes are separate and are not pre-ticked. The button becomes available once you tick both.</p>
     <div class="rsv-actions">
-      <button type="button" id="rsv-confirm" class="btn btn-cta" disabled>I agree and continue to booking</button>
+      <button type="button" id="rsv-confirm" class="btn btn-cta" aria-describedby="rsv-hint" disabled>Continue to booking</button>
       <button type="button" id="rsv-cancel" class="btn btn-ghost">Back</button>
     </div>
   </div>
@@ -288,7 +296,7 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
     </div>
   </div>
 </section>
-<script defer src="/assets/js/rezervace-souhlas.js?v=0bf556f1"></script>
+<script defer src="/assets/js/rezervace-souhlas.js?v=0a8e3c38"></script>
 <script src="/assets/js/cookie.js?v=2a7bdbe0" defer></script>
 
 

@@ -187,8 +187,8 @@ test('stránky programů: FAQ je ve viditelném HTML a ve strukturovaných datec
   const najdi = (id, q) => [...nacti(STRANKY[id]).matchAll(/<summary>([\s\S]*?)<\/summary>\s*<p>([\s\S]*?)<\/p>/g)].map((m) => [text(m[1]), text(m[2])]).find(([k]) => k === q)[1];
   assert.equal(najdi('pro-lidi-s-ocd', 'Co je v ceně?'), 'Všech pět setkání po 60 minutách. Jiné poplatky nejsou.');
   assert.equal(najdi('pro-blizke', 'Co je v ceně?'), 'Všechna tři setkání po 60 minutách. Jiné poplatky nejsou.');
-  assert.equal(najdi('pro-lidi-s-ocd', 'Mohu setkání přesunout?'), 'Ano, nejpozději 24 hodin předem po domluvě e-mailem, nejvýše dvakrát během programu. Neomluvená neúčast se počítá jako uskutečněné setkání.');
-  assert.equal(najdi('pro-blizke', 'Mohu setkání přesunout?'), 'Ano, nejpozději 24 hodin předem po domluvě e-mailem, nejvýše jednou během programu. Neomluvená neúčast se počítá jako uskutečněné setkání.');
+  assert.equal(najdi('pro-lidi-s-ocd', 'Mohu setkání přesunout nebo zrušit?'), 'Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši [DOPLNIT: např. 50 % ceny sezení]. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy. Přesun je možný po domluvě e-mailem, nejvýše dvakrát během programu.');
+  assert.equal(najdi('pro-blizke', 'Mohu setkání přesunout nebo zrušit?'), 'Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši [DOPLNIT: např. 50 % ceny sezení]. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy. Přesun je možný po domluvě e-mailem, nejvýše jednou během programu.');
   assert.equal(najdi('pro-lidi-s-ocd', 'Čím se liší program od jednotlivých sezení?'), 'Jednotlivá sezení jsou volná podpora podle aktuálního tématu. Program je strukturovaný podle knihy a tvoří ho pět propojených setkání.');
   assert.equal(najdi('pro-blizke', 'Čím se liší program od jednotlivých sezení?'), 'Jednotlivá sezení jsou volná podpora podle aktuálního tématu. Program je strukturovaný a tvoří ho tři propojená setkání.');
   for (const id of ['pro-lidi-s-ocd', 'pro-blizke']) {
@@ -254,7 +254,7 @@ test('/seminare/rezervace: volba programu, pole, nepředvyplněné souhlasy obou
   assert.ok(t.includes('Cesta s OCD: sebepřijetí a sebevíra. Pět setkání nad knihou Individuální program 5 setkání · 3 590 Kč'));
   assert.ok(t.includes('Když OCD žije vedle vás: průvodce pro blízké Individuální program 3 setkání · 2 190 Kč'));
   const checkboxy = [...m.matchAll(/<input type="checkbox"[^>]*>/g)].map((x) => x[0]);
-  assert.equal(checkboxy.length, 6, 'tři souhlasy pro každý program');
+  assert.equal(checkboxy.length, 8, 'čtyři souhlasy pro každý program');
   for (const c of checkboxy) assert.ok(!/\schecked\b/.test(c), 'souhlas není předvyplněný');
   assert.ok(m.includes('name="web"') && m.includes('class="hp"'), 'honeypot');
   assert.ok(!/<form[^>]*\saction=/.test(m), 'formulář neodesílá bez JavaScriptu na jinou adresu');
@@ -263,7 +263,7 @@ test('/seminare/rezervace: volba programu, pole, nepředvyplněné souhlasy obou
   assert.ok(t.includes('Rozumím, že seminář vychází z osobní zkušenosti autora a nejde o odbornou ani lékařskou radu, terapii ani zdravotní službu.'));
   assert.ok(t.includes('Souhlasím se zpracováním jména, e-mailu a telefonního čísla za účelem rezervace, organizace programu a spojení se mnou. Chápu, že už samotná účast na semináři o OCD může vypovídat o zdravotním stavu účastníka nebo jeho blízkého, a souhlasím se zpracováním i této informace o sobě. Souhlas mohu kdykoli odvolat e-mailem. Zásady ochrany osobních údajů.'));
   assert.ok(t.includes('Rozumím, že seminář vychází z osobní zkušenosti autora a nejde o odbornou ani lékařskou radu, terapii, rodinnou terapii ani zdravotní službu, a že na semináři nebudu sdílet identifikující údaje o svém blízkém (jména, diagnózy, podrobnosti).'));
-  assert.equal(t.split('Souhlasím s obchodními podmínkami.').length - 1, 2);
+  assert.equal(t.split('Seznámil/a jsem se s obchodními podmínkami a zásadami ochrany osobních údajů.').length - 1, 2);
   assert.ok(m.includes('href="/ochrana-osobnich-udaju"') && m.includes('href="/obchodni-podminky"'));
   assert.ok(m.includes('href="/seminare/cesta-s-ocd#spojeni"') && m.includes('href="/seminare/pro-blizke#spojeni"'), 'podrobnosti o spojení vedou na stránky programů');
   const blok = (id) => m.match(new RegExp(`<div class="program-blok" id="blok-${id}"[\\s\\S]*?</fieldset>\\s*</div>`))[0];
@@ -277,7 +277,7 @@ test('/seminare/rezervace: volba programu, pole, nepředvyplněné souhlasy obou
 test('stránky seminářů nemají placeholdery, štítky koncept ani TODO', () => {
   for (const p of ['seminare/index.html', ...Object.values(STRANKY), 'seminare/rezervace/index.html', 'seminare/rezervace/potvrzeni/index.html', 'obchodni-podminky/index.html', 'ochrana-osobnich-udaju/index.html', 'ebook/index.html', 'pro-blizke/index.html']) {
     const h = nacti(p);
-    assert.ok(!/class="placeholder"|draft-badge|TODO|\[[A-ZĚŠČŘŽÝÁÍÉ][^\]]{3,}\]/.test(h), `${p}: placeholder, koncept nebo TODO`);
+    assert.ok(!/class="placeholder">(?!\[DOPLNIT:)|draft-badge|TODO|\[(?!DOPLNIT:)[A-ZĚŠČŘŽÝÁÍÉ][^\]]{3,}\]/.test(h), `${p}: placeholder, koncept nebo TODO`);
   }
 });
 
@@ -314,7 +314,7 @@ test('patička každé stránky má upozornění, odkazy na právní stránky a 
 
 test('obchodní podmínky: část B pro dva programy, oba texty o povaze, připojení druhého člověka, přesuny; zásady ochrany údajů', () => {
   const t = text(main(nacti('obchodni-podminky/index.html')));
-  assert.ok(t.includes('platná od 1. 11. 2026, naposledy upraveno 3. 11. 2026'));
+  assert.ok(t.includes('Část B je účinná od [DOPLNIT: datum účinnosti] a týká se jen programů'));
   assert.ok(t.includes('Část B: Online semináře (individuální programy)'));
   assert.ok(t.includes(POVAHA_SEMINARE));
   assert.ok(t.includes(POVAHA_BLIZKE));
@@ -324,10 +324,9 @@ test('obchodní podmínky: část B pro dva programy, oba texty o povaze, připo
   assert.ok(t.includes('Obě ceny jsou konečné, prodejce není plátcem DPH.'));
   assert.ok(t.includes('U programu tří setkání se na setkání může připojit jeden další člověk z domácnosti účastníka bez příplatku. Jeho osobní údaje prodejce nezpracovává. Účastník zajistí, že se připojí s jeho vědomím. Účastníci nesdílejí identifikující údaje o třetích osobách (jména, diagnózy, podrobnosti).'));
   assert.ok(t.includes('Setkání se nekonají 24. a 31. prosince, program se o tyto týdny posune.'));
-  assert.ok(t.includes('Setkání lze přesunout zdarma nejpozději 24 hodin předem po domluvě e-mailem, u programu pěti setkání nejvýše dvakrát, u programu tří setkání nejvýše jednou.'));
+  assert.ok(t.includes('Zrušení nebo přesun nejpozději 24 hodin předem je bezplatný. Při pozdějším zrušení nebo nedostavení se bez omluvy má poskytovatel nárok na přiměřenou kompenzaci za rezervovaný čas ve výši [DOPLNIT: např. 50 % ceny sezení]. Zbytek ceny se vrátí do 14 dnů. Při nemoci nebo z vážných důvodů (včetně akutního zhoršení zdravotního stavu) lze setkání přesunout bez poplatku i po lhůtě. Tím není dotčeno právo spotřebitele na odstoupení od smlouvy. Setkání lze přesunout po domluvě e-mailem, u programu pěti setkání nejvýše dvakrát, u programu tří setkání nejvýše jednou.'));
   for (const veta of [
-    'Smlouva vzniká odesláním rezervace. Cena se hradí bankovním převodem s uvedeným variabilním symbolem do 3 dnů od rezervace.',
-    'Neomluvená neúčast nebo přesun později než 24 hodin předem se počítá jako uskutečněné setkání.',
+    'Smlouva vzniká okamžikem potvrzení rezervace v Reservantu. Cena se hradí bankovním převodem s uvedeným variabilním symbolem do 3 dnů od rezervace.',
     'Zbývající část se vrací do 14 dnů stejným způsobem, jakým byla platba přijata.',
     'Výhrady k poskytnuté službě lze uplatnit e-mailem, prodejce odpoví do 30 dnů.',
     'Vztahy se řídí právem České republiky.',

@@ -892,7 +892,7 @@ ${SEMINARE_PROGRAMY.map((p) => SEM.kartaProgramu(p, 'cs')).join('\n')}
     <article class="card">
       <h3>Aplikace</h3>
       <p>Soukromý deník a pomůcky pro každodenní použití: tracker obsesí a kompulzí a další nástroje. Data zůstávají jen ve vašem telefonu nebo počítači. Nikam se neodesílají a já je nevidím, pokud mi je sami neposlete.</p>
-      <p class="small">Aplikace není zdravotnický prostředek, není terapie ani diagnóza a nenahrazuje odbornou péči.</p>
+      <p class="small"><em>Aplikace není zdravotnický prostředek, není terapie ani diagnóza a nenahrazuje odbornou péči.</em></p>
       <p><a class="btn btn-ghost btn-sm" href="/aplikace">Otevřít aplikaci</a></p>
     </article>
   </div>

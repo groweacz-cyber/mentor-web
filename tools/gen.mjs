@@ -41,6 +41,7 @@ const calcCard = () => `<article class="card kviz-teaser">
     <h3>Kolik času mi bere OCD?</h3>
     <p>Spočítejte si to za minutu. Nic se neukládá.</p>
     <p><a class="btn btn-ghost btn-sm" href="/kolik-casu-mi-bere-ocd">Otevřít kalkulačku</a></p>
+    <p class="small"><em>Kalkulačka není zdravotnický prostředek, není terapie ani diagnóza a nenahrazuje odbornou péči.</em></p>
   </article>`;
 const GLOS = JSON.parse(readFileSync(join(OUT, 'assets/data/slovnicek.json'), 'utf8')).pojmy;
 const TYPY_DATA = JSON.parse(readFileSync(join(OUT, 'assets/data/typy-ocd.json'), 'utf8'));

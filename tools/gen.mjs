@@ -807,34 +807,6 @@ add('/', {
 </section>
 </div>
 
-<section class="wrap block selfcheck js-only" aria-labelledby="sc-h">
-  <div class="sc-card">
-    <h2 id="sc-h">Jak moc vás dnes nutkání ovládá?</h2>
-    <div class="field">
-      <div class="range">
-        <input type="range" id="sc-range" name="sc" min="0" max="10" step="1" value="5" aria-labelledby="sc-h" aria-describedby="sc-ends" aria-valuetext="5 z 10">
-        <output for="sc-range" id="sc-out">5</output><span class="of">/ 10</span>
-      </div>
-      <p class="hint sc-ends" id="sc-ends"><span>0 = vůbec</span><span>10 = naprosto</span></p>
-    </div>
-    <p class="sc-msg" id="sc-msg" aria-live="polite"></p>
-    <div class="cta sc-cta" id="sc-cta" hidden>
-      <a class="btn btn-cta" id="sc-book" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a>
-    </div>
-    <p class="small sc-note">Nejde o test ani diagnózu. Pokud jste v akutní krizi, ${CRISIS}.</p>
-  </div>
-</section>
-
-<section class="wrap block how">
-  <h2>Jak to probíhá</h2>
-  ${routeHtml('route--row route--steps')}
-  <h3 class="how-price-h">Ceník</h3>
-  <div class="price-strip">
-${JAK.cenik.map((c) => `    <div class="price-chip"><span class="price-name">${esc(c.nazev)}</span><span class="price-meta">${esc(c.delka)}</span><strong class="price-val">${esc(c.cena)}</strong>${c.poznamka ? `<span class="price-note">${esc(c.poznamka)}</span>` : ''}</div>`).join('\n')}
-  </div>
-  <p class="how-links"><a class="btn btn-cta" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a> <a href="/jak-to-probiha">Ceník a časté dotazy</a></p>
-</section>
-
 <section class="wrap block story">
   <div class="story-grid">
     <img class="story-photo" src="/assets/img/o-mne-vaclav-thumb.webp" width="120" height="160" alt="${AUTHOR}" loading="lazy">
@@ -870,6 +842,34 @@ ${JAK.cenik.map((c) => `    <div class="price-chip"><span class="price-name">${e
   <p><a href="/o-mne">Více o mně</a></p>
 </section>
 
+
+<section class="wrap block selfcheck js-only" aria-labelledby="sc-h">
+  <div class="sc-card">
+    <h2 id="sc-h">Jak moc vás dnes nutkání ovládá?</h2>
+    <div class="field">
+      <div class="range">
+        <input type="range" id="sc-range" name="sc" min="0" max="10" step="1" value="5" aria-labelledby="sc-h" aria-describedby="sc-ends" aria-valuetext="5 z 10">
+        <output for="sc-range" id="sc-out">5</output><span class="of">/ 10</span>
+      </div>
+      <p class="hint sc-ends" id="sc-ends"><span>0 = vůbec</span><span>10 = naprosto</span></p>
+    </div>
+    <p class="sc-msg" id="sc-msg" aria-live="polite"></p>
+    <div class="cta sc-cta" id="sc-cta" hidden>
+      <a class="btn btn-cta" id="sc-book" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a>
+    </div>
+    <p class="small sc-note">Nejde o test ani diagnózu. Pokud jste v akutní krizi, ${CRISIS}.</p>
+  </div>
+</section>
+
+<section class="wrap block how">
+  <h2>Jak to probíhá</h2>
+  ${routeHtml('route--row route--steps')}
+  <h3 class="how-price-h">Ceník</h3>
+  <div class="price-strip">
+${JAK.cenik.map((c) => `    <div class="price-chip"><span class="price-name">${esc(c.nazev)}</span><span class="price-meta">${esc(c.delka)}</span><strong class="price-val">${esc(c.cena)}</strong>${c.poznamka ? `<span class="price-note">${esc(c.poznamka)}</span>` : ''}</div>`).join('\n')}
+  </div>
+  <p class="how-links"><a class="btn btn-cta" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a> <a href="/jak-to-probiha">Ceník a časté dotazy</a></p>
+</section>
 
 <div class="band band-soft">
 <section class="wrap block">

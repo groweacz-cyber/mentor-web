@@ -52,6 +52,7 @@ const CRISIS = 'volejte 112, 155 nebo Linku první psychické pomoci 116 123';
 const CRISIS_STRONG = 'volejte <strong>112</strong>, <strong>155</strong> nebo Linku první psychické pomoci <strong>116 123</strong>';
 
 const NOTICE = 'Peer podpora je doplněk k odborné péči. Nenahrazuje psychoterapii ani lékaře.';
+const NOTICE_BAR = 'Peer podpora je doplněk k odborné péči. Nenahrazuje psychoterapii ani lékaře!';
 const FOOT = 'Nejde o zdravotní službu ani psychoterapii. Spolupráce nenahrazuje odbornou péči.';
 
 // ---------- Programy seminářů (data/seminare.json) ----------
@@ -157,6 +158,7 @@ var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 var els=document.querySelectorAll('.reveal');
 if(!('IntersectionObserver' in window)||reduced){for(var i=0;i<els.length;i++)els[i].classList.add('in');}
 else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -6% 0px'});for(var j=0;j<els.length;j++)io.observe(els[j]);}
+var nt=document.querySelector('.notice');function nh(){if(nt)d.style.setProperty('--notice-h',nt.offsetHeight+'px');}nh();addEventListener('resize',nh);
 var b=document.getElementById('motion-toggle');
 var v=document.getElementById('hero-video');
 if(reduced){d.classList.add('motion-off');if(b)b.setAttribute('aria-pressed','true');if(v)v.pause();}
@@ -617,7 +619,7 @@ ${siteScript}
 </head>
 <body>
 <a class="skip" href="#obsah">Přeskočit na obsah</a>
-<p class="notice" role="note">${NOTICE} <a class="help-link" href="/pomoc">Potřebuji pomoc hned</a> <button type="button" class="calm-toggle js-only" id="calm-toggle" aria-pressed="false">Klidný režim</button></p>
+<p class="notice" role="note">${NOTICE_BAR} <a class="help-link" href="/pomoc">Potřebuji pomoc hned</a> <button type="button" class="calm-toggle js-only" id="calm-toggle" aria-pressed="false">Klidný režim</button></p>
 <header class="site-header">
   <div class="wrap bar">
     <a class="brand" href="/">${brandSun}<span>${BRAND}</span></a>

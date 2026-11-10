@@ -33,7 +33,7 @@
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/nunito-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/style.css?v=b84805d9">
+<link rel="stylesheet" href="/assets/css/style.css?v=95493dd4">
 
 <script type="application/ld+json">
 {
@@ -206,6 +206,7 @@ var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 var els=document.querySelectorAll('.reveal');
 if(!('IntersectionObserver' in window)||reduced){for(var i=0;i<els.length;i++)els[i].classList.add('in');}
 else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -6% 0px'});for(var j=0;j<els.length;j++)io.observe(els[j]);}
+var nt=document.querySelector('.notice');function nh(){if(nt)d.style.setProperty('--notice-h',nt.offsetHeight+'px');}nh();addEventListener('resize',nh);
 var b=document.getElementById('motion-toggle');
 var v=document.getElementById('hero-video');
 if(reduced){d.classList.add('motion-off');if(b)b.setAttribute('aria-pressed','true');if(v)v.pause();}
@@ -295,7 +296,7 @@ if(wideMq.addEventListener)wideMq.addEventListener('change',wideChange);else if(
 </head>
 <body>
 <a class="skip" href="#obsah">Preskočiť na obsah</a>
-<p class="notice" role="note">Peer podpora je doplnok k odbornej starostlivosti. Nenahrádza psychoterapiu ani lekára. <a class="help-link" href="/sk/pomoc">Potrebujem pomoc hneď</a> <button type="button" class="calm-toggle js-only" id="calm-toggle" aria-pressed="false">Pokojný režim</button></p>
+<p class="notice" role="note">Peer podpora je doplnok k odbornej starostlivosti. Nenahrádza psychoterapiu ani lekára! <a class="help-link" href="/sk/pomoc">Potrebujem pomoc hneď</a> <button type="button" class="calm-toggle js-only" id="calm-toggle" aria-pressed="false">Pokojný režim</button></p>
 <header class="site-header">
   <div class="wrap bar">
     <a class="brand" href="/sk"><svg class="brand-sun" viewBox="-16 -16 32 32" width="28" height="28" aria-hidden="true" focusable="false"><g stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round"><line y1="-10" y2="-14" transform="rotate(0)"/><line y1="-10" y2="-14" transform="rotate(45)"/><line y1="-10" y2="-14" transform="rotate(90)"/><line y1="-10" y2="-14" transform="rotate(135)"/><line y1="-10" y2="-14" transform="rotate(180)"/><line y1="-10" y2="-14" transform="rotate(225)"/><line y1="-10" y2="-14" transform="rotate(270)"/><line y1="-10" y2="-14" transform="rotate(315)"/></g><circle r="6.5" fill="#ffc83d" stroke="#f59e0b" stroke-width="1.5"/></svg><span>OCD mentor</span></a>

@@ -60,7 +60,9 @@ a:hover { color: var(--link-hover); }
 .wrap { max-width: 62rem; margin: 0 auto; padding: 0 1.25rem; }
 
 /* ===== Horní lišta a navigace ===== */
-.notice { margin: 0; padding: .5rem 1.25rem; text-align: center; background: var(--ink); color: #fff; font-size: .9rem; }
+/* Horní proužek zůstává viditelný při posouvání na všech stránkách */
+.notice { position: sticky; top: 0; z-index: 50; margin: 0; padding: .5rem 1.25rem; text-align: center; background: var(--ink); color: #fff; font-size: .9rem; box-shadow: 0 2px 10px rgba(0, 0, 0, .18); }
+html { scroll-padding-top: calc(var(--notice-h, 2.4rem) + .6rem); }
 
 .site-header { position: relative; z-index: 30; background: rgba(255, 254, 251, .92); backdrop-filter: saturate(1.2) blur(6px); }
 .site-header::after { content: ""; display: block; height: 4px; background: var(--rainbow); }

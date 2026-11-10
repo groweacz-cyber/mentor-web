@@ -363,7 +363,7 @@ ${aplikaceHtml(jaz)}
 // Staré kotvy z doby, kdy byly programy záložkami na jedné stránce, přesměruje skript seminare.js na stránky programů.
 const stareKotvy = (programy) => JSON.stringify(Object.fromEntries(programy.map((p) => [p.id, adresaProgramu(p)])));
 
-const kartaProgramu = (p, jaz) => {
+export const kartaProgramu = (p, jaz) => {
   const pp = popisProgramu(p, jaz);
   return `    <article class="card prog-card">
       <p class="prog-komu">${esc(pp.komu)}</p>

@@ -957,3 +957,39 @@ html:not(.js) .nav-sub-arrow { display: none; }
 .btn-cta:not(:disabled):not(:hover) { animation: cta-halo 9s ease-in-out infinite, cta-shine 5s ease-in-out infinite, cta-breathe 1.8s ease-in-out infinite !important; }
 .btn-cta:not(:disabled):not(:hover):nth-of-type(even) { animation: cta-halo 9s ease-in-out -4.1s infinite, cta-shine 5s ease-in-out -2.2s infinite, cta-breathe 1.8s ease-in-out -.9s infinite !important; }
 .reservanto-widget .reservanto-button.reservanto-button:not(:hover) { animation: cta-halo 9s ease-in-out infinite, cta-shine 5s ease-in-out infinite, cta-breathe 1.8s ease-in-out infinite !important; }
+
+/* ===== Úvodní stránka: prodejnější skladba a grafika ===== */
+.band { background: linear-gradient(180deg, rgba(255, 240, 196, .5), rgba(255, 233, 214, .38)); border-block: 1px solid rgba(231, 223, 207, .7); padding: 1.6rem 0; margin: 1rem 0; }
+.band .block { padding-top: .5rem; padding-bottom: .5rem; }
+.trust-list { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem .6rem; padding: 0; margin: 1.1rem 0 .3rem; }
+.trust-list li { display: inline-flex; align-items: center; gap: .45rem; font-weight: 700; font-size: .92rem; color: var(--ink); background: rgba(255, 255, 255, .78); border: 1px solid var(--line); border-radius: 999px; padding: .32rem .8rem .32rem .5rem; box-shadow: 0 4px 12px -8px rgba(27, 42, 65, .35); }
+.trust-list svg { flex: none; }
+.feel-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(14.5rem, 1fr)); gap: 1.1rem; margin: 1.3rem 0 1.4rem; }
+.feel-card { position: relative; overflow: hidden; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.5rem 1.4rem 1.3rem; transition: transform .25s ease, box-shadow .25s ease; }
+.feel-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 5px; background: var(--rainbow); }
+.feel-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -16px rgba(27, 42, 65, .28); }
+.feel-card h3 { margin: .7rem 0 .3rem; font-size: 1.12rem; }
+.feel-card p { margin: 0; color: var(--ink-soft); }
+.feel-lead { font-size: 1.25rem; font-weight: 700; line-height: 1.45; max-width: 42rem; margin: 0 0 .5rem; color: var(--ink); }
+.how .price-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: .9rem; margin: .6rem 0 1.2rem; }
+.price-chip { display: flex; flex-direction: column; gap: .1rem; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 1rem 1.1rem; box-shadow: var(--shadow); }
+.price-chip .price-name { font-weight: 800; }
+.price-chip .price-meta { color: var(--ink-soft); font-size: .92rem; }
+.price-chip .price-val { font-family: var(--font-head); font-size: 1.9rem; line-height: 1.1; color: var(--ink); margin-top: .2rem; }
+.price-chip .price-note { font-size: .85rem; color: #1f6b46; font-weight: 700; }
+.how-price-h { margin: 1.6rem 0 .3rem; }
+.how-links { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem 1.4rem; margin: 1rem 0 0; }
+.story-grid { display: grid; grid-template-columns: 9.5rem 1fr; gap: 1.6rem; align-items: start; }
+.story-photo { width: 9.5rem; height: auto; border-radius: 22px; border: 4px solid #fff; box-shadow: 0 14px 30px -12px rgba(27, 42, 65, .45), 0 0 0 3px var(--sun); object-fit: cover; }
+.final-cta-box { position: relative; overflow: hidden; text-align: center; color: #fff; background: radial-gradient(520px 220px at 85% -20%, rgba(255, 200, 61, .28), transparent 70%), linear-gradient(135deg, #1b2a41, #25406b); border-radius: 26px; padding: 2.6rem 1.5rem 2.2rem; box-shadow: 0 24px 50px -24px rgba(27, 42, 65, .7); }
+.final-cta-box::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 6px; background: var(--rainbow); }
+.final-cta-box h2 { color: #fff; margin-top: .2rem; }
+.final-cta-box p { max-width: 36rem; margin-inline: auto; }
+.final-cta-box .small { color: #c4cfdf; }
+@media (max-width: 40rem) {
+  .story-grid { grid-template-columns: 1fr; }
+  .story-photo { width: 7.5rem; }
+  .final-cta-box { padding: 2rem 1.1rem 1.8rem; }
+  .feel-lead { font-size: 1.12rem; }
+}
+@media (prefers-reduced-motion: reduce) { .feel-card, .feel-card:hover { transition: none; transform: none; } }

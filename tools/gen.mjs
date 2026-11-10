@@ -765,6 +765,11 @@ add('/', {
         ${bookBtn()}
         <a class="btn btn-ghost" href="/jak-to-probiha">Jak to probíhá</a>
       </div>
+      <ul class="trust-list rise" style="--d:.55s" aria-label="Co je dobré vědět">
+        <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="10" fill="#1f6b46"/><path d="M5.5 10.4l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Úvodní konzultace zdarma</li>
+        <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="10" fill="#1f6b46"/><path d="M5.5 10.4l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>15 minut online</li>
+        <li><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="10" fill="#1f6b46"/><path d="M5.5 10.4l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>K ničemu nezavazuje</li>
+      </ul>
       <p class="small note rise" style="--d:.6s">Peer podpora, ne terapie ani krizová pomoc. V akutní krizi ${CRISIS}. <a href="/o-mne#hranice">Moje hranice</a></p>
     </div>
     <div class="scene-wrap rise" style="--d:.3s">
@@ -784,12 +789,23 @@ add('/', {
   <div class="wrap">${loopSvg}</div>
 </section>
 
+<div class="band band-soft">
 <section class="wrap block" aria-labelledby="lp-h">
-  <h2 id="lp-h">Peer podpora vedle odborné péče</h2>
-  <p>Peer podpora od člověka, který OCD zná z vlastní zkušenosti. Doplňuje odbornou péči a nenahrazuje ji.</p>
+  <p class="eyebrow">Znáte to?</p>
+  <h2 id="lp-h">Myšlenky, které se vracejí. Rituály, které berou čas.</h2>
+  <div class="feel-cards">
+    <article class="feel-card"><svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="22" fill="#fff3d1"/><path d="M12 28c0-8 5-14 12-14s12 6 12 14" fill="none" stroke="#1b2a41" stroke-width="2.6" stroke-linecap="round"/><path d="M16 28c0-5 3-9 8-9s8 4 8 9" fill="none" stroke="#ef5b5b" stroke-width="2.6" stroke-linecap="round"/><circle cx="24" cy="28" r="3.2" fill="#f5923e"/></svg><h3>Vtíravé myšlenky</h3><p>Myšlenky, které nechcete, a přesto se pořád vracejí.</p></article>
+    <article class="feel-card"><svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="22" fill="#e6f4ff"/><path d="M33 17a11 11 0 1 0 2 9" fill="none" stroke="#1b2a41" stroke-width="2.6" stroke-linecap="round"/><path d="M33 10v8h-8" fill="none" stroke="#4aa3df" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Rituály a kontroly</h3><p>Opakování, kontrolování a ujišťování, které berou čas a energii.</p></article>
+    <article class="feel-card"><svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="22" fill="#e4f6ec"/><circle cx="18" cy="20" r="5" fill="none" stroke="#1b2a41" stroke-width="2.6"/><circle cx="31" cy="21" r="4" fill="none" stroke="#5bbf8a" stroke-width="2.6"/><path d="M9 35c1-6 5-9 9-9s8 3 9 9M27 35c.6-4 3-6 6-6s5 2 6 6" fill="none" stroke="#1b2a41" stroke-width="2.6" stroke-linecap="round"/></svg><h3>Pocit osamění</h3><p>Pocit, že to nikdo nechápe a že v tom jste sami.</p></article>
+  </div>
+  <p class="feel-lead">Peer podpora od člověka, který OCD zná z vlastní zkušenosti. Doplňuje odbornou péči a nenahrazuje ji.</p>
   <p class="small disclaimer lp-note">Nejde o diagnózu. Pokud se v OCD poznáváte, probírejte to s odborníkem. Já vám rád dám podporu vedle něj.</p>
-  <p><a class="btn btn-cta" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a></p>
+  <div class="cta">
+    <a class="btn btn-cta" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a>
+    <a class="btn btn-ghost" href="/pro-koho">Pro koho je peer podpora</a>
+  </div>
 </section>
+</div>
 
 <section class="wrap block selfcheck js-only" aria-labelledby="sc-h">
   <div class="sc-card">
@@ -809,35 +825,21 @@ add('/', {
   </div>
 </section>
 
-<section class="wrap block">
+<section class="wrap block how">
   <h2>Jak to probíhá</h2>
-  ${routeHtml('route--row')}
-  <p><a href="/jak-to-probiha">Ceník a časté dotazy</a></p>
-</section>
-
-<section class="wrap block">
-  <div class="cards">
-    ${calcCard()}
+  ${routeHtml('route--row route--steps')}
+  <h3 class="how-price-h">Ceník</h3>
+  <div class="price-strip">
+${JAK.cenik.map((c) => `    <div class="price-chip"><span class="price-name">${esc(c.nazev)}</span><span class="price-meta">${esc(c.delka)}</span><strong class="price-val">${esc(c.cena)}</strong>${c.poznamka ? `<span class="price-note">${esc(c.poznamka)}</span>` : ''}</div>`).join('\n')}
   </div>
-</section>
-
-<section class="wrap block">
-  <h2>O čem můžeme mluvit</h2>
-  <p>O OCD: o obsesích a kompulzích, které berou čas a energii, a o tom, jak se s nimi žije. Můžete mluvit o tom, co prožíváte, a sdílím, co pomohlo mně. Podívejte se, <a href="/pro-koho">pro koho je peer podpora vhodná</a>.</p>
-</section>
-
-<section class="wrap block">
-  <h2>Aplikace</h2>
-  <div class="cards">
-    <article class="card">
-      <p>Soukromý deník a pomůcky pro každodenní použití: tracker obsesí a kompulzí a další nástroje. Data zůstávají jen ve vašem telefonu nebo počítači. Nikam se neodesílají a já je nevidím, pokud mi je sami neposlete.</p>
-      <p class="small">Aplikace není zdravotnický prostředek, není terapie ani diagnóza a nenahrazuje odbornou péči.</p>
-      <p><a class="btn btn-ghost btn-sm" href="/aplikace">Otevřít aplikaci</a></p>
-    </article>
-  </div>
+  <p class="how-links"><a class="btn btn-cta" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a> <a href="/jak-to-probiha">Ceník a časté dotazy</a></p>
 </section>
 
 <section class="wrap block story">
+  <div class="story-grid">
+    <img class="story-photo" src="/assets/img/o-mne-vaclav-thumb.webp" width="120" height="160" alt="${AUTHOR}" loading="lazy">
+    <div>
+  <p class="eyebrow">Kdo za tím stojí</p>
   <h2>Proč to dělám</h2>
   <p>Od dětství jsem procházel úzkostmi, sociální fobií i OCD v mnoha podobách. Vím, jaké to je, když vás vlastní mysl drží v šachu. Rozhodl jsem se předávat dál, co mi pomohlo.</p>
   <ul class="exp-tags" aria-label="Oblasti vlastní zkušenosti">
@@ -849,6 +851,8 @@ add('/', {
   <div class="exp-stats">
     <div class="exp-stat"><strong>4</strong><span>oblasti vlastní zkušenosti</span></div>
     <div class="exp-stat"><strong>100&nbsp;%</strong><span>vlastní zkušenost, ne z učebnice</span></div>
+  </div>
+    </div>
   </div>
 </section>
 
@@ -866,6 +870,39 @@ add('/', {
   <p><a href="/o-mne">Více o mně</a></p>
 </section>
 
+
+<div class="band band-soft">
+<section class="wrap block">
+  <p class="eyebrow">Online semináře</p>
+  <h2>Individuální programy 1:1</h2>
+  <div class="prog-cards">
+${SEMINARE_PROGRAMY.map((p) => SEM.kartaProgramu(p, 'cs')).join('\n')}
+  </div>
+</section>
+</div>
+
+<section class="wrap block">
+  <p class="eyebrow">Zdarma</p>
+  <h2>Pomůcky k vyzkoušení</h2>
+  <div class="cards">
+    ${calcCard()}
+    <article class="card">
+      <h3>Aplikace</h3>
+      <p>Soukromý deník a pomůcky pro každodenní použití: tracker obsesí a kompulzí a další nástroje. Data zůstávají jen ve vašem telefonu nebo počítači. Nikam se neodesílají a já je nevidím, pokud mi je sami neposlete.</p>
+      <p class="small">Aplikace není zdravotnický prostředek, není terapie ani diagnóza a nenahrazuje odbornou péči.</p>
+      <p><a class="btn btn-ghost btn-sm" href="/aplikace">Otevřít aplikaci</a></p>
+    </article>
+  </div>
+</section>
+
+<section class="wrap block final-cta">
+  <div class="final-cta-box">
+    <h2>Začněte rozhovorem</h2>
+    <p>Úvodní konzultace trvá 15 minut, je zdarma a k ničemu nezavazuje. Tempo i témata určujete vy.</p>
+    <p><a class="btn btn-cta" href="/kontakt" data-book>Rezervovat úvodní konzultaci zdarma</a></p>
+    <p class="small">Peer podpora, ne terapie ani krizová pomoc. V akutní krizi ${CRISIS}.</p>
+  </div>
+</section>
 `,
 });
 

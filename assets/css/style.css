@@ -995,3 +995,6 @@ html:not(.js) .nav-sub-arrow { display: none; }
   .feel-lead { font-size: 1.12rem; }
 }
 @media (prefers-reduced-motion: reduce) { .feel-card, .feel-card:hover { transition: none; transform: none; } }
+
+/* Srdce na konci hlavního nadpisu */
+.heart { display: inline-block; width: .72em; height: .72em; vertical-align: -.04em; margin-left: .06em; filter: drop-shadow(0 4px 6px rgba(224, 49, 75, .35)); }

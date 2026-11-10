@@ -762,7 +762,7 @@ add('/', {
   <div class="wrap hero-grid">
     <div class="hero-text">
       <p class="eyebrow rise" style="--d:.1s">Peer mentoring · OCD</p>
-      <h1 class="rise" style="--d:.2s">Jednat i ve chvíli, kdy se <span class="hl">bojíte</span>.</h1>
+      <h1 class="rise" style="--d:.2s">Jednat i ve chvíli, kdy se <span class="hl">bojíte</span> <svg class="heart" viewBox="0 0 24 24" width="40" height="40" aria-hidden="true" focusable="false"><path d="M12 21.2l-1.45-1.32C5.4 15.2 2 12.1 2 8.3 2 5.2 4.4 3 7.4 3c1.7 0 3.4.8 4.6 2.1C13.2 3.8 14.9 3 16.6 3 19.6 3 22 5.2 22 8.3c0 3.8-3.4 6.9-8.55 11.6L12 21.2z" fill="#e0314b"/></svg></h1>
       <p class="lead rise" style="--d:.35s">Pomáhám lidem s OCD jako peer mentor: sdílím, co pomohlo mně. Nic neslibuji, jdu vedle vás.</p>
       <div class="cta cta-split rise" style="--d:.5s">
         ${bookBtn()}

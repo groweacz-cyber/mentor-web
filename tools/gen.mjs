@@ -821,8 +821,8 @@ add('/', {
     <li class="exp-tag">Sociální fobie</li>
   </ul>
   <div class="exp-stats">
-    <div class="exp-stat"><strong>15&nbsp;min</strong><span>úvodní konzultace zdarma, k ničemu nezavazuje</span></div>
-    <div class="exp-stat"><strong>reálná</strong><span>vlastní zkušenost, ne z učebnice</span></div>
+    <div class="exp-stat"><strong>reálné</strong><span>prožitky</span></div>
+    <div class="exp-stat"><strong>100&nbsp;%</strong><span>vlastní zkušenost</span></div>
     <div class="exp-stat"><strong>4</strong><span>oblasti vlastní zkušenosti</span></div>
     <div class="exp-stat"><strong>1:1</strong><span>individuální setkání online, jen vy a já</span></div>
   </div>
